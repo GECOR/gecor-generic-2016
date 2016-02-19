@@ -1,0 +1,35 @@
+<ion-navbar *navbar hideBackButton>
+  <ion-title>
+    Login
+  </ion-title>
+</ion-navbar>
+
+<ion-content>
+  <div padding>
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" placeholder="Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Surname"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="email" placeholder="Email"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-input type="password" placeholder="Password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Confirm password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+    <ion-label>Accept terms</ion-label>
+      <ion-checkbox dark checked="false"></ion-checkbox>
+    </ion-item>
+    <button block (click)="openLoginPage()">Sign In</button>
+    <button light block (click)="openLoginPage()">Back</button>
+  </div>
+</ion-content>

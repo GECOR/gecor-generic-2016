@@ -7,4 +7,12 @@ import {ConferenceData} from '../../providers/conference-data';
 export class MapPage {
   constructor(private confData: ConferenceData) {}
 
+  takePhoto(){
+      navigator.camera.getPicture((imageURI) => {
+        var image = document.getElementById('myImage');
+        image.src = imageURI;
+      }, (message) => {
+        alert('Failed because: ' + message);
+      }, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+  }
 }

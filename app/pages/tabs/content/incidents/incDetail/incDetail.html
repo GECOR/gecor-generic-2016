@@ -1,0 +1,91 @@
+<ion-navbar *navbar>
+  <ion-title>
+    Incidents
+  </ion-title>
+</ion-navbar>
+
+
+<ion-content class="incidents-page">
+
+<ion-card>
+  <ion-item>
+    <ion-avatar item-left>
+      <img src="img/marty-avatar.png">
+    </ion-avatar>
+    <h2>{{incident.type}}</h2>
+    <p>November 5, 1955</p>
+  </ion-item>
+  <img src={{incident.img}}>
+  <ion-card-content>
+  <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+  </ion-card-content>
+  <ion-item>
+    <button primary clear item-left>
+      <ion-icon name="thumbs-up"></ion-icon>
+      <div>12 Likes</div>
+    </button>
+    <button primary clear item-left>
+      <ion-icon name="text"></ion-icon>
+      <div>4 Comments</div>
+    </button>
+    <div [ngSwitch]=incident.state>
+      <p secondary item-right *ngSwitchWhen="'Terminada'">
+          {{incident.state}}
+      </p>
+      <p danger item-right *ngSwitchWhen="'Pendiente'">
+          {{incident.state}}
+      </p>
+    </div>
+  </ion-item>
+</ion-card>
+
+<ion-card class="ion-card-map">
+
+  <div id="mapDetail"></div>
+  <button fab fab-right class="fab-map" (click)="centerMap()">
+    <ion-icon name="pin"></ion-icon>
+  </button>
+
+  <ion-item>
+    <ion-icon name="contact" item-left large></ion-icon>
+    <h2>User location</h2>
+    <p>{{startAddress}}</p>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="alert" item-left large ></ion-icon>
+    <h2>Incident location</h2>
+    <p>{{incident.route}}</p>
+  </ion-item>
+
+  <ion-item>
+    <span item-left>{{timeTravel}}</span>
+    <span item-left>({{distanceTravel}})</span>
+    <span item-left><ion-icon name="walk" item-left large ></ion-icon></span>
+
+    <button primary clear item-right>
+      <ion-icon name="navigate"></ion-icon>
+      Start
+    </button>
+  </ion-item>
+
+</ion-card>
+
+<ion-card>
+  <ion-card-header>
+    Last comment
+  </ion-card-header>
+  <ion-list>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="img/avatar-finn.png">
+      </ion-avatar>
+      <h2>Finn</h2>
+      <h3>Don't Know What To Do!</h3>
+      <p>I've had a pretty messed up day. If we just...</p>
+    </ion-item>
+  </ion-list>
+</ion-card>
+
+
+</ion-content>

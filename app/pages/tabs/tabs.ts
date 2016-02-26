@@ -2,6 +2,8 @@ import {NavController, NavParams, MenuController} from 'ionic-framework/ionic';
 import {Page, ViewController, Platform} from 'ionic-framework/ionic';
 import {forwardRef} from 'angular2/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
+import {IncidentsPage} from './content/incidents/incidents'
+import {MapPage} from './../map/map'
 
 
 @Page({
@@ -59,10 +61,10 @@ export class TabsPage {
   tabThree;
   tabFour;
   constructor() {
-    this.tabOne = TabsContentPage;
+    this.tabOne = IncidentsPage;
     this.tabTwo = TabsContentPage;
     this.tabThree = TabsContentPage;
-    this.tabFour = TabsContentPage;
+    this.tabFour = MapPage;
   }
 
   onPageWillLeave() {

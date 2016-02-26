@@ -6,7 +6,7 @@ module.exports = {
     path.normalize('es6-shim/es6-shim.min'),
     'reflect-metadata',
     path.normalize('zone.js/dist/zone-microtask'),
-    path.resolve('app/app.ts')
+    path.resolve('app/app')
   ],
   output: {
     path: path.resolve('www/build/js'),
@@ -19,9 +19,7 @@ module.exports = {
         test: /\.ts$/,
         loader: 'awesome-typescript',
         query: {
-          doTypeCheck: true,
-          resolveGlobs: false,
-          externals: ["typings/main.d.ts"]
+          'doTypeCheck': true
         },
         include: path.resolve('app'),
         exclude: /node_modules/
@@ -39,9 +37,12 @@ module.exports = {
     ]
   },
   resolve: {
+    root: [
+      'app'
+    ],
     alias: {
       'angular2': path.resolve('node_modules/angular2')
     },
-    extensions: ['', '.js', '.ts']
+    extensions: ["", ".js", ".ts"]
   }
 };

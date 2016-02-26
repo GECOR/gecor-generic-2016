@@ -1,5 +1,4 @@
 module.exports = {
-  name: 'ionic-conference-app',
   proxies: null,
 
   paths: {

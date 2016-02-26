@@ -1,0 +1,31 @@
+{
+
+  "incidents": [
+    {
+      "type": "Calzada rota",
+      "route": "Calle Cataluña, 47, Málaga",
+      "state": "Pendiente",
+      "img": "img/calzada-rota.jpg",
+      "lat": 43.071584,
+      "lng": -89.380120,
+      "center": true
+    },
+    {
+      "type": "Farola descolgada",
+      "route": "Calle Marie Curie, 5, Málaga",
+      "state": "Pendiente",
+      "img": "img/farola-descolgada.jpg",
+      "lat": 43.074395,
+      "lng": -89.381056
+    },
+    {
+      "type": "Pintada",
+      "route": "Calle Álamos, 36, Alhaurín de la Torre",
+      "state": "Terminada",
+      "img": "img/pintada.jpg",
+      "lat": 43.07336,
+      "lng": -89.38335
+    }
+  ]
+
+}

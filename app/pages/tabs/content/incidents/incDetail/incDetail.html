@@ -1,4 +1,4 @@
-<ion-navbar *navbar>
+<ion-navbar *navbar  class="show-navbar android-attr">
   <ion-title>
     Incidents
   </ion-title>
@@ -26,7 +26,7 @@
     </button>
     <button primary clear item-left>
       <ion-icon name="text"></ion-icon>
-      <div>4 Comments</div>
+      <div (click)="openComments([])">4 Comments</div>
     </button>
     <div [ngSwitch]=incident.state>
       <p secondary item-right *ngSwitchWhen="'Terminada'">

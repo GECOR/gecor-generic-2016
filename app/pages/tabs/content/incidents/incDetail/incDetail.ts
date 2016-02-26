@@ -2,6 +2,7 @@ import {NavController, NavParams, MenuController, Alert} from 'ionic-framework/i
 import {Page, ViewController, Platform} from 'ionic-framework/ionic';
 import {forwardRef, NgZone} from 'angular2/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
+import {CommentsPage} from './comments/comments';
 
 
 
@@ -187,6 +188,10 @@ export class IncDetailPage {
     });
   }
   //END MAP
+
+  openComments(comments) {
+    this.nav.push(CommentsPage, comments);
+  }
 
 
 }

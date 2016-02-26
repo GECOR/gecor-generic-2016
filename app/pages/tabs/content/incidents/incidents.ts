@@ -49,8 +49,8 @@ export class IncidentsPage {
                     <h2>${item.type}</h2>
                     <span>${item.route}</span><br>
                     <span>${item.state}</span><br>
-                    <button primary item-right>View</button>
                   </ion-item>`
+                  //<button primary item-right (click)="$openDetail(incident)">View</button>
       });
 
       let marker = new google.maps.Marker({

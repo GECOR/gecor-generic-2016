@@ -14,6 +14,14 @@
     </ion-avatar>
     <h2>{{incident.type}}</h2>
     <p>November 5, 1955</p>
+    <div class="pull-right" [ngSwitch]=incident.state>
+      <p secondary item-right *ngSwitchWhen="'Terminada'">
+          {{incident.state}}
+      </p>
+      <p danger item-right *ngSwitchWhen="'Pendiente'">
+          {{incident.state}}
+      </p>
+    </div>
   </ion-item>
   <img src={{incident.img}}>
   <ion-card-content>
@@ -28,14 +36,10 @@
       <ion-icon name="text"></ion-icon>
       <div (click)="openComments([])">4 Comments</div>
     </button>
-    <div [ngSwitch]=incident.state>
-      <p secondary item-right *ngSwitchWhen="'Terminada'">
-          {{incident.state}}
-      </p>
-      <p danger item-right *ngSwitchWhen="'Pendiente'">
-          {{incident.state}}
-      </p>
-    </div>
+    <button primary clear item-left>
+      <ion-icon name="chatbubbles"></ion-icon>
+      <div (click)="openChat([])">Chat</div>
+    </button>
   </ion-item>
 </ion-card>
 

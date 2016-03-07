@@ -1,8 +1,9 @@
-import {NavController, NavParams, MenuController, Alert} from 'ionic-framework/ionic';
+import {NavController, NavParams, MenuController, Alert, Modal} from 'ionic-framework/ionic';
 import {Page, ViewController, Platform} from 'ionic-framework/ionic';
 import {forwardRef, NgZone} from 'angular2/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {CommentsPage} from './comments/comments';
+import {ChatPage} from './chat/chat';
 
 
 
@@ -165,32 +166,15 @@ export class IncDetailPage {
       stepDisplay.open(this.map, marker);
     });
   }
-
-  addMarker(){
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
-    });
-
-    let content = "<h4>Information!</h4>";
-
-    this.addInfoWindow(marker, content);
-   }
-
- addInfoWindow(marker, content){
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    });
-
-    google.maps.event.addListener(marker, 'click', function(){
-      infoWindow.open(this.map, marker);
-    });
-  }
   //END MAP
 
   openComments(comments) {
     this.nav.push(CommentsPage, comments);
+  }
+
+  openChat(messages) {
+    let aux = Modal.create(ChatPage, messages);
+    this.nav.present(aux);
   }
 
 

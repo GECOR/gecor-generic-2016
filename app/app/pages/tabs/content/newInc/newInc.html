@@ -1,0 +1,86 @@
+<ion-navbar *navbar class="show-navbar android-attr">
+  <ion-title>
+    New Incident
+  </ion-title>
+</ion-navbar>
+
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Element</ion-label>
+          <ion-select [(ngModel)]="element">
+            <ion-option value="acera">Acera</ion-option>
+            <ion-option value="calzada">Calzada</ion-option>
+            <ion-option value="farola">Farola</ion-option>
+            <ion-option value="arbol">Arbol</ion-option>
+            <ion-option value="parque">Parque</ion-option>
+            <ion-option value="alcantarilla">Alcantarilla</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Incident</ion-label>
+          <ion-select [(ngModel)]="incident">
+            <ion-option value="rota">Rota</ion-option>
+            <ion-option value="hundida">Hundida</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="ion-card-map">
+
+    <sebm-google-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      (mapClick)="mapClicked($event)">
+
+      <sebm-google-map-marker
+        *ngFor="#m of markers; #i = index"
+        (markerClick)="clickedMarker(m.label, i)"
+        [latitude]="m.lat"
+        [longitude]="m.lng"
+        [label]="m.label"
+        [markerDraggable]="m.draggable"
+        (dragEnd)="markerDragEnd(m, $event)"></sebm-google-map-marker>
+
+    </sebm-google-map>
+    <button fab fab-right class="fab-map" (click)="centerMap()">
+      <ion-icon name="pin"></ion-icon>
+    </button>
+
+    <ion-item>
+      <ion-icon name="contact" item-left large></ion-icon>
+      <h2>User location</h2>
+      <p>{{startAddress}}</p>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-row>
+        <ion-col width-25 class="text-center">
+          <button (click)="takePhoto(0)" [hidden]="images[0] != undefined" outline><ion-icon name="camera"></ion-icon></button>
+          <img [src]="images[0]" [hidden]="images[0] == undefined"/>
+        </ion-col>
+        <ion-col width-25 class="text-center">
+          <button (click)="takePhoto(1)" [hidden]="images[1] != undefined" outline><ion-icon name="camera"></ion-icon></button>
+          <img [src]="images[1]" [hidden]="images[1] == undefined"/>
+        </ion-col>
+        <ion-col width-25 class="text-center">
+          <button (click)="takePhoto(2)" [hidden]="images[2] != undefined" outline><ion-icon name="camera"></ion-icon></button>
+          <img [src]="images[2]" [hidden]="images[2] == undefined"/>
+        </ion-col>
+        <ion-col width-25 class="text-center">
+          <button (click)="takePhoto(3)" [hidden]="images[3] != undefined" outline><ion-icon name="camera"></ion-icon></button>
+          <img [src]="images[3]" [hidden]="images[3] == undefined"/>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

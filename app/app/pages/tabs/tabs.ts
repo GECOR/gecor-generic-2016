@@ -2,8 +2,9 @@ import {NavController, NavParams, MenuController} from 'ionic-framework/ionic';
 import {Page, ViewController, Platform} from 'ionic-framework/ionic';
 import {forwardRef} from 'angular2/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
-import {IncidentsPage} from './content/incidents/incidents'
-import {MapPage} from './../map/map'
+import {IncidentsPage} from './content/incidents/incidents';
+import {NewIncPage} from './content/newInc/newInc';
+import {MapPage} from './../map/map';
 
 
 @Page({
@@ -62,7 +63,7 @@ export class TabsPage {
   tabFour;
   constructor() {
     this.tabOne = IncidentsPage;
-    this.tabTwo = TabsContentPage;
+    this.tabTwo = NewIncPage;
     this.tabThree = TabsContentPage;
     this.tabFour = MapPage;
   }

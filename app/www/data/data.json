@@ -26,6 +26,88 @@
       "lat": 43.07336,
       "lng": -89.38335
     }
+  ],
+  "news":[
+    {
+      "title": "Nine Inch Nails Live",
+      "subtitle":"The most popular industrial group ever",
+      "content": "The most popular industrial group ever, and largely responsible for bringing the music to a mass audience, play's today at 21:00 on Málaga Town.",
+      "destacada": true,
+      "images": [
+        {
+          "image": "img/nin-live.png"
+        },
+        {
+          "image": "img/badu-live.png"
+        },
+        {
+          "image": "img/queen-live.png"
+        },
+        {
+          "image": "img/rundmc-live.png"
+        }
+      ]
+    },
+    {
+      "title": "Erykah Badu",
+      "subtitle":"American singer-songwriter",
+      "content": "American singer-songwriter, record producer, activist, and actress, Badu's style is a prime example of neo-soul.",
+      "destacada": true,
+      "images": [
+        {
+          "image": "img/badu-live.png"
+        },
+        {
+          "image": "img/nin-live.png"
+        },
+        {
+          "image": "img/queen-live.png"
+        },
+        {
+          "image": "img/rundmc-live.png"
+        }
+      ]
+    },
+    {
+      "title": "A",
+      "subtitle":"Actualidad",
+      "content": "Noticias de actualidad",
+      "destacada": false,
+      "images": [
+        {
+          "image": "img/badu-live.png"
+        },
+        {
+          "image": "img/nin-live.png"
+        },
+        {
+          "image": "img/queen-live.png"
+        },
+        {
+          "image": "img/rundmc-live.png"
+        }
+      ]
+    },
+    {
+      "title": "B",
+      "subtitle":"Beta",
+      "content": "Noticias de beta",
+      "destacada": false,
+      "images": [
+        {
+          "image": "img/badu-live.png"
+        },
+        {
+          "image": "img/nin-live.png"
+        },
+        {
+          "image": "img/queen-live.png"
+        },
+        {
+          "image": "img/rundmc-live.png"
+        }
+      ]
+    }
   ]
 
 }

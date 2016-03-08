@@ -1,9 +1,10 @@
-import {NavController, NavParams, MenuController, Alert} from 'ionic-framework/ionic';
+import {NavController, NavParams, MenuController, Alert, ActionSheet} from 'ionic-framework/ionic';
 import {Page, ViewController, Platform} from 'ionic-framework/ionic';
 import {forwardRef, NgZone} from 'angular2/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {marker} from './newIncInterface';
+import {Geolocation, Camera} from 'ionic-native';
 import {
   MapsAPILoader,
   NoOpMapsAPILoader,
@@ -57,10 +58,11 @@ export class NewIncPage {
   }
 
   mapClicked($event: MouseEvent) {
-    this.markers = [];
+    //this.markers = [];
     this.markers.push({
       lat: $event.coords.lat,
-      lng: $event.coords.lng
+      lng: $event.coords.lng,
+      draggable: true
     });
   }
 
@@ -70,7 +72,8 @@ export class NewIncPage {
 
   initGeolocation() {
     let options = {maximumAge: 5000, timeout: 15000, enableHighAccuracy: true};
-    navigator.geolocation.getCurrentPosition(
+    /*navigator.geolocation*/
+    Geolocation.getCurrentPosition(
       (position) => {
         this.geocoderService = new google.maps.Geocoder;
 
@@ -78,14 +81,15 @@ export class NewIncPage {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
 
-        this.geocoderService.geocode({'location': this.latLng}, function(results, status) {
+        this.geocoderService.geocode({'location': this.latLng}, (results, status) => {
           if (status === google.maps.GeocoderStatus.OK) {
             if (results[0]) {
-              _this.startAddress = results[0].formatted_address;
-              _this._ngZone.run(() => {
-                _this.markers.push({
-                  lat: results[0].geometry.lat,
-                  lng: results[0].geometry.lng
+              this.startAddress = results[0].formatted_address;
+              this._ngZone.run(() => {
+                this.markers.push({
+                  lat: results[0].geometry.location.lat(),
+                  lng: results[0].geometry.location.lng(),
+                  draggable: true
                 });
               });
               //_this.loadMap();
@@ -117,10 +121,47 @@ export class NewIncPage {
   //END MAP
 
   takePhoto(id){
-      navigator.camera.getPicture((imageURI) => {
-        this.images[id] = imageURI;
-      }, (message) => {
-        alert('Failed because: ' + message);
-      }, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+    let actionSheet = ActionSheet.create({
+      title: '',
+      buttons: [
+        {
+          text: 'Gallery',
+          handler: () => {
+            window.imagePicker.getPictures((results) => {
+                    for (var i = 0; i < results.length; i++) {
+                        console.log('Image URI: ' + results[i]);
+                    }
+                    this._ngZone.run(() => {
+                      this.images[id] = results[0];
+                    });
+                }, (error) => {
+                    console.log('Error: ' + error);
+                }
+            );
+          }
+        },
+        {
+          text: 'Camera',
+          handler: () => {
+            Camera.getPicture().then((imageURI) => {
+              this.images[id] = imageURI;
+            }, (message) => {
+              alert('Failed because Camera!');
+              console.log('Failed because: ');
+              console.log(message);
+            });
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log("Cancel clicked");
+          }
+        }
+      ]
+    });
+
+    this.nav.present(actionSheet);
   }
 }

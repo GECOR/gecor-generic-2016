@@ -72,7 +72,4 @@ export class IncidentsPage {
   openDetail(incident) {
     this.nav.push(IncDetailPage, incident);
   }
-
-
-
 }

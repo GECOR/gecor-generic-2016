@@ -13,7 +13,7 @@ import {ChatPage} from './chat/chat';
 })
 export class IncDetailPage {
   isAndroid: any;
-  incident: Object;
+  //incident: Object;
   map: any;
   markerArray: any[];
   latLng: any;
@@ -26,6 +26,8 @@ export class IncDetailPage {
   geocoderService: any;
   directionsDisplay: any;
   stepDisplay: any;
+  incident: any;
+
   constructor(private platform: Platform
     , private menu: MenuController
     , private params: NavParams
@@ -75,11 +77,11 @@ export class IncDetailPage {
 
         this.latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-        this.geocoderService.geocode({'location': this.latLng}, function(results, status) {
+        this.geocoderService.geocode({'location': this.latLng}, (results, status) => {
           if (status === google.maps.GeocoderStatus.OK) {
             if (results[0]) {
-              _this.startAddress = results[0].formatted_address;
-              _this.loadMap();
+              this.startAddress = results[0].formatted_address;
+              this.loadMap();
             } else {
               window.alert('No results found');
             }

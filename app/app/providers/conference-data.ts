@@ -42,4 +42,9 @@ export class ConferenceData {
     });
   }
 
+  getNews() {
+    return this.load().then(data => {
+      return data.news;
+    });
+  }
 }

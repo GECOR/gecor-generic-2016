@@ -1,14 +1,14 @@
-ion-row{
+ion-row[news]{
   padding: 1px;
   margin-bottom: 5px;
 }
 
-ion-col{
+ion-col[news]{
   padding: 0;
   margin-right: 1px;
 }
 
-ion-card {
+ion-card[news] {
   margin: 0;
 }
 
@@ -19,7 +19,7 @@ ion-content ion-card ion-item.advanced-trans p {
 ion-card p.advanced-background-subtitle {
   font-size: 1.0em;
   position: absolute;
-  top: 60%;/*48%;*/
+  top: 60%;
   width: 100%;
   color: #fff !important;
 }

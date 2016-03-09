@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Renderer} from 'angular2/core';
-import {Platform, Navbar} from 'ionic-framework/ionic';
+import {Platform, Navbar} from 'ionic-angular';
 
 @Directive({
   selector: '.android-attr',

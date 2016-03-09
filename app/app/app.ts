@@ -1,4 +1,4 @@
-import {App, Platform} from 'ionic-framework/ionic';
+import {App, Platform} from 'ionic-angular';
 import {ConferenceData} from './providers/conference-data';
 import {UserData} from './providers/user-data';
 //import {HomePage} from './pages/home/home';

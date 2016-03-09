@@ -1,4 +1,4 @@
-import { Events } from 'ionic-framework/ionic';
+import { Events } from 'ionic-angular';
 import { Injectable } from 'angular2/core';
 import * as Rx from 'rxjs/Rx';
 import { User } from './../models/user';

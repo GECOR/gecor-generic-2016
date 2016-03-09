@@ -1,4 +1,4 @@
-import { Page, ViewController, IonicApp, Events } from 'ionic-framework/ionic';
+import { Page, ViewController, IonicApp, Events } from 'ionic-angular';
 import { OnInit } from 'angular2/core';
 import * as Rx from 'rxjs/Rx';
 import { ChatService } from './services/chat';

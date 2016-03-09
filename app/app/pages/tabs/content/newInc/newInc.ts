@@ -1,5 +1,5 @@
-import {NavController, NavParams, MenuController, Alert, ActionSheet} from 'ionic-framework/ionic';
-import {Page, ViewController, Platform} from 'ionic-framework/ionic';
+import {NavController, NavParams, MenuController, Alert, ActionSheet} from 'ionic-angular';
+import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone} from 'angular2/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
@@ -118,6 +118,14 @@ export class NewIncPage {
         this.nav.present(alert);
       }, options);
   }
+
+  centerMap(){
+    //this.
+    //console.log();
+    this._map.setCenter(new google.maps.LatLng(this.lat, this.lng));
+    this._map.setCenter(this.lat, this.lng);
+  }
+
   //END MAP
 
   takePhoto(id){

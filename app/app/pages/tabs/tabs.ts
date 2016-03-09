@@ -1,5 +1,5 @@
-import {NavController, NavParams, MenuController} from 'ionic-framework/ionic';
-import {Page, ViewController, Platform} from 'ionic-framework/ionic';
+import {NavController, NavParams, MenuController} from 'ionic-angular';
+import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {IncidentsPage} from './content/incidents/incidents';

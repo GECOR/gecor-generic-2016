@@ -5,6 +5,7 @@ import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {marker} from './newIncInterface';
 import {Geolocation, Camera} from 'ionic-native';
+import {IncidentsPage} from './../incidents/incidents';
 import {
   MapsAPILoader,
   NoOpMapsAPILoader,
@@ -122,7 +123,7 @@ export class NewIncPage {
   centerMap(){
     //this.
     //console.log();
-    this._map.setCenter(new google.maps.LatLng(this.lat, this.lng));
+    //this._map.setCenter(new google.maps.LatLng(this.lat, this.lng));
     this._map.setCenter(this.lat, this.lng);
   }
 
@@ -171,5 +172,9 @@ export class NewIncPage {
     });
 
     this.nav.present(actionSheet);
+  }
+
+  newIncident(){
+    this.nav.push(IncidentsPage, {});
   }
 }

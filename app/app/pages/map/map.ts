@@ -27,7 +27,7 @@ export class MapPage {
     });
 
     Camera.getPicture().then((imageURI) => {
-      var image = document.getElementById('myImage');
+      let image = document.getElementById('myImage');
       image.src = imageURI;
     }, (message) => {
       alert('Failed because Camera!');

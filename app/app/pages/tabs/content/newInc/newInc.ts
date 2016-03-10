@@ -1,6 +1,5 @@
-import {NavController, NavParams, MenuController, Alert, ActionSheet} from 'ionic-angular';
-import {Page, ViewController, Platform} from 'ionic-angular';
-import {forwardRef, NgZone} from 'angular2/core';
+import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, Platform} from 'ionic-angular';
+import {forwardRef, NgZone, provide} from 'angular2/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {marker} from './newIncInterface';
@@ -19,7 +18,7 @@ import {GoogleMapsAPIWrapper} from 'angular2-google-maps/services/google-maps-ap
 @Page({
   templateUrl: './build/pages/tabs/content/newInc/newInc.html',
   directives: [forwardRef(() => AndroidAttribute), ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
-  providers: [ANGULAR2_GOOGLE_MAPS_PROVIDERS, GoogleMapsAPIWrapper]
+  providers: [ANGULAR2_GOOGLE_MAPS_PROVIDERS, GoogleMapsAPIWrapper,  provide(MapsAPILoader, {useClass: NoOpMapsAPILoader})]
 })
 export class NewIncPage {
   isAndroid: any;
@@ -121,10 +120,11 @@ export class NewIncPage {
   }
 
   centerMap(){
-    //this.
-    //console.log();
-    //this._map.setCenter(new google.maps.LatLng(this.lat, this.lng));
-    this._map.setCenter(this.lat, this.lng);
+    let lanlng = new google.maps.LatLng(parseFloat(this.lat), parseFloat(this.lng));
+    //this._ngZone.run(() => {
+      this._map.setCenter(lanlng);
+      //this._map.setCenter(this.lat, this.lng);
+    //});
   }
 
   //END MAP

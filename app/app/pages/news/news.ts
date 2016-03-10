@@ -11,11 +11,15 @@ import {ConferenceData} from './../../providers/conference-data';
 export class NewsPage {
   news: any[];
   constructor(private nav: NavController, private confData: ConferenceData) {
-    this.news = confData.data.notices;
-    console.log('News from -> ');
-    console.log(this.news);
-  }
+    //this.news = confData.data.notices;
+    confData.getNews().then(news =>{
+      this.news = news;
+      console.log('News from -> ');
+      console.log(this.news);
+    });
 
+  }
+  
   openNoticeDetail(){
     this.nav.push(NewsDetailPage, {});
   }

@@ -5,26 +5,22 @@
 <ion-content class="has-header components-demo cards-bg">
 
   <ion-card>
-    <img src="img/nin-live.png"/>
+    <img src={{notice.images[0].image}}/>
     <ion-card-content>
       <h2 class="card-title">
-        Nine Inch Nails Live
+        {{notice.title}}
       </h2>
       <p>
-        The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
+        {{notice.content}}
       </p>
     </ion-card-content>
     <ion-row no-padding>
       <ion-col>
-        <button clear small danger>
-          <ion-icon name='star'></ion-icon>
-          Favorite
-        </button>
       </ion-col>
       <ion-col text-center>
         <button clear small danger>
-          <ion-icon name='musical-notes'></ion-icon>
-          Listen
+          <ion-icon name='star'></ion-icon>
+          Favorite
         </button>
       </ion-col>
       <ion-col text-right>

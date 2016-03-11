@@ -1,0 +1,61 @@
+<ion-navbar *navbar class="show-navbar android-attr">
+  <ion-title>
+    News
+  </ion-title>
+</ion-navbar>
+<ion-content >
+
+  <div *ngFor='#new of news; #i = index'>
+    <div id="switch" [ngSwitch]="new.length">
+      <ion-row news *ngSwitchWhen=1>
+        <ion-col news>
+          <ion-card news class="advanced-background" (click)="openNoticeDetail(new[0])">
+            <img src={{new[0].images[0].image}}/>
+            <p class="advanced-background-title">{{new[0].title}}</p>
+            <p class="advanced-background-subtitle">{{new[0].subtitle}}</p>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row news *ngSwitchWhen=2>
+        <ion-col width-50 news>
+          <ion-card news class="advanced-background" (click)="openNoticeDetail(new[0])">
+            <img src={{new[0].images[0].image}}/>
+            <p class="advanced-background-title">{{new[0].title}}</p>
+            <p class="advanced-background-subtitle">{{news[0].subtitle}}</p>
+          </ion-card>
+        </ion-col>
+        <ion-col width-50 news>
+          <ion-card news class="advanced-background" (click)="openNoticeDetail(new[1])">
+            <img src={{new[1].images[0].image}}/>
+            <p class="advanced-background-title">{{new[1].title}}</p>
+            <p class="advanced-background-subtitle">{{new[1].subtitle}}</p>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row news *ngSwitchWhen=3>
+        <ion-col width-33 news>
+          <ion-card news class="advanced-background" (click)="openNoticeDetail(new[0])">
+            <img src={{new[0].images[0].image}}/>
+            <p class="advanced-background-title">{{new[0].title}}</p>
+            <p class="advanced-background-subtitle">{{news[0].subtitle}}</p>
+          </ion-card>
+        </ion-col>
+        <ion-col width-33 news>
+          <ion-card news class="advanced-background" (click)="openNoticeDetail(new[1])">
+            <img src={{new[1].images[0].image}}/>
+            <p class="advanced-background-title">{{new[1].title}}</p>
+            <p class="advanced-background-subtitle">{{new[1].subtitle}}</p>
+          </ion-card>
+        </ion-col>
+        <ion-col width-33 news>
+          <ion-card news class="advanced-background" (click)="openNoticeDetail(new[2])">
+            <img src={{new[2].images[0].image}}/>
+            <p class="advanced-background-title">{{new[2].title}}</p>
+            <p class="advanced-background-subtitle">{{new[2].subtitle}}</p>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+</ion-content>

@@ -1,11 +1,11 @@
 import {Page, NavController} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
-import {AndroidAttribute} from './../../directives/global.helpers';
+import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {NewsDetailPage} from './newsDetail/newsDetail';
-import {ConferenceData} from './../../providers/conference-data';
+import {ConferenceData} from './../../../../providers/conference-data';
 
 @Page({
-  templateUrl: 'build/pages/news/news.html',
+  templateUrl: 'build/pages/tabs/content/news/news.html',
   directives: [forwardRef(() => AndroidAttribute)]
 })
 export class NewsPage {
@@ -14,13 +14,12 @@ export class NewsPage {
     //this.news = confData.data.notices;
     confData.getNews().then(news =>{
       this.news = news;
-      console.log('News from -> ');
       console.log(this.news);
     });
 
   }
-  
-  openNoticeDetail(){
-    this.nav.push(NewsDetailPage, {});
+
+  openNoticeDetail(notice){
+    this.nav.push(NewsDetailPage, notice);
   }
 }

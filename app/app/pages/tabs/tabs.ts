@@ -4,7 +4,7 @@ import {forwardRef} from 'angular2/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {IncidentsPage} from './content/incidents/incidents';
 import {NewIncPage} from './content/newInc/newInc';
-import {NewsPage} from './../news/news';
+import {NewsPage} from './content/news/news';
 import {MapPage} from './../map/map';
 
 

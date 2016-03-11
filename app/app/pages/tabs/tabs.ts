@@ -4,7 +4,8 @@ import {forwardRef} from 'angular2/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {IncidentsPage} from './content/incidents/incidents';
 import {NewIncPage} from './content/newInc/newInc';
-import {NewsPage} from './../news/news';
+import {NewsPage} from './content/news/news';
+import {SettingsPage} from './content/settings/settings';
 import {MapPage} from './../map/map';
 
 
@@ -66,7 +67,7 @@ export class TabsPage {
     this.tabOne = IncidentsPage;
     this.tabTwo = NewIncPage;
     this.tabThree = NewsPage;
-    this.tabFour = MapPage;
+    this.tabFour = SettingsPage;
   }
 
   onPageWillLeave() {

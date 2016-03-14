@@ -47,4 +47,10 @@ export class ConferenceData {
       return data.news;
     });
   }
+
+  getUser() {
+    return this.load().then(data => {
+      return data.user;
+    });
+  }
 }

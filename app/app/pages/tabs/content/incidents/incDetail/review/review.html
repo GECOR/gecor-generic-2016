@@ -1,11 +1,21 @@
 <ion-navbar *navbar class="show-navbar android-attr">
   <ion-title>
-    New Incident
+    Review
   </ion-title>
 </ion-navbar>
 
 
-<ion-content>
+<ion-content light>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-textarea type="text" placeholder="Description"></ion-textarea>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
   <ion-card>
     <ion-card-content>
       <ion-list>
@@ -35,7 +45,13 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-textarea type="text" placeholder="Description"></ion-textarea>
+          <ion-label>State</ion-label>
+          <ion-select [(ngModel)]="element">
+            <ion-option value="terminado">Terminado</ion-option>
+            <ion-option value="curso">En curso</ion-option>
+            <ion-option value="planificado">Planificado</ion-option>
+            <ion-option value="rechazado">Rechazado</ion-option>
+          </ion-select>
         </ion-item>
       </ion-list>
     </ion-card-content>
@@ -94,6 +110,5 @@
     </ion-card-content>
   </ion-card>
 
-  <button full send-incident (click)="newIncident()">Send</button>
-
+  <button full send-incident (click)="newIncident()">Review</button>
 </ion-content>

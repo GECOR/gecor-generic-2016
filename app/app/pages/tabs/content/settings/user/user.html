@@ -1,0 +1,19 @@
+<ion-navbar *navbar class="show-navbar android-attr">
+  <ion-title>
+    User
+  </ion-title>
+</ion-navbar>
+
+
+<ion-content>
+  <div padding>
+    <ion-list>
+      <ion-item class="text-center" (click)="takePhoto()">
+        <img [src]="user.img">
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Name" [(ngModel)]="user.name"></ion-input>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

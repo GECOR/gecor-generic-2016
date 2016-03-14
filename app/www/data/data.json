@@ -1,5 +1,8 @@
 {
-
+  "user": {
+    "name": "Jose",
+    "img": "img/avatar-finn.png"
+  },
   "incidents": [
     {
       "type": "Calzada rota",

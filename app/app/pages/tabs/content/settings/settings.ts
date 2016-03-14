@@ -5,6 +5,7 @@ import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {NotificationsPage} from './notifications/notifications';
 import {TermsPage} from './terms/terms';
+import {UserPage} from './user/user';
 
 
 
@@ -27,6 +28,10 @@ export class SettingsPage {
 
   openTerms() {
     this.nav.push(TermsPage, {});
+  }
+
+  openUser() {
+    this.nav.push(UserPage, {});
   }
 
 }

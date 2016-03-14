@@ -4,7 +4,6 @@
   </ion-title>
 </ion-navbar>
 
-
 <ion-content class="incidents-page">
 
 <ion-card>
@@ -14,13 +13,16 @@
     </ion-avatar>
     <h2>{{incident.type}}</h2>
     <p>November 5, 1955</p>
-    <div class="pull-right" [ngSwitch]=incident.state>
-      <p secondary item-right *ngSwitchWhen="'Terminada'">
-          {{incident.state}}
-      </p>
-      <p danger item-right *ngSwitchWhen="'Pendiente'">
-          {{incident.state}}
-      </p>
+    <div item-right text-right>
+      <ion-icon name="more" (click)="showMore(incident)"></ion-icon>
+      <div [ngSwitch]=incident.state>
+        <p secondary item-right *ngSwitchWhen="'Terminada'">
+            {{incident.state}}
+        </p>
+        <p danger item-right *ngSwitchWhen="'Pendiente'">
+            {{incident.state}}
+        </p>
+      </div>
     </div>
   </ion-item>
   <img src={{incident.img}}>

@@ -1,30 +1,54 @@
 <ion-navbar *navbar hideBackButton class="show-navbar android-attr">
-  <!--<button [menuToggle]="activeMenu">
-    <ion-icon name="menu"></ion-icon>
-  </button>-->
-  <ion-title>
-    Incidents
-  </ion-title>
+
+  <div showWhen="android">
+    <ion-title pull-left>
+      Incidents
+    </ion-title>
+    <ion-buttons end pull-right>
+        <button (click)="type='list'" [hidden]="type=='list'" outline><ion-icon name="list-box"></ion-icon></button>
+        <button (click)="type='list'" [hidden]="type!='list'" class="activated" outline><ion-icon name="list-box"></ion-icon></button>
+        <button (click)="showMap();type='map'" [hidden]="type=='map'" outline><ion-icon name="map"></ion-icon></button>
+        <button (click)="showMap();type='map'" [hidden]="type!='map'" class="activated" outline><ion-icon name="map"></ion-icon></button>
+        <button (click)="type='gallery'" [hidden]="type=='gallery'" outline><ion-icon name="images"></ion-icon></button>
+        <button (click)="type='gallery'" [hidden]="type!='gallery'" class="activated" outline><ion-icon name="images"></ion-icon></button>
+    </ion-buttons>
+  </div>
+
+  <div showWhen="ios">
+    <ion-title>
+      Incidents
+    </ion-title>
+    <ion-buttons end >
+        <button (click)="type='list'" [hidden]="type=='list'" ><ion-icon name="list-box"></ion-icon></button>
+        <button (click)="type='list'" [hidden]="type!='list'" class="activated" ><ion-icon name="list-box"></ion-icon></button>
+        <button (click)="showMap();type='map'" [hidden]="type=='map'" ><ion-icon name="map"></ion-icon></button>
+        <button (click)="showMap();type='map'" [hidden]="type!='map'" class="activated" ><ion-icon name="map"></ion-icon></button>
+        <button (click)="type='gallery'" [hidden]="type=='gallery'" ><ion-icon name="images"></ion-icon></button>
+        <button (click)="type='gallery'" [hidden]="type!='gallery'" class="activated" ><ion-icon name="images"></ion-icon></button>
+    </ion-buttons>
+  </div>
+
 </ion-navbar>
 
 
 <ion-content class="incidents-page">
 
+  <ion-searchbar
+    [(ngModel)]="searchText"
+    (input)="inputSearch($event)">
+  </ion-searchbar>
+
   <div padding>
-    <ion-segment [(ngModel)]="type">
-      <ion-segment-button value="list">
-        List
-      </ion-segment-button>
-      <ion-segment-button (click)="showMap()" value="map">
-        Map
-      </ion-segment-button>
-      <ion-segment-button value="gallery">
-        Gallery
-      </ion-segment-button>
+    <!--<ion-segment [(ngModel)]="type">
+      <ion-segment-button value="list">List</ion-segment-button>
+      <ion-segment-button (click)="showMap()" value="map">Map</ion-segment-button>
+      <ion-segment-button value="gallery">Gallery</ion-segment-button>
+    </ion-segment>-->
+    <ion-segment [(ngModel)]="order">
+      <ion-segment-button value="date">Date</ion-segment-button>
+      <ion-segment-button value="distance">Distance</ion-segment-button>
     </ion-segment>
   </div>
-
-  <!--<div id="map"></div>-->
 
   <div id="switch" [ngSwitch]="type">
     <ion-list *ngSwitchDefault>

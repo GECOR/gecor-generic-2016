@@ -15,6 +15,7 @@ export class IncidentsPage {
   isAndroid: any;
   activeMenu: any;
   incidents: any[];
+  type: any;
   constructor(private platform: Platform
     , private menu: MenuController
     , private confData: ConferenceData
@@ -23,6 +24,7 @@ export class IncidentsPage {
     this.platform = platform;
     this.isAndroid = platform.is('android');
     this.incidents = confData.data.incidents;
+    this.type = 'list';
   }
 
   showMap() {
@@ -71,5 +73,9 @@ export class IncidentsPage {
 
   openDetail(incident) {
     this.nav.push(IncDetailPage, incident);
+  }
+
+  inputSearch(search) {
+    console.log(search.value);
   }
 }

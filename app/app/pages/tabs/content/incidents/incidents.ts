@@ -5,13 +5,14 @@ import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {IncDetailPage} from './incDetail/incDetail';
 import {ArraySortPipe} from './../../../../pipes/arraySort';
+import {IncidentsSearchPipe} from './incidentsPipe';
 
 
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incidents.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  pipes: [ArraySortPipe]
+  pipes: [ArraySortPipe, IncidentsSearchPipe]
 })
 export class IncidentsPage {
   isAndroid: any;

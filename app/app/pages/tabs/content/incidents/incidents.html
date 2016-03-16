@@ -24,7 +24,7 @@
         <button (click)="showMap();type='map'" [hidden]="type=='map'" ><ion-icon name="map"></ion-icon></button>
         <button (click)="showMap();type='map'" [hidden]="type!='map'" class="activated" ><ion-icon name="map"></ion-icon></button>
         <button (click)="type='gallery'" [hidden]="type=='gallery'" ><ion-icon name="images"></ion-icon></button>
-        <button (click)="type='gallery'" [hidden]="type!='gallery'" class="activated" ><ion-icon name="images"></ion-icon></button>
+        <button (click)="type='gallery'" [hidden]="type!='gallery'" class="activated"><ion-icon name="images"></ion-icon></button>
     </ion-buttons>
   </div>
 
@@ -38,12 +38,7 @@
     (input)="inputSearch($event)">
   </ion-searchbar>
 
-  <div padding>
-    <!--<ion-segment [(ngModel)]="type">
-      <ion-segment-button value="list">List</ion-segment-button>
-      <ion-segment-button (click)="showMap()" value="map">Map</ion-segment-button>
-      <ion-segment-button value="gallery">Gallery</ion-segment-button>
-    </ion-segment>-->
+  <div padding [hidden]="type == 'map'">
     <ion-segment [(ngModel)]="order">
       <ion-segment-button value="date">Date</ion-segment-button>
       <ion-segment-button value="type">Distance</ion-segment-button>
@@ -69,7 +64,7 @@
     <div id="map" *ngSwitchWhen="'map'"></div>
 
     <div id="gallery" *ngSwitchWhen="'gallery'">
-      <ion-card *ngFor='#incident of incidents'>
+      <ion-card *ngFor='#incident of incidents  | arraySort: order | search: searchText'>
         <img src={{incident.img}}/>
         <ion-card-content>
           <div [ngSwitch]=incident.state>

@@ -1,4 +1,4 @@
-import {NavController, NavParams, MenuController, ActionSheet} from 'ionic-angular';
+import {NavController, NavParams, MenuController, ActionSheet, Alert} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone, provide} from 'angular2/core';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
@@ -112,9 +112,9 @@ export class ReviewPage {
   }
 
   centerMap(){
-    let lanlng = new google.maps.LatLng(parseFloat(this.lat), parseFloat(this.lng));
+    //let lanlng = new google.maps.LatLng(parseFloat(this.lat), parseFloat(this.lng));
     //this._ngZone.run(() => {
-      this._map.setCenter(lanlng);
+      //this._map.setCenter(lanlng);
       //this._map.setCenter(this.lat, this.lng);
     //});
   }

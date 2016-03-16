@@ -4,18 +4,22 @@ import {forwardRef, NgZone} from 'angular2/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {IncDetailPage} from './incDetail/incDetail';
+import {ArraySortPipe} from './../../../../pipes/arraySort';
 
 
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incidents.html',
-  directives: [forwardRef(() => AndroidAttribute)]
+  directives: [forwardRef(() => AndroidAttribute)],
+  pipes: [ArraySortPipe]
 })
 export class IncidentsPage {
   isAndroid: any;
   activeMenu: any;
   incidents: any[];
   type: any;
+  order: any;
+  searchText: any;
   constructor(private platform: Platform
     , private menu: MenuController
     , private confData: ConferenceData
@@ -25,6 +29,8 @@ export class IncidentsPage {
     this.isAndroid = platform.is('android');
     this.incidents = confData.data.incidents;
     this.type = 'list';
+    this.order = 'date';
+    this.searchText = '';
   }
 
   showMap() {

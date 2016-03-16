@@ -52,7 +52,7 @@
 
   <div id="switch" [ngSwitch]="type">
     <ion-list *ngSwitchDefault>
-      <ion-item *ngFor='#incident of incidents'>
+      <ion-item *ngFor="#incident of incidents | arraySort: 'type'">
         <ion-thumbnail item-left>
           <img src={{incident.img}}>
         </ion-thumbnail>

@@ -6,7 +6,7 @@ import {IncidentsPage} from './content/incidents/incidents';
 import {NewIncPage} from './content/newInc/newInc';
 import {NewsPage} from './content/news/news';
 import {SettingsPage} from './content/settings/settings';
-import {MapPage} from './../map/map';
+import {GeolocationProvider} from './../../providers/geolocation';
 
 
 @Page({
@@ -17,15 +17,17 @@ import {MapPage} from './../map/map';
   '<ion-content>' +
   '</ion-content>',*/
   templateUrl: './build/pages/tabs/tab-content.html',
-  directives: [forwardRef(() => AndroidAttribute)],
+  directives: [forwardRef(() => AndroidAttribute)]
 })
 export class TabsContentPage {
   isAndroid: any;
   activeMenu: any;
-  constructor(private platform: Platform, private menu: MenuController) {
+  constructor(private platform: Platform
+    , private menu: MenuController) {
     this.platform = platform;
     this.isAndroid = platform.is('android');
     //this.menu1Active();
+
   }
 
   menu1Active() {
@@ -56,18 +58,23 @@ export class TabsContentPage {
 
 
 @Page({
-  templateUrl: './build/pages/tabs/tab-tabs.html'
+  templateUrl: './build/pages/tabs/tab-tabs.html',
+  providers: [GeolocationProvider]
 })
 export class TabsPage {
   tabOne;
   tabTwo;
   tabThree;
   tabFour;
-  constructor() {
+  constructor(private geo: GeolocationProvider) {
     this.tabOne = IncidentsPage;
     this.tabTwo = NewIncPage;
     this.tabThree = NewsPage;
     this.tabFour = SettingsPage;
+
+    geo.getLocation().then(location =>{
+      console.log(location);
+    });
   }
 
   onPageWillLeave() {

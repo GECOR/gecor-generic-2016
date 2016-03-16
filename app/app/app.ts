@@ -1,5 +1,6 @@
 import {App, Platform} from 'ionic-angular';
 import {ConferenceData} from './providers/conference-data';
+import {GeolocationProvider} from './providers/geolocation';
 import {UserData} from './providers/user-data';
 //import {HomePage} from './pages/home/home';
 import {SlidePage} from './pages/slides/slide';
@@ -10,13 +11,13 @@ import {Type} from 'angular2/core';
 
 @App({
   templateUrl: './build/app.html',
-  providers: [ConferenceData, UserData],
+  providers: [ConferenceData, UserData, GeolocationProvider],
   config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })
 export class MyApp {
   rootPage: Type = SlidePage;
 
-  constructor(platform: Platform, confData: ConferenceData) {
+  constructor(platform: Platform, confData: ConferenceData, geo: GeolocationProvider) {
     // load the conference data
     confData.load();
 
@@ -35,6 +36,7 @@ export class MyApp {
       // For example, we might change the StatusBar color. This one below is
       // good for dark backgrounds and light text:
       // StatusBar.setStyle(StatusBar.LIGHT_CONTENT)
+      
     });
   }
 }

@@ -1,0 +1,82 @@
+<ion-navbar *navbar>
+  <ion-title>Calendar</ion-title>
+</ion-navbar>
+
+<ion-content >
+	<div class="calendar">
+		<div class="calendar-header">
+			<span class="btn btn-prev" (click)="prevMonth()">
+				 <ion-icon name="arrow-dropleft"></ion-icon>
+			</span>
+			<span class="">{{current.monthName}}</span><!-- MONTH NAME -->
+      <span> {{current.year}} </span>
+			<span class="btn btn-next" (click)="nextMonth()">
+				 <ion-icon name="arrow-dropright"></ion-icon>
+			</span>
+		</div>
+		<table>
+			<thead>
+				<tr>
+          <th *ngFor="#dn of dayNames">
+            {{ dn }}
+         </th>
+				</tr>
+			</thead>
+			<tbody>
+        <tr *ngFor="#w of weeks;">
+					<td *ngFor="#d of w.days; #i = index;" [ngClass]="checkDate(d)" (click)="selectDate($event, d)"><span [ngClass]="d.selected ? 'active':''">{{ d.day }}</span></td><!--d.isCurrentMonth ? 'actual-month':''-->
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="schedule">
+			<ul class="tabs">
+			<li class="tab active"><a href="#">Meetings</a></li>
+			<li class="tab"><a href="#">Reminders</a></li>
+			<li class="tab"><a href="#">Notes</a></li>
+			</ul>
+
+		<div class="tab-pane">
+			<div class="schedule-list">
+
+				<div class="schedule-item">
+					<div class="time">
+						<span>9</span>
+						<span>am</span>
+					</div>
+					<div class="description">
+						<div class="description-header">Brainstorm on User Stories</div>
+						<div class="description-content">
+							<p>Lorem Ipsum dolor sit amet.</p>
+							<ul class="contact-list">
+								<li class="contact">
+									<a href="#"><img src="http://gravatar.com/avatar/8b1d44e3b2310823bd41d609003b70a9?s=80" alt="" /></a>
+								</li>
+								<li class="contact">
+									<a href="#"><img src="http://gravatar.com/avatar/8b1d44e3b2310823bd41d609003b70a9?s=80" alt="" /></a>
+								</li>
+								<li class="contact add-contact">
+									<a href="#"><i class="icon-plus"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="schedule-item free">
+					<div class="time">
+						<span>10</span>
+						<span>am</span>
+					</div>
+					<div class="description">
+            <div class="description-header">No Schedule</div>
+						<div class="description-content">&nbsp;</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</ion-content>

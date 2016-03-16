@@ -35,7 +35,8 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-geolocation",
     "cordova-plugin-camera",
-    "cordova-plugin-image-picker"
+    "cordova-plugin-image-picker",
+    "cordova-plugin-crosswalk-webview"
   ],
   "cordovaPlatforms": [
     "ios",

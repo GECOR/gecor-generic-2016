@@ -1,0 +1,65 @@
+<ion-navbar *navbar hideBackButton class="show-navbar android-attr">
+  <ion-title>
+    Survey
+    <div toolbar-subtitle>
+      Ayuntamiento de Málaga
+    </div>
+  </ion-title>
+</ion-navbar>
+
+<ion-content class="has-header components-demo cards-bg">
+  <ion-card>
+    <ion-card-content>
+      ¿Qué le parece la app?
+      <ion-row>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      Puntue la limpieza de su ciudad
+      <ion-row>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      Puntue la seguridad de su ciudad
+      <ion-row>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <ion-card no-marg-bottom>
+    <ion-card-content>
+      Puntue la politica de su ciudad
+      <ion-row>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <div padding no-pad-top>
+    <ion-row>
+      <ion-col width-50><button light block (click)="cancelSurvey()">Cancel</button></ion-col>
+      <ion-col width-50><button block (click)="sendSurvey()">Send</button></ion-col>
+    </ion-row>
+  </div>
+</ion-content>

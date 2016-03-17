@@ -6,6 +6,7 @@ import {ConferenceData} from './../../../../providers/conference-data';
 import {NotificationsPage} from './notifications/notifications';
 import {TermsPage} from './terms/terms';
 import {UserPage} from './user/user';
+import {EntitiesPage} from './entities/entities';
 
 
 
@@ -32,6 +33,10 @@ export class SettingsPage {
 
   openUser() {
     this.nav.push(UserPage, {});
+  }
+
+  openEntities() {
+    this.nav.push(EntitiesPage, {});
   }
 
 }

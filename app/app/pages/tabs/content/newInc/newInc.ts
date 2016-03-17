@@ -5,6 +5,7 @@ import {ConferenceData} from './../../../../providers/conference-data';
 import {marker} from './newIncInterface';
 import {Geolocation, Camera} from 'ionic-native';
 import {IncidentsPage} from './../incidents/incidents';
+import {SurveyPage} from './survey/survey';
 import {
   MapsAPILoader,
   NoOpMapsAPILoader,
@@ -174,7 +175,53 @@ export class NewIncPage {
     this.nav.present(actionSheet);
   }
 
+  presentConfirm() {
+    let alert = Alert.create({
+      title: 'Confirm incident',
+      message: 'Calzada - Rota <br> En calle Marie Curie, 5 <br> Fotos: 2',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Send',
+          handler: () => {
+            this.presentIncidentSuccess();
+          }
+        }
+      ]
+    });
+    this.nav.present(alert);
+  }
+
+  presentIncidentSuccess() {
+    let alert = Alert.create({
+      title: 'Incident sent',
+      message: 'CIU@24/2016',
+      buttons: [
+        {
+          text: 'Continue',
+          role: 'cancel',
+          handler: () => {
+            this.nav.push(IncidentsPage, {});
+          }
+        },
+        {
+          text: 'Survey',
+          handler: () => {
+            this.nav.push(SurveyPage, {});
+          }
+        }
+      ]
+    });
+    this.nav.present(alert);
+  }
+
   newIncident(){
-    this.nav.push(IncidentsPage, {});
+    this.presentConfirm();
   }
 }

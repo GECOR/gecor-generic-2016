@@ -13,7 +13,37 @@
 [pull-left] {
   float: left;
 }
+[no-pad-top] {
+  padding-top: 0;
+}
+[no-marg-bottom] {
+  margin-bottom: 0;
+}
 img[size-24] {
   width: 24px;
   height: 24px;
+}
+.ios [toolbar-subtitle] {
+  font-size: 1.3rem;
+  font-weight: 400;
+  text-align: center;
+  pointer-events: auto;
+  color: #6F6F6F;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.md [toolbar-subtitle] {
+  font-size: 1.4rem;
+  font-weight: 100;
+  text-align: center;
+  pointer-events: auto;
+  color: E8E8E8;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }

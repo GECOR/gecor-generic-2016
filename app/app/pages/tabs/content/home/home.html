@@ -1,0 +1,34 @@
+<ion-navbar *navbar class="show-navbar android-attr">
+  <ion-title>
+    Home
+    <div toolbar-subtitle>
+      Ayuntamiento de Málaga
+    </div>
+  </ion-title>
+</ion-navbar>
+<ion-content >
+
+      <ion-row home>
+        <ion-col home>
+          <ion-card home class="advanced-background" (click)="openNoticeDetail(new[0])">
+            <img src="img/inc.png"/>
+            <p home class="advanced-background-title">Nueva Incidencia</p>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row home>
+        <ion-col home width-50>
+          <ion-card home class="advanced-background" (click)="openNoticeDetail(new[0])">
+            <img src="img/playaRincon_3.jpg"/>
+            <p home class="advanced-background-title">Playas</p>
+          </ion-card>
+        </ion-col>
+        <ion-col home width-50>
+          <ion-card home class="advanced-background" (click)="openNoticeDetail(new[1])">
+            <img src="img/tramite.jpg"/>
+            <p home class="advanced-background-title">Renovación DNI</p>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+</ion-content>

@@ -7,6 +7,7 @@ import {NewIncPage} from './content/newInc/newInc';
 import {NewsPage} from './content/news/news';
 import {SettingsPage} from './content/settings/settings';
 import {GeolocationProvider} from './../../providers/geolocation';
+import {HomePage} from './content/home/home';
 
 
 @Page({
@@ -66,11 +67,13 @@ export class TabsPage {
   tabTwo;
   tabThree;
   tabFour;
+  tabFive;
   constructor(private geo: GeolocationProvider) {
     this.tabOne = IncidentsPage;
     this.tabTwo = NewIncPage;
     this.tabThree = NewsPage;
     this.tabFour = SettingsPage;
+    this.tabFive = HomePage;
 
     geo.getLocation().then(location =>{
       console.log(location);

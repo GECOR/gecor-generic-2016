@@ -8,10 +8,11 @@ import {GeolocationProvider} from './../../providers/geolocation';
 import {EntitiesPage} from './entities/entities';
 import {LoginService} from './loginService';
 import {User} from './loginInterface';
+import {SpinnerLoading} from './../../directives/spinnerLoading';
 
 @Page({
   templateUrl: './build/pages/login/login.html',
-  directives: [forwardRef(() => AndroidAttribute)],
+  directives: [forwardRef(() => AndroidAttribute), SpinnerLoading],
   providers: [GeolocationProvider, LoginService]
 })
 export class LoginPage {
@@ -19,11 +20,14 @@ export class LoginPage {
     user: User;
     email: any;
     password: any;
+    loginLoading: any;
     
     constructor(private nav: NavController
       , private menu: MenuController
       , private geo: GeolocationProvider
       , private loginService: LoginService) {
+          
+        this.loginLoading = false;
 
         geo.getLocation().then(location =>{
           console.log(location);
@@ -74,9 +78,11 @@ export class LoginPage {
     }
     
     loginUser() {
+        this.loginLoading = true;
         this.loginService.loginUser(this.email, this.password)
                         .subscribe(
                             (user) =>{
+                                this.loginLoading = false;
                                 this.user = user;
                                 if (this.user.Email != '') {
                                     this.nav.push(TabsPage);

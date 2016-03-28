@@ -3,7 +3,7 @@ import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone} from 'angular2/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {CommentsPage} from './comments/comments';
-import {ChatPage} from './chat/chat';
+//import {ChatPage} from './chat/chat';
 import {ReviewPage} from './review/review';
 
 
@@ -176,8 +176,8 @@ export class IncDetailPage {
   }
 
   openChat(messages) {
-    let aux = Modal.create(ChatPage, messages);
-    this.nav.present(aux);
+    //let aux = Modal.create(ChatPage, messages);
+    //this.nav.present(aux);
   }
 
   openReview(incident) {

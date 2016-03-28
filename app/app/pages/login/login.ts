@@ -8,7 +8,7 @@ import {GeolocationProvider} from './../../providers/geolocation';
 import {EntitiesPage} from './entities/entities';
 import {LoginService} from './loginService';
 import {User} from './loginInterface';
-import {SpinnerLoading} from './../../directives/spinnerLoading';
+import {SpinnerLoading} from './../../directives/spinnerLoading/spinnerLoading';
 
 @Page({
   templateUrl: './build/pages/login/login.html',

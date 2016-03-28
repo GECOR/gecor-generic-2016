@@ -3,6 +3,7 @@ import {urlGecorApi} from './../../appConfig';
 import {Http, Response, Headers, RequestOptions} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {User} from './loginInterface'; 
+import 'rxjs/Rx';
 
 @Injectable()
 export class LoginService {

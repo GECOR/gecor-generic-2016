@@ -1,4 +1,4 @@
-import {Page, NavController, MenuController, Alert} from 'ionic-angular';
+import {Page, NavController, MenuController, Alert, Storage, SqlStorage} from 'ionic-angular';
 import {forwardRef} from 'angular2/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
@@ -6,16 +6,24 @@ import {TabsPage} from './../tabs/tabs';
 import {SignInPage} from './../signin/signin';
 import {GeolocationProvider} from './../../providers/geolocation';
 import {EntitiesPage} from './entities/entities';
+import {LoginService} from './loginService';
+import {User} from './loginInterface';
 
 @Page({
   templateUrl: './build/pages/login/login.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider]
+  providers: [GeolocationProvider, LoginService]
 })
 export class LoginPage {
+    errorMessage: any;
+    user: User;
+    email: any;
+    password: any;
+    
     constructor(private nav: NavController
       , private menu: MenuController
-      , private geo: GeolocationProvider) {
+      , private geo: GeolocationProvider
+      , private loginService: LoginService) {
 
         geo.getLocation().then(location =>{
           console.log(location);
@@ -63,5 +71,19 @@ export class LoginPage {
 
     openSignInPage() {
       this.nav.push(SignInPage);
+    }
+    
+    loginUser() {
+        this.loginService.loginUser(this.email, this.password)
+                        .subscribe(
+                            (user) =>{
+                                this.user = user;
+                                if (this.user.Email != '') {
+                                    this.nav.push(TabsPage);
+                                    let storage = new Storage(SqlStorage);
+                                    storage.set('user', JSON.stringify(this.user) );
+                                }
+                            },
+                            error =>  this.errorMessage = <any>error);
     }
 }

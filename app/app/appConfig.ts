@@ -1,0 +1,1 @@
+export var urlGecorApi = "http://localhost/GecorApi/api/";

@@ -19,13 +19,13 @@
   <div padding>
     <ion-list>
       <ion-item>
-        <ion-input type="text" placeholder="Username"></ion-input>
+        <ion-input type="text" placeholder="Username" [(ngModel)]="email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="password" placeholder="Password"></ion-input>
+        <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
       </ion-item>
     </ion-list>
-    <button block (click)="openMainPage()">Login</button>
+    <button block (click)="loginUser()">Login</button>
     <button light block (click)="openSignInPage()">Sign in</button>
     <button clear block (click)="forgottenPass()">Forgotten password</button>
     <div block class="label-or">

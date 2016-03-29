@@ -78,18 +78,42 @@ export class LoginPage {
     }
     
     loginUser() {
-        this.loginLoading = true;
-        this.loginService.loginUser(this.email, this.password)
-                        .subscribe(
-                            (user) =>{
-                                this.loginLoading = false;
-                                this.user = user;
-                                if (this.user.Email != '') {
-                                    this.nav.push(TabsPage);
-                                    let storage = new Storage(SqlStorage);
-                                    storage.set('user', JSON.stringify(this.user) );
-                                }
-                            },
-                            error =>  this.errorMessage = <any>error);
+        if (this.validateLogin()){
+            this.loginLoading = true;
+            this.loginService.loginUser(this.email, this.password)
+                            .subscribe(
+                                (user) =>{
+                                    this.loginLoading = false;
+                                    this.user = user;
+                                    if (this.user.Email != '' && this.user.Email != null) {
+                                        this.nav.push(TabsPage);
+                                        let storage = new Storage(SqlStorage);
+                                        storage.set('user', JSON.stringify(this.user) );
+                                    }else{
+                                        let prompt = Alert.create({
+                                            title: 'Oops!',
+                                            message: "The user was incorrect",
+                                            buttons: ['Accept']
+                                        });
+                                        this.nav.present(prompt);
+                                    }
+                                },
+                                error =>  this.errorMessage = <any>error);
+        }
+        
+    }
+    
+    validateLogin() {
+        if (this.email == '' || this.password == '') {
+            let prompt = Alert.create({
+                title: 'Data is empty',
+                message: "Please enter an email and password",
+                buttons: ['Accept']
+            });
+            this.nav.present(prompt);
+        }else{
+            return true;
+        }
+        
     }
 }

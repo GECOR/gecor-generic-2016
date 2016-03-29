@@ -29,6 +29,7 @@ export class SlidePage {
           image: "img/ica-slidebox-img-3.png",
         }
       ];
+      
     }
 
   openLoginPage() {

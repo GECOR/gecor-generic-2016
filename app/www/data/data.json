@@ -33,6 +33,68 @@
       "date": 1457939732
     }
   ],
+  "families":[
+      {
+          "name": "Acerado",
+          "icon": "img/acerado.png"
+      },
+      {
+          "name": "Alcantarillado",
+          "icon": "img/alcantarillado.png"
+      },
+      {
+          "name": "Alumbrado",
+          "icon": "img/Alumbrado.png"
+      },
+      {
+          "name": "Árboles",
+          "icon": "img/arboles.png"
+      },
+      {
+          "name": "Calzada",
+          "icon": "img/calzada.png"
+      },
+      {
+          "name": "Carril bici",
+          "icon": "img/carrilbici.png"
+      },
+      {
+          "name": "Fuentes",
+          "icon": "img/fuentes.png"
+      },
+      {
+          "name": "Jardines",
+          "icon": "img/jardines.png"
+      },
+      {
+          "name": "Mobiliario Urbano",
+          "icon": "img/mobiliariourbano.png"
+      },
+      {
+          "name": "Monumentos",
+          "icon": "img/monumentos.png"
+      },
+      {
+          "name": "Parques Infantiles",
+          "icon": "img/parquesinfantiles.png"
+      },
+      {
+          "name": "Pintadas",
+          "icon": "img/pintadas.png"
+      },
+      {
+          "name": "Semáforos",
+          "icon": "img/semaforos.png"
+      },
+      {
+          "name": "Señales verticales",
+          "icon": "img/senalesverticales.png"
+      },
+      {
+          "name": "Vallas de obra",
+          "icon": "img/vallasobra.png"
+      }
+  ],
   "news":[
     [
       {

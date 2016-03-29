@@ -11,14 +11,14 @@ import {
   NoOpMapsAPILoader,
   MouseEvent,
   ANGULAR2_GOOGLE_MAPS_PROVIDERS,
-  ANGULAR2_GOOGLE_MAPS_DIRECTIVES
+  SebmGoogleMap
 } from 'angular2-google-maps/core';
 import {GoogleMapsAPIWrapper} from 'angular2-google-maps/services/google-maps-api-wrapper';
 
 
 @Page({
   templateUrl: './build/pages/tabs/content/newInc/newInc.html',
-  directives: [forwardRef(() => AndroidAttribute), ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
+  directives: [forwardRef(() => AndroidAttribute), SebmGoogleMap],
   providers: [ANGULAR2_GOOGLE_MAPS_PROVIDERS, GoogleMapsAPIWrapper,  provide(MapsAPILoader, {useClass: NoOpMapsAPILoader})]
 })
 export class NewIncPage {

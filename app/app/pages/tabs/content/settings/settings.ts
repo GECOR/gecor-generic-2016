@@ -16,7 +16,7 @@ import {EntitiesPage} from './entities/entities';
   directives: [forwardRef(() => AndroidAttribute)]
 })
 export class SettingsPage {
-    user: any = {};
+  user: any = {};
   constructor(private platform: Platform
     , private menu: MenuController
     , private confData: ConferenceData

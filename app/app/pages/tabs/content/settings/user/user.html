@@ -7,16 +7,25 @@
   </ion-title>
 </ion-navbar>
 
+<ion-content light>
 
-<ion-content>
-  <div padding>
-    <ion-list>
-      <ion-item class="text-center" (click)="takePhoto()">
-        <img [src]="user.img">
+  <ion-list no-border>
+    <ion-list-header light></ion-list-header>
+    <ion-item class="text-center" (click)="takePhoto()">
+        <img src="img/avatar-finn.png">
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder="Name" [(ngModel)]="user.name"></ion-input>
+        <ion-input type="text" placeholder="Name" [(ngModel)]="user.Email"></ion-input>
       </ion-item>
-    </ion-list>
-  </div>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header light></ion-list-header>
+    <ion-item (click)="logout()">
+      <ion-icon name="power" item-left></ion-icon>
+      Logout
+    </ion-item>
+  </ion-list>
+  
 </ion-content>
+

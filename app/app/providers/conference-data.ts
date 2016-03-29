@@ -53,4 +53,10 @@ export class ConferenceData {
       return data.user;
     });
   }
+  
+  getFamilies() {
+    return this.load().then(data => {
+      return data.families;
+    });
+  }
 }

@@ -19,6 +19,20 @@
 [no-marg-bottom] {
   margin-bottom: 0;
 }
+ion-list-header[light] {
+  background-color: #f4f4f4;
+  color: black;
+}
+
+ion-content[light] {
+  background-color: #f4f4f4;
+}
+
+ion-thumbnail[small] {
+  min-width: 0;
+  min-height: 0;
+}
+
 img[size-24] {
   width: 24px;
   height: 24px;

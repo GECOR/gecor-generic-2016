@@ -1,28 +1,42 @@
-import {NavController, NavParams, MenuController, ActionSheet} from 'ionic-angular';
+import {NavController, NavParams, MenuController, ActionSheet, Storage, SqlStorage} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone} from 'angular2/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';
+import {SlidePage} from './../../../../slides/slide';
 
 @Page({
   templateUrl: './build/pages/tabs/content/settings/user/user.html',
   directives: [forwardRef(() => AndroidAttribute)]
 })
 export class UserPage {
-  user: any;
+  user: any = {};
+  storage: any;
+  rootPage: any;
   constructor(private platform: Platform
     , private menu: MenuController
     , private nav: NavController
     , private _ngZone: NgZone
     , private confData: ConferenceData ) {
-
-      confData.getUser().then(user =>{
-        this.user = user;
-      });
+        
+        this.storage = new Storage(SqlStorage);
 
   }
+  
+  onPageWillEnter() {
+    this.storage.get('user').then((user) => {
+        this.user = JSON.parse(user);
+    })
+  }
+  
+  logout() {
+      //this.storage.remove('user');
+      //this.nav.popToRoot();
+      //this.nav.setRoot(SlidePage);
+      this.rootPage = SlidePage;
+  }
 
-  takePhoto(){
+  takePhoto() {
     let actionSheet = ActionSheet.create({
       title: '',
       buttons: [

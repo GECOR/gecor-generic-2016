@@ -9,6 +9,7 @@ import {EntitiesPage} from './entities/entities';
 import {LoginService} from './loginService';
 import {User} from './loginInterface';
 import {SpinnerLoading} from './../../directives/spinnerLoading/spinnerLoading';
+import {Facebook} from 'ionic-native';
 
 @Page({
   templateUrl: './build/pages/login/login.html',
@@ -32,6 +33,7 @@ export class LoginPage {
         geo.getLocation().then(location =>{
           console.log(location);
         });
+                    
 
     }
 
@@ -101,6 +103,12 @@ export class LoginPage {
                                 error =>  this.errorMessage = <any>error);
         }
         
+    }
+    
+    loginFacebookUser() {
+        Facebook.login(["email"]).then((result) => {
+            console.log(result)
+        })
     }
     
     validateLogin() {

@@ -3,7 +3,7 @@ import {forwardRef, NgZone, provide} from 'angular2/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {marker} from './newIncInterface';
-import {Geolocation, Camera} from 'ionic-native';
+import {Geolocation, Camera, ImagePicker} from 'ionic-native';
 import {IncidentsPage} from './../incidents/incidents';
 import {SurveyPage} from './survey/survey';
 import {
@@ -11,14 +11,14 @@ import {
   NoOpMapsAPILoader,
   MouseEvent,
   ANGULAR2_GOOGLE_MAPS_PROVIDERS,
-  SebmGoogleMap
+  ANGULAR2_GOOGLE_MAPS_DIRECTIVES
 } from 'angular2-google-maps/core';
 import {GoogleMapsAPIWrapper} from 'angular2-google-maps/services/google-maps-api-wrapper';
 
 
 @Page({
   templateUrl: './build/pages/tabs/content/newInc/newInc.html',
-  directives: [forwardRef(() => AndroidAttribute), SebmGoogleMap],
+  directives: [forwardRef(() => AndroidAttribute), ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
   providers: [ANGULAR2_GOOGLE_MAPS_PROVIDERS, GoogleMapsAPIWrapper,  provide(MapsAPILoader, {useClass: NoOpMapsAPILoader})]
 })
 export class NewIncPage {
@@ -33,8 +33,8 @@ export class NewIncPage {
   // google maps zoom level
   zoom: number = 8;
   // initial center position for the map
-  lat: number;
-  lng: number;
+  lat: any;
+  lng: any;
   markers: marker[] = []
   //END MAP
   constructor(private platform: Platform
@@ -74,7 +74,7 @@ export class NewIncPage {
   initGeolocation() {
     let options = {maximumAge: 5000, timeout: 15000, enableHighAccuracy: true};
     /*navigator.geolocation*/
-    Geolocation.getCurrentPosition(
+    Geolocation.getCurrentPosition(options).then(
       (position) => {
         this.geocoderService = new google.maps.Geocoder;
 
@@ -117,13 +117,13 @@ export class NewIncPage {
           ]
         });
         this.nav.present(alert);
-      }, options);
+      });
   }
 
   centerMap(){
     let lanlng = new google.maps.LatLng(parseFloat(this.lat), parseFloat(this.lng));
     //this._ngZone.run(() => {
-      this._map.setCenter(lanlng);
+      //this._map.setCenter(lanlng);
       //this._map.setCenter(this.lat, this.lng);
     //});
   }
@@ -137,7 +137,7 @@ export class NewIncPage {
         {
           text: 'Gallery',
           handler: () => {
-            window.imagePicker.getPictures((results) => {
+           ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
                     for (var i = 0; i < results.length; i++) {
                         console.log('Image URI: ' + results[i]);
                     }
@@ -152,8 +152,8 @@ export class NewIncPage {
         },
         {
           text: 'Camera',
-          handler: () => {
-            Camera.getPicture().then((imageURI) => {
+          handler: () => {            
+            Camera.getPicture({quality: 50}).then((imageURI) => {
               this.images[id] = imageURI;
             }, (message) => {
               alert('Failed because Camera!');

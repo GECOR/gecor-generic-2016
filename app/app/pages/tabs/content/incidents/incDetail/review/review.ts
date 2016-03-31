@@ -2,7 +2,7 @@ import {NavController, NavParams, MenuController, ActionSheet, Alert} from 'ioni
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone, provide} from 'angular2/core';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
-import {Geolocation, Camera} from 'ionic-native';
+import {Geolocation, Camera, ImagePicker} from 'ionic-native';
 import {marker} from './reviewInterface';
 import {
   MapsAPILoader,
@@ -65,7 +65,7 @@ export class ReviewPage {
   initGeolocation() {
     let options = {maximumAge: 5000, timeout: 15000, enableHighAccuracy: true};
     /*navigator.geolocation*/
-    Geolocation.getCurrentPosition(
+    Geolocation.getCurrentPosition(options).then(
       (position) => {
         this.geocoderService = new google.maps.Geocoder;
 
@@ -108,7 +108,7 @@ export class ReviewPage {
           ]
         });
         this.nav.present(alert);
-      }, options);
+      });
   }
 
   centerMap(){
@@ -128,7 +128,7 @@ export class ReviewPage {
         {
           text: 'Gallery',
           handler: () => {
-            window.imagePicker.getPictures((results) => {
+            ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
                     for (var i = 0; i < results.length; i++) {
                         console.log('Image URI: ' + results[i]);
                     }
@@ -144,7 +144,7 @@ export class ReviewPage {
         {
           text: 'Camera',
           handler: () => {
-            Camera.getPicture().then((imageURI) => {
+            Camera.getPicture({quality: 50}).then((imageURI) => {
               this.images[id] = imageURI;
             }, (message) => {
               alert('Failed because Camera!');

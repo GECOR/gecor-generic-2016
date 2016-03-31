@@ -1,6 +1,7 @@
 import {NavController, NavParams, MenuController, ActionSheet, Storage, SqlStorage} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone} from 'angular2/core';
+import {Camera, ImagePicker} from 'ionic-native';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';
 import {SlidePage} from './../../../../slides/slide';
@@ -43,7 +44,7 @@ export class UserPage {
         {
           text: 'Gallery',
           handler: () => {
-            window.imagePicker.getPictures((results) => {
+            ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
                     for (var i = 0; i < results.length; i++) {
                         console.log('Image URI: ' + results[i]);
                     }
@@ -59,7 +60,7 @@ export class UserPage {
         {
           text: 'Camera',
           handler: () => {
-            Camera.getPicture().then((imageURI) => {
+            Camera.getPicture({quality: 50}).then((imageURI) => {
               this.user.image = imageURI;
             }, (message) => {
               alert('Failed because Camera!');

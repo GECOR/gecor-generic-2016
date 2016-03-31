@@ -22,9 +22,8 @@ export class GeolocationProvider {
   locate() {
     let options = {maximumAge: 5000, timeout: 15000, enableHighAccuracy: true};
     /*navigator.geolocation*/
-    return new Promise(resolve => {
-      Geolocation.getCurrentPosition(
-        (position) => {
+    return new Promise(resolve => {        
+        Geolocation.getCurrentPosition(options).then(position => { 
           this.geocoderService = new google.maps.Geocoder;
 
           this.location.latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -35,23 +34,21 @@ export class GeolocationProvider {
             if (status === google.maps.GeocoderStatus.OK) {
               if (results[0]) {
                 this.location.startAddress = results[0].formatted_address;
-
-                  resolve(this.location);
-
-
-                //_this.loadMap();
-              } else {
-                window.alert('No results found');
-              }
-            } else {
-              window.alert('Geocoder failed due to: ' + status);
+                    resolve(this.location);
+                    //_this.loadMap();
+                } else {
+                    window.alert('No results found');
+                }
+                } else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            });
+            },
+            (error) => {
+            resolve({'error': error});
             }
-          });
-        },
-        (error) => {
-          resolve({'error': error});
-        }, options);
-      });
+        );
+    });
   }
 
   getLocation() {

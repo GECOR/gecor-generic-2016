@@ -1,5 +1,5 @@
 import {Page, NavController, MenuController, Alert, Storage, SqlStorage} from 'ionic-angular';
-import {forwardRef} from 'angular2/core';
+import {forwardRef, NgZone} from 'angular2/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
 import {TabsPage} from './../tabs/tabs';
@@ -22,19 +22,25 @@ export class LoginPage {
     email: any;
     password: any;
     loginLoading: any;
+    aytos: any=[];
     
     constructor(private nav: NavController
       , private menu: MenuController
       , private geo: GeolocationProvider
-      , private loginService: LoginService) {
+      , private loginService: LoginService
+      , private zone: NgZone) {
           
         this.loginLoading = false;
-
-        geo.getLocation().then(location =>{
-          console.log(location);
-        });
+        
+        this.geo.getLocation().then(location =>{
+          this.getAyuntamientosPorDistancia(location);
+        });        
                     
 
+    }
+    
+    onPageWillEnter() {
+        
     }
 
     openMainPage() {
@@ -43,8 +49,7 @@ export class LoginPage {
     }
 
     openEntitiesPage() {
-      //this.nav.push(MainMenuContentPage);
-      this.nav.push(EntitiesPage);
+      this.nav.push(EntitiesPage, this.aytos);
     }
 
     forgottenPass() {
@@ -79,6 +84,15 @@ export class LoginPage {
       this.nav.push(SignInPage);
     }
     
+    getAyuntamientosPorDistancia(location) {
+        this.loginService.getAyuntamientosPorDistancia(location.lat, location.lng)
+                            .subscribe(
+                                (aytos) =>{
+                                    this.aytos = aytos;                                                                        
+                                },
+                                error =>  this.errorMessage = <any>error);
+    }
+    
     loginUser() {
         if (this.validateLogin()){
             this.loginLoading = true;
@@ -90,7 +104,7 @@ export class LoginPage {
                                     if (this.user.Email != '' && this.user.Email != null) {
                                         this.nav.push(TabsPage);
                                         let storage = new Storage(SqlStorage);
-                                        storage.set('user', JSON.stringify(this.user) );
+                                        storage.set('user', JSON.stringify(this.user));
                                     }else{
                                         let prompt = Alert.create({
                                             title: 'Oops!',

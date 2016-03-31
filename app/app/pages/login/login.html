@@ -16,11 +16,11 @@
     <spinner-loading title="Loading..." *ngIf="loginLoading"></spinner-loading>
     <ion-card>
         <ion-card-content>
-        <ion-item>
+        <ion-item *ngIf="aytos.length > 0">
             <ion-thumbnail item-left small>
-            <img src="img/AytoMalaga.png" size-24>
+                <img src={{aytos[0].Logo}} size-24>
             </ion-thumbnail>
-            Ayuntamiento de Málaga
+            {{aytos[0].Nombre}}
             <button clear item-right (click)="openEntitiesPage()">Change</button>
         </ion-item>
         </ion-card-content>

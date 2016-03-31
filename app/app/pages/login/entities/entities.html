@@ -11,21 +11,19 @@
     <ion-list-header light>SUGGESTED</ion-list-header>
     <ion-item>
       <ion-thumbnail item-left small>
-        <img src="img/AytoMalaga.png" size-24>
+        <img src={{aytoSuggested.Logo}} size-24>
       </ion-thumbnail>
-      Ayuntamiento de Málaga
+      {{aytoSuggested.Nombre}}
     </ion-item>
   </ion-list>
 
   <ion-list>
     <ion-list-header light>OTHER ENTITIES</ion-list-header>
-    <ion-item (click)="chooseEntitie()" nav-pop>
-      Ayuntamiento de Málaga
-      <ion-icon name='notifications' item-left></ion-icon>
-    </ion-item>
-    <ion-item (click)="chooseEntitie()">
-      Ayuntamiento de Málaga
-      <ion-icon name='paper' item-left></ion-icon>
+    <ion-item *ngFor="#ayto of aytos" (click)="chooseEntitie()" nav-pop>
+      <ion-thumbnail item-left small>
+        <img src={{ayto.Logo}} size-24>
+      </ion-thumbnail>
+      {{ayto.Nombre}}
     </ion-item>
   </ion-list>
 

@@ -18,11 +18,12 @@ import {Facebook} from 'ionic-native';
 })
 export class LoginPage {
     errorMessage: any;
-    user: User;
+    user: any = {};
     email: any;
     password: any;
     loginLoading: any;
     aytos: any=[];
+    storage: any;
     
     constructor(private nav: NavController
       , private menu: MenuController
@@ -34,8 +35,9 @@ export class LoginPage {
         
         this.geo.getLocation().then(location =>{
           this.getAyuntamientosPorDistancia(location);
-        });        
-                    
+        });
+        
+        this.storage = new Storage(SqlStorage);
 
     }
     
@@ -98,14 +100,13 @@ export class LoginPage {
             this.loginLoading = true;
             this.loginService.loginUser(this.email, this.password)
                             .subscribe(
-                                (user) =>{
-                                    this.loginLoading = false;
+                                (user) =>{                                    
                                     this.user = user;
-                                    if (this.user.Email != '' && this.user.Email != null) {
-                                        this.nav.push(TabsPage);
-                                        let storage = new Storage(SqlStorage);
-                                        storage.set('user', JSON.stringify(this.user));
+                                    if (this.user.token != '' && this.user.token != null) {
+                                        this.configData();                                      
+                                        this.storage.set('user', JSON.stringify(this.user));
                                     }else{
+                                        this.loginLoading = false;
                                         let prompt = Alert.create({
                                             title: 'Oops!',
                                             message: "The user was incorrect",
@@ -137,5 +138,18 @@ export class LoginPage {
             return true;
         }
         
+    }
+    
+    configData() {
+        this.loginService.getTipologiaPorAyuntamiento(this.user.token)
+                            .subscribe(
+                                (data) =>{
+                                    console.log(data);
+                                    this.storage.set('familias', JSON.stringify(data.Familias));
+                                    this.storage.set('tiposElementos', JSON.stringify(data.Elementos));
+                                    this.storage.set('tiposIncidencias', JSON.stringify(data.Incidencias));
+                                    this.nav.push(TabsPage);
+                                },
+                                error =>  this.errorMessage = <any>error);
     }
 }

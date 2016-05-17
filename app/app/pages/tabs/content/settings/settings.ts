@@ -22,8 +22,6 @@ export class SettingsPage {
     , private confData: ConferenceData
     , private nav: NavController
     , private _ngZone: NgZone ) {
-        
-        console.log(this.user);
 
   }
   onPageWillEnter() {

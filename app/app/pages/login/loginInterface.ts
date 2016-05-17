@@ -1,6 +1,7 @@
 export interface User {
   Email: string,
-  Password: string
+  Password: string,
+  Token: string
 }
 
 export interface Ayuntamiento {

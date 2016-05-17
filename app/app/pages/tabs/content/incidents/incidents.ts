@@ -1,4 +1,4 @@
-import {NavController, NavParams, MenuController} from 'ionic-angular';
+import {NavController, NavParams, MenuController, Storage, SqlStorage, Alert} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone} from 'angular2/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
@@ -6,32 +6,66 @@ import {ConferenceData} from './../../../../providers/conference-data';
 import {IncDetailPage} from './incDetail/incDetail';
 import {ArraySortPipe} from './../../../../pipes/arraySort';
 import {IncidentsSearchPipe} from './incidentsPipe';
-
-
+import {IncidentService} from './IncidentService';
+import {GeolocationProvider} from './../../../../providers/geolocation';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incidents.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  pipes: [ArraySortPipe, IncidentsSearchPipe]
+  pipes: [ArraySortPipe, IncidentsSearchPipe],
+  providers: [IncidentService, GeolocationProvider]
 })
 export class IncidentsPage {
   isAndroid: any;
   activeMenu: any;
-  incidents: any[];
+  incidents: any=[];
   type: any;
   order: any;
   searchText: any;
+  errorMessage: any;
+  user: any = {};
+  storage: any;
+  location: any;
+  latLng: any;
+  map: any;
+  distanceTravel: string;
+  directionsService: any;
+  geocoderService: any;
+  directionsDisplay: any;
+  stepDisplay: any;
+  startAddress: string;
+  endAddress: string;
+  markerArray: any[];
+  timeTravel: string;
+  
   constructor(private platform: Platform
     , private menu: MenuController
     , private confData: ConferenceData
     , private nav: NavController
-    , private _ngZone: NgZone ) {
+    , private zone: NgZone
+    , private incidentService: IncidentService
+    , private geo: GeolocationProvider ) {
+      
     this.platform = platform;
     this.isAndroid = platform.is('android');
-    this.incidents = confData.data.incidents;
     this.type = 'list';
-    this.order = 'date';
+    this.order = 'FechaHoraRegistro';
     this.searchText = '';
+    this.storage = new Storage(SqlStorage);
+    this.map = null;
+    
+  }
+  
+  onPageWillEnter() {
+    this.storage.get('user').then((user) => {
+        this.user = JSON.parse(user);
+        this.getMisIncidencias(this.user.CiudadanoID, this.user.token);
+    })
+    
+    this.geo.getLocation().then(location =>{
+      this.location = location;
+      this.latLng = this.location.latLng;
+    });    
   }
 
   showMap() {
@@ -39,44 +73,29 @@ export class IncidentsPage {
         this.loadMap()
       , 100);
   }
-
-  loadMap() {
-    let mapEle = document.getElementById('map');
-
-    let map = new google.maps.Map(mapEle, {
-      center: this.incidents.find(d => d.center),
-      zoom: 16
-    });
-
-    this.incidents.forEach(item => {
-      let infoWindow = new google.maps.InfoWindow({
-        //content: `<h5>${markerData.name}</h5>`
-        content: `<ion-item>
-                    <ion-thumbnail>
-                      <img src="${item.img}">
-                    </ion-thumbnail>
-                    <h2>${item.type}</h2>
-                    <span>${item.route}</span><br>
-                    <span>${item.state}</span><br>
-                  </ion-item>`
-                  //<button primary item-right (click)="$openDetail(incident)">View</button>
-      });
-
-      let marker = new google.maps.Marker({
-        position: item,
-        map: map,
-        title: item.name
-      });
-
-      marker.addListener('click', () => {
-        infoWindow.open(map, marker);
-      });
-    });
-
-    google.maps.event.addListenerOnce(map, 'idle', () => {
-      mapEle.classList.add('show-map');
-    });
+  
+  //MAP
+  loadMap() {//ngAfterViewInit
+    this.directionsService = new google.maps.DirectionsService();
+    let mapOptions = {
+        center: this.latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    this.map = new google.maps.Map(document.getElementById("mapDetail"), mapOptions);    
+    this.addMarkers();
   }
+  
+  addMarkers() {
+    for (let i = 0; i < this.incidents.length; i++) {
+      let marker = new google.maps.Marker;
+      marker.setMap(this.map);
+      let location = new google.maps.LatLng(this.incidents[i].Lat, this.incidents[i].Lng)
+      marker.setPosition(location);
+    }
+  }
+
+  //END MAP
 
   openDetail(incident) {
     this.nav.push(IncDetailPage, incident);
@@ -85,4 +104,13 @@ export class IncidentsPage {
   inputSearch(search) {
     console.log(search.value);
   }
+  
+  getMisIncidencias(ciudadanoID, token) {
+        this.incidentService.getMisIncidencias(ciudadanoID, token)
+                            .subscribe(
+                                (result) =>{
+                                    this.incidents = result;                                                                   
+                                },
+                                error =>  this.errorMessage = <any>error);
+    }
 }

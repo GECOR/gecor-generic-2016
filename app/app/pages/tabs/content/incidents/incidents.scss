@@ -1,12 +1,6 @@
-.incidents-page ion-content {
-  //background: rgb(229, 227, 223);
-}
-
-.incidents-page #map {
+.incidents-page #mapDetail {
   width: 100%;
   height: 100%;
-  opacity: 0;
-  transition: opacity 150ms ease-in
 }
 
 .incidents-page #switch {
@@ -14,6 +8,7 @@
   height: 100%;
 }
 
-.incidents-page #map.show-map {
-  opacity: 1;
+.incidents-page #mapContainer {
+  width: 100%;
+  height: 100%;
 }

@@ -7,23 +7,23 @@
   </ion-title>
 </ion-navbar>
 <ion-content families>
-    <ion-row *ngFor='#family of families; #i = index'>
+    <ion-row *ngFor='#familia of familias; #i = index'>
         <ion-col width-33 *ngIf="i%3 == 0">
             <ion-card families class="advanced-background" (click)="openNewInc()">
-                <img src={{families[i].icon}}/>
-                <p>{{families[i].name}}</p>
+                <img src={{familias[i].Icono}}/>
+                <p>{{familias[i].Nombre}}</p>
             </ion-card>
         </ion-col>
         <ion-col width-33  *ngIf="i%3 == 0">
             <ion-card families class="advanced-background" (click)="openNewInc()">
-                <img src={{families[i+1].icon}}/>
-                <p>{{families[i+1].name}}</p>
+                <img src={{familias[i+1].Icono}}/>
+                <p>{{familias[i+1].Nombre}}</p>
             </ion-card>
         </ion-col>
         <ion-col width-33  *ngIf="i%3 == 0">
             <ion-card families class="advanced-background" (click)="openNewInc()">
-                <img src={{families[i+2].icon}}/>
-                <p>{{families[i+2].name}}</p>
+                <img src={{familias[i+2].Icono}}/>
+                <p>{{familias[i+2].Nombre}}</p>
             </ion-card>
         </ion-col>
     </ion-row>

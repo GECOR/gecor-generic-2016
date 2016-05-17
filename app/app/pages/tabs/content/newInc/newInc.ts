@@ -1,4 +1,4 @@
-import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, Platform} from 'ionic-angular';
+import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, Platform, Storage, SqlStorage} from 'ionic-angular';
 import {forwardRef, NgZone, provide} from 'angular2/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
@@ -47,7 +47,8 @@ export class NewIncPage {
     this.isAndroid = platform.is('android');
     this.images = [undefined, undefined, undefined, undefined];
 
-    this.initGeolocation();
+    this.initGeolocation();    
+    
   }
 
 

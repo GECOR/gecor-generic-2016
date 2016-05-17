@@ -46,44 +46,48 @@
 
   <div padding [hidden]="type == 'map'">
     <ion-segment [(ngModel)]="order">
-      <ion-segment-button value="date">Date</ion-segment-button>
-      <ion-segment-button value="type">Distance</ion-segment-button>
+      <ion-segment-button value="FechaHoraRegistro">Date</ion-segment-button>
+      <ion-segment-button value="FechaHoraRegistro">Distance</ion-segment-button>
     </ion-segment>
   </div>
+  
+  
 
   <div id="switch" [ngSwitch]="type">
     <ion-list *ngSwitchDefault>
       <ion-item *ngFor="#incident of incidents | arraySort: order | search: searchText">
         <ion-thumbnail item-left>
-          <img src={{incident.img}}>
+          <img src={{incident.RutaFoto}}>
         </ion-thumbnail>
-        <h2>{{incident.type}}</h2>
-        <p>{{incident.route}}</p>
+        <h2>{{incident.DesTipoElemento}}</h2>
+        <p>{{incident.DesUbicacion}}</p>
         <div [ngSwitch]=incident.state>
-          <p danger *ngSwitchWhen="'Pendiente'">{{incident.state}}</p>
-          <p secondary *ngSwitchWhen="'Terminada'">{{incident.state}}</p>
+          <p danger *ngSwitchWhen="'Pendiente'">{{incident.Estado}}</p>
+          <p secondary *ngSwitchWhen="'Terminada'">{{incident.Estado}}</p>
         </div>
         <button clear item-right (click)="openDetail(incident)">View</button>
       </ion-item>
     </ion-list>
 
-    <div id="map" *ngSwitchWhen="'map'"></div>
+    <div id="mapContainer" *ngSwitchWhen="'map'">
+      <div id="mapDetail"></div>      
+    </div>
 
     <div id="gallery" *ngSwitchWhen="'gallery'">
-      <ion-card *ngFor='#incident of incidents  | arraySort: order | search: searchText'>
-        <img src={{incident.img}}/>
+      <ion-card *ngFor='#incident of incidents | arraySort: order | search: searchText'>
+        <img src={{incident.RutaFoto}}/>
         <ion-card-content>
           <div [ngSwitch]=incident.state>
             <h2 secondary class="card-title" *ngSwitchWhen="'Terminada'">
-              {{incident.state}}
+              {{incident.Estado}}
             </h2>
             <h2 danger class="card-title" *ngSwitchWhen="'Pendiente'">
-              {{incident.state}}
+              {{incident.Estado}}
             </h2>
           </div>
 
           <p>
-            {{incident.route}}
+            {{incident.DesUbicacion}}
           </p>
           <button clear item-right class="pull-right" (click)="openDetail(incident)">View</button>
         </ion-card-content>

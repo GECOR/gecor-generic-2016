@@ -14,23 +14,23 @@
     <ion-avatar item-left>
       <img src="img/marty-avatar.png">
     </ion-avatar>
-    <h2>{{incident.type}}</h2>
-    <p>November 5, 1955</p>
+    <h2>{{incident.DesTipoElemento}}: {{incident.TipoInc}}</h2>
+    <p>{{incident.FechaHoraRegistro}}</p>
     <div item-right text-right>
       <ion-icon name="more" (click)="showMore(incident)"></ion-icon>
       <div [ngSwitch]=incident.state>
         <p secondary item-right *ngSwitchWhen="'Terminada'">
-            {{incident.state}}
+            {{incident.Estado}}
         </p>
         <p danger item-right *ngSwitchWhen="'Pendiente'">
-            {{incident.state}}
+            {{incident.Estado}}
         </p>
       </div>
     </div>
   </ion-item>
-  <img src={{incident.img}}>
+  <img src={{incident.RutaFoto}}>
   <ion-card-content>
-  <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+  <p>{{incident.DesAveria}}</p>
   </ion-card-content>
   <ion-item>
     <button primary clear item-left>
@@ -50,7 +50,7 @@
 
 <ion-card class="ion-card-map">
 
-  <div id="mapDetail"></div>
+  <div id="mapIncident"></div>
   <button fab fab-right class="fab-map" (click)="centerMap()">
     <ion-icon name="pin"></ion-icon>
   </button>
@@ -64,7 +64,7 @@
   <ion-item>
     <ion-icon name="alert" item-left large ></ion-icon>
     <h2>Incident location</h2>
-    <p>{{incident.route}}</p>
+    <p>{{incident.DesUbicacion}}</p>
   </ion-item>
 
   <ion-item>

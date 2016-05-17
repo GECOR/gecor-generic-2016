@@ -1,4 +1,4 @@
-import {NavController, NavParams, MenuController} from 'ionic-angular';
+import {NavController, NavParams, MenuController, Storage, SqlStorage} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone} from 'angular2/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
@@ -12,7 +12,8 @@ import {NewIncPage} from './../newInc';
 
 export class FamiliesPage {
   isAndroid: any;
-  families: any;
+  familias: any = [];
+  storage: any;
   constructor(private platform: Platform
     , private menu: MenuController
     , private confData: ConferenceData
@@ -21,9 +22,15 @@ export class FamiliesPage {
     this.platform = platform;
     this.isAndroid = platform.is('android');
     
-    confData.getFamilies().then(families =>{
-      this.families = families;
-    });
+    this.storage = new Storage(SqlStorage);
+    
+  }
+  
+  onPageWillEnter() {
+    this.storage.get('familias').then((familias) => {
+        this.familias = JSON.parse(familias);
+        console.log(this.familias);
+    })    
   }
   
   openNewInc(){

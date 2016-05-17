@@ -10,14 +10,14 @@ import 'rxjs/Rx';
 export class LoginService {
     constructor (private http: Http) {}
     
-    loginUser(Email: string, Password: string): Observable<User> {
+    loginUser(Email: string, Password: string): Observable<any> {
         
         let body = JSON.stringify({ Email, Password });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         
         return this.http.post(urlGecorApi + '/User/loginUser', body, options)
-                        .map(res => <User> res.json())
+                        .map(res => <any> res.json())
                         .do() // eyeball results in the console
                         .catch(this.handleError)
                     
@@ -31,6 +31,19 @@ export class LoginService {
         
         return this.http.post(urlGecorApi + '/Utils/getAyuntamientosPorCercania', body, options)
                         .map(res => <Ayuntamiento> res.json())
+                        .do() // eyeball results in the console
+                        .catch(this.handleError)
+                    
+    }
+    
+    getTipologiaPorAyuntamiento(token: string): Observable<any> {
+        
+        let body = JSON.stringify({ token });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        
+        return this.http.post(urlGecorApi + '/Typology/getTipologiaPorAyuntamiento', body, options)
+                        .map(res => <any> res.json())
                         .do() // eyeball results in the console
                         .catch(this.handleError)
                     

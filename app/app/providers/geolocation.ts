@@ -56,4 +56,28 @@ export class GeolocationProvider {
       return location;
     });
   }
+  
+  getDirection(latLng) {
+    return new Promise(resolve => {        
+        if(this.geocoderService == undefined || this.geocoderService == null)
+        this.geocoderService = new google.maps.Geocoder;
+        
+        this.geocoderService.geocode({'location': latLng}, (results, status) => {
+        if (status === google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+                this.location.latLng = results[0].geometry.location;
+                this.location.lat = results[0].geometry.location.lat();
+                this.location.lng = results[0].geometry.location.lng();
+                this.location.startAddress = results[0].formatted_address;
+                resolve(this.location);                    
+            } else {                    
+                resolve({'error': 'No results found'});
+            }
+            } else {                    
+                resolve({'error': 'Geocoder failed due to: ' + status});
+            }
+        });            
+    });
+  }
+  
 }

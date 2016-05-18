@@ -4,12 +4,12 @@ import {forwardRef, NgZone, provide} from 'angular2/core';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {Geolocation, Camera, ImagePicker} from 'ionic-native';
 import {marker} from './reviewInterface';
-import {
+import {  
   MapsAPILoader,
   NoOpMapsAPILoader,
   MouseEvent,
-  ANGULAR2_GOOGLE_MAPS_PROVIDERS,
-  ANGULAR2_GOOGLE_MAPS_DIRECTIVES
+  ANGULAR2_GOOGLE_MAPS_DIRECTIVES,
+  ANGULAR2_GOOGLE_MAPS_PROVIDERS  
 } from 'angular2-google-maps/core';
 import {GoogleMapsAPIWrapper} from 'angular2-google-maps/services/google-maps-api-wrapper';
 

@@ -6,25 +6,29 @@ import {marker} from './newIncInterface';
 import {Geolocation, Camera, ImagePicker} from 'ionic-native';
 import {IncidentsPage} from './../incidents/incidents';
 import {SurveyPage} from './survey/survey';
-import {
+import {GeolocationProvider} from './../../../../providers/geolocation';
+
+/*
+import { 
   MapsAPILoader,
   NoOpMapsAPILoader,
   MouseEvent,
-  ANGULAR2_GOOGLE_MAPS_PROVIDERS,
-  ANGULAR2_GOOGLE_MAPS_DIRECTIVES
+  GoogleMapsAPIWrapper,
+  ANGULAR2_GOOGLE_MAPS_DIRECTIVES,
+  ANGULAR2_GOOGLE_MAPS_PROVIDERS
 } from 'angular2-google-maps/core';
-import {GoogleMapsAPIWrapper} from 'angular2-google-maps/services/google-maps-api-wrapper';
-
+*/
 
 @Page({
   templateUrl: './build/pages/tabs/content/newInc/newInc.html',
-  directives: [forwardRef(() => AndroidAttribute), ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
-  providers: [ANGULAR2_GOOGLE_MAPS_PROVIDERS, GoogleMapsAPIWrapper,  provide(MapsAPILoader, {useClass: NoOpMapsAPILoader})]
+  directives: [forwardRef(() => AndroidAttribute)],/*, ANGULAR2_GOOGLE_MAPS_DIRECTIVES*/
+  providers: [GeolocationProvider/*, ANGULAR2_GOOGLE_MAPS_PROVIDERS, GoogleMapsAPIWrapper, provide(MapsAPILoader, {useClass: NoOpMapsAPILoader})*/]
 })
 export class NewIncPage {
   isAndroid: any;
   activeMenu: any;
   images: any;
+  
   //MAP
   map: any;
   latLng: any;
@@ -37,12 +41,15 @@ export class NewIncPage {
   lng: any;
   markers: marker[] = []
   //END MAP
+  
   constructor(private platform: Platform
     , private menu: MenuController
     , private confData: ConferenceData
     , private nav: NavController
     , private _ngZone: NgZone
-    , private _map: GoogleMapsAPIWrapper ) {
+    , private geo: GeolocationProvider
+    //, private _map: GoogleMapsAPIWrapper
+    ) {
     this.platform = platform;
     this.isAndroid = platform.is('android');
     this.images = [undefined, undefined, undefined, undefined];
@@ -54,6 +61,7 @@ export class NewIncPage {
 
 
   //MAP
+  /*
   clickedMarker(label: string, index: number) {
     window.alert(`clicked the marker: ${label || index}`)
     this.markers.splice(index, 1);
@@ -71,10 +79,57 @@ export class NewIncPage {
   markerDragEnd(m: marker, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
+  */
+  
+  initMap() {
+    let mapEle = document.getElementById('map');
 
+      let map = new google.maps.Map(mapEle, {
+        center: this.latLng,
+        zoom: this.zoom
+      });             
+       
+      //let infoWindow = new google.maps.InfoWindow({
+        //content: `<h5>${this.startAddress}</h5>`
+      //});
+
+      let marker = new google.maps.Marker({
+        position: this.latLng,
+        map: map,
+        title: this.startAddress,
+        draggable: true
+      });      
+      
+      map.addListener('click', (e) => {                 
+        this.geo.getDirection(e.latLng).then(resp =>{
+          marker.setPosition(resp.latLng);
+          marker.setTitle(resp.startAddress);
+          //infoWindow.setContent(`<h5>${resp.startAddress}</h5>`)
+          this.startAddress = resp.startAddress;          
+        })               
+      });
+      
+      marker.addListener('click', () => {
+       //infoWindow.open(map, marker);
+      });
+      
+      marker.addListener('dragend', (e) => {       
+       this.geo.getDirection(e.latLng).then(resp =>{
+          marker.setPosition(resp.latLng);
+          marker.setTitle(resp.startAddress);
+          //infoWindow.setContent(`<h5>${resp.startAddress}</h5>`)
+          this.startAddress = resp.startAddress;          
+        })          
+      });
+      
+      google.maps.event.addListenerOnce(map, 'idle', () => {
+        mapEle.classList.add('show-map');
+      });
+  }
+  
   initGeolocation() {
-    let options = {maximumAge: 5000, timeout: 15000, enableHighAccuracy: true};
-    /*navigator.geolocation*/
+      
+    let options = {maximumAge: 5000, timeout: 15000, enableHighAccuracy: true};   
     Geolocation.getCurrentPosition(options).then(
       (position) => {
         this.geocoderService = new google.maps.Geocoder;
@@ -86,15 +141,15 @@ export class NewIncPage {
         this.geocoderService.geocode({'location': this.latLng}, (results, status) => {
           if (status === google.maps.GeocoderStatus.OK) {
             if (results[0]) {
-              this.startAddress = results[0].formatted_address;
-              this._ngZone.run(() => {
-                this.markers.push({
-                  lat: results[0].geometry.location.lat(),
-                  lng: results[0].geometry.location.lng(),
-                  draggable: true
-                });
-              });
-              //_this.loadMap();
+              this.startAddress = results[0].formatted_address;              
+              //this._ngZone.run(() => {
+                //this.markers.push({
+                  //lat: results[0].geometry.location.lat(),
+                  //lng: results[0].geometry.location.lng(),
+                  //draggable: true
+                //});
+              //});             
+              this.initMap();
             } else {
               window.alert('No results found');
             }

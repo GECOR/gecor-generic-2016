@@ -28,14 +28,17 @@
     "cordova-plugin-device",
     "cordova-plugin-console",
     "cordova-plugin-whitelist",
-    "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
     "cordova-plugin-geolocation",
     "cordova-plugin-camera",
     "cordova-plugin-image-picker",
     "cordova-plugin-crosswalk-webview",
-    "cordova-sqlite-storage"
+    "cordova-sqlite-storage",
+    {
+      "locator": "https://github.com/apache/cordova-plugin-splashscreen.git",
+      "id": "cordova-plugin-facebook4"
+    }
   ],
   "cordovaPlatforms": [
     "ios",

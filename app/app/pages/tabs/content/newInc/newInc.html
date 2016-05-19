@@ -8,26 +8,20 @@
 </ion-navbar>
 
 
-<ion-content>
+<ion-content>  
   <ion-card>
     <ion-card-content>
       <ion-list>
         <ion-item>
           <ion-label>Element</ion-label>
-          <ion-select [(ngModel)]="element">
-            <ion-option value="acera">Acera</ion-option>
-            <ion-option value="calzada">Calzada</ion-option>
-            <ion-option value="farola">Farola</ion-option>
-            <ion-option value="arbol">Arbol</ion-option>
-            <ion-option value="parque">Parque</ion-option>
-            <ion-option value="alcantarilla">Alcantarilla</ion-option>
+          <ion-select [(ngModel)]="newInc.tipoElementoID" multiple="false" (ngModelChange)="changeTipoElemento()">
+            <ion-option *ngFor="#tipoElemento of tiposElementos" value="{{tipoElemento.TipoElementoID}}" [checked]="false">{{tipoElemento.DesTipoElemento}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
           <ion-label>Incident</ion-label>
-          <ion-select [(ngModel)]="incident">
-            <ion-option value="rota">Rota</ion-option>
-            <ion-option value="hundida">Hundida</ion-option>
+          <ion-select [(ngModel)]="newInc.tipoIncidenciaID" multiple="false">
+            <ion-option *ngFor="#tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" [checked]="false">{{tipoIncidencia.TipoInc}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>
@@ -43,48 +37,20 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-
+  
   <ion-card class="ion-card-map">
-<<<<<<< HEAD
 
-    <!--<sebm-google-map
-=======
-   <!--
-    <sebm-google-map
->>>>>>> origin/master
-      [latitude]="lat"
-      [longitude]="lng"
-      [zoom]="zoom"
-      [disableDefaultUI]="false"
-      (mapClick)="mapClicked($event)">
-
-      <sebm-google-map-marker
-        *ngFor="#m of markers; #i = index"
-        (markerClick)="clickedMarker(m.label, i)"
-        [latitude]="m.lat"
-        [longitude]="m.lng"
-        [label]="m.label"
-        [markerDraggable]="m.draggable"
-        (dragEnd)="markerDragEnd(m, $event)"></sebm-google-map-marker>
-
-<<<<<<< HEAD
-    </sebm-google-map>-->
-=======
-    </sebm-google-map>
-    -->
-    
-    <div id="map" class="sebm-google-map-container"></div>
-    
->>>>>>> origin/master
+    <div id="mapInc"></div>
     <button fab fab-right class="fab-map" (click)="centerMap()">
       <ion-icon name="pin"></ion-icon>
     </button>
-
+    
     <ion-item>
       <ion-icon name="contact" item-left large></ion-icon>
-      <h2>User location</h2>
+      <h2>User location</h2>      
       <p>{{startAddress}}</p>
     </ion-item>
+
   </ion-card>
 
   <ion-card>

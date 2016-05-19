@@ -14,6 +14,7 @@ export class FamiliesPage {
   isAndroid: any;
   familias: any = [];
   storage: any;
+  lenFamilias: any;
   constructor(private platform: Platform
     , private menu: MenuController
     , private confData: ConferenceData
@@ -29,12 +30,12 @@ export class FamiliesPage {
   onPageWillEnter() {
     this.storage.get('familias').then((familias) => {
         this.familias = JSON.parse(familias);
-        console.log(this.familias);
+        this.lenFamilias = this.familias.length;
     })    
   }
   
-  openNewInc(){
-    this.nav.push(NewIncPage, {});
+  openNewInc(familia){
+    this.nav.push(NewIncPage, familia);
   }
   
   checkFamily(i){

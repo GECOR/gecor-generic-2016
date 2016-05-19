@@ -8,20 +8,20 @@
 </ion-navbar>
 <ion-content families>
     <ion-row *ngFor='#familia of familias; #i = index'>
-        <ion-col width-33 *ngIf="i%3 == 0">
-            <ion-card families class="advanced-background" (click)="openNewInc()">
+        <ion-col width-33 *ngIf="i%3 == 0 && i <= lenFamilias - 1">
+            <ion-card families class="advanced-background" (click)="openNewInc(familias[i])">
                 <img src={{familias[i].Icono}}/>
                 <p>{{familias[i].Nombre}}</p>
             </ion-card>
         </ion-col>
-        <ion-col width-33  *ngIf="i%3 == 0">
-            <ion-card families class="advanced-background" (click)="openNewInc()">
+        <ion-col width-33  *ngIf="i%3 == 0 && i+1 <= lenFamilias - 1">
+            <ion-card families class="advanced-background" (click)="openNewInc(familias[i+1])">
                 <img src={{familias[i+1].Icono}}/>
                 <p>{{familias[i+1].Nombre}}</p>
             </ion-card>
         </ion-col>
-        <ion-col width-33  *ngIf="i%3 == 0">
-            <ion-card families class="advanced-background" (click)="openNewInc()">
+        <ion-col width-33  *ngIf="i%3 == 0 && i+2 <= lenFamilias - 1">
+            <ion-card families class="advanced-background" (click)="openNewInc(familias[i+2])">
                 <img src={{familias[i+2].Icono}}/>
                 <p>{{familias[i+2].Nombre}}</p>
             </ion-card>

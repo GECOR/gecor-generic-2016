@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1060313159714",
+    "project_id": "gecor-system"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060313159714:android:1f01d95243732158",
+        "android_client_info": {
+          "package_name": "com.gecor.ionic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060313159714-vectt43l8h2uqs3nld7ninagd9gmkh45.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gecor.ionic",
+            "certificate_hash": "1545EDB74A04B800480B1F32A42664023127472D"
+          }
+        },
+        {
+          "client_id": "1060313159714-ro0ju8agf2l9aevn8chku7lk1jnbeaj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwpnGCpSu5RjN1pf4v0CW4yiVJDZ5T_90"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

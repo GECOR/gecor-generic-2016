@@ -2,43 +2,53 @@
   "name": "generic-app",
   "description": "Generic: An Ionic project",
   "dependencies": {
-    "angular2": "2.0.0-beta.6",
-    "es6-promise": "3.0.2",
-    "es6-shim": "0.33.13",
-    "ionic-angular": "2.0.0-beta.3",
+    "@angular/common": "2.0.0-rc.1",
+    "@angular/compiler": "2.0.0-rc.1",
+    "@angular/core": "2.0.0-rc.1",
+    "@angular/http": "2.0.0-rc.1",
+    "@angular/platform-browser": "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
+    "@angular/router": "2.0.0-rc.1",
+    "es6-shim": "0.35.0",
+    "ionic-angular": "2.0.0-beta.7",
     "ionic-native": "^1.1.0",
-    "ionicons": "3.0.0-alpha.3",
-    "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.0",
-    "zone.js": "0.5.14",
+    "ionicons": "3.0.0",
+    "reflect-metadata": "0.1.3",
+    "rxjs": "5.0.0-beta.6",
+    "zone.js": "0.6.12",
     "angular2-google-maps": "0.9.0",
     "moment": "^2.12.0"
   },
   "devDependencies": {
-    "del": "1.1.1",
+    "del": "2.2.0",
     "gulp": "3.9.1",
+    "gulp-tslint": "4.3.4",
     "gulp-watch": "4.3.5",
-    "ionic-gulp-browserify-typescript": "^1.0.0",
+    "ionic-gulp-browserify-typescript": "^1.1.0",
     "ionic-gulp-fonts-copy": "^1.0.0",
     "ionic-gulp-html-copy": "^1.0.0",
     "ionic-gulp-sass-build": "^1.0.0",
-    "ionic-gulp-scripts-copy": "^1.0.0"
+    "ionic-gulp-scripts-copy": "^2.0.0",
+    "run-sequence": "1.1.5",
+    "tslint": "^3.10.1",
+    "tslint-eslint-rules": "^1.3.0"
   },
   "cordovaPlugins": [
-    "cordova-plugin-device",
-    "cordova-plugin-console",
-    "cordova-plugin-whitelist",
-    "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard",
-    "cordova-plugin-geolocation",
-    "cordova-plugin-camera",
-    "cordova-plugin-image-picker",
-    "cordova-plugin-crosswalk-webview",
-    "cordova-sqlite-storage",
     {
       "locator": "https://github.com/apache/cordova-plugin-splashscreen.git",
       "id": "cordova-plugin-facebook4"
-    }
+    },
+    {
+      "variables": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.1060313159714-kiq3uggkv91d4g1e993pdubdr1r193ag"
+      },
+      "locator": "cordova-plugin-googleplus",
+      "id": "cordova-plugin-googleplus"
+    },
+    "cordova-plugin-geolocation",
+    "cordova-plugin-camera",
+    "cordova-plugin-image-picker",
+    "cordova-sqlite-storage"
   ],
   "cordovaPlatforms": [
     "ios",

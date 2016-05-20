@@ -126,6 +126,18 @@ export class LoginPage {
         })
     }
     
+    loginGooglePlusUser(){
+         window.plugins.googleplus.login(
+            {},
+             (obj)=> {
+                console.log(obj);
+            },
+            (msg)=> {
+                console.error(msg);
+            }
+        );
+    }
+    
     validateLogin() {
         if (this.email == '' || this.password == '') {
             let prompt = Alert.create({

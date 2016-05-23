@@ -20,8 +20,6 @@
         </ion-item>
         <ion-item>
           <ion-label>Incident</ion-label>
-          <ion-select [(ngModel)]="newInc.tipoIncidenciaID" multiple="false" (ngModelChange)="changeTipoIncidencia()">
-            <ion-option *ngFor="#tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" [checked]="false">{{tipoIncidencia.TipoInc}}</ion-option>
           <ion-select [(ngModel)]="newInc.tipoIncidenciaID" multiple="false">
             <ion-option *ngFor="let tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" [checked]="false">{{tipoIncidencia.TipoInc}}</ion-option>
           </ion-select>

@@ -17,14 +17,14 @@
 		<table>
 			<thead>
 				<tr>
-          <th *ngFor="#dn of dayNames">
+          <th *ngFor="let dn of dayNames">
             {{ dn }}
          </th>
 				</tr>
 			</thead>
 			<tbody>
         <tr *ngFor="let w of weeks;">
-					<td *ngFor="let d of w.days; #i = index;" [ngClass]="checkDate(d)" (click)="selectDate($event, d)"><span [ngClass]="d.selected ? 'active':''">{{ d.day }}</span></td><!--d.isCurrentMonth ? 'actual-month':''-->
+					<td *ngFor="let d of w.days; let i = index;" [ngClass]="checkDate(d)" (click)="selectDate($event, d)"><span [ngClass]="d.selected ? 'active':''">{{ d.day }}</span></td><!--d.isCurrentMonth ? 'actual-month':''-->
 				</tr>
 			</tbody>
 		</table>

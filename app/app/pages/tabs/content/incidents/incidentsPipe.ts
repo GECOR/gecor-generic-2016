@@ -4,12 +4,12 @@ import {Pipe, PipeTransform} from '@angular/core';
   name: "search"
 })
 export class IncidentsSearchPipe  implements PipeTransform {
-  transform(value, args:string[]){
-    if (args[0].toLowerCase() != '') {
+  transform(value, args:string){
+    if (args.toLowerCase() != '') {
       return value.filter((item)=>
-          item.DesTipoElemento.toLowerCase().indexOf(args[0].toLowerCase()) != -1
-          || item.TipoInc.toLowerCase().indexOf(args[0].toLowerCase()) != -1
-          || item.DesUbicacion.toLowerCase().indexOf(args[0].toLowerCase()) != -1
+          item.DesTipoElemento.toLowerCase().indexOf(args.toLowerCase()) != -1
+          || item.TipoInc.toLowerCase().indexOf(args.toLowerCase()) != -1
+          || item.DesUbicacion.toLowerCase().indexOf(args.toLowerCase()) != -1
       );
     }
     return value;

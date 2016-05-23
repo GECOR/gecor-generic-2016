@@ -19,7 +19,7 @@
 
   <ion-list>
     <ion-list-header light>OTHER ENTITIES</ion-list-header>
-    <ion-item *ngFor="#ayto of aytos" (click)="chooseEntitie()" nav-pop>
+    <ion-item *ngFor="let ayto of aytos" (click)="chooseEntitie()" nav-pop>
       <ion-thumbnail item-left small>
         <img src={{ayto.Logo}} size-24>
       </ion-thumbnail>

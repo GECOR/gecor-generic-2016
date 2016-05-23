@@ -74,7 +74,7 @@
     </div>
 
     <div id="gallery" *ngSwitchWhen="'gallery'">
-      <ion-card *ngFor='#incident of incidents | arraySort: order | search: searchText'>
+      <ion-card *ngFor='let incident of incidents | arraySort: order | search: searchText'>
         <img src={{incident.RutaFoto}}/>
         <ion-card-content>
           <div [ngSwitch]=incident.state>

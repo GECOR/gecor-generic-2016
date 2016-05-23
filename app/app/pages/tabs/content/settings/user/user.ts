@@ -32,9 +32,8 @@ export class UserPage {
   }
   
   logout() {
-      let _nav = this.app.getComponent('nav');
+      let _nav = this.app.getRootNav();
       _nav.setRoot(SlidePage);
-      //this.rootPage = SlidePage;
   }
 
   takePhoto() {

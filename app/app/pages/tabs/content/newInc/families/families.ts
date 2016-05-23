@@ -1,6 +1,6 @@
 import {NavController, NavParams, MenuController, Storage, SqlStorage} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
-import {forwardRef, NgZone} from 'angular2/core';
+import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';
 import {NewIncPage} from './../newInc';

@@ -1,6 +1,6 @@
 import {NavController, NavParams, MenuController, ActionSheet, Alert} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
-import {forwardRef, NgZone, provide} from 'angular2/core';
+import {forwardRef, NgZone, provide} from '@angular/core';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {Geolocation, Camera, ImagePicker} from 'ionic-native';
 import {marker} from './reviewInterface';

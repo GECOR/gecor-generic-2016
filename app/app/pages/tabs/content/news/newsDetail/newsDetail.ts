@@ -1,5 +1,5 @@
 import {Page, NavController, NavParams,} from 'ionic-angular';
-import {forwardRef} from 'angular2/core';
+import {forwardRef} from '@angular/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 
 @Page({

@@ -1,3 +1,4 @@
+import {ViewChild, Type} from '@angular/core';
 import {App, Platform, Storage, SqlStorage} from 'ionic-angular';
 import {Splashscreen} from 'ionic-native';
 import {ConferenceData} from './providers/conference-data';
@@ -5,9 +6,8 @@ import {GeolocationProvider} from './providers/geolocation';
 import {UserData} from './providers/user-data';
 import {SlidePage} from './pages/slides/slide';
 import {TabsPage} from './pages/tabs/tabs';
-
 // https://angular.io/docs/ts/latest/api/core/Type-interface.html
-import {Type} from 'angular2/core';
+
 @App({
   templateUrl: './build/app.html',
   providers: [ConferenceData, UserData, GeolocationProvider],

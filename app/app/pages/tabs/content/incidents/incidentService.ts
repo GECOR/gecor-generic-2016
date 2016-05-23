@@ -1,6 +1,6 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {urlGecorApi} from './../../../../appConfig';
-import {Http, Response, Headers, RequestOptions} from 'angular2/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Aviso} from './incidentInterface'; 
 import 'rxjs/Rx';

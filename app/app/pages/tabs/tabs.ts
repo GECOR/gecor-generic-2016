@@ -1,6 +1,6 @@
 import {NavController, NavParams, MenuController} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
-import {forwardRef} from 'angular2/core';
+import {forwardRef} from '@angular/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {IncidentsPage} from './content/incidents/incidents';
 import {NewIncPage} from './content/newInc/newInc';

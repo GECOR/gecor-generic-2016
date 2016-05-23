@@ -1,6 +1,6 @@
 import {IonicApp, NavController, NavParams, MenuController, ActionSheet, Storage, SqlStorage} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
-import {forwardRef, NgZone} from 'angular2/core';
+import {forwardRef, NgZone} from '@angular/core';
 import {Camera, ImagePicker} from 'ionic-native';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';

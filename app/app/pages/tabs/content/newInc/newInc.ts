@@ -1,5 +1,5 @@
 import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, Platform, Storage, SqlStorage} from 'ionic-angular';
-import {forwardRef, NgZone, provide} from 'angular2/core';
+import {forwardRef, NgZone, provide} from '@angular/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {marker} from './newIncInterface';

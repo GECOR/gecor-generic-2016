@@ -1,6 +1,6 @@
 import {NavController, NavParams, MenuController} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
-import {forwardRef, NgZone} from 'angular2/core';
+import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 
 @Page({

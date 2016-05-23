@@ -7,11 +7,12 @@ import {Geolocation, Camera, ImagePicker} from 'ionic-native';
 import {IncidentsPage} from './../incidents/incidents';
 import {SurveyPage} from './survey/survey';
 import {GeolocationProvider} from './../../../../providers/geolocation';
+import {NewIncService} from './newIncService';
 
 @Page({
   templateUrl: './build/pages/tabs/content/newInc/newInc.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider]
+  providers: [GeolocationProvider, NewIncService]
 })
 export class NewIncPage {
   isAndroid: any;
@@ -21,7 +22,24 @@ export class NewIncPage {
   tiposElementos: any;
   tiposIncidencias: any;
   storage: any;
-  newInc: any = {};
+  errorMessage: any;
+  newInc: any = {
+    "tipoElementoID": -1,
+    "desTipoElemento": "",
+    "tipoIncidenciaID": -1,
+    "desTipoIncidencia": "",
+    "desAveria": "",
+    "lat": 0.0,
+    "lng": 0.0,
+    "calleID": -1,
+    "nomCalle": "",
+    "numCalle": 0,
+    "desUbicacion": "",
+    "edificioID": -1,
+    "estadoAvisoID": -1,
+    "tipoProcedenciaID": 2 //Móvil
+  };
+  user: any;
   
   //MAP
   map: google.maps.Map;
@@ -45,6 +63,7 @@ export class NewIncPage {
     , private _ngZone: NgZone
     , private geo: GeolocationProvider
     , private params: NavParams
+    , private newIncService: NewIncService
     ) {
     this.platform = platform;
     this.isAndroid = platform.is('android');
@@ -57,10 +76,16 @@ export class NewIncPage {
         this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID)
     })
     
+    this.storage.get('user').then((user) => {
+        this.user = JSON.parse(user);
+    })
+    
     this.geo.getLocation().then(location =>{
       this.location = location;
       this.latLng = this.location.latLng;
-      this.startAddress = this.location.startAddress;
+      this.newInc.lat = this.latLng.lat();
+      this.newInc.lng = this.latLng.lng();
+      this.newInc.desUbicacion = this.location.startAddress;
       setTimeout(() =>
           this.initMap()
         , 100);      
@@ -83,17 +108,20 @@ export class NewIncPage {
       this.marker = new google.maps.Marker({
         position: this.latLng,
         map: this.map,
-        title: this.startAddress,
+        title: this.newInc.desUbicacion,
         draggable: true
       });      
       
       this.map.addListener('click', (e) => {                 
         this.geo.getDirection(e.latLng).then(location =>{
           this.location = location;
+          this.latLng = this.location.latLng;
+          this.newInc.lat = this.latLng.lat();
+          this.newInc.lng = this.latLng.lng();
           this.marker.setPosition(this.location.latLng);
           this.marker.setTitle(this.location.startAddress);
           //infoWindow.setContent(`<h5>${resp.startAddress}</h5>`)
-          this.startAddress = this.location.startAddress;          
+          this.newInc.desUbicacion = this.location.startAddress;          
         })               
       });
       
@@ -106,7 +134,7 @@ export class NewIncPage {
           this.marker.setPosition(this.location.latLng);
           this.marker.setTitle(this.location.startAddress);
           //infoWindow.setContent(`<h5>${resp.startAddress}</h5>`)
-          this.startAddress = this.location.startAddress;          
+          this.newInc.desUbicacion = this.location.startAddress;          
         })          
       });
       
@@ -119,7 +147,9 @@ export class NewIncPage {
     this.geo.getLocation().then(location =>{
       this.location = location;
       this.latLng = this.location.latLng;
-      this.startAddress = this.location.startAddress;
+      this.newInc.lat = this.latLng.lat();
+      this.newInc.lng = this.latLng.lng();
+      this.newInc.desUbicacion = this.location.startAddress;
       this.map.setCenter(this.latLng);
       this.marker.setPosition(this.location.latLng);
       this.marker.setTitle(this.location.startAddress); 
@@ -176,7 +206,7 @@ export class NewIncPage {
   presentConfirm() {
     let alert = Alert.create({
       title: 'Confirm incident',
-      message: 'Calzada - Rota <br> En calle Marie Curie, 5 <br> Fotos: 2',
+      message: this.newInc.desTipoElemento + ' - ' + this.newInc.desTipoIncidencia + '<br>' + this.newInc.desUbicacion,
       buttons: [
         {
           text: 'Cancel',
@@ -188,7 +218,18 @@ export class NewIncPage {
         {
           text: 'Send',
           handler: () => {
-            this.presentIncidentSuccess();
+            this.newIncService.nuevaIncidencia(this.user.token, this.newInc.tipoElementoID, this.newInc.tipoIncidenciaID, this.newInc.desAveria,
+            this.newInc.lat, this.newInc.lng, this.newInc.calleID, this.newInc.nomCalle, this.newInc.numCalle, this.newInc.desUbicacion, this.newInc.edificioID, 
+            this.newInc.estadoAvisoID, this.newInc.tipoProcedenciaID)
+            .subscribe((inc) =>{
+              console.log(inc);
+              if (inc[0].AvisoID != ""){
+                this.presentIncidentSuccess();
+              }else{
+                this.showAlert("Error", "There is some error sending this incident", "OK");
+              }
+            },
+            error =>  this.errorMessage = <any>error);
           }
         }
       ]
@@ -220,14 +261,51 @@ export class NewIncPage {
   }
 
   newIncident(){
-    this.presentConfirm();
+    if (this.checkFields()) this.presentConfirm();
+  }
+  
+  checkFields(){
+    var ok = true;
+    
+    if (this.newInc.tipoElementoID == -1){
+      ok = false;
+      this.showAlert("Atention", "Please choose a element", "OK");
+      return ok;
+    }
+    
+    if (this.newInc.tipoIncidenciaID == -1){
+      ok = false;
+      this.showAlert("Atention", "Please choose a incident", "OK");
+      return ok;
+    }
+    
+    if (this.newInc.desAveria == ""){
+      ok = false;
+      this.showAlert("Atention", "Please write some description", "OK");
+      return ok;
+    }
+    
+    return ok;
+  }
+  
+  showAlert(title, subTitle, okButton){
+    let alert = Alert.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: [okButton]
+    });
+    this.nav.present(alert);
   }
   
   changeTipoElemento(){
-    this.newInc.tipoIncidenciaID = undefined;
     this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
         this.tiposIncidencias = JSON.parse(tiposIncidencias);
         this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.newInc.tipoElementoID)
     })
+  }
+  
+  changeTipoIncidencia(){
+    this.newInc.desTipoElemento = this.tiposElementos.filter(item => item.TipoElementoID == this.newInc.tipoElementoID)[0].DesTipoElemento
+    this.newInc.desTipoIncidencia = this.tiposIncidencias.filter(item => item.TipoIncID == this.newInc.tipoIncidenciaID)[0].TipoInc
   }
 }

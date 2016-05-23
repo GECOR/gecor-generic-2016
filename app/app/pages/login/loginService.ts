@@ -16,7 +16,7 @@ export class LoginService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         
-        return this.http.post(urlGecorApi + '/User/loginUser', body, options)
+        return this.http.post(urlGecorApi + 'User/loginUser', body, options)
                         .map(res => <any> res.json())
                         .do() // eyeball results in the console
                         .catch(this.handleError)
@@ -29,7 +29,7 @@ export class LoginService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         
-        return this.http.post(urlGecorApi + '/Utils/getAyuntamientosPorCercania', body, options)
+        return this.http.post(urlGecorApi + 'Utils/getAyuntamientosPorCercania', body, options)
                         .map(res => <Ayuntamiento> res.json())
                         .do() // eyeball results in the console
                         .catch(this.handleError)
@@ -42,7 +42,7 @@ export class LoginService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         
-        return this.http.post(urlGecorApi + '/Typology/getTipologiaPorAyuntamiento', body, options)
+        return this.http.post(urlGecorApi + 'Typology/getTipologiaPorAyuntamiento', body, options)
                         .map(res => <any> res.json())
                         .do() // eyeball results in the console
                         .catch(this.handleError)

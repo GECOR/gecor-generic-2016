@@ -2,21 +2,23 @@ import {Injectable} from 'angular2/core';
 import {urlGecorApi} from './../../../../appConfig';
 import {Http, Response, Headers, RequestOptions} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
-import {Aviso} from './incidentInterface'; 
 import 'rxjs/Rx';
 
 @Injectable()
-export class IncidentService {
+export class NewIncService {
     constructor (private http: Http) {}
     
-    getMisIncidencias(ciudadanoID: number, token: string): Observable<Aviso> {
+    nuevaIncidencia(token: string, tipoElementoID: number, tipoIncID: number, desAveria: string, 
+    x: number, y: number, calleID: number, nomCalle: number, numCalle: number, desUbicacion: string,
+    edificioID: number, estadoAvisoID: number, tipoProcedenciaID: number): Observable<any> {
         
-        let body = JSON.stringify({ token, ciudadanoID });
+        let body = JSON.stringify({ token, tipoElementoID, tipoIncID, desAveria, x, y, calleID, nomCalle, numCalle,
+            desUbicacion, edificioID, estadoAvisoID, tipoProcedenciaID });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         
-        return this.http.post(urlGecorApi + 'Incident/getMisIncidencias', body, options)
-                        .map(res => <Aviso> res.json())
+        return this.http.post(urlGecorApi + 'Incident/nuevaIncidencia', body, options)
+                        .map(res => <any> res.json())
                         .do() // eyeball results in the console
                         .catch(this.handleError)
                     
@@ -27,5 +29,5 @@ export class IncidentService {
         // instead of just logging it to the console
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
-  }
+    }
 }

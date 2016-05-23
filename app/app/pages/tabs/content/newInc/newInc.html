@@ -20,7 +20,7 @@
         </ion-item>
         <ion-item>
           <ion-label>Incident</ion-label>
-          <ion-select [(ngModel)]="newInc.tipoIncidenciaID" multiple="false">
+          <ion-select [(ngModel)]="newInc.tipoIncidenciaID" multiple="false" (ngModelChange)="changeTipoIncidencia()">
             <ion-option *ngFor="#tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" [checked]="false">{{tipoIncidencia.TipoInc}}</ion-option>
           </ion-select>
         </ion-item>
@@ -32,7 +32,7 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-textarea type="text" placeholder="Description"></ion-textarea>
+          <ion-textarea type="text" placeholder="Description" [(ngModel)]="newInc.desAveria"></ion-textarea>
         </ion-item>
       </ion-list>
     </ion-card-content>
@@ -48,7 +48,7 @@
     <ion-item>
       <ion-icon name="contact" item-left large></ion-icon>
       <h2>User location</h2>      
-      <p>{{startAddress}}</p>
+      <p>{{newInc.desUbicacion}}</p>
     </ion-item>
 
   </ion-card>

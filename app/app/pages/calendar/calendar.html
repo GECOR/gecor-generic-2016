@@ -23,8 +23,8 @@
 				</tr>
 			</thead>
 			<tbody>
-        <tr *ngFor="#w of weeks;">
-					<td *ngFor="#d of w.days; #i = index;" [ngClass]="checkDate(d)" (click)="selectDate($event, d)"><span [ngClass]="d.selected ? 'active':''">{{ d.day }}</span></td><!--d.isCurrentMonth ? 'actual-month':''-->
+        <tr *ngFor="let w of weeks;">
+					<td *ngFor="let d of w.days; #i = index;" [ngClass]="checkDate(d)" (click)="selectDate($event, d)"><span [ngClass]="d.selected ? 'active':''">{{ d.day }}</span></td><!--d.isCurrentMonth ? 'actual-month':''-->
 				</tr>
 			</tbody>
 		</table>

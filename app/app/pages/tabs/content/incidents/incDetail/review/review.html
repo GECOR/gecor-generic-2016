@@ -70,7 +70,7 @@
       (mapClick)="mapClicked($event)">
 
       <sebm-google-map-marker
-        *ngFor="#m of markers; #i = index"
+        *ngFor="let m of markers; #i = index"
         (markerClick)="clickedMarker(m.label, i)"
         [latitude]="m.lat"
         [longitude]="m.lng"

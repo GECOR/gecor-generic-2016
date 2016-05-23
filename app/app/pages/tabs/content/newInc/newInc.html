@@ -15,13 +15,13 @@
         <ion-item>
           <ion-label>Element</ion-label>
           <ion-select [(ngModel)]="newInc.tipoElementoID" multiple="false" (ngModelChange)="changeTipoElemento()">
-            <ion-option *ngFor="#tipoElemento of tiposElementos" value="{{tipoElemento.TipoElementoID}}" [checked]="false">{{tipoElemento.DesTipoElemento}}</ion-option>
+            <ion-option *ngFor="let tipoElemento of tiposElementos" value="{{tipoElemento.TipoElementoID}}" [checked]="false">{{tipoElemento.DesTipoElemento}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
           <ion-label>Incident</ion-label>
           <ion-select [(ngModel)]="newInc.tipoIncidenciaID" multiple="false">
-            <ion-option *ngFor="#tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" [checked]="false">{{tipoIncidencia.TipoInc}}</ion-option>
+            <ion-option *ngFor="let tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" [checked]="false">{{tipoIncidencia.TipoInc}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>

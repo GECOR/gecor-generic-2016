@@ -12,7 +12,7 @@
 
 <ion-content id="chat" class="chat">
   <div class="messages">
-    <div class="message" *ngFor="#m of msgs">
+    <div class="message" *ngFor="let m of msgs">
     <!--<div class="message" *ngFor="#m of msgs | async" [ngClass]="{'me': m.sender.id === me.id}">-->
       <!--<img [src]="m.sender.avatar" class="avatar" *ngIf="m.sender.id !== me.id">-->
       {{ m.msg }}

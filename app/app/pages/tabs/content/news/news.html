@@ -8,7 +8,7 @@
 </ion-navbar>
 <ion-content >
 
-  <div *ngFor='#new of news; #i = index'>
+  <div *ngFor='let new of news; let i = index'>
     <div id="switch" [ngSwitch]="new.length">
       <ion-row news *ngSwitchWhen=1>
         <ion-col news>

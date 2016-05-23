@@ -1,5 +1,5 @@
 import {Page, NavController} from 'ionic-angular';
-import {forwardRef} from 'angular2/core';
+import {forwardRef} from '@angular/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {NewsDetailPage} from './newsDetail/newsDetail';
 import {ConferenceData} from './../../../../providers/conference-data';

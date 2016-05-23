@@ -55,7 +55,7 @@
 
   <div id="switch" [ngSwitch]="type">
     <ion-list *ngSwitchDefault>
-      <ion-item *ngFor="#incident of incidents | arraySort: order | search: searchText">
+      <ion-item *ngFor="let incident of incidents | arraySort: order | search: searchText">
         <ion-thumbnail item-left>
           <img src={{incident.RutaFoto}}>
         </ion-thumbnail>

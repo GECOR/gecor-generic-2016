@@ -1,8 +1,8 @@
 /// <reference path="../../../typings/tsd.d.ts" />
 
 import {Page, ViewController, Platform} from 'ionic-angular';
-import {Component, ViewContainerRef, Input, Output, EventEmitter, AfterViewInit} from 'angular2/core';
-import {NgIf, NgFor, NgClass, NgModel, FORM_DIRECTIVES, ControlValueAccessor} from 'angular2/common';
+import {Component, ViewContainerRef, Input, Output, EventEmitter, AfterViewInit} from '@angular/core';
+import {NgIf, NgFor, NgClass, NgModel, FORM_DIRECTIVES, ControlValueAccessor} from '@angular/common';
 import * as moment_ from 'moment';
 
 const moment: moment.MomentStatic = (<any>moment_)['default'] || moment_;

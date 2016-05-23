@@ -1,13 +1,12 @@
-import {App, Platform} from 'ionic-angular';
+import {ViewChild, Type} from '@angular/core';
+import {App, Platform, Storage, SqlStorage} from 'ionic-angular';
+import {Splashscreen} from 'ionic-native';
 import {ConferenceData} from './providers/conference-data';
 import {GeolocationProvider} from './providers/geolocation';
 import {UserData} from './providers/user-data';
-//import {HomePage} from './pages/home/home';
 import {SlidePage} from './pages/slides/slide';
-
+import {TabsPage} from './pages/tabs/tabs';
 // https://angular.io/docs/ts/latest/api/core/Type-interface.html
-import {Type} from 'angular2/core';
-
 
 @App({
   templateUrl: './build/app.html',
@@ -15,28 +14,30 @@ import {Type} from 'angular2/core';
   config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })
 export class MyApp {
-  rootPage: Type = SlidePage;
+  storage: any;
+  user: any;
+  rootPage: Type;// = SlidePage;
 
   constructor(platform: Platform, confData: ConferenceData, geo: GeolocationProvider) {
     // load the conference data
-    confData.load();
-
-    platform.ready().then(() => {
-      // The platform is now ready. Note: if this callback fails to fire, follow
-      // the Troubleshooting guide for a number of possible solutions:
-      //
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      //
-      // First, let's hide the keyboard accessory bar (only works natively) since
-      // that's a better default:
-      //
-      // Keyboard.setAccessoryBarVisible(false);
-      //
-      // For example, we might change the StatusBar color. This one below is
-      // good for dark backgrounds and light text:
-      // StatusBar.setStyle(StatusBar.LIGHT_CONTENT)
-      
+    confData.load();    
+    this.storage = new Storage(SqlStorage);
+    
+    this.storage.get('user').then((user) => {      
+      this.user = JSON.parse(user);      
+      console.log(this.user);      
+      platform.ready().then(() => {
+        if(this.user){
+          if(this.user.token){
+            this.rootPage = TabsPage;
+          }else{
+            this.rootPage = SlidePage;
+          }
+        }else{
+          this.rootPage = SlidePage;
+        }      
+        Splashscreen.hide();
+      });
     });
   }
 }

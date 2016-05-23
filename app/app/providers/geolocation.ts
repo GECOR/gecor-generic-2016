@@ -1,5 +1,4 @@
-import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/http';
+import {Injectable} from '@angular/core';
 import {Geolocation} from 'ionic-native';
 
 
@@ -17,7 +16,7 @@ export class GeolocationProvider {
   lng: number;
   //END MAP
 
-  constructor(private http: Http) {}
+  constructor() {}
 
   locate() {
     let options = {maximumAge: 5000, timeout: 15000, enableHighAccuracy: true};

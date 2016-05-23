@@ -1,6 +1,6 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {urlGecorApi} from './../../appConfig';
-import {Http, Response, Headers, RequestOptions} from 'angular2/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {User} from './loginInterface'; 
 import {Ayuntamiento} from './loginInterface'; 
@@ -18,7 +18,7 @@ export class LoginService {
         
         return this.http.post(urlGecorApi + 'User/loginUser', body, options)
                         .map(res => <any> res.json())
-                        .do() // eyeball results in the console
+                        //.do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }
@@ -31,7 +31,7 @@ export class LoginService {
         
         return this.http.post(urlGecorApi + 'Utils/getAyuntamientosPorCercania', body, options)
                         .map(res => <Ayuntamiento> res.json())
-                        .do() // eyeball results in the console
+                        //.do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }
@@ -44,7 +44,7 @@ export class LoginService {
         
         return this.http.post(urlGecorApi + 'Typology/getTipologiaPorAyuntamiento', body, options)
                         .map(res => <any> res.json())
-                        .do() // eyeball results in the console
+                        //.do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }

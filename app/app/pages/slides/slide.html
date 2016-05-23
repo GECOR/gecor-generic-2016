@@ -1,7 +1,7 @@
 <ion-content class="has-header tutorial-page">
 
   <ion-slides pager>
-    <ion-slide *ngFor="#slide of slides">
+    <ion-slide *ngFor="let slide of slides">
       <ion-toolbar>
         <ion-buttons end>
           <button (click)="openLoginPage()">Skip</button>

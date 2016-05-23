@@ -1,5 +1,5 @@
 import {Page, NavController, MenuController, Alert, Storage, SqlStorage} from 'ionic-angular';
-import {forwardRef, NgZone} from 'angular2/core';
+import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
 import {TabsPage} from './../tabs/tabs';
@@ -124,6 +124,18 @@ export class LoginPage {
         Facebook.login(["email"]).then((result) => {
             console.log(result)
         })
+    }
+    
+    loginGooglePlusUser(){
+         window.plugins.googleplus.login(
+            {},
+             (obj)=> {
+                console.log(obj);
+            },
+            (msg)=> {
+                console.error(msg);
+            }
+        );
     }
     
     validateLogin() {

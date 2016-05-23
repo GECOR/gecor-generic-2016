@@ -1,5 +1,5 @@
 import { Page, ViewController, IonicApp, Events } from 'ionic-angular';
-import { OnInit } from 'angular2/core';
+import { OnInit } from '@angular/core';
 import * as Rx from 'rxjs/Rx';
 import { ChatService } from './services/chat';
 import { Message } from './models/message';

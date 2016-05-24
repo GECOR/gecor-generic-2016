@@ -1,4 +1,5 @@
-import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, Platform, Storage, SqlStorage} from 'ionic-angular';
+import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, 
+        Platform, Storage, SqlStorage, Events} from 'ionic-angular';
 import {forwardRef, NgZone, provide} from '@angular/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
@@ -64,21 +65,20 @@ export class NewIncPage {
     , private geo: GeolocationProvider
     , private params: NavParams
     , private newIncService: NewIncService
+    , private events: Events
     ) {
     this.platform = platform;
     this.isAndroid = platform.is('android');
     this.images = [undefined, undefined, undefined, undefined];
     this.familia = params.data;
-    this.storage = new Storage(SqlStorage);
-    
+    this.storage = new Storage(SqlStorage);    
     this.storage.get('tiposElementos').then((tiposElementos) => {
         this.tiposElementos = JSON.parse(tiposElementos);
-        this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID)
-    })
-    
+        this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID);
+    });
     this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
-    })
+    });
     
     this.geo.getLocation().then(location =>{
       this.location = location;
@@ -99,12 +99,7 @@ export class NewIncPage {
       this.map = new google.maps.Map(mapEle, {
         center: this.latLng,
         zoom: this.zoom
-      });             
-       
-      //let infoWindow = new google.maps.InfoWindow({
-        //content: `<h5>${this.startAddress}</h5>`
-      //});
-
+      });        
       this.marker = new google.maps.Marker({
         position: this.latLng,
         map: this.map,
@@ -144,7 +139,7 @@ export class NewIncPage {
   }
   
   centerMap(){
-    this.geo.getLocation().then(location =>{
+    this.geo.getLocation().then(location => {
       this.location = location;
       this.latLng = this.location.latLng;
       this.newInc.lat = this.latLng.lat();
@@ -199,7 +194,6 @@ export class NewIncPage {
         }
       ]
     });
-
     this.nav.present(actionSheet);
   }
 
@@ -233,7 +227,7 @@ export class NewIncPage {
           }
         }
       ]
-    });
+    });    
     this.nav.present(alert);
   }
 
@@ -246,7 +240,8 @@ export class NewIncPage {
           text: 'Continue',
           role: 'cancel',
           handler: () => {
-            this.nav.push(IncidentsPage, {});
+            //this.nav.push(IncidentsPage, {});
+            this.events.publish('tab:inc');
           }
         },
         {

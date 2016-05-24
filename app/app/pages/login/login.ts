@@ -1,4 +1,4 @@
-import {Page, NavController, MenuController, Alert, Storage, SqlStorage} from 'ionic-angular';
+import {Page, NavController, MenuController, Alert, Storage, SqlStorage, Loading} from 'ionic-angular';
 import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
@@ -24,6 +24,7 @@ export class LoginPage {
     loginLoading: any;
     aytos: any=[];
     storage: any;
+    loadingComponent: any;
     
     constructor(private nav: NavController
       , private menu: MenuController
@@ -38,6 +39,9 @@ export class LoginPage {
         });
         
         this.storage = new Storage(SqlStorage);
+        this.loadingComponent = Loading.create({
+                content: 'Please wait...'
+            });
 
     }
     
@@ -96,17 +100,20 @@ export class LoginPage {
     }
     
     loginUser() {
-        if (this.validateLogin()){
-            this.loginLoading = true;
+        if (this.validateLogin()){          
+            this.nav.present(this.loadingComponent);
+            //this.loginLoading = true;
             this.loginService.loginUser(this.email, this.password)
                             .subscribe(
                                 (user) =>{                                    
                                     this.user = user;
+                                    this.loadingComponent.dismiss();
+                                    
                                     if (this.user.token != '' && this.user.token != null) {
                                         this.configData();                                      
                                         this.storage.set('user', JSON.stringify(this.user));
                                     }else{
-                                        this.loginLoading = false;
+                                        //this.loginLoading = false;
                                         let prompt = Alert.create({
                                             title: 'Oops!',
                                             message: "The user was incorrect",
@@ -115,7 +122,10 @@ export class LoginPage {
                                         this.nav.present(prompt);
                                     }
                                 },
-                                error =>  this.errorMessage = <any>error);
+                                error => {
+                                    this.errorMessage = <any>error;
+                                    this.loadingComponent.dismiss();
+                                });
         }
         
     }

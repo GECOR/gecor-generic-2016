@@ -1,4 +1,5 @@
-import {NavController, NavParams, MenuController} from 'ionic-angular';
+import {ViewChild} from '@angular/core';
+import {NavController, NavParams, MenuController, Events, Tabs} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
@@ -41,12 +42,16 @@ export class TabsContentPage {
   providers: [GeolocationProvider]
 })
 export class TabsPage {
+  
   tabOne;
   tabTwo;
   tabThree;
   tabFour;
   tabFive;
-  constructor(private geo: GeolocationProvider) {
+  @ViewChild('myTabs') tabRef: Tabs;
+  
+  constructor(private geo: GeolocationProvider
+    , private events: Events) {
     this.tabOne = IncidentsPage;
     this.tabTwo = FamiliesPage;
     this.tabThree = NewsPage;
@@ -56,11 +61,36 @@ export class TabsPage {
     geo.getLocation().then(location =>{
       console.log(location);
     });
+    
+    this.listenToTabEvents();
   }
 
   onPageWillLeave() {
     document.getElementById('md-tabs-icon-text').style.display = "none";
     document.getElementById('md-only').style.display = "block";
+  }
+  
+  listenToTabEvents() {
+    this.events.subscribe('tab:home', () => {
+      this.tabRef.select(0);//home
+    });
+
+    this.events.subscribe('tab:inc', () => {
+      this.tabRef.select(1);//Incidents
+    });
+
+    this.events.subscribe('tab:addInc', () => {
+      this.tabRef.select(2);//Add incident
+    });
+    
+    this.events.subscribe('tab:news', () => {
+      this.tabRef.select(3);//News
+    });
+    
+    this.events.subscribe('tab:settings', () => {
+      this.tabRef.select(4);//Settings
+    });
+    
   }
 
 }

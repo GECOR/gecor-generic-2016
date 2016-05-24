@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.gecor.ionic" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>V2 Test</name>
-    <description>An Ionic Framework and Cordova project.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <name>Gecor Incidencias</name>
+    <description>Gestor de Incidencias en vias publicas.</description>
+    <author email="	info@gecor.es" href="http://www.gecor.es">GECOR SYSTEM S.L.</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -53,22 +53,34 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
+ 
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-minSdkVersion" value="15" />
     <preference name="BackupWebStorage" value="none" />
-    <feature name="StatusBar">
-        <param name="ios-package" onload="true" value="CDVStatusBar" />
-    </feature>
     <preference name="SplashScreen" value="screen" />
     <preference name="orientation" value="portrait" />
     <preference name="SplashScreenDelay" value="10000" />
-    <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="FadeSplashScreen" value="true"/>
+    <preference name="FadeSplashScreenDuration" value="750"/>
+    <preference name="ShowSplashScreenSpinner" value="false"/>
     <preference name="auto-hide-splash-screen" value="false" />
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
+    <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.0.0" />
+    <plugin name="cordova-plugin-splashscreen" spec="https://github.com/apache/cordova-plugin-splashscreen.git" />
+    
     <plugin name="cordova-plugin-facebook4" spec="~1.7.1">
         <variable name="APP_ID" value="966036306826184" />
         <variable name="APP_NAME" value="Gecor" />
     </plugin>
-    <engine name="android" spec="~5.1.1" />
+    
+    <preference name="xwalkVersion" value="xwalk_core_library_beta:18+" />
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
+    <preference name="xwalkMode" value="embedded" />
+    <preference name="xwalkMultipleApk" value="true" />
+    
 </widget>

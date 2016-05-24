@@ -23,21 +23,28 @@ export class MyApp {
     confData.load();    
     this.storage = new Storage(SqlStorage);
     
-    this.storage.get('user').then((user) => {      
-      this.user = JSON.parse(user);      
-      console.log(this.user);      
-      platform.ready().then(() => {
-        if(this.user){
-          if(this.user.token){
-            this.rootPage = TabsPage;
-          }else{
-            this.rootPage = SlidePage;
-          }
+    this.storage.get('user').then((user) => {
+      if(user){        
+        this.user = JSON.parse(user);      
+        console.log(this.user); 
+      }    
+         
+      if(this.user){
+        if(this.user.token){
+          this.rootPage = TabsPage;
         }else{
           this.rootPage = SlidePage;
-        }      
-        Splashscreen.hide();
-      });
+        }
+      }else{
+        this.rootPage = SlidePage;
+      }    
+        
+      Splashscreen.hide();           
     });
+    
+     platform.ready().then(() => {
+        
+      });
+      
   }
 }

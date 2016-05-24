@@ -7,7 +7,7 @@
   </ion-title>
 </ion-navbar>
 <ion-content families>
-    <ion-row *ngFor='let familia of familias; let i = index'>
+    <ion-row families *ngFor='let familia of familias; let i = index'>
         <ion-col width-33 *ngIf="i%3 == 0 && i <= lenFamilias - 1">
             <ion-card families class="advanced-background" (click)="openNewInc(familias[i])">
                 <img src={{familias[i].Icono}}/>

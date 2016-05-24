@@ -1,6 +1,6 @@
 ion-row[news]{
-  padding: 1px;
-  //margin-bottom: 5px;
+  /*padding: 1px;*/
+  margin-bottom: -10px;
 }
 
 ion-col[news]{
@@ -8,9 +8,11 @@ ion-col[news]{
   margin-right: 1px;
 }
 
+/* FIX CSS
 ion-card[news] {
   margin: 0;
 }
+*/
 
 ion-content ion-card ion-item.advanced-trans p {
   color: #fff;

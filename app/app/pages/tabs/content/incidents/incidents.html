@@ -39,7 +39,7 @@
 
 <ion-content class="incidents-page">
 
-  <ion-searchbar
+  <ion-searchbar [hidden]="type=='map'"
     [(ngModel)]="searchText"
     (input)="inputSearch($event)">
   </ion-searchbar>

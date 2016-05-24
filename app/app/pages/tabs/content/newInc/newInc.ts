@@ -241,7 +241,8 @@ export class NewIncPage {
           role: 'cancel',
           handler: () => {
             //this.nav.push(IncidentsPage, {});
-            this.events.publish('tab:inc');
+            this.nav.pop();           
+            this.events.publish('tab:inc');            
           }
         },
         {

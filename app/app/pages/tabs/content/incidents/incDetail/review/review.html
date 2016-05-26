@@ -13,31 +13,25 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-textarea type="text" placeholder="Description"></ion-textarea>
+          <ion-textarea type="text" placeholder="Solution" [(ngModel)]="reviewInc.DesSolucion"></ion-textarea>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <ion-card *ngIf="showTypology">
     <ion-card-content>
       <ion-list>
         <ion-item>
           <ion-label>Element</ion-label>
-          <ion-select [(ngModel)]="element">
-            <ion-option value="acera">Acera</ion-option>
-            <ion-option value="calzada">Calzada</ion-option>
-            <ion-option value="farola">Farola</ion-option>
-            <ion-option value="arbol">Arbol</ion-option>
-            <ion-option value="parque">Parque</ion-option>
-            <ion-option value="alcantarilla">Alcantarilla</ion-option>
+          <ion-select [(ngModel)]="reviewInc.tipoElementoID" multiple="false" (ngModelChange)="changeTipoElemento()">
+            <ion-option *ngFor="let tipoElemento of tiposElementos" value="{{tipoElemento.TipoElementoID}}" [checked]="false">{{tipoElemento.DesTipoElemento}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
           <ion-label>Incident</ion-label>
-          <ion-select [(ngModel)]="incident">
-            <ion-option value="rota">Rota</ion-option>
-            <ion-option value="hundida">Hundida</ion-option>
+          <ion-select [(ngModel)]="reviewInc.tipoIncidenciaID" multiple="false">
+            <ion-option *ngFor="let tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" [checked]="false">{{tipoIncidencia.TipoInc}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>
@@ -49,46 +43,40 @@
       <ion-list>
         <ion-item>
           <ion-label>State</ion-label>
-          <ion-select [(ngModel)]="element">
-            <ion-option value="terminado">Terminado</ion-option>
-            <ion-option value="curso">En curso</ion-option>
-            <ion-option value="planificado">Planificado</ion-option>
-            <ion-option value="rechazado">Rechazado</ion-option>
+          <ion-select [(ngModel)]="reviewInc.EstadoAvisoID" multiple="false">
+            <ion-option *ngFor="let estado of estados" value="{{estado.EstadoAvisoID}}" [checked]="false">{{estado.Nombre}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Responsible</ion-label>
+          <ion-select [(ngModel)]="reviewInc.OrigenIDResponsable" multiple="false">
+            <ion-option *ngFor="let responsable of responsables" value="{{responsable.OrigenID}}" [checked]="false">{{responsable.DesOrigen}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="ion-card-map">
+  <ion-card class="ion-card-map" *ngIf="showMap">
 
-    <sebm-google-map
-      [latitude]="lat"
-      [longitude]="lng"
-      [zoom]="zoom"
-      [disableDefaultUI]="false"
-      (mapClick)="mapClicked($event)">
-
-      <sebm-google-map-marker
-        *ngFor="let m of markers; let i = index"
-        (markerClick)="clickedMarker(m.label, i)"
-        [latitude]="m.lat"
-        [longitude]="m.lng"
-        [label]="m.label"
-        [markerDraggable]="m.draggable"
-        (dragEnd)="markerDragEnd(m, $event)">        
-       </sebm-google-map-marker>
-    </sebm-google-map>
-    
+    <div id="mapInc"></div>
     <button fab fab-right class="fab-map" (click)="centerMap()">
       <ion-icon name="pin"></ion-icon>
     </button>
-
+    
     <ion-item>
       <ion-icon name="contact" item-left large></ion-icon>
-      <h2>User location</h2>
-      <p>{{startAddress}}</p>
+      <h2>User location</h2>      
+      <p>{{reviewInc.desUbicacion}}</p>
     </ion-item>
+
   </ion-card>
 
   <ion-card>
@@ -114,5 +102,5 @@
     </ion-card-content>
   </ion-card>
 
-  <button full send-incident (click)="newIncident()">Review</button>
+  <button full send-incident (click)="reviewIncident()">Review</button>
 </ion-content>

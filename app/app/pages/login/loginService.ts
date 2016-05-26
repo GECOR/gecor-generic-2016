@@ -49,6 +49,32 @@ export class LoginService {
                     
     }
     
+    getEstadosPorAyuntamiento(token: string): Observable<any> {
+        
+        let body = JSON.stringify({ token });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        
+        return this.http.post(urlGecorApi + 'Utils/getEstadosPorAyuntamiento', body, options)
+                        .map(res => <any> res.json())
+                        //.do() // eyeball results in the console
+                        .catch(this.handleError)
+                    
+    }
+    
+    getResponsablesPorAyuntamiento(token: string): Observable<any> {
+        
+        let body = JSON.stringify({ token });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        
+        return this.http.post(urlGecorApi + 'Utils/getResponsablesPorAyuntamiento', body, options)
+                        .map(res => <any> res.json())
+                        //.do() // eyeball results in the console
+                        .catch(this.handleError)
+                    
+    }
+    
     private handleError (error: Response) {
         // in a real world app, we may send the error to some remote logging infrastructure
         // instead of just logging it to the console

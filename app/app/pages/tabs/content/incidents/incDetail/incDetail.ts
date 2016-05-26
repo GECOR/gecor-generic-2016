@@ -70,8 +70,6 @@ export class IncDetailPage {
 
     this.directionsDisplay = new google.maps.DirectionsRenderer({map: this.map});
     this.stepDisplay = new google.maps.InfoWindow;
-    
-    console.log("detalle de la inc");
 
     // Display the route between the initial start and end selections.
     this.calculateAndDisplayRoute(this.directionsDisplay, this.stepDisplay);
@@ -93,8 +91,6 @@ export class IncDetailPage {
       if (status === google.maps.DirectionsStatus.OK) {
         /*document.getElementById('warnings-panel').innerHTML =
             '<b>' + response.routes[0].warnings + '</b>';*/
-
-        console.log(response.routes);
         this.zone.run(() => {
           this.timeTravel = response.routes[0].legs[0].duration.text;
           this.distanceTravel = response.routes[0].legs[0].distance.text;

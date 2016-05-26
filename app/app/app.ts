@@ -25,8 +25,7 @@ export class MyApp {
     
     this.storage.get('user').then((user) => {
       if(user){        
-        this.user = JSON.parse(user);      
-        console.log(this.user); 
+        this.user = JSON.parse(user);
       }    
          
       if(this.user){

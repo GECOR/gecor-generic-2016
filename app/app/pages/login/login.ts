@@ -106,14 +106,14 @@ export class LoginPage {
             this.loginService.loginUser(this.email, this.password)
                             .subscribe(
                                 (user) =>{                                    
-                                    this.user = user;
-                                    this.loadingComponent.dismiss();
+                                    this.user = user;                                   
                                     
                                     if (this.user.token != '' && this.user.token != null) {
                                         this.configData();                                      
                                         this.storage.set('user', JSON.stringify(this.user));
                                     }else{
                                         //this.loginLoading = false;
+                                        this.loadingComponent.dismiss();
                                         let prompt = Alert.create({
                                             title: 'Oops!',
                                             message: "The user was incorrect",
@@ -164,14 +164,28 @@ export class LoginPage {
     
     configData() {
         this.loginService.getTipologiaPorAyuntamiento(this.user.token)
-                            .subscribe(
-                                (data) =>{
-                                    console.log(data);
-                                    this.storage.set('familias', JSON.stringify(data.Familias));
-                                    this.storage.set('tiposElementos', JSON.stringify(data.Elementos));
-                                    this.storage.set('tiposIncidencias', JSON.stringify(data.Incidencias));
-                                    this.nav.push(TabsPage);
-                                },
-                                error =>  this.errorMessage = <any>error);
+            .subscribe(
+                (data) =>{
+                    this.storage.set('familias', JSON.stringify(data.Familias));
+                    this.storage.set('tiposElementos', JSON.stringify(data.Elementos));
+                    this.storage.set('tiposIncidencias', JSON.stringify(data.Incidencias));
+                    this.loginService.getEstadosPorAyuntamiento(this.user.token)
+                        .subscribe(
+                            (data) =>{
+                                this.storage.set('estados', JSON.stringify(data));
+                                this.loginService.getResponsablesPorAyuntamiento(this.user.token)
+                                    .subscribe(
+                                        (data) =>{
+                                            this.storage.set('responsables', JSON.stringify(data));
+                                            this.loadingComponent.dismiss();
+                                            this.nav.push(TabsPage);
+                                        },
+                                        error =>  this.errorMessage = <any>error);
+                            },
+                            error =>  this.errorMessage = <any>error);
+                },
+                error =>  this.errorMessage = <any>error);
+                                
+        
     }
 }

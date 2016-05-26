@@ -1,122 +1,148 @@
-import {NavController, NavParams, MenuController, ActionSheet, Alert} from 'ionic-angular';
-import {Page, ViewController, Platform} from 'ionic-angular';
+import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, 
+        Platform, Storage, SqlStorage, Events} from 'ionic-angular';
 import {forwardRef, NgZone, provide} from '@angular/core';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
-import {Geolocation, Camera, ImagePicker} from 'ionic-native';
+import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './reviewInterface';
-import {  
-  MapsAPILoader,
-  NoOpMapsAPILoader,
-  MouseEvent,
-  ANGULAR2_GOOGLE_MAPS_DIRECTIVES,
-  ANGULAR2_GOOGLE_MAPS_PROVIDERS  
-} from 'angular2-google-maps/core';
-import {GoogleMapsAPIWrapper} from 'angular2-google-maps/services/google-maps-api-wrapper';
+import {Geolocation, Camera, ImagePicker} from 'ionic-native';
+import {GeolocationProvider} from './../../../../../../providers/geolocation';
+import {ReviewService} from './reviewService';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/review/review.html',
-  directives: [forwardRef(() => AndroidAttribute), ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
-  providers: [ANGULAR2_GOOGLE_MAPS_PROVIDERS, GoogleMapsAPIWrapper,  provide(MapsAPILoader, {useClass: NoOpMapsAPILoader})]
+  directives: [forwardRef(() => AndroidAttribute)],
+  providers: [GeolocationProvider, ReviewService]
 })
 export class ReviewPage {
+  showTypology: boolean;
+  showMap: boolean;
+  
   images: any;
+  estados:any;
+  responsables: any;
+  tiposElementos: any;
+  tiposIncidencias: any;
+  storage: any;
+  errorMessage: any;
+  user: any;
+  reviewInc: any;
+  
   //MAP
-  map: any;
+  map: google.maps.Map;
+  marker: google.maps.Marker;
   latLng: any;
+  location: any;
   geocoderService: any;
   startAddress: string;
-  // google maps zoom level
-  zoom: number = 8;
-  // initial center position for the map
-  lat: number;
-  lng: number;
+  zoom: number = 12;
+  lat: any;
+  lng: any;
   markers: marker[] = []
   //END MAP
+  
   constructor(private platform: Platform
     , private menu: MenuController
+    , private confData: ConferenceData
     , private nav: NavController
     , private _ngZone: NgZone
-    , private _map: GoogleMapsAPIWrapper ) {
-
-      this.images = [undefined, undefined, undefined, undefined];
-      this.initGeolocation();
-
-  }
-
-  //MAP
-  clickedMarker(label: string, index: number) {
-    window.alert(`clicked the marker: ${label || index}`)
-    this.markers.splice(index, 1);
-  }
-
-  mapClicked($event: MouseEvent) {
-    //this.markers = [];
-    this.markers.push({
-      lat: $event.coords.lat,
-      lng: $event.coords.lng,
-      draggable: true
+    , private geo: GeolocationProvider
+    , private params: NavParams
+    , private reviewService: ReviewService
+    , private events: Events
+    ) 
+  {
+    this.showTypology = false;
+    this.showMap = false;
+    this.images = [undefined, undefined, undefined, undefined];
+    this.reviewInc = params.data;
+    console.log(this.reviewInc);
+    
+    this.storage = new Storage(SqlStorage);    
+    this.storage.get('tiposElementos').then((tiposElementos) => {
+        this.tiposElementos = JSON.parse(tiposElementos);
+        //this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID);
     });
+    this.storage.get('estados').then((estados) => {
+        this.estados = JSON.parse(estados);
+    });
+    this.storage.get('responsables').then((responsables) => {
+        this.responsables = JSON.parse(responsables);
+    });
+    this.storage.get('user').then((user) => {
+        this.user = JSON.parse(user);
+    });
+    
+    if (this.showMap){
+      this.geo.getLocation().then(location =>{
+        this.location = location;
+        this.latLng = this.location.latLng;
+        this.reviewInc.lat = this.latLng.lat();
+        this.reviewInc.lng = this.latLng.lng();
+        this.reviewInc.desUbicacion = this.location.startAddress;
+        setTimeout(() =>
+            this.initMap()
+          , 100);      
+      });    
+    }
   }
 
-  markerDragEnd(m: marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
-  }
+  //MAP  
+  initMap() {
+    let mapEle = document.getElementById('mapInc');
 
-  initGeolocation() {
-    let options = {maximumAge: 5000, timeout: 15000, enableHighAccuracy: true};
-    /*navigator.geolocation*/
-    Geolocation.getCurrentPosition(options).then(
-      (position) => {
-        this.geocoderService = new google.maps.Geocoder;
-
-        this.latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-
-        this.geocoderService.geocode({'location': this.latLng}, (results, status) => {
-          if (status === google.maps.GeocoderStatus.OK) {
-            if (results[0]) {
-              this.startAddress = results[0].formatted_address;
-              this._ngZone.run(() => {
-                this.markers.push({
-                  lat: results[0].geometry.location.lat(),
-                  lng: results[0].geometry.location.lng(),
-                  draggable: true
-                });
-              });
-              //_this.loadMap();
-            } else {
-              window.alert('No results found');
-            }
-          } else {
-            window.alert('Geocoder failed due to: ' + status);
-          }
-        });
-      },
-      (error) => {
-        let alert = Alert.create({
-        title: error.code.toString(),
-        subTitle: error.message,
-        buttons: [
-          {
-            text: 'Retry',
-            role: 'reload',
-            handler: () => {
-              //this.loadMap();
-            }
-          }
-          ]
-        });
-        this.nav.present(alert);
+      this.map = new google.maps.Map(mapEle, {
+        center: this.latLng,
+        zoom: this.zoom
+      });        
+      this.marker = new google.maps.Marker({
+        position: this.latLng,
+        map: this.map,
+        title: this.reviewInc.desUbicacion,
+        draggable: true
+      });      
+      
+      this.map.addListener('click', (e) => {                 
+        this.geo.getDirection(e.latLng).then(location =>{
+          this.location = location;
+          this.latLng = this.location.latLng;
+          this.reviewInc.lat = this.latLng.lat();
+          this.reviewInc.lng = this.latLng.lng();
+          this.marker.setPosition(this.location.latLng);
+          this.marker.setTitle(this.location.startAddress);
+          //infoWindow.setContent(`<h5>${resp.startAddress}</h5>`)
+          this.reviewInc.desUbicacion = this.location.startAddress;          
+        })               
+      });
+      
+      this.marker.addListener('click', () => {
+       //infoWindow.open(map, marker);
+      });
+      
+      this.marker.addListener('dragend', (e) => {       
+       this.geo.getDirection(e.latLng).then(resp =>{
+          this.marker.setPosition(this.location.latLng);
+          this.marker.setTitle(this.location.startAddress);
+          //infoWindow.setContent(`<h5>${resp.startAddress}</h5>`)
+          this.reviewInc.desUbicacion = this.location.startAddress;          
+        })          
+      });
+      
+      google.maps.event.addListenerOnce(this.map, 'idle', () => {
+        mapEle.classList.add('show-map');
       });
   }
-
+  
   centerMap(){
-    //let lanlng = new google.maps.LatLng(parseFloat(this.lat), parseFloat(this.lng));
-    //this._ngZone.run(() => {
-      //this._map.setCenter(lanlng);
-      //this._map.setCenter(this.lat, this.lng);
-    //});
+    this.geo.getLocation().then(location => {
+      this.location = location;
+      this.latLng = this.location.latLng;
+      this.reviewInc.lat = this.latLng.lat();
+      this.reviewInc.lng = this.latLng.lng();
+      this.reviewInc.desUbicacion = this.location.startAddress;
+      this.map.setCenter(this.latLng);
+      this.marker.setPosition(this.location.latLng);
+      this.marker.setTitle(this.location.startAddress); 
+    }); 
   }
 
   //END MAP
@@ -128,7 +154,7 @@ export class ReviewPage {
         {
           text: 'Gallery',
           handler: () => {
-            ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
+           ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
                     for (var i = 0; i < results.length; i++) {
                         console.log('Image URI: ' + results[i]);
                     }
@@ -143,7 +169,7 @@ export class ReviewPage {
         },
         {
           text: 'Camera',
-          handler: () => {
+          handler: () => {            
             Camera.getPicture({quality: 50}).then((imageURI) => {
               this.images[id] = imageURI;
             }, (message) => {
@@ -162,9 +188,93 @@ export class ReviewPage {
         }
       ]
     });
-
     this.nav.present(actionSheet);
   }
 
+  presentConfirm() {
+    let alert = Alert.create({
+      title: 'Confirm review',
+      message: this.reviewInc.desSolucion,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Send',
+          handler: () => {
+            this.reviewService.revisarIncidencia(this.user.token, this.reviewInc.AvisoID, this.reviewInc.DesSolucion, this.reviewInc.EstadoAvisoID, this.reviewInc.OrigenIDResponsable)
+            .subscribe((result) =>{
+              console.log(result);
+              if (result[0].RowsAffected > 0){
+                this.presentReviewIncidentSuccess();
+              }else{
+                this.showAlert("Error", "There is some error reviewing this incident", "OK");
+              }
+            },
+            error =>  this.errorMessage = <any>error);
+          }
+        }
+      ]
+    });    
+    this.nav.present(alert);
+  }
 
+  presentReviewIncidentSuccess() {
+    let alertSuccess = Alert.create({
+      title: 'Incident reviewed',
+      message: '',
+      buttons: [
+        {
+          text: 'Continue',
+          role: 'cancel',
+          handler: () => {            
+            setTimeout(() => this.nav.pop(), 200);              
+          }
+        }
+      ]
+    });
+    this.nav.present(alertSuccess);
+  }
+
+  reviewIncident(){
+    if (this.checkFields()) this.presentConfirm();
+  }
+  
+  checkFields(){
+    var ok = true;
+    
+    if (this.reviewInc.desSolucion == ""){
+      ok = false;
+      this.showAlert("Atention", "Please write a solution", "OK");
+      return ok;
+    }
+    
+    return ok;
+  }
+  
+  showAlert(title, subTitle, okButton){
+    let alert = Alert.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: [okButton]
+    });
+    this.nav.present(alert);
+  }
+  
+  changeTipoElemento(){
+    this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
+        this.tiposIncidencias = JSON.parse(tiposIncidencias);
+        this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.reviewInc.tipoElementoID)
+    })
+  }
+  
+  changeTipoIncidencia(){
+    this.reviewInc.desTipoElemento = this.tiposElementos.filter(item => item.TipoElementoID == this.reviewInc.tipoElementoID)[0].DesTipoElemento
+    this.reviewInc.desTipoIncidencia = this.tiposIncidencias.filter(item => item.TipoIncID == this.reviewInc.tipoIncidenciaID)[0].TipoInc
+  }
 }
+

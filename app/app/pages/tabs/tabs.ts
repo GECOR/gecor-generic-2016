@@ -57,10 +57,6 @@ export class TabsPage {
     this.tabThree = NewsPage;
     this.tabFour = SettingsPage;
     this.tabFive = HomePage;
-
-    geo.getLocation().then(location =>{
-      console.log(location);
-    });
     
     this.listenToTabEvents();
   }

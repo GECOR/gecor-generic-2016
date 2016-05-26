@@ -87,11 +87,29 @@ export class IncidentsPage {
   }
   
   addMarkers() {
+    var infowindow, contentString;
     for (let i = 0; i < this.incidents.length; i++) {
       let marker = new google.maps.Marker;
       marker.setMap(this.map);
       let location = new google.maps.LatLng(this.incidents[i].Lat, this.incidents[i].Lng)
       marker.setPosition(location);
+        
+      contentString = '<div id="content">'+
+      '<div id="siteNotice"></div>'+
+      '<img src="'+this.incidents[i].RutaFoto+'" alt="Foto" height="60" width="60">'+
+      '<h1 id="firstHeading" class="firstHeading">'+this.incidents[i].TipoInc+'</h1>'+
+      '<div id="bodyContent">'+
+      '<p>'+this.incidents[i].DesUbicacion+'</p>'+
+      '</div>'+
+      '</div>';
+      
+      infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+      
+      marker.addListener('click', function() {
+        infowindow.open(this.map, marker);
+      });
     }
   }
 

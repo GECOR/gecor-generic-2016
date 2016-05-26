@@ -10,17 +10,17 @@ export class NewIncService {
     
     nuevaIncidencia(token: string, tipoElementoID: number, tipoIncID: number, desAveria: string, 
     x: number, y: number, calleID: number, nomCalle: number, numCalle: number, desUbicacion: string,
-    edificioID: number, estadoAvisoID: number, tipoProcedenciaID: number): Observable<any> {
+    edificioID: number, estadoAvisoID: number, tipoProcedenciaID: number, fotos: any[]): Observable<any> {
         
         let body = JSON.stringify({ token, tipoElementoID, tipoIncID, desAveria, x, y, calleID, nomCalle, numCalle,
-            desUbicacion, edificioID, estadoAvisoID, tipoProcedenciaID });
+            desUbicacion, edificioID, estadoAvisoID, tipoProcedenciaID, fotos });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         
         return this.http.post(urlGecorApi + 'Incident/nuevaIncidencia', body, options)
                         .map(res => <any> res.json())
                         .do() // eyeball results in the console
-                        .catch(this.handleError)
+                        .catch(this.handleError);
                     
     }
     

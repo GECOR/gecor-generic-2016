@@ -46,8 +46,11 @@
       "locator": "cordova-plugin-googleplus",
       "id": "cordova-plugin-googleplus"
     },
+    {
+      "locator": "https://github.com/uiktiomasfeliz/cordova-plugin-camera.git",
+      "id": "cordova-plugin-camera"
+    },
     "cordova-plugin-geolocation",
-    "cordova-plugin-camera",
     "cordova-plugin-image-picker",
     "cordova-sqlite-storage",
     "cordova-plugin-crosswalk-webview"

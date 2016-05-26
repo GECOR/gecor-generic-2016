@@ -1,4 +1,4 @@
-import {Page, NavController, MenuController, Alert, Storage, SqlStorage, Loading} from 'ionic-angular';
+import {Page, NavController, MenuController, Alert, Storage, SqlStorage, Loading, Modal} from 'ionic-angular';
 import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
@@ -10,6 +10,7 @@ import {LoginService} from './loginService';
 import {User} from './loginInterface';
 import {SpinnerLoading} from './../../directives/spinnerLoading/spinnerLoading';
 import {Facebook} from 'ionic-native';
+import {EntitiesModalPage} from './entitiesModal/entitiesModal';
 
 @Page({
   templateUrl: './build/pages/login/login.html',
@@ -25,6 +26,8 @@ export class LoginPage {
     aytos: any=[];
     storage: any;
     loadingComponent: any;
+    aytoSuggested: any;
+    entitiesModal: any;
     
     constructor(private nav: NavController
       , private menu: MenuController
@@ -55,7 +58,16 @@ export class LoginPage {
     }
 
     openEntitiesPage() {
-      this.nav.push(EntitiesPage, this.aytos);
+      //this.nav.push(EntitiesPage, this.aytos);
+      this.entitiesModal = Modal.create(EntitiesModalPage, this.aytos);
+      
+      this.entitiesModal.onDismiss(data => {
+        this.aytoSuggested = data;
+      });
+      
+     
+        this.nav.present(this.entitiesModal);  
+        
     }
 
     forgottenPass() {
@@ -94,7 +106,8 @@ export class LoginPage {
         this.loginService.getAyuntamientosPorDistancia(location.lat, location.lng)
                             .subscribe(
                                 (aytos) =>{
-                                    this.aytos = aytos;                                                                        
+                                    this.aytos = aytos;
+                                    this.aytoSuggested = aytos[0];                                                                        
                                 },
                                 error =>  this.errorMessage = <any>error);
     }

@@ -38,7 +38,8 @@ export class NewIncPage {
     "desUbicacion": "",
     "edificioID": -1,
     "estadoAvisoID": -1,
-    "tipoProcedenciaID": 2 //Móvil
+    "tipoProcedenciaID": 2, //Móvil
+    "fotos": []
   };
   user: any;
   
@@ -56,6 +57,9 @@ export class NewIncPage {
   lng: any;
   markers: marker[] = []
   //END MAP
+  maximumImages = 5;
+  base64string = "data:image/jpeg;base64,";
+  
   
   constructor(private platform: Platform
     , private menu: MenuController
@@ -65,8 +69,8 @@ export class NewIncPage {
     , private geo: GeolocationProvider
     , private params: NavParams
     , private newIncService: NewIncService
-    , private events: Events
-    ) {
+    , private events: Events) {
+  
     this.platform = platform;
     this.isAndroid = platform.is('android');
     this.images = [undefined, undefined, undefined, undefined];
@@ -161,9 +165,15 @@ export class NewIncPage {
           text: 'Gallery',
           handler: () => {
            ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
+                    /*
                     for (var i = 0; i < results.length; i++) {
-                        console.log('Image URI: ' + results[i]);
+                        //console.log('Image URI: ' + results[i]);
+                        this._ngZone.run(() => {
+                          this.images[i] = results[i];
+                        });
                     }
+                    */       
+                    console.log('Image URI: ' + results[0]);             
                     this._ngZone.run(() => {
                       this.images[id] = results[0];
                     });
@@ -176,8 +186,8 @@ export class NewIncPage {
         {
           text: 'Camera',
           handler: () => {            
-            Camera.getPicture({quality: 50}).then((imageURI) => {
-              this.images[id] = imageURI;
+            Camera.getPicture({quality: 50, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
+              this.images[id] = this.base64string + imageURI;
             }, (message) => {
               alert('Failed because Camera!');
               console.log('Failed because: ');
@@ -196,7 +206,21 @@ export class NewIncPage {
     });
     this.nav.present(actionSheet);
   }
-
+  
+  encodeImageUri(imageUri){//image from uri to base64 --> used in gallery
+     var c=document.createElement('canvas');
+     var ctx=c.getContext("2d");
+     var img=new Image();
+     img.onload = () => {
+       c.width=img.width;
+       c.height=img.height;
+       ctx.drawImage(img, 0,0);
+     };
+     img.src=imageUri;
+     var dataURL = c.toDataURL("image/jpeg");//.split(',')[1];
+     return dataURL;
+  }
+  
   presentConfirm() {
     let alert = Alert.create({
       title: 'Confirm incident',
@@ -212,9 +236,15 @@ export class NewIncPage {
         {
           text: 'Send',
           handler: () => {
+            if(this.images){
+              this.images.forEach(element => {
+                this.newInc.fotos.push({"byteFoto": element});//this.encodeImageUri(element)});
+              });
+            } 
+            //console.log(this.newInc);           
             this.newIncService.nuevaIncidencia(this.user.token, this.newInc.tipoElementoID, this.newInc.tipoIncidenciaID, this.newInc.desAveria,
             this.newInc.lat, this.newInc.lng, this.newInc.calleID, this.newInc.nomCalle, this.newInc.numCalle, this.newInc.desUbicacion, this.newInc.edificioID, 
-            this.newInc.estadoAvisoID, this.newInc.tipoProcedenciaID)
+            this.newInc.estadoAvisoID, this.newInc.tipoProcedenciaID, this.newInc.fotos)
             .subscribe((inc) =>{
               console.log(inc);
               if (inc[0].AvisoID != ""){

@@ -1,5 +1,5 @@
 import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, 
-        Platform, Storage, SqlStorage, Events, Loading} from 'ionic-angular';
+        Platform, Storage, SqlStorage, Events, Loading, Modal} from 'ionic-angular';
 import {forwardRef, NgZone, provide} from '@angular/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
@@ -9,6 +9,7 @@ import {IncidentsPage} from './../incidents/incidents';
 import {SurveyPage} from './survey/survey';
 import {GeolocationProvider} from './../../../../providers/geolocation';
 import {NewIncService} from './newIncService';
+import {GalleryModalPage} from './../../../galleryModal/galleryModal';
 
 @Page({
   templateUrl: './build/pages/tabs/content/newInc/newInc.html',
@@ -210,7 +211,8 @@ export class NewIncPage {
     });
     this.nav.present(actionSheet);
   }
-  
+ 
+  /*
   encodeImageUri(imageUri){//image from uri to base64 --> used in gallery
      var c=document.createElement('canvas');
      var ctx=c.getContext("2d");
@@ -224,6 +226,7 @@ export class NewIncPage {
      var dataURL = c.toDataURL("image/jpeg");//.split(',')[1];
      return dataURL;
   }
+  */
   
   presentConfirm() {
     let alert = Alert.create({
@@ -341,4 +344,13 @@ export class NewIncPage {
     this.newInc.desTipoElemento = this.tiposElementos.filter(item => item.TipoElementoID == this.newInc.tipoElementoID)[0].DesTipoElemento
     this.newInc.desTipoIncidencia = this.tiposIncidencias.filter(item => item.TipoIncID == this.newInc.tipoIncidenciaID)[0].TipoInc
   }
+  
+  openGallery(){
+    let galleryModal = Modal.create(GalleryModalPage, this.images);      
+    //galleryModal.onDismiss(data => {
+      //console.log(data);
+    //});     
+    this.nav.present(galleryModal);  
+  }
+  
 }

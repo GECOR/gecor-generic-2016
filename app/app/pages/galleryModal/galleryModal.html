@@ -1,0 +1,17 @@
+<ion-content class="gallery-page">  
+  
+  <ion-toolbar>
+    <ion-buttons end>
+        <button (click)="dismiss()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-toolbar>
+  
+  <ion-slides [options]="galleryOptions">   
+    <ion-slide *ngFor="let image of images"><!-- *ngIf="image != undefined" -->
+        <img [src]="image" />
+    </ion-slide>
+   </ion-slides>
+   
+</ion-content>

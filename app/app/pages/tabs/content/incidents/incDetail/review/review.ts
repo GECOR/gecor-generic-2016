@@ -1,5 +1,5 @@
 import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, 
-        Platform, Storage, SqlStorage, Events, Loading} from 'ionic-angular';
+        Platform, Storage, SqlStorage, Events, Loading, Modal} from 'ionic-angular';
 import {forwardRef, NgZone, provide} from '@angular/core';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
@@ -7,6 +7,7 @@ import {marker} from './reviewInterface';
 import {Geolocation, Camera, ImagePicker} from 'ionic-native';
 import {GeolocationProvider} from './../../../../../../providers/geolocation';
 import {ReviewService} from './reviewService';
+import {GalleryModalPage} from './../../../../../galleryModal/galleryModal';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/review/review.html',
@@ -293,5 +294,14 @@ export class ReviewPage {
     this.reviewInc.desTipoElemento = this.tiposElementos.filter(item => item.TipoElementoID == this.reviewInc.tipoElementoID)[0].DesTipoElemento
     this.reviewInc.desTipoIncidencia = this.tiposIncidencias.filter(item => item.TipoIncID == this.reviewInc.tipoIncidenciaID)[0].TipoInc
   }
+  
+   openGallery(){
+    let galleryModal = Modal.create(GalleryModalPage, this.images);      
+    //galleryModal.onDismiss(data => {
+      //console.log(data);
+    //});     
+    this.nav.present(galleryModal);  
+  }
+  
 }
 

@@ -55,14 +55,11 @@ export class LoginPage {
 
     openEntitiesPage() {
       //this.nav.push(EntitiesPage, this.aytos);
-      this.entitiesModal = Modal.create(EntitiesModalPage, this.aytos);
-      
+      this.entitiesModal = Modal.create(EntitiesModalPage, this.aytos);      
       this.entitiesModal.onDismiss(data => {
         this.aytoSuggested = data;
-      });
-      
-     
-        this.nav.present(this.entitiesModal);  
+      });     
+      this.nav.present(this.entitiesModal);  
         
     }
 

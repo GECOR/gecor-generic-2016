@@ -10,9 +10,9 @@ import 'rxjs/Rx';
 export class LoginService {
     constructor (private http: Http) {}
     
-    loginUser(Email: string, Password: string): Observable<any> {
+    loginUser(Email: string, Password: string, AyuntamientoID): Observable<any> {
         
-        let body = JSON.stringify({ Email, Password });
+        let body = JSON.stringify({ Email, Password, AyuntamientoID });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         

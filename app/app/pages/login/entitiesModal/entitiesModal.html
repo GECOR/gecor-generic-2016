@@ -11,6 +11,10 @@
 </ion-toolbar>
 
 <ion-content light>
+  <ion-searchbar [hidden]="type=='map'"
+    [(ngModel)]="searchText"
+    (input)="inputSearch($event)">
+  </ion-searchbar>
 
   <ion-list no-border>
     <ion-list-header light>SUGGESTED</ion-list-header>
@@ -24,7 +28,7 @@
 
   <ion-list>
     <ion-list-header light>OTHER ENTITIES</ion-list-header>
-    <ion-item *ngFor="let ayto of aytos" (click)="dismiss(ayto)" nav-pop>
+    <ion-item *ngFor="let ayto of aytos | search: searchText" (click)="dismiss(ayto)" nav-pop>
       <ion-thumbnail item-left small>
         <img src="{{aytoSuggested.Logo}}" alt="Foto" size-24>
       </ion-thumbnail>

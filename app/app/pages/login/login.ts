@@ -112,7 +112,7 @@ export class LoginPage {
         if (this.validateLogin()){          
             this.nav.present(this.loadingComponent);
             //this.loginLoading = true;
-            this.loginService.loginUser(this.email, this.password)
+            this.loginService.loginUser(this.email, this.password, this.aytoSuggested.AyuntamientoID)
                             .subscribe(
                                 (user) =>{                                    
                                     this.user = user;                                   

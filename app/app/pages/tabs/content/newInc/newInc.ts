@@ -191,7 +191,7 @@ export class NewIncPage {
         {
           text: 'Camera',
           handler: () => {            
-            Camera.getPicture({quality: 50, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
+            Camera.getPicture({quality: 100, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
               this.images[id] = this.base64string + imageURI;
             }, (message) => {
               alert('Failed because Camera!');

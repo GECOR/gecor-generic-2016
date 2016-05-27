@@ -8,9 +8,9 @@ import 'rxjs/Rx';
 export class ReviewService {
     constructor (private http: Http) {}
     
-    revisarIncidencia(token: string, avisoID: number, desSolucion: string, estadoAvisoID: number, origenIDResponsable: number): Observable<any> {
+    revisarIncidencia(token: string, avisoID: number, desSolucion: string, estadoAvisoID: number, origenIDResponsable: number, fotos: any[]): Observable<any> {
         
-        let body = JSON.stringify({ token, avisoID, desSolucion, estadoAvisoID, origenIDResponsable });
+        let body = JSON.stringify({ token, avisoID, desSolucion, estadoAvisoID, origenIDResponsable, fotos });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         

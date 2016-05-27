@@ -47,7 +47,7 @@
   <div padding [hidden]="type == 'map'">
     <ion-segment [(ngModel)]="order">
       <ion-segment-button value="FechaHoraRegistro">Date</ion-segment-button>
-      <ion-segment-button value="FechaHoraRegistro">Distance</ion-segment-button>
+      <ion-segment-button value="Distancia">Distance</ion-segment-button>
     </ion-segment>
   </div>
   
@@ -55,7 +55,7 @@
 
   <div id="switch" [ngSwitch]="type">
     <ion-list *ngSwitchDefault>
-      <ion-item *ngFor="let incident of incidents | arraySort: order | search: searchText">
+      <ion-item *ngFor="let incident of incidents | arraySort:order:'desc' | search: searchText">
         <ion-thumbnail item-left>
           <img src={{incident.RutaFoto}}>
         </ion-thumbnail>

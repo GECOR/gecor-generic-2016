@@ -27,6 +27,7 @@ export class ReviewPage {
   user: any;
   reviewInc: any;
   loadingComponent: any;
+  base64string = "data:image/jpeg;base64,";
   
   //MAP
   map: google.maps.Map;
@@ -209,12 +210,13 @@ export class ReviewPage {
           handler: () => {
             if(this.images){
               this.images.forEach(element => {
-                this.newInc.fotos.push({"byteFoto": element});//this.encodeImageUri(element)});
+                this.reviewInc.fotos.push({"byteFoto": element});//this.encodeImageUri(element)});
               });
             }
             this.nav.present(this.loadingComponent);
             let navTransition = alert.dismiss();
-            this.reviewService.revisarIncidencia(this.user.token, this.reviewInc.AvisoID, this.reviewInc.DesSolucion, this.reviewInc.EstadoAvisoID, this.reviewInc.OrigenIDResponsable)
+            this.reviewService.revisarIncidencia(this.user.token, this.reviewInc.AvisoID, this.reviewInc.DesSolucion, this.reviewInc.EstadoAvisoID, this.reviewInc.OrigenIDResponsable,
+            this.reviewInc.fotos)
             .subscribe((result) =>{
               this.loadingComponent.dismiss();
               //alert.dismiss();

@@ -1,5 +1,5 @@
 import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, 
-        Platform, Storage, SqlStorage, Events} from 'ionic-angular';
+        Platform, Storage, SqlStorage, Events, Loading} from 'ionic-angular';
 import {forwardRef, NgZone, provide} from '@angular/core';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
@@ -26,6 +26,7 @@ export class ReviewPage {
   errorMessage: any;
   user: any;
   reviewInc: any;
+  loadingComponent: any;
   
   //MAP
   map: google.maps.Map;
@@ -55,7 +56,10 @@ export class ReviewPage {
     this.showMap = false;
     this.images = [undefined, undefined, undefined, undefined];
     this.reviewInc = params.data;
-    console.log(this.reviewInc);
+    this.reviewInc.fotos = [];
+    this.loadingComponent = Loading.create({
+                content: 'Please wait...'
+            });
     
     this.storage = new Storage(SqlStorage);    
     this.storage.get('tiposElementos').then((tiposElementos) => {
@@ -146,7 +150,6 @@ export class ReviewPage {
   }
 
   //END MAP
-
   takePhoto(id){
     let actionSheet = ActionSheet.create({
       title: '',
@@ -154,10 +157,8 @@ export class ReviewPage {
         {
           text: 'Gallery',
           handler: () => {
-           ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
-                    for (var i = 0; i < results.length; i++) {
-                        console.log('Image URI: ' + results[i]);
-                    }
+           ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {     
+                    console.log('Image URI: ' + results[0]);             
                     this._ngZone.run(() => {
                       this.images[id] = results[0];
                     });
@@ -170,8 +171,8 @@ export class ReviewPage {
         {
           text: 'Camera',
           handler: () => {            
-            Camera.getPicture({quality: 50}).then((imageURI) => {
-              this.images[id] = imageURI;
+            Camera.getPicture({quality: 50, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
+              this.images[id] = this.base64string + imageURI;
             }, (message) => {
               alert('Failed because Camera!');
               console.log('Failed because: ');
@@ -206,16 +207,30 @@ export class ReviewPage {
         {
           text: 'Send',
           handler: () => {
+            if(this.images){
+              this.images.forEach(element => {
+                this.newInc.fotos.push({"byteFoto": element});//this.encodeImageUri(element)});
+              });
+            }
+            this.nav.present(this.loadingComponent);
+            let navTransition = alert.dismiss();
             this.reviewService.revisarIncidencia(this.user.token, this.reviewInc.AvisoID, this.reviewInc.DesSolucion, this.reviewInc.EstadoAvisoID, this.reviewInc.OrigenIDResponsable)
             .subscribe((result) =>{
-              console.log(result);
+              this.loadingComponent.dismiss();
+              //alert.dismiss();
               if (result[0].RowsAffected > 0){
-                this.presentReviewIncidentSuccess();
+                navTransition.then(() => { 
+                  this.presentReviewIncidentSuccess()
+                });
+                //this.presentReviewIncidentSuccess();
               }else{
                 this.showAlert("Error", "There is some error reviewing this incident", "OK");
               }
             },
-            error =>  this.errorMessage = <any>error);
+            error =>{
+              this.loadingComponent.dismiss();
+              this.errorMessage = <any>error;
+            });
           }
         }
       ]

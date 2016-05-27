@@ -1,4 +1,4 @@
-import {NavController, NavParams, MenuController, Storage, SqlStorage, Alert} from 'ionic-angular';
+import {NavController, NavParams, MenuController, Storage, SqlStorage, Alert, Loading} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
@@ -37,6 +37,7 @@ export class IncidentsPage {
   endAddress: string;
   markerArray: any[];
   timeTravel: string;
+  loadingComponent: any;
   
   constructor(private platform: Platform
     , private menu: MenuController
@@ -54,11 +55,16 @@ export class IncidentsPage {
     this.storage = new Storage(SqlStorage);
     this.map = null;
     
+    this.loadingComponent = Loading.create({
+                content: 'Please wait...'
+            });
+    
   }
   
   onPageWillEnter() {
     this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
+        this.nav.present(this.loadingComponent);
         this.getMisIncidencias(this.user.CiudadanoID, this.user.token);
     })
     
@@ -127,8 +133,12 @@ export class IncidentsPage {
         this.incidentService.getMisIncidencias(ciudadanoID, token)
                             .subscribe(
                                 (result) =>{
-                                    this.incidents = result;                                                                   
+                                  this.loadingComponent.dismiss();
+                                  this.incidents = result;                                                                   
                                 },
-                                error =>  this.errorMessage = <any>error);
+                                error =>{
+                                  this.errorMessage = <any>error;
+                                  this.loadingComponent.dismiss();
+                                });
     }
 }

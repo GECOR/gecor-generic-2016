@@ -1,5 +1,5 @@
 import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, 
-        Platform, Storage, SqlStorage, Events} from 'ionic-angular';
+        Platform, Storage, SqlStorage, Events, Loading} from 'ionic-angular';
 import {forwardRef, NgZone, provide} from '@angular/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
@@ -24,6 +24,7 @@ export class NewIncPage {
   tiposIncidencias: any;
   storage: any;
   errorMessage: any;
+  loadingComponent: any;
   newInc: any = {
     "tipoElementoID": -1,
     "desTipoElemento": "",
@@ -75,6 +76,9 @@ export class NewIncPage {
     this.isAndroid = platform.is('android');
     this.images = [undefined, undefined, undefined, undefined];
     this.familia = params.data;
+    this.loadingComponent = Loading.create({
+                content: 'Please wait...'
+            });
     this.storage = new Storage(SqlStorage);    
     this.storage.get('tiposElementos').then((tiposElementos) => {
         this.tiposElementos = JSON.parse(tiposElementos);
@@ -241,19 +245,22 @@ export class NewIncPage {
                 this.newInc.fotos.push({"byteFoto": element});//this.encodeImageUri(element)});
               });
             } 
-            //console.log(this.newInc);           
+            this.nav.present(this.loadingComponent);          
             this.newIncService.nuevaIncidencia(this.user.token, this.newInc.tipoElementoID, this.newInc.tipoIncidenciaID, this.newInc.desAveria,
             this.newInc.lat, this.newInc.lng, this.newInc.calleID, this.newInc.nomCalle, this.newInc.numCalle, this.newInc.desUbicacion, this.newInc.edificioID, 
             this.newInc.estadoAvisoID, this.newInc.tipoProcedenciaID, this.newInc.fotos)
             .subscribe((inc) =>{
-              console.log(inc);
+              this.loadingComponent.dismiss();
               if (inc[0].AvisoID != ""){
                 this.presentIncidentSuccess();
               }else{
                 this.showAlert("Error", "There is some error sending this incident", "OK");
               }
             },
-            error =>  this.errorMessage = <any>error);
+            error =>{
+              this.loadingComponent.dismiss();
+              this.errorMessage = <any>error;
+            } );
           }
         }
       ]

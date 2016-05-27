@@ -8,13 +8,12 @@ import {GeolocationProvider} from './../../providers/geolocation';
 import {EntitiesPage} from './entities/entities';
 import {LoginService} from './loginService';
 import {User} from './loginInterface';
-import {SpinnerLoading} from './../../directives/spinnerLoading/spinnerLoading';
 import {Facebook} from 'ionic-native';
 import {EntitiesModalPage} from './entitiesModal/entitiesModal';
 
 @Page({
   templateUrl: './build/pages/login/login.html',
-  directives: [forwardRef(() => AndroidAttribute), SpinnerLoading],
+  directives: [forwardRef(() => AndroidAttribute)],
   providers: [GeolocationProvider, LoginService]
 })
 export class LoginPage {
@@ -22,7 +21,6 @@ export class LoginPage {
     user: any = {};
     email: any;
     password: any;
-    loginLoading: any;
     aytos: any=[];
     storage: any;
     loadingComponent: any;
@@ -34,8 +32,6 @@ export class LoginPage {
       , private geo: GeolocationProvider
       , private loginService: LoginService
       , private zone: NgZone) {
-          
-        this.loginLoading = false;
         
         this.geo.getLocation().then(location =>{
           this.getAyuntamientosPorDistancia(location);

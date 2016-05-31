@@ -39,17 +39,15 @@
     </ion-title>
 </ion-navbar>
 
-<ion-content id="chat" class="content-stable">
+<ion-content id="chat" class="chat">
   
  <div class="messages">
     <div class="message" *ngFor="let m of msgs">    
       {{ m.msg }}      
     </div>
   </div>
-
-</ion-content>
-
- <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
+  
+  <ion-footer-bar keyboard-attach class="msg">
     <label class="item-input-wrapper">
       <input type="text" placeholder="Message ..." [(ngModel)]="msg" (keydown.enter)="sendMessage()">
     </label>
@@ -58,3 +56,7 @@
       Send
     </button>
   </ion-footer-bar>
+  
+</ion-content>
+
+ 

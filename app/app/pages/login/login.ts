@@ -71,6 +71,7 @@ export class LoginPage {
       this.entitiesModal = Modal.create(EntitiesModalPage, this.aytos);      
       this.entitiesModal.onDismiss(data => {
         this.aytoSuggested = data;
+        this.storage.set('entity', JSON.stringify(this.aytoSuggested));
       });     
       this.nav.present(this.entitiesModal);  
         
@@ -118,7 +119,10 @@ export class LoginPage {
                             .subscribe(
                                 (aytos) =>{
                                     this.aytos = aytos;
-                                    if (this.aytoSuggested.AyuntamientoID != -1) this.aytoSuggested = aytos[0];                                                                        
+                                    if (this.aytoSuggested.AyuntamientoID != -1){
+                                        this.aytoSuggested = aytos[0];
+                                        this.storage.set('entity', JSON.stringify(this.aytoSuggested));
+                                    }                                                                         
                                 },
                                 error =>  this.errorMessage = <any>error);
     }

@@ -46,6 +46,7 @@ export class NewIncPage {
     "fotos": []
   };
   user: any = {};
+  entity: any = {};
   
   //MAP
   map: google.maps.Map;
@@ -90,13 +91,23 @@ export class NewIncPage {
     this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
     });
+    this.storage.get('entity').then((entity) => {
+        this.entity = JSON.parse(entity);
+    });
     
     this.geo.getLocation().then(location =>{
       this.location = location;
-      this.latLng = this.location.latLng;
-      this.newInc.lat = this.latLng.lat();
-      this.newInc.lng = this.latLng.lng();
-      this.newInc.desUbicacion = this.location.startAddress;
+      if (this.location.error){
+        this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+        this.newInc.lat = this.entity.latitude;
+        this.newInc.lng = this.entity.longitude;
+        this.newInc.desUbicacion = "Address of " + this.entity.Nombre;
+      }else{        
+        this.latLng = this.location.latLng;
+        this.newInc.lat = this.latLng.lat();
+        this.newInc.lng = this.latLng.lng();
+        this.newInc.desUbicacion = this.location.startAddress;
+      }      
       setTimeout(() =>
           this.initMap()
         , 100);      
@@ -118,16 +129,23 @@ export class NewIncPage {
         draggable: true
       });      
       
-      this.map.addListener('click', (e) => {                 
+      this.map.addListener('click', (e) => { 
+        this.latLng = e.latLng;
+        this.newInc.lat = e.latLng.lat();
+        this.newInc.lng = e.latLng.lng();
+        this.marker.setPosition(e.latLng);
+                        
         this.geo.getDirection(e.latLng).then(location =>{
           this.location = location;
-          this.latLng = this.location.latLng;
-          this.newInc.lat = this.latLng.lat();
-          this.newInc.lng = this.latLng.lng();
-          this.marker.setPosition(this.location.latLng);
-          this.marker.setTitle(this.location.startAddress);
-          //infoWindow.setContent(`<h5>${resp.startAddress}</h5>`)
-          this.newInc.desUbicacion = this.location.startAddress;          
+          if (!this.location.error){            
+            /*this.latLng = this.location.latLng;
+            this.newInc.lat = this.latLng.lat();
+            this.newInc.lng = this.latLng.lng();
+            this.marker.setPosition(this.location.latLng);*/
+            this.marker.setTitle(this.location.startAddress);
+            //infoWindow.setContent(`<h5>${resp.startAddress}</h5>`)
+            this.newInc.desUbicacion = this.location.startAddress; 
+          }                   
         })               
       });
       
@@ -136,12 +154,29 @@ export class NewIncPage {
       });
       
       this.marker.addListener('dragend', (e) => {       
-       this.geo.getDirection(e.latLng).then(resp =>{
+       /*this.geo.getDirection(e.latLng).then(resp =>{
           this.marker.setPosition(this.location.latLng);
           this.marker.setTitle(this.location.startAddress);
           //infoWindow.setContent(`<h5>${resp.startAddress}</h5>`)
           this.newInc.desUbicacion = this.location.startAddress;          
-        })          
+        })*/
+        this.latLng = e.latLng;
+        this.newInc.lat = e.latLng.lat();
+        this.newInc.lng = e.latLng.lng();
+        this.marker.setPosition(e.latLng);
+                        
+        this.geo.getDirection(e.latLng).then(location =>{
+          this.location = location;
+          if (!this.location.error){            
+            /*this.latLng = this.location.latLng;
+            this.newInc.lat = this.latLng.lat();
+            this.newInc.lng = this.latLng.lng();
+            this.marker.setPosition(this.location.latLng);*/
+            this.marker.setTitle(this.location.startAddress);
+            //infoWindow.setContent(`<h5>${resp.startAddress}</h5>`)
+            this.newInc.desUbicacion = this.location.startAddress; 
+          }                   
+        })        
       });
       
       google.maps.event.addListenerOnce(this.map, 'idle', () => {
@@ -152,13 +187,23 @@ export class NewIncPage {
   centerMap(){
     this.geo.getLocation().then(location => {
       this.location = location;
-      this.latLng = this.location.latLng;
-      this.newInc.lat = this.latLng.lat();
-      this.newInc.lng = this.latLng.lng();
-      this.newInc.desUbicacion = this.location.startAddress;
-      this.map.setCenter(this.latLng);
-      this.marker.setPosition(this.location.latLng);
-      this.marker.setTitle(this.location.startAddress); 
+      if (this.location.error){
+        this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+        this.newInc.lat = this.entity.latitude;
+        this.newInc.lng = this.entity.longitude;
+        this.newInc.desUbicacion = "Address of " + this.entity.Nombre;
+        this.map.setCenter(this.latLng);
+        this.marker.setPosition(this.latLng);
+        this.marker.setTitle("Address of " + this.entity.Nombre);
+      }else{        
+        this.latLng = this.location.latLng;
+        this.newInc.lat = this.latLng.lat();
+        this.newInc.lng = this.latLng.lng();
+        this.newInc.desUbicacion = this.location.startAddress;
+        this.map.setCenter(this.latLng);
+        this.marker.setPosition(this.location.latLng);
+        this.marker.setTitle(this.location.startAddress);
+      }    
     }); 
   }
 

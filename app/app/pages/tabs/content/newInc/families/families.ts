@@ -15,6 +15,8 @@ export class FamiliesPage {
   familias: any = [];
   storage: any;
   lenFamilias: any;
+  user: any = {};
+  
   constructor(private platform: Platform
     , private menu: MenuController
     , private confData: ConferenceData
@@ -31,7 +33,11 @@ export class FamiliesPage {
     this.storage.get('familias').then((familias) => {
         this.familias = JSON.parse(familias);
         this.lenFamilias = this.familias.length;
-    })    
+    })
+    
+    this.storage.get('user').then((user) => {
+        this.user = JSON.parse(user);
+    })
   }
   
   openNewInc(familia){

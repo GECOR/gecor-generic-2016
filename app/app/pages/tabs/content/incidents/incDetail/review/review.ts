@@ -25,7 +25,7 @@ export class ReviewPage {
   tiposIncidencias: any;
   storage: any;
   errorMessage: any;
-  user: any;
+  user: any = {};
   reviewInc: any;
   loadingComponent: any;
   base64string = "data:image/jpeg;base64,";

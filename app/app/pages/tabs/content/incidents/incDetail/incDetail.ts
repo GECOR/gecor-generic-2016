@@ -1,4 +1,4 @@
-import {NavController, NavParams, MenuController, Alert, Modal, ActionSheet} from 'ionic-angular';
+import {NavController, NavParams, MenuController, Alert, Modal, ActionSheet, Storage, SqlStorage} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
@@ -6,12 +6,13 @@ import {CommentsPage} from './comments/comments';
 //import {ChatPage} from './chat/chat';
 import {ReviewPage} from './review/review';
 import {GeolocationProvider} from './../../../../../providers/geolocation';
+import {IncDetailService} from './incDetailService';
 
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/incDetail.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider]
+  providers: [GeolocationProvider, IncDetailService]
 })
 export class IncDetailPage {
   isAndroid: any;
@@ -30,13 +31,17 @@ export class IncDetailPage {
   directionsDisplay: any;
   stepDisplay: any;
   incident: any;
+  errorMessage: any;
+  storage: any;
+  user: any = {};
 
   constructor(private platform: Platform
     , private menu: MenuController
     , private params: NavParams
     , private nav: NavController
     , private zone: NgZone
-    , private geo: GeolocationProvider) {
+    , private geo: GeolocationProvider
+    , private incDetailService: IncDetailService) {
     this.platform = platform;
     this.isAndroid = platform.is('android');
     this.incident = params.data;
@@ -47,6 +52,11 @@ export class IncDetailPage {
     this.travelMode = 'WALKING';
     this.timeTravel = '0 min';
     this.distanceTravel = '0 km';
+    
+    this.storage = new Storage(SqlStorage);
+    this.storage.get('user').then((user) => {
+        this.user = JSON.parse(user);
+    });
 
     this.geo.getLocation().then(location =>{
       this.location = location;
@@ -129,8 +139,8 @@ export class IncDetailPage {
   }
   //END MAP
 
-  openComments(comments) {
-    this.nav.push(CommentsPage, comments);
+  openComments() {
+    this.nav.push(CommentsPage, this.incident);
   }
 
   openChat(messages) {
@@ -168,6 +178,40 @@ export class IncDetailPage {
     });
     this.nav.present(actionSheet);
   }
-
-
+  
+  addLike(){
+    let likes = [];
+    let likesFiltered = [];
+    this.storage.get('likes').then((result) => {        
+        if (result != undefined && JSON.parse(result).constructor === Array){
+          likes = JSON.parse(result);
+          likesFiltered = likes.filter(item => item == this.incident.AvisoID);
+        }
+        if (likesFiltered.length == 0){
+          this.incDetailService.addLike(this.user.token, this.incident.AvisoID)
+            .subscribe((result) =>{
+              if (result[0].RowsAffected > 0){
+                likes.push(this.incident.AvisoID);
+                this.storage.set('likes', JSON.stringify(likes));
+                this.incident.Likes ++;
+              }else{
+                this.showAlert("Error", "There is some errort", "OK");
+              }
+            },
+            error =>{
+              this.errorMessage = <any>error;
+            });    
+        }
+    });
+        
+  }
+  
+  showAlert(title, subTitle, okButton){
+    let alert = Alert.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: [okButton]
+    });
+    this.nav.present(alert);
+  }
 }

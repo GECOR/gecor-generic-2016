@@ -112,7 +112,8 @@ export class LoginPage {
             this.loginService.loginUser(this.email, this.password, this.aytoSuggested.AyuntamientoID)
                             .subscribe(
                                 (user) =>{                                    
-                                    this.user = user;                                   
+                                    this.user = user;
+                                    this.user.AyuntamientoNombre = this.aytoSuggested.Nombre;                                 
                                     
                                     if (this.user.token != '' && this.user.token != null) {
                                         this.configData();                                      

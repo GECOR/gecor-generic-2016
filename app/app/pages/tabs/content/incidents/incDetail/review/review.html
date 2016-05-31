@@ -1,6 +1,6 @@
 <ion-navbar *navbar class="show-navbar android-attr">
   <ion-title>
-    Review
+    {{"incidents.review.title" | translate}}
     <div toolbar-subtitle>
       {{user.AyuntamientoNombre}}
     </div>
@@ -23,13 +23,13 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label>Element</ion-label>
+          <ion-label>{{"incidents.review.element" | translate}}</ion-label>
           <ion-select [(ngModel)]="reviewInc.tipoElementoID" multiple="false" (ngModelChange)="changeTipoElemento()">
             <ion-option *ngFor="let tipoElemento of tiposElementos" value="{{tipoElemento.TipoElementoID}}" [checked]="false">{{tipoElemento.DesTipoElemento}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label>Incident</ion-label>
+          <ion-label>{{"incidents.review.incident" | translate}}</ion-label>
           <ion-select [(ngModel)]="reviewInc.tipoIncidenciaID" multiple="false">
             <ion-option *ngFor="let tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" [checked]="false">{{tipoIncidencia.TipoInc}}</ion-option>
           </ion-select>
@@ -42,7 +42,7 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label>State</ion-label>
+          <ion-label>{{"incidents.review.state" | translate}}</ion-label>
           <ion-select [(ngModel)]="reviewInc.EstadoAvisoID" multiple="false">
             <ion-option *ngFor="let estado of estados" value="{{estado.EstadoAvisoID}}" [checked]="false">{{estado.Nombre}}</ion-option>
           </ion-select>
@@ -55,7 +55,7 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label>Responsible</ion-label>
+          <ion-label>{{"incidents.review.responsible" | translate}}</ion-label>
           <ion-select [(ngModel)]="reviewInc.OrigenIDResponsable" multiple="false">
             <ion-option *ngFor="let responsable of responsables" value="{{responsable.OrigenID}}" [checked]="false">{{responsable.DesOrigen}}</ion-option>
           </ion-select>
@@ -73,7 +73,7 @@
     
     <ion-item>
       <ion-icon name="contact" item-left large></ion-icon>
-      <h2>User location</h2>      
+      <h2>{{"incidents.review.location" | translate}}</h2>      
       <p>{{reviewInc.desUbicacion}}</p>
     </ion-item>
 
@@ -102,5 +102,5 @@
     </ion-card-content>
   </ion-card>
 
-  <button full send-incident (click)="reviewIncident()">Review</button>
+  <button full send-incident (click)="reviewIncident()">{{"incidents.review.reviewIncident" | translate}}</button>
 </ion-content>

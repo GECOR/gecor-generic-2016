@@ -1,6 +1,6 @@
 <ion-navbar *navbar hideBackButton class="show-navbar android-attr">
   <ion-title>
-    Survey
+    {{"newInc.survey.title" | translate}} 
     <div toolbar-subtitle>
       Ayuntamiento de Málaga
     </div>
@@ -10,7 +10,7 @@
 <ion-content class="has-header components-demo cards-bg">
   <ion-card>
     <ion-card-content>
-      ¿Qué le parece la app?
+          {{"newInc.survey.opinion" | translate}}  
       <ion-row>
         <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
         <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
@@ -22,7 +22,7 @@
   </ion-card>
   <ion-card>
     <ion-card-content>
-      Puntue la limpieza de su ciudad
+          {{"newInc.survey.cleaning" | translate}}  
       <ion-row>
         <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
         <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
@@ -34,7 +34,7 @@
   </ion-card>
   <ion-card>
     <ion-card-content>
-      Puntue la seguridad de su ciudad
+     {{"newInc.survey.security" | translate}}  
       <ion-row>
         <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
         <ion-col width-20><button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
@@ -46,7 +46,7 @@
   </ion-card>
   <ion-card no-marg-bottom>
     <ion-card-content>
-      Puntue la politica de su ciudad
+               {{"newInc.survey.politics" | translate}}  
       <ion-row>
         <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
         <ion-col width-20><button clear><ion-icon name="star"></ion-icon></button></ion-col>
@@ -58,8 +58,8 @@
   </ion-card>
   <div padding no-pad-top>
     <ion-row>
-      <ion-col width-50><button light block (click)="cancelSurvey()">Cancel</button></ion-col>
-      <ion-col width-50><button block (click)="sendSurvey()">Send</button></ion-col>
+      <ion-col width-50><button light block (click)="cancelSurvey()">{{"newInc.survey.cancel" | translate}} </button></ion-col>
+      <ion-col width-50><button block (click)="sendSurvey()">{{"newInc.survey.send" | translate}} </button></ion-col>
     </ion-row>
   </div>
 </ion-content>

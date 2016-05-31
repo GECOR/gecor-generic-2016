@@ -1,6 +1,6 @@
 <ion-navbar *navbar class="show-navbar android-attr">
   <ion-title>
-    Home
+    {{"home.title" | translate}}
     <div toolbar-subtitle>
       {{user.AyuntamientoNombre}}
     </div>
@@ -11,7 +11,7 @@
         <ion-col home>
           <ion-card home class="advanced-background" (click)="openNoticeDetail(new[0])">
             <img src="img/inc.png"/>
-            <p home class="advanced-background-title">Nueva Incidencia</p>
+            <p home class="advanced-background-title">{{"home.incidence" | translate}}</p>
           </ion-card>
         </ion-col>
       </ion-row>
@@ -19,13 +19,13 @@
         <ion-col home width-50>
           <ion-card home class="advanced-background" (click)="openNoticeDetail(new[0])">
             <img src="img/playaRincon_3.jpg"/>
-            <p home class="advanced-background-title">Playas</p>
+            <p home class="advanced-background-title">{{"home.beaches" | translate}}</p>
           </ion-card>
         </ion-col>
         <ion-col home width-50>
           <ion-card home class="advanced-background" (click)="openNoticeDetail(new[1])">
             <img src="img/tramite.jpg"/>
-            <p home class="advanced-background-title">Renovación DNI</p>
+            <p home class="advanced-background-title">{{"home.renewalDNI" | translate}}</p>
           </ion-card>
         </ion-col>
       </ion-row>

@@ -1,6 +1,6 @@
 <ion-navbar *navbar class="show-navbar android-attr">
   <ion-title>
-    News Detail
+    {{"news.newsdetail.title" | translate}} 
     <div toolbar-subtitle>
       {{user.AyuntamientoNombre}}
     </div>
@@ -25,13 +25,13 @@
       <ion-col text-center>
         <button clear small danger>
           <ion-icon name='star'></ion-icon>
-          Favorite
+                   {{"news.favorite" | translate}}  
         </button>
       </ion-col>
       <ion-col text-right>
         <button clear small danger>
           <ion-icon name='share-alt'></ion-icon>
-          Share
+              {{"news.share" | translate}} 
         </button>
       </ion-col>
     </ion-row>

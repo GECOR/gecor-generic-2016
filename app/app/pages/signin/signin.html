@@ -1,6 +1,6 @@
 <ion-navbar *navbar hideBackButton>
   <ion-title>
-    Login
+        {{"signin.title" | translate}}
   </ion-title>
 </ion-navbar>
 
@@ -23,10 +23,10 @@
       </ion-item>
     </ion-list>
     <ion-item>
-    <ion-label>Accept terms</ion-label>
+    <ion-label>{{"signin.terms" | translate}}</ion-label>
       <ion-checkbox dark checked="false"></ion-checkbox>
     </ion-item>
-    <button block (click)="openLoginPage()">Sign In</button>
-    <button light block (click)="openLoginPage()">Back</button>
+    <button block (click)="openLoginPage()">{{"signin.signin" | translate}}</button>
+    <button light block (click)="openLoginPage()">{{"signin.back" | translate}}</button>
   </div>
 </ion-content>

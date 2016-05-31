@@ -1,6 +1,6 @@
 <ion-navbar *navbar hideBackButton class="show-navbar android-attr">
   <ion-title>
-    Login
+    {{"login.title" | translate}}
   </ion-title>
 </ion-navbar>
 
@@ -28,7 +28,7 @@
             -->
             <ion-item *ngIf="!aytoSuggested.AyuntamientoID">
                 <ion-spinner item-left></ion-spinner>
-                Show Default
+                {{"login.aytoSuggested" | translate}}
             </ion-item>
             <ion-item *ngIf="aytoSuggested.AyuntamientoID">                
                 <ion-thumbnail item-left small>
@@ -50,10 +50,10 @@
         </ion-list>
         <button block (click)="loginUser()">Login</button>
         
-        <button light block (click)="openSignInPage()">Sign in</button>
-        <button clear block (click)="forgottenPass()">Forgotten password</button>
+        <button light block (click)="openSignInPage()">{{"login.signIn" | translate}}</button>
+        <button clear block (click)="forgottenPass()">{{"login.forgottenPass" | translate}}</button>
         <div block class="label-or">
-        Or use...
+        {{"login.orUse" | translate}}
         </div>
         <button block (click)="loginFacebookUser()">
         <ion-icon name="logo-facebook"></ion-icon>

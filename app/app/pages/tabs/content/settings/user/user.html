@@ -1,6 +1,6 @@
 <ion-navbar *navbar class="show-navbar android-attr">
   <ion-title>
-    User
+       {{"settings.user.title" | translate}}  
     <div toolbar-subtitle>
       {{user.AyuntamientoNombre}}
     </div>
@@ -23,7 +23,7 @@
     <ion-list-header light></ion-list-header>
     <ion-item (click)="logout()">
       <ion-icon name="power" item-left></ion-icon>
-      Logout
+             {{"settings.user.logout" | translate}} 
     </ion-item>
   </ion-list>
   

@@ -1,6 +1,6 @@
 <ion-navbar *navbar class="show-navbar android-attr">
   <ion-title>
-    New Incident
+ {{"newInc.title" | translate}} 
     <div toolbar-subtitle>
       {{user.AyuntamientoNombre}}
     </div>
@@ -13,13 +13,13 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label>Element</ion-label>
+          <ion-label>{{newInc.element | translate}}</ion-label>
           <ion-select [(ngModel)]="newInc.tipoElementoID" multiple="false" (ngModelChange)="changeTipoElemento()">
             <ion-option *ngFor="let tipoElemento of tiposElementos" value="{{tipoElemento.TipoElementoID}}" [checked]="false">{{tipoElemento.DesTipoElemento}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label>Incident</ion-label>
+          <ion-label>{{newInc.incident | translate}}</ion-label>
           <ion-select [(ngModel)]="newInc.tipoIncidenciaID" multiple="false">
             <ion-option *ngFor="let tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" [checked]="false">{{tipoIncidencia.TipoInc}}</ion-option>
           </ion-select>
@@ -47,7 +47,7 @@
     
     <ion-item>
       <ion-icon name="contact" item-left large></ion-icon>
-      <h2>User location</h2>      
+      <h2>{{"newInc.location" | translate}}</h2>      
       <p>{{newInc.desUbicacion}}</p>
     </ion-item>
 
@@ -76,6 +76,6 @@
     </ion-card-content>
   </ion-card>
 
-  <button full send-incident (click) = "newIncident()">Send</button>
+  <button full send-incident (click) = "newIncident()">{{"newInc.send" | translate}} </button>
 
 </ion-content>

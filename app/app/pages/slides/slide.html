@@ -4,7 +4,7 @@
     <ion-slide *ngFor="let slide of slides">
       <ion-toolbar>
         <ion-buttons end>
-          <button (click)="openLoginPage()">Skip</button>
+          <button (click)="openLoginPage()">{{"slide.skip" | translate}}</button>
         </ion-buttons>
       </ion-toolbar>
       <img [src]="slide.image" class="slide-image"/>
@@ -15,9 +15,9 @@
       <ion-toolbar>
       </ion-toolbar>
       <img src="img/ica-slidebox-img-4.png" class="slide-image"/>
-      <h2 class="slide-title">Ready to Play?</h2>
+      <h2 class="slide-title">{{"slide.skip" | translate}}</h2>
       <button large clear (click)="openLoginPage()">
-        Continue
+        {{"slide.continue" | translate}}
         <ion-icon name="arrow-forward"></ion-icon>
       </button>
     </ion-slide>

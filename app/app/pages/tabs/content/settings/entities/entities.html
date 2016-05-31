@@ -1,6 +1,6 @@
 <ion-navbar *navbar class="show-navbar android-attr">
   <ion-title>
-    Entities
+  {{"settings.entities.title" | translate}} 
     <div toolbar-subtitle>
       Ayuntamiento de Málaga
     </div>
@@ -11,7 +11,7 @@
 <ion-content light>
 
   <ion-list no-border>
-    <ion-list-header light>SUGGESTED</ion-list-header>
+    <ion-list-header light>{{"settings.entities.suggested" | translate}} </ion-list-header>
     <ion-item>
       <ion-thumbnail item-left small>
         <img src="img/AytoMalaga.png" size-24>
@@ -21,7 +21,7 @@
   </ion-list>
 
   <ion-list>
-    <ion-list-header light>OTHER ENTITIES</ion-list-header>
+    <ion-list-header light> {{"settings.entities.other" | translate}}  </ion-list-header>
     <ion-item (click)="chooseEntitie()" nav-pop>
       Ayuntamiento de Málaga
       <ion-icon name='notifications' item-left></ion-icon>

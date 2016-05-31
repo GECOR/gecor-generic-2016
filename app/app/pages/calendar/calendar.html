@@ -1,5 +1,5 @@
 <ion-navbar *navbar>
-  <ion-title>Calendar</ion-title>
+  <ion-title>{{"calendar.title" | translate}}</ion-title>
 </ion-navbar>
 
 <ion-content >
@@ -8,7 +8,7 @@
 			<span class="btn btn-prev" (click)="prevMonth()">
 				 <ion-icon name="arrow-dropleft"></ion-icon>
 			</span>
-			<span class="">{{current.monthName}}</span><!-- MONTH NAME -->
+			<span class="">{{current.monthName}}</sp"an><!-- MONTH NAME -->
       <span> {{current.year}} </span>
 			<span class="btn btn-next" (click)="nextMonth()">
 				 <ion-icon name="arrow-dropright"></ion-icon>
@@ -31,9 +31,9 @@
 	</div>
 	<div class="schedule">
 			<ul class="tabs">
-			<li class="tab active"><a href="#">Meetings</a></li>
-			<li class="tab"><a href="#">Reminders</a></li>
-			<li class="tab"><a href="#">Notes</a></li>
+			<li class="tab active"><a href="#">{{"calendar.meetings" | translate}}</a></li>
+			<li class="tab"><a href="#">{{"calendar.reminders" | translate}}</a></li>
+			<li class="tab"><a href="#">{{"calendar.notes" | translate}}</a></li>
 			</ul>
 
 		<div class="tab-pane">

@@ -1,6 +1,6 @@
 <ion-navbar *navbar class="show-navbar android-attr">
   <ion-title>
-    Entities
+    {{"login.entities.title" | translate}}
   </ion-title>
 </ion-navbar>
 
@@ -8,7 +8,7 @@
 <ion-content light>
 
   <ion-list no-border>
-    <ion-list-header light>SUGGESTED</ion-list-header>
+    <ion-list-header light>{{"login.entities.suggested" | translate}}</ion-list-header>
     <ion-item>
       <ion-thumbnail item-left small>
         <img src={{aytoSuggested.Logo}} size-24>
@@ -18,7 +18,7 @@
   </ion-list>
 
   <ion-list>
-    <ion-list-header light>OTHER ENTITIES</ion-list-header>
+    <ion-list-header light>{{"login.entities.other" | translate}}</ion-list-header>
     <ion-item *ngFor="let ayto of aytos" (click)="chooseEntitie()" nav-pop>
       <ion-thumbnail item-left small>
         <img src={{ayto.Logo}} size-24>

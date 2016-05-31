@@ -10,7 +10,9 @@
     "hapi": "^11.1.3",
     "jsonwebtoken": "^5.4.1",
     "lodash": "^3.10.1",
+    "mssql": "^3.3.0",
     "socket.io": "^1.3.7",
-    "socketio-jwt": "^4.3.3"
+    "socketio-jwt": "^4.3.3",
+    "tedious": "^1.14.0"
   }
 }

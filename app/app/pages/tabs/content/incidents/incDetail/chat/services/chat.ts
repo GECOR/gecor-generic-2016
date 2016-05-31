@@ -1,4 +1,4 @@
-import { Events } from 'ionic-angular';
+import { Events, Storage, SqlStorage } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { User } from './../models/user';
 import { Message } from './../models/message';
@@ -97,12 +97,18 @@ export class ChatService {
   }
 
   private initLoggedInUser(): void {
+    /*
     let profileData = JSON.parse(localStorage.getItem('profile'));
     if (!profileData) { return; }
     this.me = new User({
         id: profileData.id,
         name: profileData.name,
         avatar: profileData.avatar
+    });
+    */
+    let storage = new Storage(SqlStorage);
+    storage.get('user').then((user) => {
+        console.log(JSON.parse(user));
     });
   }
 

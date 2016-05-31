@@ -3,10 +3,12 @@ import {forwardRef} from '@angular/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {NewsDetailPage} from './newsDetail/newsDetail';
 import {ConferenceData} from './../../../../providers/conference-data';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: 'build/pages/tabs/content/news/news.html',
-  directives: [forwardRef(() => AndroidAttribute)]
+  directives: [forwardRef(() => AndroidAttribute)],
+   pipes: [TranslatePipe]
 })
 export class NewsPage {
   news: any[];

@@ -10,11 +10,13 @@ import {LoginService} from './loginService';
 import {User} from './loginInterface';
 import {Facebook} from 'ionic-native';
 import {EntitiesModalPage} from './entitiesModal/entitiesModal';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/login/login.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, LoginService]
+  providers: [GeolocationProvider, LoginService],
+  pipes: [TranslatePipe]
 })
 export class LoginPage {
     errorMessage: any;

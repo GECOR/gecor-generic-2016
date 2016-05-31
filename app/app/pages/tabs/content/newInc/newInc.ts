@@ -10,11 +10,13 @@ import {SurveyPage} from './survey/survey';
 import {GeolocationProvider} from './../../../../providers/geolocation';
 import {NewIncService} from './newIncService';
 import {GalleryModalPage} from './../../../galleryModal/galleryModal';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/tabs/content/newInc/newInc.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, NewIncService]
+  providers: [GeolocationProvider, NewIncService],
+  pipes: [TranslatePipe]
 })
 export class NewIncPage {
   isAndroid: any;

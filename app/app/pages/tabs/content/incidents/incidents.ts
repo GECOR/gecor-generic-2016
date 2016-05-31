@@ -9,11 +9,12 @@ import {IncidentsSearchPipe} from './incidentsPipe';
 import {IncidentService} from './IncidentService';
 import {GeolocationProvider} from './../../../../providers/geolocation';
 import {ReviewPage} from './incDetail/review/review';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incidents.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  pipes: [ArraySortPipe, IncidentsSearchPipe],
+  pipes: [ArraySortPipe, IncidentsSearchPipe,TranslatePipe],
   providers: [IncidentService, GeolocationProvider]
 })
 export class IncidentsPage {

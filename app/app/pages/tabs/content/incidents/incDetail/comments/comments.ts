@@ -2,11 +2,13 @@ import {Page, NavController, MenuController, Alert, Storage, SqlStorage, NavPara
 import {forwardRef} from '@angular/core';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {CommentsService} from './commentsService';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/comments/comments.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [CommentsService]
+  providers: [CommentsService],
+  pipes: [TranslatePipe]
 })
 export class CommentsPage {
   errorMessage: any;

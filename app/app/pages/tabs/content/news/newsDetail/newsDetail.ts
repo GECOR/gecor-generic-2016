@@ -1,10 +1,12 @@
 import {Page, NavController, NavParams, Storage, SqlStorage} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: 'build/pages/tabs/content/news/newsDetail/newsDetail.html',
-  directives: [forwardRef(() => AndroidAttribute)]
+  directives: [forwardRef(() => AndroidAttribute)],
+   pipes: [TranslatePipe]
 })
 export class NewsDetailPage {
   notice: any;

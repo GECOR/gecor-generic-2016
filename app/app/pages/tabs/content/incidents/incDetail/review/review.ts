@@ -8,11 +8,13 @@ import {Geolocation, Camera, ImagePicker} from 'ionic-native';
 import {GeolocationProvider} from './../../../../../../providers/geolocation';
 import {ReviewService} from './reviewService';
 import {GalleryModalPage} from './../../../../../galleryModal/galleryModal';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/review/review.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, ReviewService]
+  providers: [GeolocationProvider, ReviewService],
+        pipes: [TranslatePipe]
 })
 export class ReviewPage {
   showTypology: boolean;

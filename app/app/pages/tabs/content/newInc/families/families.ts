@@ -4,10 +4,12 @@ import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';
 import {NewIncPage} from './../newInc';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/tabs/content/newInc/families/families.html',
-  directives: [forwardRef(() => AndroidAttribute)]
+  directives: [forwardRef(() => AndroidAttribute)],
+  pipes: [TranslatePipe]
 })
 
 export class FamiliesPage {

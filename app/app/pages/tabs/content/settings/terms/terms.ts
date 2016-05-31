@@ -2,10 +2,12 @@ import {NavController, NavParams, MenuController, Storage, SqlStorage} from 'ion
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/tabs/content/settings/terms/terms.html',
-  directives: [forwardRef(() => AndroidAttribute)]
+  directives: [forwardRef(() => AndroidAttribute)],
+  pipes: [TranslatePipe]
 })
 export class TermsPage {
   user: any = {};

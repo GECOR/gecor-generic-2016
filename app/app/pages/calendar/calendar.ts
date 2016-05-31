@@ -4,11 +4,13 @@ import {Page, ViewController, Platform} from 'ionic-angular';
 import {Component, ViewContainerRef, Input, Output, EventEmitter, AfterViewInit} from '@angular/core';
 import {NgIf, NgFor, NgClass, NgModel, FORM_DIRECTIVES, ControlValueAccessor} from '@angular/common';
 import * as moment_ from 'moment';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 const moment: moment.MomentStatic = (<any>moment_)['default'] || moment_;
 
 @Page({
-    templateUrl: 'build/pages/calendar-test/calendar-test.html'
+    templateUrl: 'build/pages/calendar-test/calendar-test.html',
+        pipes: [TranslatePipe]
 })
 
 export class CalendarPage /*implements ControlValueAccessor*/ {

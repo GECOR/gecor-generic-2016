@@ -10,11 +10,12 @@ import {NewsPage} from './content/news/news';
 import {SettingsPage} from './content/settings/settings';
 import {GeolocationProvider} from './../../providers/geolocation';
 import {HomePage} from './content/home/home';
-
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/tabs/tab-content.html',
-  directives: [forwardRef(() => AndroidAttribute)]
+  directives: [forwardRef(() => AndroidAttribute)],
+   pipes: [TranslatePipe]
 })
 export class TabsContentPage {
   isAndroid: any;

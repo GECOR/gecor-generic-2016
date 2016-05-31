@@ -7,12 +7,13 @@ import {ChatPage} from './chat/chat';
 import {ReviewPage} from './review/review';
 import {GeolocationProvider} from './../../../../../providers/geolocation';
 import {IncDetailService} from './incDetailService';
-
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/incDetail.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, IncDetailService]
+  providers: [GeolocationProvider, IncDetailService],
+  pipes: [TranslatePipe]
 })
 export class IncDetailPage {
   isAndroid: any;

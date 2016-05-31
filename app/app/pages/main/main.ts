@@ -1,10 +1,12 @@
 import {IonicApp, Page, MenuController, NavController} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
 import {AndroidAttribute} from './../../directives/global.helpers';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/main/main-content.html',
-  directives: [forwardRef(() => AndroidAttribute)]
+  directives: [forwardRef(() => AndroidAttribute)],
+  pipes: [TranslatePipe]
 })
 export class MainMenuContentPage {
   activeMenu;

@@ -8,12 +8,12 @@ import {TermsPage} from './terms/terms';
 import {UserPage} from './user/user';
 import {User} from './../../../login/LoginInterface';
 import {EntitiesPage} from './entities/entities';
-
-
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/tabs/content/settings/settings.html',
-  directives: [forwardRef(() => AndroidAttribute)]
+  directives: [forwardRef(() => AndroidAttribute)],
+  pipes: [TranslatePipe]
 })
 export class SettingsPage {
   user: any = {};

@@ -19,11 +19,13 @@
       <!--<span class="date">{{ m.dateSent | date:'medium' }}</span>-->
     </div>
   </div>
+  
+  <div class="msg">
+    <input type="text" placeholder="Message ..." [(ngModel)]="msg" (keydown.enter)="sendMessage()">
+    <button small (click)="sendMessage()"
+                  [disabled]="msg === ''">
+      Send
+    </button>
+  </div>
 </ion-content>
-<div class="msg">
-  <input type="text" placeholder="Message ..." [(ngModel)]="msg" (keydown.enter)="sendMessage()">
-  <button small (click)="sendMessage()"
-                [disabled]="msg === ''">
-    Send
-  </button>
-</div>
+

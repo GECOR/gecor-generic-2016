@@ -1,8 +1,11 @@
 import { Events } from 'ionic-angular';
 import { Injectable } from '@angular/core';
-import * as Rx from 'rxjs/Rx';
 import { User } from './../models/user';
 import { Message } from './../models/message';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
+import * as Rx from 'rxjs/Rx';
 
 declare var io;
 
@@ -10,23 +13,23 @@ declare var io;
 export class ChatService {
   socket: any;
   me: User;
-  usersStream: Rx.Observable<User[]> = Rx.Observable<User[]>();
+  usersStream: Observable<User[]> = new Observable<User[]>();
   usersResponseStream: any;
-  messagesStream: Rx.Observable<Message[]> = Rx.Observable<Message[]>();
+  messagesStream: Observable<Message[]> = new Observable<Message[]>();
   messagesResponseStream: any;
-  messages: Rx.Subject<Message> = new Rx.Subject<Message>(null);
-  currentMessages: Rx.Subject<Message[]> = new Rx.Subject<Message[]>(null);
-  createMessage: Rx.Subject<Message> = new Rx.Subject<Message>();
-  friends: Rx.Subject<User[]> = new Rx.Subject<User[]>(null);
-  currentFriend: Rx.Subject<User> = new Rx.BehaviorSubject<User>(null);
+  messages: Subject<Message> = new Subject<Message>(null);
+  currentMessages:Subject<Message[]> = new Subject<Message[]>(null);
+  createMessage: Subject<Message> = new Subject<Message>();
+  friends: Subject<User[]> = new Subject<User[]>(null);
+  currentFriend: Subject<User> = new BehaviorSubject<User>(null);
 
   constructor(public e: Events) { }
 
   private initUsersStreams(): void {
-    this.usersStream = Rx.Observable.fromEvent(this.socket, 'onlineUsers');
+    this.usersStream = Observable.fromEvent(this.socket, 'onlineUsers');
 
     this.usersStream.subscribe((users) => {
-      this.usersResponseStream = Rx.Observable.create((observer) => {
+      this.usersResponseStream = Observable.create((observer) => {
         observer.next(users);
       });
 
@@ -37,10 +40,10 @@ export class ChatService {
   }
 
   private initMessagesStreams(): void {
-    this.messagesStream = Rx.Observable.fromEvent(this.socket, 'onMessage');
+    this.messagesStream = Observable.fromEvent(this.socket, 'onMessage');
 
     this.messagesStream.subscribe((message: Message) => {
-      this.messagesResponseStream = Rx.Observable.create((observer) => {
+      this.messagesResponseStream = Observable.create((observer) => {
         observer.next(message);
       });
 
@@ -74,7 +77,7 @@ export class ChatService {
     });
   }
 
-  public sendMessage(msg: Message): Promise {
+  public sendMessage(msg: Message): Promise<Message> {
     return new Promise((resolve, reject) => {
       this.addOwnMessage(msg);
       resolve();
@@ -105,7 +108,7 @@ export class ChatService {
 
   public socketAuth(): void {
     let token = localStorage.getItem('id_token');
-    this.socket = io.connect('http://localhost:3357');
+    this.socket = io.connect('http://192.168.1.138:3357');
     this.socket.on('connect', () => {
       this.socket.emit('authenticate', { token: token });
       this.initUsersStreams();

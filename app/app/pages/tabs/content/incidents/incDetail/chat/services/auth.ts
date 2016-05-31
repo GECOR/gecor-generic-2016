@@ -17,7 +17,7 @@ export class AuthService {
 
   public getToken(name: string): any {
     return new Promise((resolve, reject) => {
-      this.http.post('http://localhost:3357/api/generate-token', JSON.stringify({ name: name }))
+      this.http.post('http://192.168.1.138:3357/api/generate-token', JSON.stringify({ name: name }))
         .map(res => res.json())
         .subscribe(data => resolve(this.saveToken(data)));
     });

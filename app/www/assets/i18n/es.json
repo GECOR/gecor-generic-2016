@@ -2,5 +2,144 @@
 	"app": {	
   		"menuTitle": "Menú lateral",
   		"kittens": "Kittens"
-	}    
+	},
+	
+	"calendar":{
+			"title": "Calendario",
+			"meetings": "Reuniones",
+			"reminders": "Recordatorios",
+			"notes": "Notas"
+	},
+	
+	"login": {
+		"title": "Login",
+		"aytoSuggested": "Mostrar por defecto",
+		"signIn": "Sign in",
+		"forgottenPass": "Olvidé la contraseña",
+		"orUse": "O utiliza...",
+		"entities": {
+			"title": "Entidades",
+			"suggested": "Sugerido",
+			"other": "Otras entidades"
+		},
+		"entitiesmodal":{
+			"title": "Entidades",
+			"suggested": "Sugerido",
+			"other": "Otras entidades",
+			"cancel": "Cancelar"
+		}
+	},
+	
+	"signin":{
+		"title": "Login",
+		"terms": "Aceptar los términos",
+		"signin": "Sign In",
+		"back" : "Volver"
+	},
+	
+	  "slide":{
+		  "skip":"Saltar",
+		  "ready": "¿Preparado para jugar?",
+		  "continue": "Continuar"
+	  },
+	  
+	  "tabs":{
+		  "title":"Menu"
+	  },
+	  
+	  "home":{
+		 "title":"Inicio",
+		 "subtitle":"Ayuntamiento de Málaga",
+		 "incidence": "Nueva Incidencia",
+		 "beaches": "Playas",
+		 "renewalDNI": "Renovación DNI"	 
+	  },
+	   
+	"incidents":{
+			"title": "Incidentes",
+			"subtitle":"Ayuntamiento de Málaga",	 
+	  "incdetail":{
+		    "title": "Incidentes",
+			"userlocation": "Localización del usuario",	
+			"incidentlocation": "Localizacón del incidente",
+	  		"chat": "Chat",
+			"start":"Empezar",
+			"lastcomment": "Último comentario"			
+	  },
+	  "pagechat":{
+		  "title": "Chat",
+		  "send": "Enviar"
+		  },
+	  "comments":{
+		  "title": "Comentarios"
+		  },
+	  "review":{
+		  "title":"Revisar",  "subtitle":"Ayuntamiento de Málaga",
+		  "element": "Elemento",
+		  "incident": "Incidente",
+		  "state": "Estado",
+		  "responsible": "Responsable",
+		  "location": "Localización del usuario",
+		  "reviewIncident": "Revisar"
+	  }
+	  },
+	  "newInc":{
+		  "title": "Nueva incidencia",
+		  "element": "Elemento",
+		  "incident": "Incidente",
+		  "location": "Localización del usuario",
+		   "send": "Enviar",
+		  "families":{
+				"title":"Familias"
+		  },
+		  "survey":{
+			  	"tittle":"Encuesta",
+				"opinion": "¿Qué le parece la app?",
+				"cleaning": "Puntue la limpieza de su ciudad",
+				"security": "Puntue la seguridad de su ciudad",
+				"politics": "Puntue la politica de su ciudad",
+				"cancel": "Cancelar",
+				"send": "Enviar"
+				  }
+		  },
+		 "news":{
+			 "tittle":"Noticias",
+			 "newsdetail":{
+				 "title":"Detalle de noticias",
+				 "favorite": "Favorito",
+				 "share": "Compartir"
+			 }				
+		 },
+		 "settings":{
+			 "title": "Ajustes",
+			 "notifications": "Notificaciones",
+			 "terms": "Términos y condiciones",
+			 "relatedapp": "APLICACIONES RELACIONADAS",
+			 "mlgfunciona": "MLG Funciona",
+			 "algaba": "La Algaba",
+			 "fuengirola": "Fuengirola Avanza",
+			 "puerto": "Mejora el Puerto",
+			 "velez": "Incidencias Vélez-Málaga",
+			 "abisuek": "Abisuek",
+			 "torreon": "Torreón",
+			 "prudenco": "Prudenco",
+			 "cuajimalpa": "Cuajimalpa",
+			 "entities":{
+				 "title": "Entidades",
+				"suggested": "SUGERIDO",
+				"other": "OTRAS ENTIDADES"
+			 },
+			 "notificationspage":{
+				 "title": "Notificaciones",
+				  "email": "E-mail",
+				  "push": "Push" 
+			 },
+			 "termspage":{
+				 "tittle": "Términos y condiciones"
+				  },
+			 "user":{
+				 "tittle": "Usuario",
+				 "logout":"Logout"		  			 
+			 }
+		 } 
 }

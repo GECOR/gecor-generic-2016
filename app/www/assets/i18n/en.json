@@ -2,5 +2,157 @@
 	"app": {	
   		"menuTitle": "Lateral menu",
   		"kittens": "Kittens"
-	}  
+	},	
+	"calendar":{
+			"title": "Calendar",
+			"meetings": "Meetings",
+			"reminders": "Reminders",
+			"notes": "Notes"
+	},
+	
+	"login": {
+		"title": "Login",
+		"aytoSuggested": "Show Default",
+		"signIn": "Sign in",
+		"forgottenPass": "Forgotten Pass",
+		"orUse": "Oe use...",
+		"entities": {
+			"title": "Entities",
+			"suggested": "Suggested",
+			"other": "Other entities"
+		},
+		"entitiesmodal":{
+			"title": "Entities",
+			"suggested": "Suggested",
+			"other": "Other entities",
+			"cancel": "Cancelar"
+		}
+	},
+	
+	"signin":{
+		"title": "Login",
+		"terms": "Accept the terms",
+		"signin": "Sign In",
+		"back" : "Back"
+	},
+	
+	  "slide":{
+		  "skip":"Skip",
+		  "ready": "Ready to play?",
+		  "continue": "Continue"
+	  },
+	  
+	  "tabs":{
+		  "title":"Menu"
+	  },
+	  
+	  "home":{
+		 "title":"Inicio",
+		 "subtitle":"Ayuntamiento de Málaga",
+		 "incidence": "New Incidence",
+		 "beaches": "Beaches",
+		 "renewalDNI": "Renewal DNI"	 
+	  },
+	   
+	"incidents":{
+			"title": "Incidents",
+			"subtitle":"Ayuntamiento de Málaga",	 
+	  "incdetail":{
+		    "title": "Incidents",
+			"subtitle":"Ayuntamiento de Málaga",
+			"userlocation": "User location",	
+			"incidentlocation": "Inicident location",
+	  		"chat": "Chat",
+			"start":"Start",
+			"lastcomment": "Last comment"			
+	  },
+	  "pagechat":{
+		  "title": "Chat",
+		  "subtitle":"Ayuntamiento de Málaga",
+		  "send": "Send"
+		  },
+	  "comments":{
+		  "title": "Comments",
+		  "subtitle":"Ayuntamiento de Málaga"  
+	  },
+	  "review":{
+		  "title":"Review",
+		  "subtitle":"Ayuntamiento de Málaga",
+		  "element": "Element",
+		  "incident": "Incident",
+		  "state": "State",
+		  "responsible": "Responsible",
+		  "location": "User location",
+		  "reviewIncident": "Review"
+	  }
+	  },
+	  "newInc":{
+		  "title": "New Incident",
+		  "subtitle":"Ayuntamiento de Málaga",
+	   	  "element": "Element",
+		  "incident": "Incident",
+		  "location": "User location",
+		   "send": "Send",
+		  "families":{
+				"title":"Families",
+				"subtitle":"Ayuntamiento de Málaga"	   	   			  
+		  },
+		  "survey":{
+			  	"tittle":"Survey",
+				"subtitle":"Ayuntamiento de Málaga",
+				"opinion": "What you think of the app?",
+				"cleaning": "Rate the cleanliness of your city",
+				"security": "Rate the security of your city",
+				"politics": "Rate the politics of your city",
+				"cancel": "Cancel",
+				"send": "Send"
+				  }
+		  },
+		 "news":{
+			 "tittle":"News",
+			 "subtitle":"Ayuntamiento de Málaga",
+			 "newsdetail":{
+				 "title":"News detail",
+				 "subtitle":"Ayuntamiento de Málaga",
+				 "favorite": "Favorite",
+				 "share": "Share"
+			 }				
+		 },
+		 "settings":{
+			 "title": "Settings",
+			 "subtitle":"Ayuntamiento de Málaga",
+			 "notifications": "Notificaciones",
+			 "terms": "Terms and conditions ",
+			 "relatedapp": "APPS RELATED",
+			 "mlgfunciona": "MLG Funciona",
+			 "algaba": "La Algaba",
+			 "fuengirola": "Fuengirola Avanza",
+			 "puerto": "Mejora el Puerto",
+			 "velez": "Incidencias Vélez-Málaga",
+			 "abisuek": "Abisuek",
+			 "torreon": "Torreón",
+			 "prudenco": "Prudenco",
+			 "cuajimalpa": "Cuajimalpa",
+			 "entities":{
+				 "title": "Entities",
+				 "subtitle":"Ayuntamiento de Málaga",
+				 "suggested": "SUGGESTED",
+				 "other": "OTHER ENTITIES"
+			 },
+			 "notificationspage":{
+				 "title": "Notifications",
+				  "subtitle":"Ayuntamiento de Málaga",
+				  "email": "E-mail",
+				  "push": "Push" 
+			 },
+			 "termspage":{
+				 "tittle": "Terms and Conditions",
+				"subtitle":"Ayuntamiento de Málaga"				  
+			 },
+			 "user":{
+				 "tittle": "User",
+				 "subtitle":"Ayuntamiento de Málaga",
+				 "logout":"Logout"		  			 
+			 }
+		 }     
 }

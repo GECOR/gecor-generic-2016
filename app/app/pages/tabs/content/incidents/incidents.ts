@@ -8,6 +8,7 @@ import {ArraySortPipe} from './../../../../pipes/arraySort';
 import {IncidentsSearchPipe} from './incidentsPipe';
 import {IncidentService} from './IncidentService';
 import {GeolocationProvider} from './../../../../providers/geolocation';
+import {ReviewPage} from './incDetail/review/review';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incidents.html',
@@ -140,5 +141,34 @@ export class IncidentsPage {
                                   this.errorMessage = <any>error;
                                   this.loadingComponent.dismiss();
                                 });
+  }
+  
+  openReview(incident, slidingItem) {
+    slidingItem.close();
+    this.nav.push(ReviewPage, incident);
+  }
+  
+  classIncident(incident) {
+    switch (incident.EstadoAvisoID) {
+      case 12:
+        var result = "incident-state-12";
+        break;
+        
+      case 9:
+      var result = "incident-state-9";
+      break;
+      
+      case 11:
+      var result = "incident-state-11";
+      break;
+      
+      case 13:
+      var result = "incident-state-13";
+      break;
+    
+      default:
+        break;
     }
+    return result;
+  }
 }

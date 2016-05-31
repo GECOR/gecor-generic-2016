@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic-angular';
+import {Page, NavController, Storage, SqlStorage} from 'ionic-angular';
 import {forwardRef} from '@angular/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
@@ -9,8 +9,16 @@ import {ConferenceData} from './../../../../providers/conference-data';
 })
 export class HomePage {
   news: any[];
-  constructor(private nav: NavController, private confData: ConferenceData) {
-
+  storage: any;
+  user: any = {};
+  
+  constructor(private nav: NavController
+  , private confData: ConferenceData) {
+    
+    this.storage = new Storage(SqlStorage);
+    this.storage.get('user').then((user) => {
+        this.user = JSON.parse(user);
+    })
   }
 
   openNoticeDetail(notice){

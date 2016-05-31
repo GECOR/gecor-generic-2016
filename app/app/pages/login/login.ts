@@ -33,23 +33,23 @@ export class LoginPage {
       , private loginService: LoginService
       , private zone: NgZone) {
         
-        this.geo.getLocation().then(location =>{
-          this.getAyuntamientosPorDistancia(location);
-        });
-        
         this.storage = new Storage(SqlStorage);
         this.loadingComponent = Loading.create({
                 content: 'Please wait...'
             });
-
     }
     
     onPageWillEnter() {
         
     }
+    
+    onPageLoaded() {
+        this.geo.getLocation().then(location =>{
+            this.getAyuntamientosPorDistancia(location);
+        });
+    }
 
     openMainPage() {
-      //this.nav.push(MainMenuContentPage);
       this.nav.push(TabsPage);
     }
 
@@ -112,7 +112,8 @@ export class LoginPage {
             this.loginService.loginUser(this.email, this.password, this.aytoSuggested.AyuntamientoID)
                             .subscribe(
                                 (user) =>{                                    
-                                    this.user = user;                                   
+                                    this.user = user;
+                                    this.user.AyuntamientoNombre = this.aytoSuggested.Nombre;                                 
                                     
                                     if (this.user.token != '' && this.user.token != null) {
                                         this.configData();                                      

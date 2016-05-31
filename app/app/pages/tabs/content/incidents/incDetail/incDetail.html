@@ -2,7 +2,7 @@
   <ion-title>
     Incidents
     <div toolbar-subtitle>
-      Ayuntamiento de Málaga
+      {{user.AyuntamientoNombre}}
     </div>
   </ion-title>
 </ion-navbar>
@@ -35,11 +35,11 @@
   <ion-item>
     <button primary clear item-left>
       <ion-icon name="thumbs-up"></ion-icon>
-      <div>12 Likes</div>
+      <div (click)="addLike()">{{incident.Likes}} Likes</div>
     </button>
     <button primary clear item-left>
       <ion-icon name="text"></ion-icon>
-      <div (click)="openComments([])">4 Comments</div>
+      <div (click)="openComments()">{{incident.ComentariosAviso}} Comments</div>
     </button>
     <button primary clear item-left>
       <ion-icon name="chatbubbles"></ion-icon>

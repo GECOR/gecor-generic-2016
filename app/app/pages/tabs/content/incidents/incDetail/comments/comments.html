@@ -2,7 +2,7 @@
   <ion-title>
     Comments
     <div toolbar-subtitle>
-      Ayuntamiento de Málaga
+      {{user.AyuntamientoNombre}}
     </div>
   </ion-title>
 </ion-navbar>
@@ -10,42 +10,26 @@
 
 <ion-content class="incidents-page">
 
-  <ion-item>
-    <ion-input type="text" placeholder="Add comment"></ion-input>
-  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-80>
+        <ion-input type="text" placeholder="Add message" [(ngModel)]="message"></ion-input>
+      </ion-col>
+      <ion-col width-20>
+        <button (click)="newComentarioAviso(message)">
+          <ion-icon name="send"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-list>
-    <ion-item>
+    <ion-item *ngFor="let message of messages">
       <ion-avatar item-left>
         <img src="img/avatar-finn.png">
       </ion-avatar>
-      <h2>Finn</h2>
-      <h3>Don't Know What To Do!</h3>
-      <p>I've had a pretty messed up day. If we just...</p>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="img/avatar-finn.png">
-      </ion-avatar>
-      <h2>Finn</h2>
-      <h3>Don't Know What To Do!</h3>
-      <p>I've had a pretty messed up day. If we just...</p>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="img/avatar-finn.png">
-      </ion-avatar>
-      <h2>Finn</h2>
-      <h3>Don't Know What To Do!</h3>
-      <p>I've had a pretty messed up day. If we just...</p>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="img/avatar-finn.png">
-      </ion-avatar>
-      <h2>Finn</h2>
-      <h3>Don't Know What To Do!</h3>
-      <p>I've had a pretty messed up day. If we just...</p>
+      <h2>{{message.NomUsuario}}</h2>
+      <p>{{message.Comentario}}</p>
     </ion-item>
   </ion-list>
 

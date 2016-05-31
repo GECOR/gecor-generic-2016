@@ -43,7 +43,7 @@ export class NewIncPage {
     "tipoProcedenciaID": 2, //Móvil
     "fotos": []
   };
-  user: any;
+  user: any = {};
   
   //MAP
   map: google.maps.Map;

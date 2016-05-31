@@ -24,8 +24,9 @@ export class LoginPage {
     aytos: any=[];
     storage: any;
     loadingComponent: any;
-    aytoSuggested: any;
+    aytoSuggested: any = {};
     entitiesModal: any;
+    location: any;
     
     constructor(private nav: NavController
       , private menu: MenuController
@@ -45,7 +46,17 @@ export class LoginPage {
     
     onPageLoaded() {
         this.geo.getLocation().then(location =>{
-            this.getAyuntamientosPorDistancia(location);
+            this.location = location;
+            if (this.location.error){
+                //Problems with geolocation
+                this.showAlert("Error", "We have problems to locate you, please choose a entity manually.", "OK");
+                this.aytoSuggested.AyuntamientoID = -1;
+                this.aytoSuggested.Nombre = "Choose a entity manually";
+                this.getAyuntamientosPorDistancia(undefined);
+            }else{
+                this.getAyuntamientosPorDistancia(location);
+            }
+            
         });
     }
 
@@ -96,11 +107,16 @@ export class LoginPage {
     }
     
     getAyuntamientosPorDistancia(location) {
+        if (location == undefined){
+            location = {};
+            location.lat = 0;
+            location.lng = 0;
+        }
         this.loginService.getAyuntamientosPorDistancia(location.lat, location.lng)
                             .subscribe(
                                 (aytos) =>{
                                     this.aytos = aytos;
-                                    this.aytoSuggested = aytos[0];                                                                        
+                                    if (this.aytoSuggested.AyuntamientoID != -1) this.aytoSuggested = aytos[0];                                                                        
                                 },
                                 error =>  this.errorMessage = <any>error);
     }
@@ -157,12 +173,11 @@ export class LoginPage {
     
     validateLogin() {
         if (this.email == '' || this.password == '') {
-            let prompt = Alert.create({
-                title: 'Data is empty',
-                message: "Please enter an email and password",
-                buttons: ['Accept']
-            });
-            this.nav.present(prompt);
+            this.showAlert("Data is empty", "Please enter an email and password", "Accept");
+            return false;
+        }else if(this.aytoSuggested.AyuntamientoID == -1){
+            this.showAlert("Entity not found", "Please choose a entity manually", "Accept");
+            return false;
         }else{
             return true;
         }
@@ -195,4 +210,13 @@ export class LoginPage {
                                 
         
     }
+    
+    showAlert(title, subTitle, okButton){
+    let alert = Alert.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: [okButton]
+    });
+    this.nav.present(alert);
+  }
 }

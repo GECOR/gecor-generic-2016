@@ -26,11 +26,11 @@
             </ion-item>
             src={{aytoSuggested.Logo}}
             -->
-            <ion-item *ngIf="!aytoSuggested">
+            <ion-item *ngIf="!aytoSuggested.AyuntamientoID">
                 <ion-spinner item-left></ion-spinner>
                 Show Default
             </ion-item>
-            <ion-item *ngIf="aytoSuggested">                
+            <ion-item *ngIf="aytoSuggested.AyuntamientoID">                
                 <ion-thumbnail item-left small>
                     <img src="{{aytoSuggested.Logo}}" alt="Foto" size-24>
                 </ion-thumbnail>

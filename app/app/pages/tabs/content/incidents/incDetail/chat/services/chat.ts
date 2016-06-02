@@ -8,7 +8,7 @@ import {urlSocketServer} from './../../../../../../../appConfig';
 declare var io;
 
 @Injectable()
-export class ChatService {
+export class ChatNodeService {
   socket: any;
   me: User;
   usersStream: Rx.Observable<User[]> = Rx.Observable<User[]>();

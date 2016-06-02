@@ -18,18 +18,10 @@
       
       <div class="chat-message" [ngClass]="{in: m.UsuarioID != me.CiudadanoID, out: m.UsuarioID == me.CiudadanoID}"> 
         <div class="message tail">
-          <span class="message-date">1990</span>                
-          <span class="message-content">{{ m.msg }}  </span>  
+          <span class="message-date">{{ setDate(m.FechaHoraRegistro) | date:'HH:mm' }}</span>                
+          <span class="message-content">{{ m.Mensaje }}  </span>  
         </div>
-      </div> 
-      <!--
-      <div class="chat-message out"> 
-        <div class="message tail">
-          <span class="message-date">1990</span>                 
-          <span class="message-content">{{ m.msg }}  </span>  
-        </div>
-      </div>
-      -->
+      </div>      
           
     </div>
   </div>

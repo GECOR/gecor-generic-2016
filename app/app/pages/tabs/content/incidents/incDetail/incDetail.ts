@@ -35,6 +35,7 @@ export class IncDetailPage {
   errorMessage: any;
   storage: any;
   user: any = {};
+  entity: any;
 
   constructor(private platform: Platform
     , private menu: MenuController
@@ -58,11 +59,20 @@ export class IncDetailPage {
     this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
     });
+    
+    this.storage.get('entity').then((entity) => {
+        this.entity = JSON.parse(entity);
+    });
 
     this.geo.getLocation().then(location =>{
       this.location = location;
-      this.latLng = this.location.latLng;
-      this.startAddress = this.location.startAddress;
+      if (this.location.error){
+        this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+        this.startAddress = "Address of " + this.entity.Nombre;
+      }else{
+        this.latLng = this.location.latLng;
+        this.startAddress = this.location.startAddress;
+      }       
       setTimeout(() =>
           this.loadMap()
         , 100);

@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import * as Rx from 'rxjs/Rx';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
+import {urlSocketServer} from './../../../../../../../appConfig';
 
 declare var io;
 
@@ -15,9 +16,9 @@ export class AuthService {
     this.jwtHelper = new JwtHelper();
   }
 
-  public getToken(name: string): any {
+  public getToken(obj: any): any {
     return new Promise((resolve, reject) => {
-      this.http.post('http://192.168.1.138:3357/api/generate-token', JSON.stringify({ name: name }))
+      this.http.post(urlSocketServer + '/api/generate-token', JSON.stringify(obj))//'http://192.168.1.138:3357/api/generate-token'
         .map(res => res.json())
         .subscribe(data => resolve(this.saveToken(data)));
     });

@@ -1,8 +1,10 @@
 //export var urlGecorApi = "http://localhost/GecorApi/api/";
 export var urlGecorApi = "http://192.168.1.147/GecorApi/api/";
+export var urlSocketServer = "http://192.168.1.138:3357";
 
 //app.ts -- config multilanguages
-export let defaultLanguage = 'en';
-export let folderLanguage = 'assets/i18n';
-export let sourceLanguage = '.json';
-export let compareLanguage = /(es|en)/gi;
+export var defaultLanguage = 'en';
+export var folderLanguage = 'assets/i18n';
+export var sourceLanguage = '.json';
+export var compareLanguage = /(es|en)/gi;
+

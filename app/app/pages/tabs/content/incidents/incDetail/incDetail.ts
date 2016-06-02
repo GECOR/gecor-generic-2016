@@ -145,7 +145,7 @@ export class IncDetailPage {
   }
 
   openChat(messages) {
-    let aux = Modal.create(ChatPage, messages);
+    let aux = Modal.create(ChatPage, {"messages": messages, "user": this.user, "incident": this.incident});
     this.nav.present(aux);
   }
 

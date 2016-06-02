@@ -1,5 +1,6 @@
-import {ViewChild, OnInit} from '@angular/core';
-import { Page, ViewController, IonicApp, Events } from 'ionic-angular';;
+import {ViewChild, OnInit, ElementRef} from '@angular/core';
+import {NgClass} from '@angular/common';
+import { Page, ViewController, IonicApp, Events, NavParams } from 'ionic-angular';;
 import * as Rx from 'rxjs/Rx';
 import { ChatService } from './services/chat';
 import { Message } from './models/message';
@@ -8,46 +9,45 @@ import { AuthService } from './services/auth';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/chat/chat.html',
+  directives: [NgClass],
   providers:[ChatService, AuthService]
 })
 
 export class ChatPage implements OnInit {
   
-  @ViewChild('chat') content; 
+  @ViewChild('chatContent') content;
   
   msg: string;
-  //msgs: Rx.Subject<Message[]> = new Rx.Subject<Message[]>();
-  msgs: any;
-  friend: User;
   me: User;
-  //content: any;
-  el: any;
+  incident: any;
+  msgs: any;
+  
   constructor(private chat: ChatService,
               private auth: AuthService,
+              params: NavParams,
               private viewController: ViewController,
               private app: IonicApp,
               private e: Events) {
-    this.me = chat.me;
-    this.msgs = [];
     this.e.subscribe('newMessage', (e) => {
-      this.scrollTo();
+      if(e[0].UsuarioID != this.me.CiudadanoID){
+        this.msgs.push(e[0]);
+        this.scrollTo();  
+      }      
     });
+    
+    this.me = params.get('user');
+    this.incident = params.get('incident');
+    this.msgs = params.get('messages');
   }
 
   ngOnInit(): void {
     this.msg = '';
-    this.auth.getToken('usuario gecor').then((status) => {
+    this.auth.getToken({name: this.me.Nombre, id: this.me.CiudadanoID, avisoID: this.incident.AvisoID}).then((status) => {
       if (status) {
         this.chat.socketAuth();
       }
     });
-    /*  
-    this.chat.currentFriend
-      .subscribe((user: User) => {
-        this.friend = user;
-        //this.msgs = this.chat.getCurrentMessages(this.friend);
-      });
-      */
+    
   }
 
   ngAfterViewInit(): void {
@@ -56,34 +56,32 @@ export class ChatPage implements OnInit {
   }
 
   scrollTo(): void {
-    // can't get proper this.el.scrollHeight?
-    //this.content.scrollTo(0, 5000000, 200);
+     let dimensions = this.content.getContentDimensions();
+      this.content.scrollTo(0, dimensions.scrollBottom, 0);
   }
 
   sendMessage(): void {
-    let msg = new Message({
-      isRead: false,
-      sender: 'usuario gecor',
-      recipient: 'Toolkit',
-      msg: this.msg
-    });
+    
+    if(this.msg){
+      let _msg = new Message({ 
+        Nombre: this.me.Nombre,     
+        UsuarioID: this.me.CiudadanoID,
+        AvisoID: this.incident.AvisoID,
+        msg: this.msg
+      });
 
-    /*let msg = new Message({
-      msg: this.msg
-    });*/
+      this.msgs.push(_msg);
 
-    this.msgs.push(msg);
-
-    this.chat.sendMessage(msg).then((resp) => {
-      console.log('|================================> Send Message <================================|');
-      console.log(resp);
-       console.log('|================================> End Send Message <================================|');
-      this.msg = '';
-    });
+      this.chat.sendMessage(_msg).then((resp) => {
+        this.msg = '';
+        this.scrollTo();
+      });
+    } 
+       
   }
 
   public close(): void {
-    //this.modal.close();
+    this.chat.disconnectChat();
     let data = {};
     this.viewController.dismiss(data);
   }

@@ -1,11 +1,13 @@
 export class Message {
+  Nombre: string;
   AvisoID: number;
-  UserID: number;
+  UsuarioID: number;
   msg: string;
 
   constructor(obj: any) {
-    this.AvisoID = obj.avisoID || null;    
-    this.UserID = obj.userID || null;
+    this.Nombre = obj.Nombre || null;   
+    this.AvisoID = obj.AvisoID || null;    
+    this.UsuarioID = obj.UsuarioID || null;
     this.msg = obj.msg || null;
-  }
+  }  
 }

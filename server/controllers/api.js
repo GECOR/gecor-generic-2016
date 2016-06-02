@@ -25,9 +25,9 @@ exports.generateToken = {
       return reply({status: false});
     } else {
       let user = {
-        id: generateRandomId(),
+        id: data.id,//generateRandomId(),
         name: data.name,
-        avatar: generateRandomAvatar()
+        avisoID: data.avisoID
       };
       return reply({status: true, jwt: createToken(user)});
     }

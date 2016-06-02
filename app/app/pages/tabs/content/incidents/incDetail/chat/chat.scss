@@ -1,7 +1,216 @@
 .chat {
-  padding-bottom: 50px;  
+  padding-bottom: 50px;
+  
+  background: #ede9e4;
+  background: -webkit-linear-gradient(top,#ede9e4 0%,#ede9e4 20%,#e5ddd5 100%);
+  background: linear-gradient(to bottom,#ede9e4 0%,#ede9e4 20%,#e5ddd5 100%);  
+  
+  scroll-content {
+    bottom: 7% !important;
+  }
+  
+  .message-list {
+      /*
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+      padding-bottom: 8px;
+      -webkit-transition: padding .3s cubic-bezier(.69,0,.79,.14);
+      transition: padding .3s cubic-bezier(.69,0,.79,.14);
+      padding-left: 0;
+      */
+     padding: 15px;
+  }
+  
+  .chat-message {
+      padding: 0;
+      display: table;
+      width: 100%;
+      margin-bottom: 4px;
+  }
+   
+  .message-content {
+      display: block;
+      word-wrap: break-word;
+      margin-bottom: 4px;
+  }
+  
+  .message {
+      background-color: #fff;
+      border: 1px solid #e7eaec;
+      text-align: left;
+      display: block;
+      padding: 10px 20px;
+      position: relative;
+      border-radius: 4px;
+      box-shadow: 0 1px .5px rgba(0,0,0,.13);
+  }
+  
+  .message-date {
+    font-size: 10px;
+    color: #888888;
+    position: absolute;
+    bottom: 0px;
+  }
+  
+  .chat-message.in .message-date {
+    float: right;
+    right: 4px;
+  }
+  
+  .chat-message.out .message-date {
+    float: left;
+    right: 18px;
+  }
+  
+  .chat-message.in .message {
+    text-align: left;
+    max-width: 336px;
+    float: left;
+    padding: 3px 3px 10px 3px;
+    min-width: 108px;
+  }
+  
+  .chat-message.out .message {
+    text-align: right;
+    max-width: 336px;
+    float: right;
+    padding: 3px 3px 10px 3px;
+    min-width: 108px;
+    background-color: #dcf8c6;
+  }
+   
+  /*
+  .message-list {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    padding-bottom: 8px;
+    -webkit-transition: padding .3s cubic-bezier(.69,0,.79,.14);
+    transition: padding .3s cubic-bezier(.69,0,.79,.14);
+    padding-left: 0;
+}
+    
+  .message .message-text .emojitext {
+      cursor: text;
+      white-space: pre-wrap;
+  }
+
+  .message-text .message-pre-text {
+      position: absolute;
+      width: .1px;
+      height: .1px;
+      opacity: 0;
+      overflow: hidden;
+  }
+
+  .message-text {
+      position: relative;
+  }
+
+  .message-text, .document-body {
+      font-size: 13.6px;
+      line-height: 19px;
+      font-family: 'Open Sans',sans-serif;
+      word-wrap: break-word;
+      color: #262626;
+  }
+
+  .bubble {
+      padding: 6px 7px 8px 9px;
+  }
+
+  .message-in, .message-out {
+      border-radius: 7.5px;
+      position: relative;
+      box-shadow: 0 1px .5px rgba(0,0,0,.13);
+  }
+
+  .message:last-of-type {
+      margin-bottom: 0;
+  }
+
+  .message-in {
+      background-color: #fff;
+      float: left;
+  }
+
+  .tail.message-in:before {
+      content: '';
+      position: absolute;
+      left: -11px;
+      bottom: 3px;
+      width: 12px;
+      height: 19px;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: contain;
+  }
+
+  .message-in:before {
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAMAAADp2asXAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAADGUExURQAAAP////b29vn5+f///wAAAP///wAAAAAAAP///9ra2v////j4+PHx8fv7++Hh4fHx8f////////////////39/QAAAP////////z8/P////39/f39/fz8/P////////////z8/P////////////z8/P////////////v7+/Hx8f///9bW1vz8/K2trf////39/f39/WJiYgAAAExMTFtbWwAAAN3d3cjIyPr6+vX19QAAAO7u7vz8/NTU1Ofn5zMzM////zGPlXsAAABBdFJOUwAcm/kREh4CCDWL1SneR6TfAQffhMYK/A5nRrLWfRc5DW2ih5f+19Kn+9v4g/1LCJuXHwQUKgahcXS6DNnlDMMKKzPoTgAAAKBJREFUKM+V08USwmAQA+C/0NIWd3d3d8/7vxTMcIPkQK7f7CG7s8bQAOY/SCuwFYQU1P+eiCqIK2gpWCmoCrAgoKQgJ8CHgIqAMjg0MxxSQ3DogEMWFBZtUPAHYGB1CyDQWE6AH7BrfXzlAxGAQhECTGAmwN1Okz0Gb/LW4fEItIfrOfNELMh3tck7u+PhcT2zQ7l77/K8iY8yJwV3BeYFqpc/uSyPGdAAAAAASUVORK5CYII=);
+  }
+
+  .msg.msg-continuation {
+      margin-bottom: 2px;
+  }
+
+  .msg {
+      padding-left: 9%;
+      padding-right: 9%;
+  }
+
+  .msg {
+      margin-bottom: 12px;
+      position: relative;
+  }
+
+  .message-out {
+      background-color: #dcf8c6;
+      float: right;
+  }
+
+  .tail.message-out:before, .tail-override-left:before {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      width: 12px;
+      height: 19px;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: contain;
+  }
+  .tail.message-out:before {
+      right: -11px;
+  }
+  .message-out:before {
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAMAAADp2asXAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAD2UExURQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGRsXAAAANzwzNPmxNrtyau5oIWRedDkwNntyczgwdfpyJ+/n97wzsLWtNjsytvwzczfvtPmxau6nNjqxtrtyio1KtzwzNjryAAAANzwzgAAANzwzK7Aor/Us9Lnw8vevAAAAMzevtbpxrvMrX+IdwAAAEROOi45Lr3MrZGjf9LoxX+MctnqydLkwhgYGMzfv9vuyQAAANzwzNvuy9zxy7vMu7XGqNvtzKKykwAAANruzKq6nLnMriQkGMXXuL3PsNjsySgzKAAAANLkw83fvd3vy9z4xtzwzRpFmIEAAABQdFJOUwAXChEGBAMBAgwhDvJ7k0YqMc0Zmwj6apf2kjU0+dkw/swh/CP9j2Wr2gndvaYeBRoxQg6gUPt/FaHJGdTj9A9k7XQLeE6iFcN12xkSt9r4NKizowAAAMFJREFUKM+V0sdywlAMBVDbMX7PQCihQ+iQ0HsJvfem/P/PwBIzugu0PXNnNNJVyPmhsIPhhoB2COwIGuLdhAcl3AhCBoBoHUC6BCBbA0C/EkBFB5D/FjxQwQYg1RI8UKINgDoSAPUlAPqUAMgfAEBfXsEDBV0+Hogi4Zhg4THj9YwHoqEBYOrgYTI3GVgMNn8r+Qq94k9yZNosW/3Hy9VuTjWfHkOX6367bGZUU7de66ieHZrO1OGg8Z1WTgYAFLgD5S1PCkzo1B0AAAAASUVORK5CYII=);
+  }
+
+  .bubble-text .message-meta, .bubble-doc .message-meta {
+      bottom: 3px;
+      right: 7px;
+  }
+
+  .text-clickable {
+      cursor: pointer;
+  }
+  .message-meta {
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      font-size: 11px;
+      color: rgba(0,0,0,.45);
+      line-height: 15px;
+      height: 15px;
+  }
+  */
+ 
 }
 
+/*
 .messages {
   width: 100%;
   position: absolute;
@@ -27,6 +236,7 @@
       margin-left: -5px;
     }
   }
+  
   .message.me {
     float: right;
     background: #fff;
@@ -36,14 +246,16 @@
     img.avatar {
       display: none;
     }
+    
   }
 }
-
-.msg {
+*/
+.message-form {
   position: fixed;
   bottom: 0;
   left: 0;
   padding: 0 5px;
+  /*padding: 10px 10px;*/
   width: 100%;
   height: 40px;
   border-top: 1px solid #222;

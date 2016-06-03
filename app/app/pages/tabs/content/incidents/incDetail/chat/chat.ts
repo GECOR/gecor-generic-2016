@@ -82,6 +82,7 @@ export class ChatPage implements OnInit {
         Nombre: this.me.Nombre,     
         UsuarioID: this.me.CiudadanoID,
         AvisoID: this.incident.AvisoID,
+        FechaHoraRegistro: new Date(),
         Mensaje: this.msg
       });
 

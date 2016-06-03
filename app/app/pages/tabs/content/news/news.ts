@@ -16,19 +16,19 @@ export class NewsPage {
   user: any = {};
   
   constructor(private nav: NavController, private confData: ConferenceData) {
-    //this.news = confData.data.notices;
-    confData.getNews().then(news =>{
-      this.news = news;
-      console.log(this.news);
-    });
-    
     this.storage = new Storage(SqlStorage); 
     this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
     });
-
+   }
+  
+   onPageWillEnter() {
+     this.confData.getNews().then(news =>{
+      this.news = news;
+      console.log(this.news);
+    });    
   }
-
+  
   openNoticeDetail(notice){
     this.nav.push(NewsDetailPage, notice);
   }

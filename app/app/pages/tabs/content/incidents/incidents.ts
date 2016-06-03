@@ -14,14 +14,14 @@ import {TranslatePipe} from 'ng2-translate/ng2-translate';
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incidents.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  pipes: [ArraySortPipe, IncidentsSearchPipe,TranslatePipe],
+  pipes: [ArraySortPipe, IncidentsSearchPipe, TranslatePipe],
   providers: [IncidentService, GeolocationProvider]
 })
 export class IncidentsPage {
   isAndroid: any;
   activeMenu: any;
   incidents: any=[];
-  type: any;
+  type: any = 'list';
   order: any;
   searchText: any;
   errorMessage: any;
@@ -52,7 +52,7 @@ export class IncidentsPage {
       
     this.platform = platform;
     this.isAndroid = platform.is('android');
-    this.type = 'list';
+    //this.type = 'list';
     this.order = 'FechaHoraRegistro';
     this.searchText = '';
     this.storage = new Storage(SqlStorage);

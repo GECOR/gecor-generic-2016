@@ -107,7 +107,7 @@ io.sockets.on('connection', SocketIoJwt.authorize({
           .input('avisoID', sql.Int, message.AvisoID)
           .input('userID', sql.Int, message.UsuarioID)
           .input('dateTime', sql.DateTime, new Date())
-          .input('message', sql.VarChar, message.msg)
+          .input('message', sql.VarChar, message.Mensaje)
           .query(config.sql_insert_querry).then((recordset) => {
               //console.dir(recordset);              
               //console.log('|=======================> Try Close connection <=======================|');

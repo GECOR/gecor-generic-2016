@@ -44,7 +44,7 @@
     (input)="inputSearch($event)">
   </ion-searchbar>
 
-  <div padding [hidden]="type == 'map'">
+  <div padding-5 [hidden]="type == 'map'">
     <ion-segment [(ngModel)]="order">
       <ion-segment-button value="FechaHoraRegistro">Date</ion-segment-button>
       <ion-segment-button value="Distancia">Distance</ion-segment-button>
@@ -54,16 +54,16 @@
   
 
   <div id="switch" [ngSwitch]="type">
-    <ion-list *ngSwitchDefault>
-      <ion-item-sliding *ngFor="let incident of incidents | arraySort:order:'desc' | search: searchText" [ngClass]="classIncident(incident)" #slidingItem>
+    <ion-list no-lines *ngSwitchDefault>
+      <ion-item-sliding class="incident" *ngFor="let incident of incidents | arraySort:order:'desc' | search: searchText" [ngClass]="classIncident(incident)" #slidingItem>
         <!--<div [ngSwitch]=incident.state>
           <p danger *ngSwitchWhen="'Pendiente'">{{incident.Estado}}</p>
           <p secondary *ngSwitchWhen="'Terminada'">{{incident.Estado}}</p>
         </div>-->
         <!--<button clear item-right (click)="openDetail(incident)">View</button>-->
-        <button ion-item (click)="openDetail(incident)">
-          <ion-thumbnail item-left>
-          <img src="{{incident.RutaFoto != '' ? incident.RutaFoto : 'img/no_image_512.png'}}" incident-img>
+        <button class="incident-button" ion-item (click)="openDetail(incident)">
+          <ion-thumbnail item-left class="thumb-inc">
+            <img src="{{incident.RutaFoto != '' ? incident.RutaFoto : 'img/no_image_512.png'}}" incident-img>
           </ion-thumbnail>
           <h2>{{incident.DesTipoElemento}}</h2>
           <p>{{incident.DesUbicacion}}</p>

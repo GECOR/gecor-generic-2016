@@ -24,16 +24,18 @@
   }
   
   .chat-message {
-      padding: 0;
-      display: table;
-      width: 100%;
-      margin-bottom: 4px;
+    padding: 0;
+    display: table;
+    width: 100%;
+    margin-bottom: 4px;
   }
    
   .message-content {
-      display: block;
-      word-wrap: break-word;
-      margin-bottom: 4px;
+    display: block;
+    word-wrap: break-word;
+    margin-bottom: 6px;
+    font-size: 12px;
+    margin-top: 4px;
   }
   
   .message {
@@ -80,6 +82,13 @@
     min-width: 108px;
     background-color: #dcf8c6;
   }
+ 
+.author-name {
+    font-weight: bold;
+    margin-bottom: 3px;
+    font-size: 12px;
+  }
+  
    
   /*
   .message-list {

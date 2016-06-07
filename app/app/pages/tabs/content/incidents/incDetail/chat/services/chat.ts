@@ -113,7 +113,8 @@ export class ChatNodeService {
     });
   }
 
-  public socketAuth(): void {
+  public socketAuth(): void {//SERVER 1
+    
     let token = localStorage.getItem('id_token');
     this.socket = io.connect(urlSocketServer);
     this.socket.on('connect', () => {
@@ -122,132 +123,33 @@ export class ChatNodeService {
       this.initMessagesStreams();
       //this.initLoggedInUser();
     });
+
+  }
+
+   public socketJoin(idRoom, token): void {//SERVER 2
+    this.socket = io.connect(urlSocketServer);
+    //this.socket = io.connect(urlSocketServer, {'query': 'token=' + token});
+    this.socket.on('connect', () => {
+      /*this.socket.on('authenticated', () => {
+        //do other things
+        //this.socket.emit('create', idRoom);
+        console.log("authenticated");
+      }).emit('authenticate', { token: idRoom });
+      */
+      this.socket.emit('create', idRoom);
+      this.initUsersStreams();
+      this.initMessagesStreams();
+      //this.initLoggedInUser();
+    });
+
   }
   
-  public disconnectChat(): void {
+  public disconnectChat(): void {//SERVER 1
       this.socket.emit('leave');      
   }
 
-}
-/*import { User } from './../models/user';
-import { Message } from './../models/message';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
-import * as Rx from 'rxjs/Rx';
-
-declare var io;
-
-@Injectable()
-export class ChatService {
-  socket: any;
-  me: User;
-  usersStream: Observable<User[]> = new Observable<User[]>();
-  usersResponseStream: any;
-  messagesStream: Observable<Message[]> = new Observable<Message[]>();
-  messagesResponseStream: any;
-  messages: Subject<Message> = new Subject<Message>(null);
-  currentMessages:Subject<Message[]> = new Subject<Message[]>(null);
-  createMessage: Subject<Message> = new Subject<Message>();
-  friends: Subject<User[]> = new Subject<User[]>(null);
-  currentFriend: Subject<User> = new BehaviorSubject<User>(null);
-
-  constructor(public e: Events) { }
-
-  private initUsersStreams(): void {
-    this.usersStream = Observable.fromEvent(this.socket, 'onlineUsers');
-
-    this.usersStream.subscribe((users) => {
-      this.usersResponseStream = Observable.create((observer) => {
-        observer.next(users);
-      });
-
-      this.usersResponseStream.subscribe((users: User[]) => {
-        this.friends.next(users);
-      });
-    });
-  }
-
-  private initMessagesStreams(): void {
-    this.messagesStream = Observable.fromEvent(this.socket, 'onMessage');
-
-    this.messagesStream.subscribe((message: Message) => {
-       
-       console.log("initMessagesStreams->messagesStream");
-        console.log(message);
-        
-      this.messagesResponseStream = Observable.create((observer) => {        
-        observer.next(message);
-      });
-
-      this.messagesResponseStream.subscribe((message: Message) => {
-         
-       console.log("initMessagesStreams->messagesResponseStream");
-        console.log(message);
-        
-        this.createMessage.next(message);
-      });
-    });
-
-    this.createMessage.map((message: Message) => {
-      return message;
-    }).subscribe((message: Message) => {
-       
-      this.e.publish('newMessage', true);
-      this.messages.next(message);
-    });
-  }
-
-  public setCurrentFriend(user: User): void {
-    this.currentFriend.next(new User(user));
-  }
-
-  public getCurrentMessages(): Message[] {
-      let msgs: Message[] = [];
-    return this.messages.map((message: Message) => {
-        msgs.push(new Message(message));
-        console.log("getCurrentMessages");
-        console.log(msgs);
-        return msgs;
-      });
-    }
-
-  public sendMessage(msg: Message): Promise<Message> {
-    return new Promise((resolve, reject) => {
-      this.addOwnMessage(msg);
-      resolve();
-      this.socket.emit('sendMessage', msg, (resp) => {
-        if (resp.status) {
-          this.addOwnMessage(msg);
-          resolve();
-        } else {
-          reject();
-        }
-      });
-    });
-  }
-
-  private addOwnMessage(msg: Message): void {
-    this.createMessage.next(msg);
-  }
-
-  private initLoggedInUser(): void {   
-    let storage = new Storage(SqlStorage);
-    storage.get('user').then((user) => {
-        console.log(JSON.parse(user));
-    });
-  }
-
-  public socketAuth(): void {
-    let token = localStorage.getItem('id_token');
-    this.socket = io.connect('http://192.168.1.138:3357');
-    this.socket.on('connect', () => {
-      this.socket.emit('authenticate', { token: token });
-      this.initUsersStreams();
-      this.initMessagesStreams();
-      this.initLoggedInUser();
-    });
+  public disconnectUserChat(idRoom): void {//SERVER 2
+      this.socket.emit('leave', idRoom);      
   }
 
 }
-*/

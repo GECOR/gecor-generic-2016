@@ -5,16 +5,17 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 @Injectable()
-export class LoginService {
+export class SignInService {
     constructor (private http: Http) {}
     
-    signIn(Nombre: string, Email: string, Password: string): Observable<any> {
+    nuevoUsuario(Nombre: string, Email: string, Password: string, AyuntamientoID: number, Dispositivo: string,
+    Aplicacion: string, Idioma: string, ModeloMovil: string): Observable<any> {
         
-        let body = JSON.stringify({ Nombre, Email, Password });
+        let body = JSON.stringify({ Nombre, Email, Password, AyuntamientoID, Dispositivo, Aplicacion, Idioma, ModeloMovil });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         
-        return this.http.post(urlGecorApi + 'User/loginUser', body, options)
+        return this.http.post(urlGecorApi + 'User/nuevoUsuario', body, options)
                         .map(res => <any> res.json())
                         //.do() // eyeball results in the console
                         .catch(this.handleError)

@@ -1,0 +1,24 @@
+<ion-toolbar>
+  <ion-title>
+    {{"signin.legalterms.title" | translate}}
+  </ion-title>
+  <ion-buttons start>
+    <button (click)="dismiss()">
+      <span primary showWhen="ios">{{"signin.legalterms.cancel" | translate}}</span>
+      <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content light>
+    
+    <ion-card>
+        <ion-card-header>
+            {{"signin.legalterms.legalTerm" | translate}}
+        </ion-card-header>
+        <ion-card-content>
+            {{aytoSuggested.AvisoLegal}}
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

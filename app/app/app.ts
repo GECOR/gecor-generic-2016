@@ -58,9 +58,11 @@ export class MyApp {
     Globalization.getPreferredLanguage().then((obj) =>{//get device language
       console.log(obj.value);
       this.initializeTranslateServiceConfig(obj.value.split('-')[0]);//initialize sending lowercase language
+      this.storage.set('language', obj.value.split('-')[0]);
     }, (err)=>{
       console.log(err); 
       this.initializeTranslateServiceConfig(defaultLanguage);//initialize sending lowercase language default 
+      this.storage.set('language', defaultLanguage);
     });
     
     //this.initializeTranslateServiceConfig();

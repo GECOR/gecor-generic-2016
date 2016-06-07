@@ -23,9 +23,9 @@ export class LoginService {
                     
     }
     
-    getAyuntamientosPorDistancia(lat: string, lng: string): Observable<Ayuntamiento> {
+    getAyuntamientosPorDistancia(lat: string, lng: string, language: string): Observable<Ayuntamiento> {
         
-        let body = JSON.stringify({ lat, lng });
+        let body = JSON.stringify({ lat, lng, language });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         

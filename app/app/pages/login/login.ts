@@ -29,6 +29,7 @@ export class LoginPage {
     aytoSuggested: any = {};
     entitiesModal: any;
     location: any;
+    language: string;
     
     constructor(private nav: NavController
       , private menu: MenuController
@@ -37,6 +38,11 @@ export class LoginPage {
       , private zone: NgZone) {
         
         this.storage = new Storage(SqlStorage);
+        
+        this.storage.get('language').then((language) => {
+            this.language = language;
+        })
+        
         this.loadingComponent = Loading.create({
                 content: 'Please wait...'
             });
@@ -54,9 +60,9 @@ export class LoginPage {
                 this.showAlert("Error", "We have problems to locate you, please choose a entity manually.", "OK");
                 this.aytoSuggested.AyuntamientoID = -1;
                 this.aytoSuggested.Nombre = "Choose a entity manually";
-                this.getAyuntamientosPorDistancia(undefined);
+                this.getAyuntamientosPorDistancia(undefined, this.language);
             }else{
-                this.getAyuntamientosPorDistancia(location);
+                this.getAyuntamientosPorDistancia(location, this.language);
             }
             
         });
@@ -106,16 +112,16 @@ export class LoginPage {
     }
 
     openSignInPage() {
-      this.nav.push(SignInPage);
+      this.nav.push(SignInPage, this.aytoSuggested);
     }
     
-    getAyuntamientosPorDistancia(location) {
+    getAyuntamientosPorDistancia(location, language) {
         if (location == undefined){
             location = {};
             location.lat = 0;
             location.lng = 0;
         }
-        this.loginService.getAyuntamientosPorDistancia(location.lat, location.lng)
+        this.loginService.getAyuntamientosPorDistancia(location.lat, location.lng, language)
                             .subscribe(
                                 (aytos) =>{
                                     this.aytos = aytos;

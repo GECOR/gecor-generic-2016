@@ -8,25 +8,25 @@
   <div padding>
     <ion-list>
       <ion-item>
-        <ion-input type="text" placeholder="Name"></ion-input>
+        <ion-input type="text" placeholder="Name" [(ngModel)]="nombre"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="email" placeholder="Email"></ion-input>
+        <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
       </ion-item>
     </ion-list>
     <ion-list>
       <ion-item>
-        <ion-input type="password" placeholder="Password"></ion-input>
+        <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="password" placeholder="Confirm password"></ion-input>
+        <ion-input type="password" placeholder="Confirm password" [(ngModel)]="confirmPassword"></ion-input>
       </ion-item>
     </ion-list>
     <ion-item>
     <ion-label>{{"signin.terms" | translate}}</ion-label>
-      <ion-checkbox dark checked="false"></ion-checkbox>
+      <ion-checkbox dark [(ngModel)]="acceptLegalTerms" (change)="openLegalTerms()"></ion-checkbox>
     </ion-item>
-    <button block (click)="openLoginPage()">{{"signin.signin" | translate}}</button>
+    <button block (click)="nuevoUsuario()">{{"signin.signin" | translate}}</button>
     <button light block (click)="openLoginPage()">{{"signin.back" | translate}}</button>
   </div>
 </ion-content>

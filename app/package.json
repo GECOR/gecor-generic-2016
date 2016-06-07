@@ -54,8 +54,8 @@
     "cordova-plugin-geolocation",
     "cordova-plugin-image-picker",
     "cordova-sqlite-storage",
-    "cordova-plugin-crosswalk-webview",
-    "cordova-plugin-globalization"
+    "cordova-plugin-globalization",
+    "cordova-plugin-crosswalk-webview"
   ],
   "cordovaPlatforms": [
     "ios",

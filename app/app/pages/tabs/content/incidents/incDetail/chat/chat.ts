@@ -57,12 +57,16 @@ export class ChatPage implements OnInit {
   ngOnInit(): void {
     this.msg = '';
     this.nav.present(this.loadingComponent);
-    this.auth.getToken({name: this.me.Nombre, id: this.me.CiudadanoID, avisoID: this.incident.AvisoID}).then((status) => {
+    /* SERVER 1 required */
+    this.auth.getToken({name: this.me.Nombre, id: this.me.UsuarioID, avisoID: this.incident.AvisoID}).then((status) => {
       if (status) {
         this.chat.socketAuth();
       }
     });
     
+
+    //this.chat.socketJoin(this.incident.AvisoID, this.me.token);//seccond test with token
+    //this.chat.socketJoin(this.me.token);//first test
   }
 
   ngAfterViewInit(): void {
@@ -80,8 +84,9 @@ export class ChatPage implements OnInit {
     if(this.msg){
       let _msg = new Message({ 
         Nombre: this.me.Nombre,     
-        UsuarioID: this.me.CiudadanoID,
+        UsuarioID: this.me.UsuarioID,
         AvisoID: this.incident.AvisoID,
+        FechaHoraRegistro: new Date(),
         Mensaje: this.msg
       });
 
@@ -96,7 +101,8 @@ export class ChatPage implements OnInit {
   }
 
   public close(): void {
-    this.chat.disconnectChat();
+    //this.chat.disconnectChat();//server V1
+    this.chat.disconnectUserChat(this.incident.AvisoID);
     let data = {};
     this.viewController.dismiss(data);
   }

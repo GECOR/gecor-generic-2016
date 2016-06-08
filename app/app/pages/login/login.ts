@@ -11,6 +11,7 @@ import {User} from './loginInterface';
 import {Facebook} from 'ionic-native';
 import {EntitiesModalPage} from './entitiesModal/entitiesModal';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from './../../appConfig';
 
 @Page({
   templateUrl: './build/pages/login/login.html',
@@ -40,12 +41,16 @@ export class LoginPage {
         this.storage = new Storage(SqlStorage);
         
         this.storage.get('language').then((language) => {
-            this.language = language;
+            if (language == undefined){
+                this.language = defaultLanguage;
+            }else{
+                this.language = language;
+            }            
         })
         
         this.loadingComponent = Loading.create({
-                content: 'Please wait...'
-            });
+            content: 'Please wait...'
+        });
     }
     
     onPageWillEnter() {

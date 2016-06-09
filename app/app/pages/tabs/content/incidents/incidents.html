@@ -54,7 +54,7 @@
   <div id="switch" [ngSwitch]="type">
 
     <ion-list no-lines *ngSwitchWhen="'list'">   
-      <ion-item-sliding class="incident" *ngFor="let incident of incidents | arraySort:order:'desc' | search: searchText" [ngClass]="classIncident(incident)" #slidingItem>
+      <ion-item-sliding class="incident" *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText" [ngClass]="classIncident(incident)" #slidingItem>
         <button class="incident-button" ion-item (click)="openDetail(incident)">
           <ion-thumbnail item-left class="thumb-inc">
             <img src="{{incident.RutaFoto != '' ? incident.RutaFoto : 'img/no_image_512.png'}}" incident-img>
@@ -64,6 +64,7 @@
           <p>{{incident.DesUbicacion}}</p>
           <p>{{incident.Responsable}}</p>
           <p>{{incident.CodAviso}}</p>
+          <p distance>{{utils.getDistanceFromLatLonInKm(incident["Lat"], incident["Lng"], latLng.lat(), latLng.lng()) | number:'1.0-1'}} km</p>
         </button>
         <ion-item-options>
           <button (click)="openReview(incident, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>Review</button>
@@ -76,7 +77,7 @@
     </div>
 
     <div id="gallery" *ngSwitchWhen="'gallery'">
-      <ion-card *ngFor='let incident of incidents | arraySort: order | search: searchText'>
+      <ion-card *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText">
         <img src={{incident.RutaFoto}}/>
         <ion-card-content>
           <p>

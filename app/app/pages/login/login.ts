@@ -22,8 +22,8 @@ import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from '
 export class LoginPage {
     errorMessage: any;
     user: any = {};
-    email: any;
-    password: any;
+    email: string = "";
+    password: string = "";
     aytos: any=[];
     storage: any;
     loadingComponent: any;

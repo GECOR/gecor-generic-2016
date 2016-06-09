@@ -4,10 +4,11 @@ import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {IncDetailPage} from './incDetail/incDetail';
-import {ArraySortPipe} from './../../../../pipes/arraySort';
+import {ArraySortPipe} from './incidentsArraySort';
 import {IncidentsSearchPipe} from './incidentsPipe';
 import {IncidentService} from './IncidentService';
 import {GeolocationProvider} from './../../../../providers/geolocation';
+import {UtilsProvider} from './../../../../providers/utils';
 import {ReviewPage} from './incDetail/review/review';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
@@ -15,7 +16,7 @@ import {TranslatePipe} from 'ng2-translate/ng2-translate';
   templateUrl: './build/pages/tabs/content/incidents/incidents.html',
   directives: [forwardRef(() => AndroidAttribute)],
   pipes: [ArraySortPipe, IncidentsSearchPipe, TranslatePipe],
-  providers: [IncidentService, GeolocationProvider]
+  providers: [IncidentService, GeolocationProvider, UtilsProvider]
 })
 export class IncidentsPage {
   isAndroid: any;
@@ -48,7 +49,8 @@ export class IncidentsPage {
     , private nav: NavController
     , private zone: NgZone
     , private incidentService: IncidentService
-    , private geo: GeolocationProvider ) {
+    , private geo: GeolocationProvider
+    , private utils: UtilsProvider ) {
       
     this.platform = platform;
     this.isAndroid = platform.is('android');
@@ -73,6 +75,7 @@ export class IncidentsPage {
     
     this.storage.get('entity').then((entity) => {
         this.entity = JSON.parse(entity);
+        this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
     })
     
     this.geo.getLocation().then(location =>{

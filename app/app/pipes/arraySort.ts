@@ -5,7 +5,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class ArraySortPipe {
     transform(array: Array<string>, args: string, order:string): Array<string> {
-        if (typeof args[0] === "undefined") {
+        if (typeof args === "undefined") {
             return array;
         }
         if (order == 'asc'){
@@ -17,8 +17,6 @@ export class ArraySortPipe {
                 return b[args].toString().localeCompare(a[args].toString());
            }); 
         }
-        
-
         return array;
     }
 }

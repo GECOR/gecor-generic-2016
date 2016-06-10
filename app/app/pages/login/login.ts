@@ -51,6 +51,9 @@ export class LoginPage {
         this.loadingComponent = Loading.create({
             content: 'Please wait...'
         });
+        
+        this.aytoSuggested.AyuntamientoID = -1;
+        this.aytoSuggested.Nombre = "Choose a entity manually";
     }
     
     onPageWillEnter() {

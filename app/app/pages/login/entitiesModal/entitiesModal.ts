@@ -10,7 +10,7 @@ import {TranslatePipe} from 'ng2-translate/ng2-translate';
 export class EntitiesModalPage {
   character;
   aytos: any[];
-  aytoSuggested: any;
+  aytoSuggested: any = {};
   searchText: any;
   constructor(public platform: Platform
     , public params: NavParams

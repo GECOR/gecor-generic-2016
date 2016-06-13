@@ -13,7 +13,7 @@
 <ion-content light>
   <ion-searchbar [hidden]="type=='map'"
     [(ngModel)]="searchText"
-    (input)="inputSearch($event)">
+    (ionInput)="inputSearch($event)">
   </ion-searchbar>
 
   <ion-list no-border>

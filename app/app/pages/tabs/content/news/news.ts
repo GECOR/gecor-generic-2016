@@ -1,11 +1,11 @@
-import {Page, NavController, Storage, SqlStorage} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
+import {NavController, Storage, SqlStorage} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {NewsDetailPage} from './newsDetail/newsDetail';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/tabs/content/news/news.html',
   directives: [forwardRef(() => AndroidAttribute)],
    pipes: [TranslatePipe]
@@ -22,7 +22,7 @@ export class NewsPage {
     });
    }
   
-   onPageWillEnter() {
+   ionViewWillEnter() {
      this.confData.getNews().then(news =>{
       this.news = news;
       console.log(this.news);

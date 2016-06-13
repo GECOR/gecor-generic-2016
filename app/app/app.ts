@@ -1,6 +1,6 @@
-import {ViewChild, Type, provide} from '@angular/core';
+import {Component, ViewChild, Type, provide} from '@angular/core';
 import {Http} from '@angular/http';
-import {App, Platform, Storage, SqlStorage} from 'ionic-angular';
+import {ionicBootstrap, Platform, Storage, SqlStorage} from 'ionic-angular';
 import {Splashscreen, Globalization} from 'ionic-native';
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {ConferenceData} from './providers/conference-data';
@@ -8,13 +8,13 @@ import {GeolocationProvider} from './providers/geolocation';
 import {UserData} from './providers/user-data';
 import {SlidePage} from './pages/slides/slide';
 import {TabsPage} from './pages/tabs/tabs';
+import {LoginPage} from './pages/login/login';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from './appConfig';
 // https://angular.io/docs/ts/latest/api/core/Type-interface.html
 
-@App({
+@Component({
   templateUrl: './build/app.html',  
-  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
-  providers: [ConferenceData
+  /*providers: [ConferenceData
               , UserData
               , GeolocationProvider
               , provide(TranslateLoader, {
@@ -22,7 +22,7 @@ import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from '
                 deps: [Http]
               }),
               TranslateService
-              ],
+              ],*/
     pipes: [TranslatePipe]
 })
 export class MyApp {
@@ -41,19 +41,31 @@ export class MyApp {
       if(user){        
         this.user = JSON.parse(user);
       }    
-         
+      /*   
       if(this.user){
         if(this.user.token){
           this.rootPage = TabsPage;
         }else{
-          this.rootPage = SlidePage;
+          this.rootPage = LoginPage;
         }
+        
       }else{
-        this.rootPage = SlidePage;
-      }  
+        this.rootPage = SlidePage;        
+      }*/
+
+      this.storage.get('firstRun').then((resp) => {
+        if(this.user)
+          this.rootPage = TabsPage;
+        else if(resp)
+          this.rootPage = LoginPage;
+        else
+          this.rootPage = SlidePage;
+      });  
         
       Splashscreen.hide();           
     });
+
+    
     
     Globalization.getPreferredLanguage().then((obj) =>{//get device language
       console.log(obj.value);
@@ -77,3 +89,24 @@ export class MyApp {
   }
   
 }
+
+// Pass the main App component as the first argument
+// Pass any providers for your app in the second argument
+// Set any config for your app as the third argument, see the docs for
+// more ways to configure your app:
+// http://ionicframework.com/docs/v2/api/config/Config/
+// Place the tabs on the bottom for all platforms
+// See the theming docs for the default values:
+// http://ionicframework.com/docs/v2/theming/platform-specific-styles/
+
+ionicBootstrap(MyApp, [ConferenceData
+                      , UserData
+                      , GeolocationProvider
+                      , provide(TranslateLoader, {
+                        useFactory: (http: Http) => new TranslateStaticLoader(http, folderLanguage, sourceLanguage),
+                        deps: [Http]
+                      }),
+                      TranslateService
+                      ], {
+                        tabbarPlacement: 'bottom'
+                      });

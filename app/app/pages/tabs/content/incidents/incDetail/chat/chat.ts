@@ -1,6 +1,6 @@
-import {ViewChild, OnInit, Component } from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import {NgClass} from '@angular/common';
-import { Page, ViewController, IonicApp, Events, NavParams, Loading, NavController } from 'ionic-angular';;
+import {ViewController, App, Events, NavParams, Loading, NavController } from 'ionic-angular';;
 import * as Rx from 'rxjs/Rx';
 import { ChatNodeService } from './services/chat';
 import { Message } from './models/message';
@@ -8,7 +8,7 @@ import { User } from './models/user';
 import { AuthService } from './services/auth';
 import { ChatService } from './chatService'
 
-@Page({
+@Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/chat/chat.html',
   directives: [NgClass],
   providers:[ChatService, ChatNodeService, AuthService]
@@ -31,7 +31,7 @@ export class ChatPage implements OnInit {
               params: NavParams,
               private nav: NavController,
               private viewController: ViewController,
-              private app: IonicApp,
+              private app: App,
               private e: Events) {
     
     this.e.subscribe('newMessage', (e) => {
@@ -57,15 +57,15 @@ export class ChatPage implements OnInit {
   ngOnInit(): void {
     this.msg = '';
     this.nav.present(this.loadingComponent);
-    /* SERVER 1 required */
+    /* SERVER 1 required 
     this.auth.getToken({name: this.me.Nombre, id: this.me.UsuarioID, avisoID: this.incident.AvisoID}).then((status) => {
       if (status) {
         this.chat.socketAuth();
       }
     });
-    
+    */
 
-    //this.chat.socketJoin(this.incident.AvisoID, this.me.token);//seccond test with token
+    this.chat.socketJoin(this.incident.AvisoID, this.me.token);//seccond test with token
     //this.chat.socketJoin(this.me.token);//first test
   }
 

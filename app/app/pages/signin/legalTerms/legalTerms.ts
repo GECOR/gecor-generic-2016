@@ -1,7 +1,8 @@
-import {IonicApp, Modal, Platform, NavController, NavParams, Page, ViewController} from 'ionic-angular';
+import {Component, forwardRef} from '@angular/core';
+import {Platform, NavController, NavParams, ViewController} from 'ionic-angular';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: './build/pages/signin/legalTerms/legalTerms.html',
   pipes: [TranslatePipe]
 })

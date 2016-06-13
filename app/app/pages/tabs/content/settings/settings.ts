@@ -1,6 +1,7 @@
+import {Component, forwardRef, NgZone} from '@angular/core';
 import {NavController, NavParams, MenuController, Storage, SqlStorage} from 'ionic-angular';
-import {Page, ViewController, Platform} from 'ionic-angular';
-import {forwardRef, NgZone} from '@angular/core';
+import {ViewController, Platform} from 'ionic-angular';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {NotificationsPage} from './notifications/notifications';
@@ -8,9 +9,8 @@ import {TermsPage} from './terms/terms';
 import {UserPage} from './user/user';
 import {User} from './../../../login/LoginInterface';
 import {EntitiesPage} from './entities/entities';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: './build/pages/tabs/content/settings/settings.html',
   directives: [forwardRef(() => AndroidAttribute)],
   pipes: [TranslatePipe]
@@ -24,7 +24,7 @@ export class SettingsPage {
     , private _ngZone: NgZone ) {
 
   }
-  onPageWillEnter() {
+  ionViewWillEnter() {
     let storage = new Storage(SqlStorage);
     storage.get('user').then((user) => {
         this.user = JSON.parse(user);

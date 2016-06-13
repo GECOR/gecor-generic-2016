@@ -1,6 +1,6 @@
 <ion-navbar *navbar hideBackButton class="show-navbar android-attr">
 
-  <div showWhen="android">
+  <div showWhen="android,windows">
     <ion-title pull-left>
       {{"incidents.title" | translate}}
       <div toolbar-subtitle>
@@ -36,20 +36,35 @@
 
 </ion-navbar>
 
-
-<ion-content class="incidents-page">
-
-  <ion-searchbar [hidden]="type=='map'"
-    [(ngModel)]="searchText"
-    (input)="inputSearch($event)">
-  </ion-searchbar>
-
-  <div padding-5 [hidden]="type == 'map'">
+<!--
+<ion-toolbar [attr.primary]="isAndroid ? '' : null" [hidden]="type == 'map'" >
+  <div padding-5>
     <ion-segment [(ngModel)]="order">
       <ion-segment-button value="FechaHoraRegistro">Date</ion-segment-button>
       <ion-segment-button value="Distancia">Distance</ion-segment-button>
     </ion-segment>
   </div>
+</ion-toolbar>
+
+<ion-toolbar [attr.primary]="isAndroid ? '' : null" [hidden]="type == 'map'" >    
+  <ion-searchbar [(ngModel)]="searchText" (ionInput)="inputSearch($event)"></ion-searchbar>
+</ion-toolbar>
+-->
+
+<ion-content class="incidents-page">
+<!-- -->
+  <ion-searchbar [hidden]="type=='map'"
+    [(ngModel)]="searchText"
+    (ionInput)="inputSearch($event)">
+  </ion-searchbar>
+  
+    <div padding-5 [hidden]="type == 'map'">
+      <ion-segment [(ngModel)]="order" [attr.primary]="isAndroid ? '' : null">
+        <ion-segment-button value="FechaHoraRegistro">Date</ion-segment-button>
+        <ion-segment-button value="Distancia">Distance</ion-segment-button>
+      </ion-segment>
+    </div>
+    
   
   <div id="switch" [ngSwitch]="type">
 

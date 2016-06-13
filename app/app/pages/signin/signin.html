@@ -24,7 +24,7 @@
     </ion-list>
     <ion-item>
     <ion-label>{{"signin.terms" | translate}}</ion-label>
-      <ion-checkbox dark [(ngModel)]="acceptLegalTerms" (change)="openLegalTerms()"></ion-checkbox>
+      <ion-checkbox dark [(ngModel)]="acceptLegalTerms" (ionChange)="openLegalTerms()"></ion-checkbox>
     </ion-item>
     <button block (click)="nuevoUsuario()">{{"signin.signin" | translate}}</button>
     <button light block (click)="openLoginPage()">{{"signin.back" | translate}}</button>

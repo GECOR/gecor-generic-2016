@@ -66,7 +66,7 @@ export class IncidentsPage {
     
   }
   
-  onPageWillEnter() {
+  ionViewWillEnter() {
     this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
         this.nav.present(this.loadingComponent);

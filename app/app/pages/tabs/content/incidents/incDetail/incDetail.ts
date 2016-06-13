@@ -1,6 +1,5 @@
-import {NavController, NavParams, MenuController, Alert, Modal, ActionSheet, Storage, SqlStorage} from 'ionic-angular';
-import {Page, ViewController, Platform} from 'ionic-angular';
-import {forwardRef, NgZone} from '@angular/core';
+import {Component, forwardRef, NgZone} from '@angular/core';
+import {NavController, NavParams, MenuController, Alert, Modal, ActionSheet, Storage, SqlStorage, ViewController, Platform} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {CommentsPage} from './comments/comments';
 import {ChatPage} from './chat/chat';
@@ -9,7 +8,7 @@ import {GeolocationProvider} from './../../../../../providers/geolocation';
 import {IncDetailService} from './incDetailService';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/incDetail.html',
   directives: [forwardRef(() => AndroidAttribute)],
   providers: [GeolocationProvider, IncDetailService],

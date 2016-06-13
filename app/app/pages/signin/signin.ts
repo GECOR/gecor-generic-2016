@@ -1,12 +1,12 @@
-import {Page, NavController, MenuController, Loading, Alert, NavParams, Modal} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
+import {NavController, MenuController, Loading, Alert, NavParams, Modal} from 'ionic-angular';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {LoginPage} from './../login/login';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {SignInService} from './signinService';
 import {LegalTermsPage} from './legalTerms/legalTerms';
 
-@Page({
+@Component({
     templateUrl: './build/pages/signin/signin.html',
     directives: [forwardRef(() => AndroidAttribute)],
     pipes: [TranslatePipe],

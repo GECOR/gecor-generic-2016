@@ -1,7 +1,6 @@
-import {ViewChild} from '@angular/core';
+import {Component, forwardRef, ViewChild} from '@angular/core';
 import {NavController, NavParams, MenuController, Events, Tabs} from 'ionic-angular';
-import {Page, ViewController, Platform} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
+import {ViewController, Platform} from 'ionic-angular';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {IncidentsPage} from './content/incidents/incidents';
 import {NewIncPage} from './content/newInc/newInc';
@@ -11,8 +10,8 @@ import {SettingsPage} from './content/settings/settings';
 import {GeolocationProvider} from './../../providers/geolocation';
 import {HomePage} from './content/home/home';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
-
-@Page({
+/*
+@Component({
   templateUrl: './build/pages/tabs/tab-content.html',
   directives: [forwardRef(() => AndroidAttribute)],
    pipes: [TranslatePipe]
@@ -26,19 +25,19 @@ export class TabsContentPage {
 
   }
 
-  onPageDidEnter() {
+  ionViewDidEnter() {
   }
 
 
-  onPageWillEnter() {
+  ionViewWillEnter() {
     console.log('enter');
     document.getElementById('md-tabs-icon-text').style.display = "block";
     document.getElementById('md-only').style.display = "none";
   }
 }
+*/
 
-
-@Page({
+@Component({
   templateUrl: './build/pages/tabs/tab-tabs.html',
   providers: [GeolocationProvider]
 })

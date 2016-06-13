@@ -4,7 +4,8 @@ body.md {
   }
 
   .tabs-icon-text tabbar {
-    background-color: #7e60ff;
+    /*background-color: #7e60ff;*/
+    background-color: map-get($colors, primary);
 
     a {
       color: #fff !important;
@@ -21,7 +22,8 @@ body.ios {
   .tabs-icon-text tabbar {
     .tab-button[aria-selected=true],
     .tab-button:hover:not(.disable-hover) {
-      color: #7e60ff;
+      /*color: #7e60ff;*/
+      color: map-get($colors, primary);
     }
   }
 }

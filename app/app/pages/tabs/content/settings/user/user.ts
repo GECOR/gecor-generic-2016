@@ -1,13 +1,14 @@
-import {IonicApp, NavController, NavParams, MenuController, ActionSheet, Storage, SqlStorage} from 'ionic-angular';
-import {Page, ViewController, Platform} from 'ionic-angular';
-import {forwardRef, NgZone} from '@angular/core';
+import {Component, forwardRef, NgZone} from '@angular/core';
+import {App, NavController, NavParams, MenuController, ActionSheet, Storage, SqlStorage} from 'ionic-angular';
+import {ViewController, Platform} from 'ionic-angular';
 import {Camera, ImagePicker} from 'ionic-native';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';
 import {SlidePage} from './../../../../slides/slide';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {LoginPage} from './../../../../login/login';
 
-@Page({
+@Component({
   templateUrl: './build/pages/tabs/content/settings/user/user.html',
   directives: [forwardRef(() => AndroidAttribute)],
   pipes: [TranslatePipe]
@@ -16,7 +17,7 @@ export class UserPage {
   user: any = {};
   storage: any;
   rootPage: any;
-  constructor(private app: IonicApp 
+  constructor(private app: App 
     , private platform: Platform
     , private menu: MenuController
     , private nav: NavController
@@ -27,15 +28,17 @@ export class UserPage {
 
   }
   
-  onPageWillEnter() {
+  ionViewWillEnter() {
     this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
-    })
+    });
   }
   
   logout() {
+    this.storage.remove('user').then((user) => {
       let _nav = this.app.getRootNav();
-      _nav.setRoot(SlidePage);
+      _nav.setRoot(LoginPage);
+    });
   }
 
   takePhoto() {

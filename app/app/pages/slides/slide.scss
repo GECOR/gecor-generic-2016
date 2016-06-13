@@ -1,5 +1,7 @@
 .tutorial-page {
-
+  [skip-btn] {
+    color: map-get($colors, primary); 
+  }
   .toolbar-background {
     background: #fff;
     border-color: transparent;

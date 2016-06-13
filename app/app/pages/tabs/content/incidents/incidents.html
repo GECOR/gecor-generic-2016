@@ -64,7 +64,7 @@
           <p>{{incident.DesUbicacion}}</p>
           <p>{{incident.Responsable}}</p>
           <p>{{incident.CodAviso}}</p>
-          <p distance>{{utils.getDistanceFromLatLonInKm(incident["Lat"], incident["Lng"], latLng.lat(), latLng.lng()) | number:'1.0-1'}} km</p>
+          <p distance>{{distance(incident)}}</p>
         </button>
         <ion-item-options>
           <button (click)="openReview(incident, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>Review</button>

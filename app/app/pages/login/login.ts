@@ -61,13 +61,10 @@ export class LoginPage {
         this.geo.getLocation().then(location =>{
             this.location = location;
             if (this.location.error){
-                //Problems with geolocation
-                this.showAlert("Error", "We have problems to locate you, please choose a entity manually.", "OK");
-                this.aytoSuggested.AyuntamientoID = -1;
-                this.aytoSuggested.Nombre = "Choose a entity manually";
-                this.getAyuntamientosPorDistancia(undefined, this.language);
+                //Problems with geolocation                
+                this.getAyuntamientosPorDistancia(undefined, this.language, true);
             }else{
-                this.getAyuntamientosPorDistancia(location, this.language);
+                this.getAyuntamientosPorDistancia(location, this.language, false);
             }
             
         });
@@ -120,7 +117,7 @@ export class LoginPage {
       this.nav.push(SignInPage, this.aytoSuggested);
     }
     
-    getAyuntamientosPorDistancia(location, language) {
+    getAyuntamientosPorDistancia(location, language, errEntityManually) {        
         if (location == undefined){
             location = {};
             location.lat = 0;
@@ -129,6 +126,11 @@ export class LoginPage {
         this.loginService.getAyuntamientosPorDistancia(location.lat, location.lng, language)
                             .subscribe(
                                 (aytos) =>{
+                                    if(errEntityManually){
+                                        this.showAlert("Error", "We have problems to locate you, please choose a entity manually.", "OK");
+                                        this.aytoSuggested.AyuntamientoID = -1;
+                                        this.aytoSuggested.Nombre = "Choose a entity manually";
+                                    }
                                     this.aytos = aytos;
                                     if (this.aytoSuggested.AyuntamientoID != -1){
                                         this.aytoSuggested = aytos[0];

@@ -23,5 +23,8 @@ export class UtilsProvider {
     deg2rad(deg) {
         return deg * (Math.PI/180)
     }
-  
+
+    roundTwoDecimals(number){
+        return Math.round(number * 100) / 100;
+    }
 }

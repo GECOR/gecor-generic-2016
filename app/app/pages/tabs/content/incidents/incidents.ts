@@ -76,16 +76,18 @@ export class IncidentsPage {
     this.storage.get('entity').then((entity) => {
         this.entity = JSON.parse(entity);
         this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+
+        this.geo.getLocation().then(location =>{
+          this.location = location;
+          if (this.location.error){
+            this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+          }else{
+            this.latLng = this.location.latLng;
+          }      
+        });
     })
     
-    this.geo.getLocation().then(location =>{
-      this.location = location;
-      if (this.location.error){
-        this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
-      }else{
-        this.latLng = this.location.latLng;
-      }      
-    });    
+        
   }
 
   showMap() {
@@ -183,5 +185,13 @@ export class IncidentsPage {
         break;
     }
     return result;
+  }
+
+  distance(incident) {
+    if(!this.latLng){
+      return "Calculating distance..."
+    }else{
+      return this.utils.roundTwoDecimals(this.utils.getDistanceFromLatLonInKm(incident["Lat"], incident["Lng"], this.latLng.lat(), this.latLng.lng())) + " km";
+    }
   }
 }

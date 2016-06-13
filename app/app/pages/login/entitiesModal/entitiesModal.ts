@@ -1,8 +1,9 @@
-import {IonicApp, Modal, Platform, NavController, NavParams, Page, ViewController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {Platform, NavParams, ViewController} from 'ionic-angular';
 import {EntitiesModalSearchPipe} from './entitiesModalPipe';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: './build/pages/login/entitiesModal/entitiesModal.html',
   pipes: [EntitiesModalSearchPipe, TranslatePipe]
 })

@@ -1,5 +1,6 @@
-import {Page, NavController, MenuController, Alert, Storage, SqlStorage, Loading, Modal} from 'ionic-angular';
-import {forwardRef, NgZone} from '@angular/core';
+import {Component, forwardRef, NgZone} from '@angular/core';
+import {NavController, MenuController, Alert, Storage, SqlStorage, Loading, Modal} from 'ionic-angular';
+import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
 import {TabsPage} from './../tabs/tabs';
@@ -10,10 +11,9 @@ import {LoginService} from './loginService';
 import {User} from './loginInterface';
 import {Facebook} from 'ionic-native';
 import {EntitiesModalPage} from './entitiesModal/entitiesModal';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from './../../appConfig';
 
-@Page({
+@Component({
   templateUrl: './build/pages/login/login.html',
   directives: [forwardRef(() => AndroidAttribute)],
   providers: [GeolocationProvider, LoginService],
@@ -53,11 +53,11 @@ export class LoginPage {
         });
     }
     
-    onPageWillEnter() {
+    ionViewWillEnter() {
         
     }
     
-    onPageLoaded() {
+    ionViewLoaded() {
         this.geo.getLocation().then(location =>{
             this.location = location;
             if (this.location.error){

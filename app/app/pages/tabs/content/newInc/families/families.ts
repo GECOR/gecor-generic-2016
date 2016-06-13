@@ -1,12 +1,12 @@
+import {Component, forwardRef, NgZone} from '@angular/core';
 import {NavController, NavParams, MenuController, Storage, SqlStorage} from 'ionic-angular';
-import {Page, ViewController, Platform} from 'ionic-angular';
-import {forwardRef, NgZone} from '@angular/core';
+import {ViewController, Platform} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';
 import {NewIncPage} from './../newInc';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: './build/pages/tabs/content/newInc/families/families.html',
   directives: [forwardRef(() => AndroidAttribute)],
   pipes: [TranslatePipe]
@@ -31,7 +31,7 @@ export class FamiliesPage {
     
   }
   
-  onPageWillEnter() {
+  ionViewWillEnter() {
     this.storage.get('familias').then((familias) => {
         this.familias = JSON.parse(familias);
         this.lenFamilias = this.familias.length;

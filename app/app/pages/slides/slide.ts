@@ -1,10 +1,10 @@
-import {Page, NavController, MenuController} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
+import {NavController, MenuController, Storage, SqlStorage} from 'ionic-angular';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {LoginPage} from './../login/login';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
     templateUrl: './build/pages/slides/slide.html',
     directives: [forwardRef(() => AndroidAttribute)],
     pipes: [TranslatePipe]
@@ -12,6 +12,7 @@ import {TranslatePipe} from 'ng2-translate/ng2-translate';
 export class SlidePage {
 
   slides: any[];
+  storage: any;
 
     constructor(private nav: NavController, private menu: MenuController) {
       this.slides = [
@@ -32,19 +33,23 @@ export class SlidePage {
         }
       ];
       
+      // ADD FIRST RUN SUPPORT
+      this.storage = new Storage(SqlStorage);
+      
     }
 
   openLoginPage() {
+    this.storage.set('firstRun', true);
     this.nav.push(LoginPage);
   }
 
-  onPageDidEnter() {
+  ionViewDidEnter() {
     // the left menu should be disabled on the login page
     this.menu.enable(false);
     this.menu.swipeEnable(false);
   }
 
-  onPageDidLeave() {
+  ionViewDidLeave() {
     // enable the left menu when leaving the login page
     //this.menu.enable(true);
     //this.menu.swipeEnable(true);

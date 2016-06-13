@@ -1,6 +1,7 @@
-import {IonicApp, Modal, Platform, NavController, NavParams, Page, ViewController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {Platform, NavParams, ViewController} from 'ionic-angular';
 
-@Page({
+@Component({
   templateUrl: './build/pages/galleryModal/galleryModal.html'
 })
 

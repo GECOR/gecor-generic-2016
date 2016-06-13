@@ -1,9 +1,9 @@
-import {IonicApp, Page, MenuController, NavController} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
+import {MenuController, NavController} from 'ionic-angular';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: './build/pages/main/main-content.html',
   directives: [forwardRef(() => AndroidAttribute)],
   pipes: [TranslatePipe]
@@ -25,7 +25,7 @@ export class MainMenuContentPage {
     this.menu.enable(true, 'menu2');
   }
 
-  onPageDidEnter() {
+  ionViewDidEnter() {
     // the left menu should be disabled on the login page
     this.menu.enable(true);
     this.menu.swipeEnable(true);

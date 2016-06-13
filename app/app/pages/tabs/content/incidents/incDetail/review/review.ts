@@ -1,6 +1,6 @@
-import {NavController, NavParams, MenuController, Alert, ActionSheet, Page, ViewController, 
+import {Component, forwardRef, NgZone, provide} from '@angular/core';
+import {NavController, NavParams, MenuController, Alert, ActionSheet, ViewController, 
         Platform, Storage, SqlStorage, Events, Loading, Modal} from 'ionic-angular';
-import {forwardRef, NgZone, provide} from '@angular/core';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './reviewInterface';
@@ -10,7 +10,7 @@ import {ReviewService} from './reviewService';
 import {GalleryModalPage} from './../../../../../galleryModal/galleryModal';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/review/review.html',
   directives: [forwardRef(() => AndroidAttribute)],
   providers: [GeolocationProvider, ReviewService],

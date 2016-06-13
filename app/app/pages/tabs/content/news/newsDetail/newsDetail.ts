@@ -1,9 +1,9 @@
-import {Page, NavController, NavParams, Storage, SqlStorage} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
+import {NavController, NavParams, Storage, SqlStorage} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/tabs/content/news/newsDetail/newsDetail.html',
   directives: [forwardRef(() => AndroidAttribute)],
    pipes: [TranslatePipe]

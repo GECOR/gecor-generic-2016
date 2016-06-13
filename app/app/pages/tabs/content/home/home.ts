@@ -1,10 +1,10 @@
-import {Page, NavController, Storage, SqlStorage} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
+import {NavController, Storage, SqlStorage} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/tabs/content/home/home.html',
   directives: [forwardRef(() => AndroidAttribute)],
   pipes: [TranslatePipe] 

@@ -1,10 +1,10 @@
-import {Page, NavController, NavParams,} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
+import {NavController, NavParams,} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {IncidentsPage} from './../../incidents/incidents';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/tabs/content/newInc/survey/survey.html',
   directives: [forwardRef(() => AndroidAttribute)],
   pipes: [TranslatePipe]

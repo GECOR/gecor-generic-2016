@@ -1,10 +1,10 @@
-import {Page, NavController, MenuController, Alert, Storage, SqlStorage, NavParams, Loading} from 'ionic-angular';
-import {forwardRef} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
+import {NavController, MenuController, Alert, Storage, SqlStorage, NavParams, Loading} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {CommentsService} from './commentsService';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
-@Page({
+@Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/comments/comments.html',
   directives: [forwardRef(() => AndroidAttribute)],
   providers: [CommentsService],

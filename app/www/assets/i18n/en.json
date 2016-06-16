@@ -22,9 +22,13 @@
 		"title": "Login",
 		"aytoSuggested": "Show Default",
 		"signIn": "Sign in",
+		"changeModal": "Change",
 		"forgottenPass": "Forgotten Pass",
 		"orUse": "Or use...",
-		
+		"placeholder": {
+			"username": "Username",
+			"password": "Password"
+		},
 		"forgottenAlertTitle":"Forgotten password",
 		"forgottenAlertMessage":"Enter email to reset password",
 		"forgottenAlertInputPlaceholder":"Email",
@@ -53,11 +57,16 @@
 		}
 	},	
 	"signin":{
-		"title": "Login",
+		"title": "Sign In",
 		"terms": "Accept the terms",
 		"signin": "Sign In",
 		"back" : "Back",
-		
+		"placeholder": {
+			"name": "Name",
+			"email":"Email",
+			"password": "Password",
+			"password_2": "Confirm password"
+		},
 		"confirmPassAlertTitle":"",
 		"confirmPassAlertMessage":"Passwords does not match",
 		"legalTermsAlertTitle":"",

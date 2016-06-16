@@ -8,18 +8,18 @@
   <div padding>
     <ion-list>
       <ion-item>
-        <ion-input type="text" placeholder="Name" [(ngModel)]="nombre"></ion-input>
+        <ion-input type="text" placeholder='{{"signin.placeholder.name" | translate}}' [(ngModel)]="nombre"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
+        <ion-input type="email" placeholder='{{"signin.placeholder.email" | translate}}' [(ngModel)]="email"></ion-input>
       </ion-item>
     </ion-list>
     <ion-list>
       <ion-item>
-        <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+        <ion-input type="password" placeholder='{{"signin.placeholder.password" | translate}}' [(ngModel)]="password"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="password" placeholder="Confirm password" [(ngModel)]="confirmPassword"></ion-input>
+        <ion-input type="password" placeholder='{{"signin.placeholder.password_2" | translate}}' [(ngModel)]="confirmPassword"></ion-input>
       </ion-item>
     </ion-list>
     <ion-item>

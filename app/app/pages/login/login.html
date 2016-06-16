@@ -5,27 +5,8 @@
 </ion-navbar>
 
 <ion-content class="login">
-    <!--SPINNER
-    <div login-spinner-back>
-        <div login-spinner>
-            <p>Loading...</p>
-            <ion-spinner *ngIf="true"></ion-spinner>
-        </div>
-    </div>-->
-    <!--END SPINNER-->
-    <!--<spinner-loading title="Loading..." *ngIf="loginLoading"></spinner-loading>-->
     <ion-card>
         <ion-card-content>
-            <!--
-            <ion-item *ngIf="aytos.length > 0">
-                <ion-thumbnail item-left small>
-                    <img src={{aytos[0].Logo}} size-24>
-                </ion-thumbnail>
-                {{aytos[0].Nombre}}
-                <button clear item-right (click)="openEntitiesPage()">Change</button>
-            </ion-item>
-            src={{aytoSuggested.Logo}}
-            -->
             <ion-item *ngIf="!aytoSuggested.AyuntamientoID">
                 <ion-spinner item-left></ion-spinner>
                 {{"login.aytoSuggested" | translate}}
@@ -35,20 +16,20 @@
                     <img src="{{aytoSuggested.Logo}}" alt="Foto" size-24>
                 </ion-thumbnail>
                 {{aytoSuggested.Nombre}}
-                <button clear item-right (click)="openEntitiesPage()">Change</button>
+                <button clear item-right (click)="openEntitiesPage()">{{"login.changeModal" | translate}}</button>
             </ion-item>
         </ion-card-content>
     </ion-card>
     <div padding>
         <ion-list>
         <ion-item>
-            <ion-input type="text" placeholder="Username" [(ngModel)]="email"></ion-input>
+            <ion-input type="text" placeholder='{{"login.placeholder.username" | translate}}' [(ngModel)]="email"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+            <ion-input type="password" placeholder='{{"login.placeholder.password" | translate}}' [(ngModel)]="password"></ion-input>
         </ion-item>
         </ion-list>
-        <button block (click)="loginUser()">Login</button>
+        <button block (click)="loginUser()">{{"login.title" | translate}}</button>
         
         <button light block (click)="openSignInPage()">{{"login.signIn" | translate}}</button>
         <button clear block (click)="forgottenPass()">{{"login.forgottenPass" | translate}}</button>

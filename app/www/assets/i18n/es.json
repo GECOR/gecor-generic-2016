@@ -21,7 +21,8 @@
 	"login": {
 		"title": "Login",
 		"aytoSuggested": "Mostrar por defecto",
-		"signIn": "Sign in",
+		"signIn": "Registrarse",
+		"changeModal": "Cambiar",
 		"forgottenPass": "Olvidé la contraseña",
 		"orUse": "O utiliza...",
 		
@@ -53,11 +54,16 @@
 		}
 	},	
 	"signin":{
-		"title": "Login",
+		"title": "Registrarse",
 		"terms": "Aceptar los términos",
-		"signin": "Sign In",
+		"signin": "Registrarse",
 		"back" : "Volver",
-		
+		"placeholder": {
+			"name": "Nombre",
+			"email":"Correo electronico",
+			"password": "Contraseña",
+			"password_2": "Confirmar contraseña"
+		},
 		"confirmPassAlertTitle":"",
 		"confirmPassAlertMessage":"Las contraseñas no coinciden",
 		"legalTermsAlertTitle":"",

@@ -6,7 +6,6 @@ import {MainMenuContentPage} from './../main/main';
 import {TabsPage} from './../tabs/tabs';
 import {SignInPage} from './../signin/signin';
 import {GeolocationProvider} from './../../providers/geolocation';
-import {EntitiesPage} from './entities/entities';
 import {LoginService} from './loginService';
 import {User} from './loginInterface';
 import {Facebook, SQLite} from 'ionic-native';

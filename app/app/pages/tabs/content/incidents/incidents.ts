@@ -8,6 +8,7 @@ import {ArraySortPipe} from './incidentsArraySort';
 import {IncidentsSearchPipe} from './incidentsPipe';
 import {IncidentService} from './IncidentService';
 import {GeolocationProvider} from './../../../../providers/geolocation';
+import {DBProvider} from './../../../../providers/db';
 import {UtilsProvider} from './../../../../providers/utils';
 import {ReviewPage} from './incDetail/review/review';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
@@ -16,7 +17,7 @@ import {TranslatePipe} from 'ng2-translate/ng2-translate';
   templateUrl: './build/pages/tabs/content/incidents/incidents.html',
   directives: [forwardRef(() => AndroidAttribute)],
   pipes: [ArraySortPipe, IncidentsSearchPipe, TranslatePipe],
-  providers: [IncidentService, GeolocationProvider, UtilsProvider]
+  providers: [IncidentService, GeolocationProvider, UtilsProvider, DBProvider]
 })
 export class IncidentsPage {
   isAndroid: any;
@@ -50,7 +51,8 @@ export class IncidentsPage {
     , private zone: NgZone
     , private incidentService: IncidentService
     , private geo: GeolocationProvider
-    , private utils: UtilsProvider ) {
+    , private utils: UtilsProvider 
+    , private db: DBProvider) {
       
     this.platform = platform;
     this.isAndroid = platform.is('android');
@@ -64,13 +66,19 @@ export class IncidentsPage {
   }
   
   ionViewWillEnter() {
-    this.storage.get('user').then((user) => {
+    /*this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
         this.nav.present(this.loadingComponent);
         this.getMisIncidencias(this.user.CiudadanoID, this.user.token);
-    })
+    })*/
+
+    this.db.getValue('user').then((user) => {
+        this.user = JSON.parse(user.toString());
+        this.nav.present(this.loadingComponent);
+        this.getMisIncidencias(this.user.CiudadanoID, this.user.token);
+    });
     
-    this.storage.get('entity').then((entity) => {
+    /*this.storage.get('entity').then((entity) => {
         this.entity = JSON.parse(entity);
         this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
 
@@ -82,7 +90,21 @@ export class IncidentsPage {
             this.latLng = this.location.latLng;
           }      
         });
-    })
+    })*/
+
+    this.db.getValue('entity').then((entity) => {
+        this.entity = JSON.parse(entity.toString());
+        this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+
+        this.geo.getLocation().then(location =>{
+          this.location = location;
+          if (this.location.error){
+            this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+          }else{
+            this.latLng = this.location.latLng;
+          }      
+        });
+    });
     
         
   }

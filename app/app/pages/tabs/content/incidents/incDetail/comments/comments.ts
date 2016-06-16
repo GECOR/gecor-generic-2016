@@ -4,11 +4,12 @@ import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {CommentsService} from './commentsService';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {UtilsProvider} from './../../../../../../providers/utils';
+import {DBProvider} from './../../../../../../providers/db';
 
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/comments/comments.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [CommentsService],
+  providers: [CommentsService, DBProvider],
   pipes: [TranslatePipe, UtilsProvider]
 })
 export class CommentsPage {
@@ -25,15 +26,22 @@ export class CommentsPage {
   , private commentsService: CommentsService
   , private translate : TranslateService
   , private utils: UtilsProvider
-  , private params: NavParams) {
+  , private params: NavParams
+  , private db: DBProvider) {
     
     this.incident = params.data;
     
     this.message = "";
     
     this.storage = new Storage(SqlStorage);
-    this.storage.get('user').then((user) => {
+    /*this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
+        this.nav.present(this.loadingComponent);
+        this.getComentariosAviso();
+    });*/
+
+    db.getValue('user').then((user) => {
+        this.user = JSON.parse(user.toString());
         this.nav.present(this.loadingComponent);
         this.getComentariosAviso();
     });

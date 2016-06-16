@@ -3,13 +3,15 @@ import {NavController, NavParams, MenuController, Storage, SqlStorage} from 'ion
 import {ViewController, Platform} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';
+import {DBProvider} from './../../../../../providers/db';
 import {NewIncPage} from './../newInc';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({
   templateUrl: './build/pages/tabs/content/newInc/families/families.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  pipes: [TranslatePipe]
+  pipes: [TranslatePipe],
+  providers: [DBProvider]
 })
 
 export class FamiliesPage {
@@ -23,7 +25,8 @@ export class FamiliesPage {
     , private menu: MenuController
     , private confData: ConferenceData
     , private nav: NavController
-    , private _ngZone: NgZone ) {
+    , private _ngZone: NgZone
+    , private db: DBProvider ) {
     this.platform = platform;
     this.isAndroid = platform.is('android');
     
@@ -32,14 +35,24 @@ export class FamiliesPage {
   }
   
   ionViewWillEnter() {
-    this.storage.get('familias').then((familias) => {
+    /*this.storage.get('familias').then((familias) => {
         this.familias = JSON.parse(familias);
         this.lenFamilias = this.familias.length;
     })
     
     this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
-    })
+    })*/
+
+    this.db.getValue('familias').then((familias) => {
+        this.familias = JSON.parse(familias.toString());
+        this.lenFamilias = this.familias.length;
+    });
+
+    this.db.getValue('user').then((user) => {
+        this.user = JSON.parse(user.toString());
+    });
+
   }
   
   openNewInc(familia){

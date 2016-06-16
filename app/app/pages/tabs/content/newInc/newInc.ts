@@ -8,6 +8,7 @@ import {Geolocation, Camera, ImagePicker} from 'ionic-native';
 import {IncidentsPage} from './../incidents/incidents';
 import {SurveyPage} from './survey/survey';
 import {GeolocationProvider} from './../../../../providers/geolocation';
+import {DBProvider} from './../../../../providers/db';
 import {NewIncService} from './newIncService';
 import {GalleryModalPage} from './../../../galleryModal/galleryModal';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
@@ -16,7 +17,7 @@ import {UtilsProvider} from './../../../../providers/utils';
 @Component({
   templateUrl: './build/pages/tabs/content/newInc/newInc.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, NewIncService, UtilsProvider],
+  providers: [GeolocationProvider, NewIncService, UtilsProvider, DBProvider],
   pipes: [TranslatePipe]
 })
 export class NewIncPage {
@@ -77,7 +78,8 @@ export class NewIncPage {
     , private newIncService: NewIncService
     , private utils: UtilsProvider
     , private translate : TranslateService
-    , private events: Events) {
+    , private events: Events
+    , private db: DBProvider) {
   
     this.platform = platform;
     this.isAndroid = platform.is('android');
@@ -87,7 +89,7 @@ export class NewIncPage {
     this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
 
     this.storage = new Storage(SqlStorage);    
-    this.storage.get('tiposElementos').then((tiposElementos) => {
+    /*this.storage.get('tiposElementos').then((tiposElementos) => {
         this.tiposElementos = JSON.parse(tiposElementos);
         this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID);
     });
@@ -96,6 +98,17 @@ export class NewIncPage {
     });
     this.storage.get('entity').then((entity) => {
         this.entity = JSON.parse(entity);
+    });*/
+
+    this.db.getValue('tiposElementos').then((tiposElementos) => {
+        this.tiposElementos = JSON.parse(tiposElementos.toString());
+        this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID);
+    });
+    this.db.getValue('user').then((user) => {
+        this.user = JSON.parse(user.toString());
+    });
+    this.db.getValue('entity').then((entity) => {
+        this.entity = JSON.parse(entity.toString());
     });
     
     this.geo.getLocation().then(location =>{
@@ -384,10 +397,15 @@ export class NewIncPage {
   }
   
   changeTipoElemento(){
-    this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
+    /*this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
         this.tiposIncidencias = JSON.parse(tiposIncidencias);
         this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.newInc.tipoElementoID)
-    })
+    })*/
+
+    this.db.getValue('tiposIncidencias').then((tiposIncidencias) => {
+        this.tiposIncidencias = JSON.parse(tiposIncidencias.toString());
+        this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.newInc.tipoElementoID);
+    });
   }
   
   changeTipoIncidencia(){

@@ -1,22 +1,25 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
 import {NavController, MenuController, Alert, Storage, SqlStorage, Loading, Modal} from 'ionic-angular';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
 import {TabsPage} from './../tabs/tabs';
 import {SignInPage} from './../signin/signin';
 import {GeolocationProvider} from './../../providers/geolocation';
+import {DBProvider} from './../../providers/db';
+//import {EntitiesPage} from './entities/entities';
 import {LoginService} from './loginService';
 import {User} from './loginInterface';
 import {Facebook, SQLite} from 'ionic-native';
 import {EntitiesModalPage} from './entitiesModal/entitiesModal';
 import {UtilsProvider} from './../../providers/utils';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from './../../appConfig';
+import {Globalization} from 'ionic-native';
 
 @Component({
   templateUrl: './build/pages/login/login.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, LoginService, UtilsProvider],
+  providers: [GeolocationProvider, LoginService, UtilsProvider, DBProvider],
   pipes: [TranslatePipe]
 })
 export class LoginPage {
@@ -38,19 +41,85 @@ export class LoginPage {
       , private loginService: LoginService
       , private utils: UtilsProvider
       , private translate : TranslateService
-      , private zone: NgZone) {
+      , private zone: NgZone
+      , private db: DBProvider) {
         
         this.storage = new Storage(SqlStorage);
         
-        this.storage.get('language').then((language) => {
+        /*this.storage.get('language').then((language) => {
             if (language == undefined){
                 this.language = defaultLanguage;
             }else{
                 this.language = language;
             }            
-        })
-       
+        })*/
+
         this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
+
+        this.initDB();
+
+        db.getValue('language').then((language) => {
+            if (language == ""){
+                this.language = defaultLanguage;
+            }else{
+                this.language = language.toString();
+            }
+        });
+        
+        this.loadingComponent = Loading.create({
+            content: 'Please wait...'
+        });
+    }
+
+    initDB(){
+        this.db.initDB().then((result) =>{
+
+            console.log(result);
+                this.db.getValue('user').then((user) =>{
+                if(user != ""){        
+                    this.user = JSON.parse(user.toString());
+                    this.nav.push(TabsPage);
+                }
+
+                /*this.db.getValue('firstRun').then((resp) => {
+                    if(this.user)
+                    this.rootPage = TabsPage;
+                    else if(resp != "")
+                    this.rootPage = LoginPage;
+                    else
+                    this.rootPage = SlidePage;
+                }); */
+            });
+
+            Globalization.getPreferredLanguage().then((obj) =>{//get device language
+                console.log(obj.value);
+                this.initializeTranslateServiceConfig(obj.value.split('-')[0]);//initialize sending lowercase language
+                //this.storage.set('language', obj.value.split('-')[0]);
+                this.db.setKey('language', obj.value.split('-')[0]).then((result) =>{
+                console.log(result);                                                                 
+                },
+                error =>{
+                    console.log(error);
+                });
+            }, (err)=>{
+                console.log(err); 
+                this.initializeTranslateServiceConfig(defaultLanguage);//initialize sending lowercase language default 
+                //this.storage.set('language', defaultLanguage);
+                this.db.setKey('language', defaultLanguage).then((result) =>{
+                console.log(result);                                                                 
+                },
+                error =>{
+                    console.log(error);
+                });
+            });
+            
+        });
+    }
+
+    initializeTranslateServiceConfig(lang) {
+        //var userLang = compareLanguage.test(lang) ? lang : defaultLanguage;     
+        this.translate.setDefaultLang(defaultLanguage);   
+        this.translate.use(compareLanguage.test(lang) ? lang : defaultLanguage);
     }
     
     ionViewWillEnter() {
@@ -79,7 +148,13 @@ export class LoginPage {
       this.entitiesModal = Modal.create(EntitiesModalPage, this.aytos);      
       this.entitiesModal.onDismiss(data => {
         this.aytoSuggested = data;
-        this.storage.set('entity', JSON.stringify(this.aytoSuggested));
+        //this.storage.set('entity', JSON.stringify(this.aytoSuggested));
+        this.db.setKey('entity', JSON.stringify(this.aytoSuggested)).then((result) =>{
+            console.log(result);                                                                 
+            },
+            error =>{
+            console.log(error);
+        });
       });     
       this.nav.present(this.entitiesModal);  
         
@@ -134,7 +209,13 @@ export class LoginPage {
                                     this.aytos = aytos;
                                     if (this.aytoSuggested.AyuntamientoID != -1){
                                         this.aytoSuggested = aytos[0];
-                                        this.storage.set('entity', JSON.stringify(this.aytoSuggested));
+                                        //this.storage.set('entity', JSON.stringify(this.aytoSuggested));
+                                        this.db.setKey('entity', JSON.stringify(this.aytoSuggested)).then((result) =>{
+                                            console.log(result);                                                                 
+                                            },
+                                            error =>{
+                                            console.log(error);
+                                        });
                                     }                                                                         
                                 },
                                 error =>  this.errorMessage = <any>error);
@@ -152,7 +233,13 @@ export class LoginPage {
                                     
                                     if (this.user.token != '' && this.user.token != null) {
                                         this.configData();                                      
-                                        this.storage.set('user', JSON.stringify(this.user));
+                                        //this.storage.set('user', JSON.stringify(this.user));
+                                        this.db.setKey('user', JSON.stringify(this.user)).then((result) =>{
+                                            console.log(result);                                                                 
+                                            },
+                                            error =>{
+                                            console.log(error);
+                                        });
                                     }else{
                                         //this.loginLoading = false;
                                         this.loadingComponent.dismiss();                               
@@ -203,17 +290,47 @@ export class LoginPage {
         this.loginService.getTipologiaPorAyuntamiento(this.user.token)
             .subscribe(
                 (data) =>{
-                    this.storage.set('familias', JSON.stringify(data.Familias));
-                    this.storage.set('tiposElementos', JSON.stringify(data.Elementos));
-                    this.storage.set('tiposIncidencias', JSON.stringify(data.Incidencias));
+                    //this.storage.set('familias', JSON.stringify(data.Familias));
+                    //this.storage.set('tiposElementos', JSON.stringify(data.Elementos));
+                    //this.storage.set('tiposIncidencias', JSON.stringify(data.Incidencias));
+                    this.db.setKey('familias', JSON.stringify(data.Familias)).then((result) =>{
+                        console.log(result);                                                                 
+                        },
+                        error =>{
+                        console.log(error);
+                    });
+                    this.db.setKey('tiposElementos', JSON.stringify(data.Elementos)).then((result) =>{
+                        console.log(result);                                                                 
+                        },
+                        error =>{
+                        console.log(error);
+                    });
+                    this.db.setKey('tiposIncidencias', JSON.stringify(data.Familias)).then((result) =>{
+                        console.log(result);                                                                 
+                        },
+                        error =>{
+                        console.log(error);
+                    });
                     this.loginService.getEstadosPorAyuntamiento(this.user.token)
                         .subscribe(
                             (data) =>{
-                                this.storage.set('estados', JSON.stringify(data));
+                                //this.storage.set('estados', JSON.stringify(data));
+                                this.db.setKey('estados', JSON.stringify(data)).then((result) =>{
+                                    console.log(result);                                                                 
+                                    },
+                                    error =>{
+                                    console.log(error);
+                                });
                                 this.loginService.getResponsablesPorAyuntamiento(this.user.token)
                                     .subscribe(
                                         (data) =>{
-                                            this.storage.set('responsables', JSON.stringify(data));
+                                            //this.storage.set('responsables', JSON.stringify(data));
+                                            this.db.setKey('responsables', JSON.stringify(data)).then((result) =>{
+                                                console.log(result);                                                                 
+                                                },
+                                                error =>{
+                                                console.log(error);
+                                            });
                                             this.loadingComponent.dismiss();
                                             this.nav.push(TabsPage);
                                         },

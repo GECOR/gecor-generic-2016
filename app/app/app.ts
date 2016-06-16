@@ -5,6 +5,7 @@ import {Splashscreen, Globalization} from 'ionic-native';
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {ConferenceData} from './providers/conference-data';
 import {GeolocationProvider} from './providers/geolocation';
+import {DBProvider} from './providers/db';
 import {UserData} from './providers/user-data';
 import {SlidePage} from './pages/slides/slide';
 import {TabsPage} from './pages/tabs/tabs';
@@ -23,63 +24,78 @@ import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from '
               }),
               TranslateService
               ],*/
+    providers: [DBProvider],
     pipes: [TranslatePipe]
 })
 export class MyApp {
   storage: any;
-  translate: any;
   user: any;
   rootPage: Type;// = SlidePage;
 
-  constructor(platform: Platform, confData: ConferenceData, geo: GeolocationProvider, translate: TranslateService) {
-    // load the conference data
-    confData.load();    
-    this.storage = new Storage(SqlStorage);
-    this.translate = translate;
+  constructor(platform: Platform
+  , private confData: ConferenceData
+  , private geo: GeolocationProvider
+  , private translate: TranslateService
+  , private db: DBProvider) {
     
-    this.storage.get('user').then((user) => {
-      if(user){        
-        this.user = JSON.parse(user);
-      }    
-      /*   
-      if(this.user){
-        if(this.user.token){
-          this.rootPage = TabsPage;
-        }else{
-          this.rootPage = LoginPage;
-        }
-        
-      }else{
-        this.rootPage = SlidePage;        
-      }*/
+    //platform.ready().then(() => {
+      this.initializeApp();
+    //});
+  }
 
-      this.storage.get('firstRun').then((resp) => {
-        if(this.user)
-          this.rootPage = TabsPage;
-        else if(resp)
-          this.rootPage = LoginPage;
-        else
-          this.rootPage = SlidePage;
-      });  
-        
-      Splashscreen.hide();           
+  initializeApp(){
+    // load the conference data
+    this.confData.load();    
+    this.storage = new Storage(SqlStorage);
+
+    this.rootPage = SlidePage;
+
+    /*this.db.initDB().then((result) =>{
+        console.log(result);
+        this.db.getValue('user').then((user) =>{
+        if(user != ""){        
+          this.user = JSON.parse(user.toString());
+        }
+
+        this.db.getValue('firstRun').then((resp) => {
+          if(this.user)
+            this.rootPage = TabsPage;
+          else if(resp != "")
+            this.rootPage = LoginPage;
+          else
+            this.rootPage = SlidePage;
+        });
+          
+        Splashscreen.hide();  
     });
 
-    
-    
     Globalization.getPreferredLanguage().then((obj) =>{//get device language
       console.log(obj.value);
       this.initializeTranslateServiceConfig(obj.value.split('-')[0]);//initialize sending lowercase language
-      this.storage.set('language', obj.value.split('-')[0]);
+      //this.storage.set('language', obj.value.split('-')[0]);
+      this.db.setKey('language', obj.value.split('-')[0]).then((result) =>{
+        console.log(result);                                                                 
+        },
+        error =>{
+          console.log(error);
+      });
     }, (err)=>{
       console.log(err); 
       this.initializeTranslateServiceConfig(defaultLanguage);//initialize sending lowercase language default 
-      this.storage.set('language', defaultLanguage);
+      //this.storage.set('language', defaultLanguage);
+      this.db.setKey('language', defaultLanguage).then((result) =>{
+        console.log(result);                                                                 
+        },
+        error =>{
+          console.log(error);
+      });
     });
     
-    //this.initializeTranslateServiceConfig();
-    
-    platform.ready().then(() => {});
+    //this.initializeTranslateServiceConfig();                                                                
+    },
+    error =>{
+      console.log(error);
+    });*/
   }
   
   initializeTranslateServiceConfig(lang) {

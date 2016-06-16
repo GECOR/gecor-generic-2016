@@ -55,7 +55,8 @@ img[size-24] {
 .md [toolbar-subtitle] {
   font-size: 1.4rem;
   font-weight: 100;
-  text-align: center;
+  /*text-align: center;*/
+  text-align: inherit;
   pointer-events: auto;
   color: E8E8E8;
   display: block;

@@ -7,13 +7,11 @@
   </ion-title>
 </ion-navbar>
 
-
 <ion-content class="incidents-page">
-
   <ion-grid>
     <ion-row>
       <ion-col width-80>
-        <ion-input type="text" placeholder="Add message" [(ngModel)]="message"></ion-input>
+        <ion-input type="text" placeholder='{{"incidents.comments.placeholder" | translate}}' [(ngModel)]="message"></ion-input>
       </ion-col>
       <ion-col width-20>
         <button (click)="newComentarioAviso(message)">

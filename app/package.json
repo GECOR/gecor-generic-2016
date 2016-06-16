@@ -39,14 +39,22 @@
   "cordovaPlugins": [
     {
       "locator": "https://github.com/apache/cordova-plugin-splashscreen.git",
-      "id": "cordova-plugin-facebook4"
+      "id": "cordova-plugin-splashscreen"
     },
     {
       "variables": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.1060313159714-kiq3uggkv91d4g1e993pdubdr1r193ag"
       },
-      "locator": "cordova-plugin-googleplus",
+      "locator": "https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
       "id": "cordova-plugin-googleplus"
+    },
+    {
+      "variables": {
+        "APP_ID": "966036306826184",
+        "APP_NAME": "Gecor"
+      },
+      "locator": "https://github.com/jeduan/cordova-plugin-facebook4.git",
+      "id": "cordova-plugin-facebook4"
     },
     {
       "locator": "https://github.com/uiktiomasfeliz/cordova-plugin-camera.git",

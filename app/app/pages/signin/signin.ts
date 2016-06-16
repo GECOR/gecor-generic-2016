@@ -2,15 +2,16 @@ import {Component, forwardRef} from '@angular/core';
 import {NavController, MenuController, Loading, Alert, NavParams, Modal} from 'ionic-angular';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {LoginPage} from './../login/login';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {SignInService} from './signinService';
 import {LegalTermsPage} from './legalTerms/legalTerms';
+import {UtilsProvider} from './../../providers/utils';
 
 @Component({
     templateUrl: './build/pages/signin/signin.html',
     directives: [forwardRef(() => AndroidAttribute)],
     pipes: [TranslatePipe],
-    providers: [SignInService]
+    providers: [SignInService, UtilsProvider]
 })
 export class SignInPage {
   errorMessage: any;
@@ -35,13 +36,12 @@ export class SignInPage {
   constructor(private nav: NavController
   , private menu: MenuController
   , private params: NavParams
+  , private utils: UtilsProvider
+  , private translate : TranslateService
   , private signinService: SignInService) {
     
     this.aytoSuggested = params.data;
-    
-    this.loadingComponent = Loading.create({
-                content: 'Please wait...'
-            });    
+    this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
   }
   
   nuevoUsuario(){
@@ -57,9 +57,9 @@ export class SignInPage {
                           if (this.result.CiudadanoID > 0) {
                             
                           }else if(this.result.Error){
-                            this.showAlert("Oops!", this.result.Error, "Accept");
+                            this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.result.Error, "Accept");
                           }else{
-                            this.showAlert("Oops!", "There is a problem with server, try again later", "Accept");
+                            this.showAlert(this.translate.instant("app.oopsAlertTitle"), "There is a problem with server, try again later", "Accept");
                           }
                       },
                       error => {
@@ -71,12 +71,12 @@ export class SignInPage {
   
   validateFields() {
     if (this.email == '' || this.password == '' || this.nombre == '') {
-        this.showAlert("Data is empty", "Please enter an email and password", "Accept");
+        this.showAlert(this.translate.instant("login.validateEmptyAlertTitle"), this.translate.instant("login.validateEmptyAlertMessage"), this.translate.instant("app.btnAccept"));
         return false;
     }else if(this.password != this.confirmPassword){
-      this.showAlert("Oops!", "Passwords does not match", "Accept");
+      this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.translate.instant("signin.confirmPassAlertMessage"), this.translate.instant("app.btnAccept"));
     }else if(!this.acceptLegalTerms){
-      this.showAlert("Oops!", "Please accept legal terms", "Accept");
+      this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.translate.instant("signin.legalTermsAlertMessage"), this.translate.instant("app.btnAccept"));
     }else{
         return true;
     }

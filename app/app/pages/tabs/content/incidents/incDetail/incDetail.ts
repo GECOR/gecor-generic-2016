@@ -6,7 +6,7 @@ import {ChatPage} from './chat/chat';
 import {ReviewPage} from './review/review';
 import {GeolocationProvider} from './../../../../../providers/geolocation';
 import {IncDetailService} from './incDetailService';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/incDetail.html',
@@ -42,6 +42,7 @@ export class IncDetailPage {
     , private nav: NavController
     , private zone: NgZone
     , private geo: GeolocationProvider
+    , private translate : TranslateService
     , private incDetailService: IncDetailService) {
     this.platform = platform;
     this.isAndroid = platform.is('android');
@@ -67,7 +68,7 @@ export class IncDetailPage {
       this.location = location;
       if (this.location.error){
         this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
-        this.startAddress = "Address of " + this.entity.Nombre;
+        this.startAddress = this.translate.instant("incidents.incdetail.addresOf") + this.entity.Nombre;
       }else{
         this.latLng = this.location.latLng;
         this.startAddress = this.location.startAddress;
@@ -120,7 +121,8 @@ export class IncDetailPage {
         //Muestra markers en los cambios de dirección
         //this.showSteps(response, stepDisplay);
       } else {
-        window.alert('Directions request failed due to ' + status);
+        //window.alert('Directions request failed due to ' + status);
+        this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("incidents.incdetail.directionRequestFailed"), this.translate.instant("app.btnAccept"));
       }
     });
   }
@@ -167,18 +169,18 @@ export class IncDetailPage {
       title: '',
       buttons: [
         {
-          text: 'Review',
+          text: this.translate.instant("incidents.incdetail.actionSheetReview"),
           handler: () => {
             this.openReview(incident);
           }
         },
         {
-          text: 'Share',
+          text: this.translate.instant("incidents.incdetail.actionSheetShare"),
           handler: () => {
           }
         },
         {
-          text: 'Cancel',
+          text: this.translate.instant("app.btnCancel"),
           role: 'cancel',
           handler: () => {
             console.log("Cancel clicked");
@@ -205,7 +207,7 @@ export class IncDetailPage {
                 this.storage.set('likes', JSON.stringify(likes));
                 this.incident.Likes ++;
               }else{
-                this.showAlert("Error", "There is some errort", "OK");
+                this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.genericErrorAlertMessage"), this.translate.instant("app.btnAccept"));
               }
             },
             error =>{

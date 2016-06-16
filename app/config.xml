@@ -71,12 +71,15 @@
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
     <plugin name="cordova-plugin-whitelist" spec="~1.0.0" />
     <plugin name="cordova-plugin-splashscreen" spec="https://github.com/apache/cordova-plugin-splashscreen.git" />
-    <plugin name="cordova-plugin-facebook4" spec="~1.7.1">
-        <variable name="APP_ID" value="966036306826184" />
-        <variable name="APP_NAME" value="Gecor" />
-    </plugin>
     <preference name="xwalkVersion" value="xwalk_core_library:18+" />
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
     <preference name="xwalkMode" value="embedded" />
     <preference name="xwalkMultipleApk" value="true" />
+    <plugin name="cordova-plugin-facebook4" spec="~1.7.1">
+        <variable name="APP_ID" value="966036306826184" />
+        <variable name="APP_NAME" value="Gecor" />
+    </plugin>
+    <plugin name="cordova-plugin-googleplus" spec="https://github.com/EddyVerbruggen/cordova-plugin-googleplus">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.1060313159714-kiq3uggkv91d4g1e993pdubdr1r193ag" />
+    </plugin>
 </widget>

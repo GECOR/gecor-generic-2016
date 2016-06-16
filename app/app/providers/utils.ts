@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Loading} from 'ionic-angular';
 
 
 @Injectable()
@@ -26,5 +27,11 @@ export class UtilsProvider {
 
     roundTwoDecimals(number){
         return Math.round(number * 100) / 100;
+    }
+
+    getLoading(title: string){
+        return Loading.create({
+            content: title
+        });
     }
 }

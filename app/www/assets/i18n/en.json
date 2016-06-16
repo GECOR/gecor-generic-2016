@@ -1,21 +1,45 @@
 {		
 	"app": {	
-  		"menuTitle": "Lateral menu",
-  		"kittens": "Kittens"
+  		"btnAccept": "Accept",
+  		"btnCancel": "Cancel",
+		"sendBtn": "Send",
+		"continueBtn": "Continue",
+		"loadingMessage": "Please wait...",
+		"oopsAlertTitle": "Oops!",
+		"genericErrorAlertTitle": "Error",
+		"genericErrorAlertMessage": "There is some error",
+		"cameraErrorAlertMessage": "Failed because Camera!",
+		"galleryText": "Gallery",
+		"cameraText": "Camera"
 	},	
 	"calendar":{
 			"title": "Calendar",
 			"meetings": "Meetings",
 			"reminders": "Reminders",
 			"notes": "Notes"
-	},
-	
+	},	
 	"login": {
 		"title": "Login",
 		"aytoSuggested": "Show Default",
 		"signIn": "Sign in",
 		"forgottenPass": "Forgotten Pass",
-		"orUse": "Oe use...",
+		"orUse": "Or use...",
+		
+		"forgottenAlertTitle":"Forgotten password",
+		"forgottenAlertMessage":"Enter email to reset password",
+		"forgottenAlertInputPlaceholder":"Email",
+		"forgottenAlertBtnReset":"Reset",
+		
+		"suggestedAlertTitle":"Error",
+		"suggestedAlertMessage":"We have problems to locate you, please choose a entity manually.",
+		
+		"loginAlertTitle":"",
+		"loginAlertMessage":"The user was incorrect",
+		
+		"validateEmptyAlertTitle":"Data is empty",
+		"validateEmptyAlertMessage":"Please enter an email and password",
+		"validateSuggestedAlertTitle":"Entity not found",
+		"validateSuggestedAlertMessage":"Please choose a entity manually",
 		"entities": {
 			"title": "Entities",
 			"suggested": "Suggested",
@@ -27,79 +51,101 @@
 			"other": "Other entities",
 			"cancel": "Cancelar"
 		}
-	},
-	
+	},	
 	"signin":{
 		"title": "Login",
 		"terms": "Accept the terms",
 		"signin": "Sign In",
-		"back" : "Back"
-	},
-	
+		"back" : "Back",
+		
+		"confirmPassAlertTitle":"",
+		"confirmPassAlertMessage":"Passwords does not match",
+		"legalTermsAlertTitle":"",
+		"legalTermsAlertMessage":"Please accept legal terms"
+	},	
 	  "slide":{
 		  "skip":"Skip",
-		  "ready": "Ready to play?",
-		  "continue": "Continue"
-	  },
-	  
+		  "ready": "Ready to play?"
+	  },	  
 	  "tabs":{
 		  "title":"Menu"
-	  },
-	  
+	  },	  
 	  "home":{
-		 "title":"Inicio",
-		 "subtitle":"Ayuntamiento de Málaga",
+		 "title":"Home",
 		 "incidence": "New Incidence",
 		 "beaches": "Beaches",
 		 "renewalDNI": "Renewal DNI"	 
-	  },
-	   
+	  },	   
 	"incidents":{
 			"title": "Incidents",
-			"subtitle":"Ayuntamiento de Málaga",	 
+			"atentionAlertTitle": "Atention",
+			"dateTxt": "Date",
+			"distanceTxt": "Distance",
+			"reviewTxt": "Review",
+			"viewTxt": "View",
 	  "incdetail":{
 		    "title": "Incidents",
-			"subtitle":"Ayuntamiento de Málaga",
 			"userlocation": "User location",	
 			"incidentlocation": "Inicident location",
 	  		"chat": "Chat",
 			"start":"Start",
-			"lastcomment": "Last comment"			
+			"lastcomment": "Last comment",
+			"directionRequestFailed": "Directions request failed due to ",
+			"actionSheetReview": "Review",
+			"actionSheetShare": "Share",
+			"addresOf": "Address of "			
 	  },
 	  "pagechat":{
-		  "title": "Chat",
-		  "subtitle":"Ayuntamiento de Málaga",
-		  "send": "Send"
+		  "title": "Chat",		  
+		  "send": "Send",
+		  "close": "Close",
+		  "alertTitle": "Error",
+		  "alertMessage": "Unable to connect to Chat Service. Try again later."
 		  },
 	  "comments":{
 		  "title": "Comments",
-		  "subtitle":"Ayuntamiento de Málaga"  
+		  "placeholder": "Add message"
 	  },
 	  "review":{
 		  "title":"Review",
-		  "subtitle":"Ayuntamiento de Málaga",
 		  "element": "Element",
 		  "incident": "Incident",
 		  "state": "State",
 		  "responsible": "Responsible",
 		  "location": "User location",
-		  "reviewIncident": "Review"
+		  "reviewIncident": "Review",		  
+		  
+		  "presentConfirmAlertTitle": "Confirm review",
+		  "presentConfirmAlertMessage": "There is some error reviewing this incident",
+		  
+		  "presentReviewAlertTitle": "Incident reviewed",
+		  "presentReviewAlertMessage": "",
+		  
+		  "checkFieldsAlertMessage": "Please write a solution"
 	  }
 	  },
 	  "newInc":{
 		  "title": "New Incident",
-		  "subtitle":"Ayuntamiento de Málaga",
 	   	  "element": "Element",
 		  "incident": "Incident",
 		  "location": "User location",
 		   "send": "Send",
+
+		  "elementAlertMessage": "Please choose a element",
+		  "incidentAlertMessage": "Please choose a incident",
+		  "descriptionAlertMessage": "Please write some description",		  
+		  
+		  "presentConfirmAlertTitle": "Confirm incident",
+		  "presentConfirmAlertMessage": "",
+		  "presentConfirmErrorAlertMessage": "There is some error sending this incident",
+
+		  "presentIncidentSuccessAlertTitle": "Incident sent",
+
 		  "families":{
-				"title":"Families",
-				"subtitle":"Ayuntamiento de Málaga"	   	   			  
+				"title":"Families"	   			  
 		  },
 		  "survey":{
-			  	"tittle":"Survey",
-				"subtitle":"Ayuntamiento de Málaga",
+			  	"title":"Survey",
 				"opinion": "What you think of the app?",
 				"cleaning": "Rate the cleanliness of your city",
 				"security": "Rate the security of your city",
@@ -109,18 +155,15 @@
 				  }
 		  },
 		 "news":{
-			 "tittle":"News",
-			 "subtitle":"Ayuntamiento de Málaga",
+			 "title":"News",
 			 "newsdetail":{
 				 "title":"News detail",
-				 "subtitle":"Ayuntamiento de Málaga",
 				 "favorite": "Favorite",
 				 "share": "Share"
 			 }				
 		 },
 		 "settings":{
 			 "title": "Settings",
-			 "subtitle":"Ayuntamiento de Málaga",
 			 "notifications": "Notificaciones",
 			 "terms": "Terms and conditions ",
 			 "relatedapp": "APPS RELATED",
@@ -135,23 +178,19 @@
 			 "cuajimalpa": "Cuajimalpa",
 			 "entities":{
 				 "title": "Entities",
-				 "subtitle":"Ayuntamiento de Málaga",
 				 "suggested": "SUGGESTED",
 				 "other": "OTHER ENTITIES"
 			 },
 			 "notificationspage":{
 				 "title": "Notifications",
-				  "subtitle":"Ayuntamiento de Málaga",
 				  "email": "E-mail",
 				  "push": "Push" 
 			 },
 			 "termspage":{
-				 "tittle": "Terms and Conditions",
-				"subtitle":"Ayuntamiento de Málaga"				  
+				 "tittle": "Terms and Conditions"				  
 			 },
 			 "user":{
 				 "tittle": "User",
-				 "subtitle":"Ayuntamiento de Málaga",
 				 "logout":"Logout"		  			 
 			 }
 		 }     

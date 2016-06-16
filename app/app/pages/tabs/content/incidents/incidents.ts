@@ -60,10 +60,7 @@ export class IncidentsPage {
     this.storage = new Storage(SqlStorage);
     this.map = null;
     
-    this.loadingComponent = Loading.create({
-                content: 'Please wait...'
-            });
-    
+    this.loadingComponent = utils.getLoading('Please wait...');
   }
   
   ionViewWillEnter() {

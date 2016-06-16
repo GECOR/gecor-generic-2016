@@ -1,6 +1,6 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
 import {NavController, MenuController, Alert, Storage, SqlStorage, Loading, Modal} from 'ionic-angular';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
 import {TabsPage} from './../tabs/tabs';
@@ -9,14 +9,15 @@ import {GeolocationProvider} from './../../providers/geolocation';
 import {EntitiesPage} from './entities/entities';
 import {LoginService} from './loginService';
 import {User} from './loginInterface';
-import {Facebook} from 'ionic-native';
+import {Facebook, SQLite} from 'ionic-native';
 import {EntitiesModalPage} from './entitiesModal/entitiesModal';
+import {UtilsProvider} from './../../providers/utils';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from './../../appConfig';
 
 @Component({
   templateUrl: './build/pages/login/login.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, LoginService],
+  providers: [GeolocationProvider, LoginService, UtilsProvider],
   pipes: [TranslatePipe]
 })
 export class LoginPage {
@@ -36,6 +37,8 @@ export class LoginPage {
       , private menu: MenuController
       , private geo: GeolocationProvider
       , private loginService: LoginService
+      , private utils: UtilsProvider
+      , private translate : TranslateService
       , private zone: NgZone) {
         
         this.storage = new Storage(SqlStorage);
@@ -47,10 +50,8 @@ export class LoginPage {
                 this.language = language;
             }            
         })
-        
-        this.loadingComponent = Loading.create({
-            content: 'Please wait...'
-        });
+       
+        this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
     }
     
     ionViewWillEnter() {
@@ -87,23 +88,23 @@ export class LoginPage {
 
     forgottenPass() {
       let prompt = Alert.create({
-        title: 'Forgotten password',
-        message: "Enter email to reset password",
+        title: this.translate.instant("login.forgottenAlertTitle"),
+        message: this.translate.instant("login.forgottenAlertMessage"),
         inputs: [
           {
             name: 'email',
-            placeholder: 'Email'
+            placeholder: this.translate.instant("login.forgottenAlertInputPlaceholder")
           },
         ],
         buttons: [
           {
-            text: 'Cancel',
+            text: this.translate.instant("app.btnCancel"),//'Cancel',
             handler: data => {
               console.log('Cancel clicked');
             }
           },
           {
-            text: 'Reset',
+            text: this.translate.instant("login.forgottenAlertBtnReset"),//'Reset',
             handler: data => {
               console.log('Reset clicked');
             }
@@ -127,7 +128,7 @@ export class LoginPage {
                             .subscribe(
                                 (aytos) =>{
                                     if(errEntityManually){
-                                        this.showAlert("Error", "We have problems to locate you, please choose a entity manually.", "OK");
+                                        this.showAlert(this.translate.instant("login.suggestedAlertTitle"), this.translate.instant("login.suggestedAlertMessage"), this.translate.instant("app.btnAccept"));
                                         this.aytoSuggested.AyuntamientoID = -1;
                                         this.aytoSuggested.Nombre = "Choose a entity manually";
                                     }
@@ -155,13 +156,8 @@ export class LoginPage {
                                         this.storage.set('user', JSON.stringify(this.user));
                                     }else{
                                         //this.loginLoading = false;
-                                        this.loadingComponent.dismiss();
-                                        let prompt = Alert.create({
-                                            title: 'Oops!',
-                                            message: "The user was incorrect",
-                                            buttons: ['Accept']
-                                        });
-                                        this.nav.present(prompt);
+                                        this.loadingComponent.dismiss();                               
+                                        this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.translate.instant("login.loginAlertMessage"), this.translate.instant("app.btnAccept"));
                                     }
                                 },
                                 error => {
@@ -179,6 +175,7 @@ export class LoginPage {
     }
     
     loginGooglePlusUser(){
+         //window['plugins'].googleplus.login(
          window.plugins.googleplus.login(
             {},
              (obj)=> {
@@ -192,10 +189,10 @@ export class LoginPage {
     
     validateLogin() {
         if (this.email == '' || this.password == '') {
-            this.showAlert("Data is empty", "Please enter an email and password", "Accept");
+            this.showAlert(this.translate.instant("login.validateEmptyAlertTitle"), this.translate.instant("login.validateEmptyAlertMessage"), this.translate.instant("app.btnAccept"));
             return false;
         }else if(this.aytoSuggested.AyuntamientoID == -1){
-            this.showAlert("Entity not found", "Please choose a entity manually", "Accept");
+            this.showAlert(this.translate.instant("login.validateSuggestedAlertTitle"), this.translate.instant("login.validateSuggestedAlertMessage"), this.translate.instant("app.btnAccept"));
             return false;
         }else{
             return true;

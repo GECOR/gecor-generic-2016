@@ -10,12 +10,13 @@ import {SurveyPage} from './survey/survey';
 import {GeolocationProvider} from './../../../../providers/geolocation';
 import {NewIncService} from './newIncService';
 import {GalleryModalPage} from './../../../galleryModal/galleryModal';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {UtilsProvider} from './../../../../providers/utils';
 
 @Component({
   templateUrl: './build/pages/tabs/content/newInc/newInc.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, NewIncService],
+  providers: [GeolocationProvider, NewIncService, UtilsProvider],
   pipes: [TranslatePipe]
 })
 export class NewIncPage {
@@ -74,15 +75,17 @@ export class NewIncPage {
     , private geo: GeolocationProvider
     , private params: NavParams
     , private newIncService: NewIncService
+    , private utils: UtilsProvider
+    , private translate : TranslateService
     , private events: Events) {
   
     this.platform = platform;
     this.isAndroid = platform.is('android');
     this.images = [undefined, undefined, undefined, undefined];
     this.familia = params.data;
-    this.loadingComponent = Loading.create({
-                content: 'Please wait...'
-            });
+    
+    this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
+
     this.storage = new Storage(SqlStorage);    
     this.storage.get('tiposElementos').then((tiposElementos) => {
         this.tiposElementos = JSON.parse(tiposElementos);
@@ -101,7 +104,7 @@ export class NewIncPage {
         this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
         this.newInc.lat = this.entity.latitude;
         this.newInc.lng = this.entity.longitude;
-        this.newInc.desUbicacion = "Address of " + this.entity.Nombre;
+        this.newInc.desUbicacion = this.translate.instant("incidents.incdetail.addresOf") + this.entity.Nombre;
       }else{        
         this.latLng = this.location.latLng;
         this.newInc.lat = this.latLng.lat();
@@ -191,10 +194,10 @@ export class NewIncPage {
         this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
         this.newInc.lat = this.entity.latitude;
         this.newInc.lng = this.entity.longitude;
-        this.newInc.desUbicacion = "Address of " + this.entity.Nombre;
+        this.newInc.desUbicacion = this.translate.instant("incidents.incdetail.addresOf") + this.entity.Nombre;
         this.map.setCenter(this.latLng);
         this.marker.setPosition(this.latLng);
-        this.marker.setTitle("Address of " + this.entity.Nombre);
+        this.marker.setTitle(this.translate.instant("incidents.incdetail.addresOf") + this.entity.Nombre);
       }else{        
         this.latLng = this.location.latLng;
         this.newInc.lat = this.latLng.lat();
@@ -214,7 +217,7 @@ export class NewIncPage {
       title: '',
       buttons: [
         {
-          text: 'Gallery',
+          text: this.translate.instant("app.galleryText"),
           handler: () => {
            ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
                     /*
@@ -236,19 +239,19 @@ export class NewIncPage {
           }
         },
         {
-          text: 'Camera',
+          text: this.translate.instant("app.cameraText"),
           handler: () => {            
             Camera.getPicture({quality: 100, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
               this.images[id] = this.base64string + imageURI;
             }, (message) => {
-              alert('Failed because Camera!');
+              this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.cameraErrorAlertMessage"), this.translate.instant("app.btnAccept"));
               console.log('Failed because: ');
               console.log(message);
             });
           }
         },
         {
-          text: 'Cancel',
+          text: this.translate.instant("app.btnCancel"),
           role: 'cancel',
           handler: () => {
             console.log("Cancel clicked");
@@ -277,18 +280,18 @@ export class NewIncPage {
   
   presentConfirm() {
     let alert = Alert.create({
-      title: 'Confirm incident',
+      title: this.translate.instant("newInc.presentConfirmAlertTitle"),
       message: this.newInc.desTipoElemento + ' - ' + this.newInc.desTipoIncidencia + '<br>' + this.newInc.desUbicacion,
       buttons: [
         {
-          text: 'Cancel',
+          text: this.translate.instant("app.btnCancel"),
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Send',
+          text: this.translate.instant("app.sendBtn"),
           handler: () => {
             if(this.images){
               this.images.forEach(element => {
@@ -304,7 +307,7 @@ export class NewIncPage {
               if (inc[0].AvisoID != ""){
                 this.presentIncidentSuccess();
               }else{
-                this.showAlert("Error", "There is some error sending this incident", "OK");
+                this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("newInc.presentConfirmErrorAlertMessage"), this.translate.instant("app.btnAccept"));
               }
             },
             error =>{
@@ -320,11 +323,11 @@ export class NewIncPage {
 
   presentIncidentSuccess() {
     let alert = Alert.create({
-      title: 'Incident sent',
+      title: this.translate.instant("newInc.presentIncidentSuccessAlertTitle"),
       message: 'CIU@24/2016',
       buttons: [
         {
-          text: 'Continue',
+          text: this.translate.instant("app.continueBtn"),
           role: 'cancel',
           handler: () => {
             //this.nav.push(IncidentsPage, {});
@@ -333,7 +336,7 @@ export class NewIncPage {
           }
         },
         {
-          text: 'Survey',
+          text: this.translate.instant("survey.title"),
           handler: () => {
             this.nav.push(SurveyPage, {});
           }
@@ -352,19 +355,19 @@ export class NewIncPage {
     
     if (this.newInc.tipoElementoID == -1){
       ok = false;
-      this.showAlert("Atention", "Please choose a element", "OK");
+      this.showAlert(this.translate.instant("incidents.atentionAlertTitle"), this.translate.instant("newInc.elementAlertMessage"), this.translate.instant("app.btnAccept"));
       return ok;
     }
     
     if (this.newInc.tipoIncidenciaID == -1){
       ok = false;
-      this.showAlert("Atention", "Please choose a incident", "OK");
+      this.showAlert(this.translate.instant("incidents.atentionAlertTitle"), this.translate.instant("newInc.incidentAlertMessage"), this.translate.instant("app.btnAccept"));
       return ok;
     }
     
     if (this.newInc.desAveria == ""){
       ok = false;
-      this.showAlert("Atention", "Please write some description", "OK");
+      this.showAlert(this.translate.instant("incidents.atentionAlertTitle"), this.translate.instant("newInc.descriptionAlertMessage"), this.translate.instant("app.btnAccept"));
       return ok;
     }
     

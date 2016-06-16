@@ -8,12 +8,13 @@ import {Geolocation, Camera, ImagePicker} from 'ionic-native';
 import {GeolocationProvider} from './../../../../../../providers/geolocation';
 import {ReviewService} from './reviewService';
 import {GalleryModalPage} from './../../../../../galleryModal/galleryModal';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {UtilsProvider} from './../../../../../../providers/utils';
 
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/review/review.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, ReviewService],
+  providers: [GeolocationProvider, ReviewService, UtilsProvider],
         pipes: [TranslatePipe]
 })
 export class ReviewPage {
@@ -53,6 +54,8 @@ export class ReviewPage {
     , private geo: GeolocationProvider
     , private params: NavParams
     , private reviewService: ReviewService
+    , private utils: UtilsProvider
+    , private translate : TranslateService
     , private events: Events
     ) 
   {
@@ -61,9 +64,8 @@ export class ReviewPage {
     this.images = [undefined, undefined, undefined, undefined];
     this.reviewInc = params.data;
     this.reviewInc.fotos = [];
-    this.loadingComponent = Loading.create({
-                content: 'Please wait...'
-            });
+    
+    this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
     
     this.storage = new Storage(SqlStorage);    
     this.storage.get('tiposElementos').then((tiposElementos) => {
@@ -159,7 +161,7 @@ export class ReviewPage {
       title: '',
       buttons: [
         {
-          text: 'Gallery',
+          text: this.translate.instant("app.galleryText"),
           handler: () => {
            ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {     
                     console.log('Image URI: ' + results[0]);             
@@ -173,19 +175,19 @@ export class ReviewPage {
           }
         },
         {
-          text: 'Camera',
+          text: this.translate.instant("app.cameraText"),
           handler: () => {            
             Camera.getPicture({quality: 100, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
               this.images[id] = this.base64string + imageURI;
             }, (message) => {
-              alert('Failed because Camera!');
+              this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.cameraErrorAlertMessage"), this.translate.instant("app.btnAccept"));
               console.log('Failed because: ');
               console.log(message);
             });
           }
         },
         {
-          text: 'Cancel',
+          text: this.translate.instant("app.btnCancel"),
           role: 'cancel',
           handler: () => {
             console.log("Cancel clicked");
@@ -198,18 +200,18 @@ export class ReviewPage {
 
   presentConfirm() {
     let alert = Alert.create({
-      title: 'Confirm review',
+      title: this.translate.instant("incidents.review.presentConfirmAlertTitle"),
       message: this.reviewInc.desSolucion,
       buttons: [
         {
-          text: 'Cancel',
+          text: this.translate.instant("app.btnCancel"),
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Send',
+          text: this.translate.instant("app.sendBtn"),
           handler: () => {
             if(this.images){
               this.images.forEach(element => {
@@ -229,7 +231,8 @@ export class ReviewPage {
                 });
                 //this.presentReviewIncidentSuccess();
               }else{
-                this.showAlert("Error", "There is some error reviewing this incident", "OK");
+                //this.showAlert("Error", "There is some error reviewing this incident", "OK");
+                this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("incidents.review.presentConfirmAlertMessage"), this.translate.instant("app.btnAccept"));
               }
             },
             error =>{
@@ -245,11 +248,11 @@ export class ReviewPage {
 
   presentReviewIncidentSuccess() {
     let alertSuccess = Alert.create({
-      title: 'Incident reviewed',
-      message: '',
+      title: this.translate.instant("incidents.review.presentReviewAlertTitle"),
+      message: this.translate.instant("incidents.review.presentReviewAlertMessage"),
       buttons: [
         {
-          text: 'Continue',
+          text: this.translate.instant("app.continueBtn"),
           role: 'cancel',
           handler: () => {            
             setTimeout(() => this.nav.pop(), 200);              
@@ -269,7 +272,8 @@ export class ReviewPage {
     
     if (this.reviewInc.desSolucion == ""){
       ok = false;
-      this.showAlert("Atention", "Please write a solution", "OK");
+      //this.showAlert("Atention", "Please write a solution", "OK");
+      this.showAlert(this.translate.instant("incidents.atentionAlertTitle"), this.translate.instant("incidents.review.checkFieldsAlertMessage"), this.translate.instant("app.btnAccept"));
       return ok;
     }
     

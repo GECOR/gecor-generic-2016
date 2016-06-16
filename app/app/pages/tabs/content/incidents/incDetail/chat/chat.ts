@@ -1,17 +1,19 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {NgClass} from '@angular/common';
-import {ViewController, App, Events, NavParams, Loading, NavController } from 'ionic-angular';;
+import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {ViewController, App, Events, NavParams, Loading, NavController, Alert} from 'ionic-angular';;
 import * as Rx from 'rxjs/Rx';
 import { ChatNodeService } from './services/chat';
 import { Message } from './models/message';
 import { User } from './models/user';
 import { AuthService } from './services/auth';
 import { ChatService } from './chatService'
+import {UtilsProvider} from './../../../../../../providers/utils';
 
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/chat/chat.html',
   directives: [NgClass],
-  providers:[ChatService, ChatNodeService, AuthService]
+  providers:[ChatService, ChatNodeService, AuthService, UtilsProvider]
 })
 
 export class ChatPage implements OnInit {
@@ -32,6 +34,8 @@ export class ChatPage implements OnInit {
               private nav: NavController,
               private viewController: ViewController,
               private app: App,
+              private utils: UtilsProvider,
+              private translate : TranslateService,
               private e: Events) {
     
     this.e.subscribe('newMessage', (e) => {
@@ -43,9 +47,7 @@ export class ChatPage implements OnInit {
       }            
     });
     
-    this.loadingComponent = Loading.create({
-                content: 'Please wait...'
-            });
+    this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
     
     this.me = params.get('user');
     this.incident = params.get('incident'); 
@@ -65,8 +67,21 @@ export class ChatPage implements OnInit {
     });
     */
 
-    this.chat.socketJoin(this.incident.AvisoID, this.me.token);//seccond test with token
+    //this.chat.socketJoin(this.incident.AvisoID, this.me.token);//seccond test with token
     //this.chat.socketJoin(this.me.token);//first test
+    if(!this.chat.socketJoin(this.incident.AvisoID, this.me.token)){
+      let alert = Alert.create({
+      title: this.translate.instant("incidents.pagechat.alertTitle"),
+      message: this.translate.instant("incidents.pagechat.alertMessage"),
+      buttons: [{
+            text: this.translate.instant("app.btnAccept"),
+            handler: data => {
+              this.close();
+            }
+          }]
+    });
+    this.nav.present(alert);
+    }
   }
 
   ngAfterViewInit(): void {

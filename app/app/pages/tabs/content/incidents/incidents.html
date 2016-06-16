@@ -60,8 +60,8 @@
   
     <div padding-5 [hidden]="type == 'map'">
       <ion-segment [(ngModel)]="order" [attr.primary]="isAndroid ? '' : null">
-        <ion-segment-button value="FechaHoraRegistro">Date</ion-segment-button>
-        <ion-segment-button value="Distancia">Distance</ion-segment-button>
+        <ion-segment-button value="FechaHoraRegistro">{{"incidents.dateTxt" | translate}}</ion-segment-button>
+        <ion-segment-button value="Distancia">{{"incidents.distanceTxt" | translate}}</ion-segment-button>
       </ion-segment>
     </div>
     
@@ -82,7 +82,7 @@
           <p distance>{{distance(incident)}}</p>
         </button>
         <ion-item-options>
-          <button (click)="openReview(incident, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>Review</button>
+          <button (click)="openReview(incident, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>{{"incidents.reviewTxt" | translate}}</button>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
@@ -98,7 +98,7 @@
           <p>
             {{incident.DesUbicacion}}
           </p>
-          <button clear item-right class="pull-right" (click)="openDetail(incident)">View</button>
+          <button clear item-right class="pull-right" (click)="openDetail(incident)">{{"incidents.viewTxt" | translate}}</button>
         </ion-card-content>
       </ion-card>
     </div> <!-- //END GALLERY -->

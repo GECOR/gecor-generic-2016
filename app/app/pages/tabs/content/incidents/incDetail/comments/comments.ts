@@ -2,13 +2,14 @@ import {Component, forwardRef} from '@angular/core';
 import {NavController, MenuController, Alert, Storage, SqlStorage, NavParams, Loading} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {CommentsService} from './commentsService';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {UtilsProvider} from './../../../../../../providers/utils';
 
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/comments/comments.html',
   directives: [forwardRef(() => AndroidAttribute)],
   providers: [CommentsService],
-  pipes: [TranslatePipe]
+  pipes: [TranslatePipe, UtilsProvider]
 })
 export class CommentsPage {
   errorMessage: any;
@@ -22,6 +23,8 @@ export class CommentsPage {
   constructor(private nav: NavController
   , private menu: MenuController
   , private commentsService: CommentsService
+  , private translate : TranslateService
+  , private utils: UtilsProvider
   , private params: NavParams) {
     
     this.incident = params.data;
@@ -35,9 +38,7 @@ export class CommentsPage {
         this.getComentariosAviso();
     });
     
-    this.loadingComponent = Loading.create({
-                content: 'Please wait...'
-            });
+    this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
   }
     
     newComentarioAviso(message){
@@ -48,7 +49,7 @@ export class CommentsPage {
             this.message = "";
             this.messages.unshift(result[0]);
           }else{
-            this.showAlert("Error", "There is some error", "OK");
+            this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.genericErrorAlertMessage"), this.translate.instant("app.btnAccept"));
           }
         },
         error =>{

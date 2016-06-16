@@ -1,22 +1,45 @@
 {		
 	"app": {	
-  		"menuTitle": "Menú lateral",
-  		"kittens": "Kittens"
-	},
-	
+  		"btnAccept": "Aceptar",
+  		"btnCancel": "Cancelar",
+		"sendBtn": "Enviar",
+		"continueBtn": "Continuar",
+		"loadingMessage": "Por favor espera...",
+		"oopsAlertTitle": "Uy!",
+		"genericErrorAlertTitle": "Error",
+		"genericErrorAlertMessage": "Hay algun error",
+		"cameraErrorAlertMessage": "Fallo debido a la cámara!",
+		"galleryText": "Galería",
+		"cameraText": "Cámara"
+	},	
 	"calendar":{
 			"title": "Calendario",
 			"meetings": "Reuniones",
 			"reminders": "Recordatorios",
 			"notes": "Notas"
-	},
-	
+	},	
 	"login": {
 		"title": "Login",
 		"aytoSuggested": "Mostrar por defecto",
 		"signIn": "Sign in",
 		"forgottenPass": "Olvidé la contraseña",
 		"orUse": "O utiliza...",
+		
+		"forgottenAlertTitle":"Contraseña olvidada",
+		"forgottenAlertMessage":"Ingrese correo electrónico para restablecer la contraseña",
+		"forgottenAlertInputPlaceholder":"Email",
+		"forgottenAlertBtnReset":"Restablecer",
+		
+		"suggestedAlertTitle":"Error",
+		"suggestedAlertMessage":"Tenemos problemas para localizarle, por favor elija una entidad de forma manual.",
+		
+		"loginAlertTitle":"",
+		"loginAlertMessage":"El usuario es incorrecto",
+		
+		"validateEmptyAlertTitle":"Los datos están vacíos",
+		"validateEmptyAlertMessage":"Por favor, introduzca un correo electrónico y contraseña",
+		"validateSuggestedAlertTitle":"Entidad no encontrada",
+		"validateSuggestedAlertMessage":"Por favor elige una entidad de forma manual",
 		"entities": {
 			"title": "Entidades",
 			"suggested": "Sugerido",
@@ -28,67 +51,95 @@
 			"other": "Otras entidades",
 			"cancel": "Cancelar"
 		}
-	},
-	
+	},	
 	"signin":{
 		"title": "Login",
 		"terms": "Aceptar los términos",
 		"signin": "Sign In",
-		"back" : "Volver"
-	},
-	
+		"back" : "Volver",
+		
+		"confirmPassAlertTitle":"",
+		"confirmPassAlertMessage":"Las contraseñas no coinciden",
+		"legalTermsAlertTitle":"",
+		"legalTermsAlertMessage":"Por favor, acepte los términos legales"
+	},	
 	  "slide":{
 		  "skip":"Saltar",
-		  "ready": "¿Preparado para jugar?",
-		  "continue": "Continuar"
-	  },
-	  
+		  "ready": "¿Preparado para jugar?"
+	  },	  
 	  "tabs":{
 		  "title":"Menu"
-	  },
-	  
+	  },	  
 	  "home":{
 		 "title":"Inicio",
-		 "subtitle":"Ayuntamiento de Málaga",
 		 "incidence": "Nueva Incidencia",
 		 "beaches": "Playas",
 		 "renewalDNI": "Renovación DNI"	 
-	  },
-	   
+	  },	   
 	"incidents":{
-			"title": "Incidentes",
-			"subtitle":"Ayuntamiento de Málaga",	 
+			"title": "Incidentes",	 
+			"atentionAlertTitle": "Atención",
+			"dateTxt": "Fecha",
+			"distanceTxt": "Distancia",
+			"reviewTxt": "Revisar",
+			"viewTxt": "Ver",
 	  "incdetail":{
 		    "title": "Incidentes",
 			"userlocation": "Localización del usuario",	
 			"incidentlocation": "Localizacón del incidente",
 	  		"chat": "Chat",
 			"start":"Empezar",
-			"lastcomment": "Último comentario"			
+			"lastcomment": "Último comentario",
+			"directionRequestFailed": "Solicitud de direcciones suspendida debido a la ",
+			"actionSheetReview": "Revisar",
+			"actionSheetShare": "Compartir",
+			"addresOf": "Dirección de "				
 	  },
 	  "pagechat":{
 		  "title": "Chat",
-		  "send": "Enviar"
+		  "send": "Enviar",
+		  "close": "Cerrar",
+		  "alertTitle": "Error",
+		  "alertMessage": "No se puede conectar al servicio de chat. Inténtelo de nuevo más tarde."
 		  },
 	  "comments":{
-		  "title": "Comentarios"
+		  "title": "Comentarios",
+		  "placeholder": "Añadir mensage"
 		  },
 	  "review":{
-		  "title":"Revisar",  "subtitle":"Ayuntamiento de Málaga",
+		  "title":"Revisar",
 		  "element": "Elemento",
 		  "incident": "Incidente",
 		  "state": "Estado",
 		  "responsible": "Responsable",
 		  "location": "Localización del usuario",
-		  "reviewIncident": "Revisar"
+		  "reviewIncident": "Revisar",
+		  
+		  "presentConfirmAlertTitle": "Confirmar revisión",
+		  "presentConfirmAlertMessage": "Hay algun error revisando este aviso",
+		  
+		  "presentReviewAlertTitle": "Aviso revisado",
+		  "presentReviewAlertMessage": "",
+		  
+		  "checkFieldsAlertMessage": "Por favor, escriba una solución"
 	  }
 	  },
 	  "newInc":{
 		  "title": "Nueva incidencia",
 		  "element": "Elemento",
-		  "incident": "Incidente",
+		  "incident": "Incidencia",
 		  "location": "Localización del usuario",
 		   "send": "Enviar",
+		  "elementAlertMessage": "Por favor seleccione un elemento",
+		  "incidentAlertMessage": "Por favor, elija una incidencia",
+		  "descriptionAlertMessage": "Por favor, escribir alguna descripción",
+
+		  "presentConfirmAlertTitle": "Confirmar incidencia",
+		  "presentConfirmAlertMessage": "",
+		  "presentConfirmErrorAlertMessage": "Hubo un error al enviar esta incidencia",
+
+		  "presentIncidentSuccessAlertTitle": "Incidencia enviada",
+
 		  "families":{
 				"title":"Familias"
 		  },
@@ -103,7 +154,7 @@
 				  }
 		  },
 		 "news":{
-			 "tittle":"Noticias",
+			 "title":"Noticias",
 			 "newsdetail":{
 				 "title":"Detalle de noticias",
 				 "favorite": "Favorito",

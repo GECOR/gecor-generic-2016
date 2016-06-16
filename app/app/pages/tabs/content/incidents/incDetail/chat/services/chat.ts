@@ -113,8 +113,7 @@ export class ChatNodeService {
     });
   }
 
-  public socketAuth(): void {//SERVER 1
-    
+  public socketAuth(): void {//SERVER 1    
     let token = localStorage.getItem('id_token');
     this.socket = io.connect(urlSocketServer);
     this.socket.on('connect', () => {
@@ -123,32 +122,41 @@ export class ChatNodeService {
       this.initMessagesStreams();
       //this.initLoggedInUser();
     });
-
   }
 
-   public socketJoin(idRoom, token): void {//SERVER 2
-    this.socket = io.connect(urlSocketServer);
-    //this.socket = io.connect(urlSocketServer, {'query': 'token=' + token});
-    this.socket.on('connect', () => {
-      /*this.socket.on('authenticated', () => {
-        //do other things
-        //this.socket.emit('create', idRoom);
-        console.log("authenticated");
-      }).emit('authenticate', { token: idRoom });
-      */
-      this.socket.emit('create', idRoom);
-      this.initUsersStreams();
-      this.initMessagesStreams();
-      //this.initLoggedInUser();
-    });
-
+   public socketJoin(idRoom, token): Boolean {//SERVER 2
+     try {
+       this.socket = io.connect(urlSocketServer);
+     } catch (error) {
+       console.error("Error SocketJoin",error)
+     } finally{
+       if(this.socket){
+          this.socket.on('connect', () => {
+          /*this.socket.on('authenticated', () => {
+            //do other things
+            //this.socket.emit('create', idRoom);
+            console.log("authenticated");
+          }).emit('authenticate', { token: idRoom });
+          */
+          this.socket.emit('create', idRoom);
+          this.initUsersStreams();
+          this.initMessagesStreams();
+          //this.initLoggedInUser();
+        });
+        return true;
+       }else{
+        return false;
+       }       
+     }
   }
   
   public disconnectChat(): void {//SERVER 1
+    if(this.socket)
       this.socket.emit('leave');      
   }
 
   public disconnectUserChat(idRoom): void {//SERVER 2
+    if(this.socket)
       this.socket.emit('leave', idRoom);      
   }
 

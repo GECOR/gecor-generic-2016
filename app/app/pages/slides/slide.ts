@@ -1,20 +1,30 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component, forwardRef, Type} from '@angular/core';
 import {NavController, MenuController, Storage, SqlStorage} from 'ionic-angular';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {LoginPage} from './../login/login';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
-
+import {DBProvider} from './../../providers/db';
+import {Globalization} from 'ionic-native';
+import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from 'ng2-translate/ng2-translate';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from './../../appConfig';
+import {TabsPage} from '../tabs/tabs';
+ 
 @Component({
     templateUrl: './build/pages/slides/slide.html',
     directives: [forwardRef(() => AndroidAttribute)],
+    providers: [DBProvider],
     pipes: [TranslatePipe]
 })
 export class SlidePage {
 
   slides: any[];
   storage: any;
+  user: any;
+  rootPage: Type;
 
-    constructor(private nav: NavController, private menu: MenuController) {
+    constructor(private nav: NavController
+    , private menu: MenuController
+    , private translate: TranslateService
+    , private db: DBProvider) {
       this.slides = [
         {
           title: "Welcome to the Docs!",
@@ -39,14 +49,27 @@ export class SlidePage {
     }
 
   openLoginPage() {
-    this.storage.set('firstRun', true);
+    //this.storage.set('firstRun', true);
+    this.db.setKey('firstRun', 'true').then((result) =>{
+        console.log(result);                                                                 
+        },
+        error =>{
+        console.log(error);
+    });
     this.nav.push(LoginPage);
+  }
+
+  initializeTranslateServiceConfig(lang) {
+    //var userLang = compareLanguage.test(lang) ? lang : defaultLanguage;     
+    this.translate.setDefaultLang(defaultLanguage);   
+    this.translate.use(compareLanguage.test(lang) ? lang : defaultLanguage);
   }
 
   ionViewDidEnter() {
     // the left menu should be disabled on the login page
     this.menu.enable(false);
     this.menu.swipeEnable(false);
+
   }
 
   ionViewDidLeave() {

@@ -4,6 +4,7 @@ import * as Rx from 'rxjs/Rx';
 import { User } from '../models/user';
 import { Message } from '../models/message';
 import {urlSocketServer} from './../../../../../../../appConfig';
+import {DBProvider} from './../../../../../../../providers/db'
 
 declare var io;
 

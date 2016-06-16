@@ -7,10 +7,12 @@ import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';
 import {SlidePage} from './../../../../slides/slide';
 import {LoginPage} from './../../../../login/login';
+import {DBProvider} from './../../../../../providers/db'
 
 @Component({
   templateUrl: './build/pages/tabs/content/settings/user/user.html',
   directives: [forwardRef(() => AndroidAttribute)],
+  providers: [DBProvider],
   pipes: [TranslatePipe]
 })
 export class UserPage {
@@ -22,22 +24,34 @@ export class UserPage {
     , private menu: MenuController
     , private nav: NavController
     , private _ngZone: NgZone
-    , private confData: ConferenceData ) {
+    , private confData: ConferenceData
+    , private db: DBProvider) {
         
         this.storage = new Storage(SqlStorage);
 
   }
   
   ionViewWillEnter() {
-    this.storage.get('user').then((user) => {
+    /*this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
+    });*/
+    this.db.getValue('user').then((user) => {
+        this.user = JSON.parse(user.toString());
     });
   }
   
   logout() {
-    this.storage.remove('user').then((user) => {
+    /*this.storage.remove('user').then((user) => {
       let _nav = this.app.getRootNav();
       _nav.setRoot(LoginPage);
+    });*/
+    this.db.setKey('user', '').then((result) =>{
+        console.log(result);  
+        let _nav = this.app.getRootNav();
+        _nav.setRoot(LoginPage);                                                               
+        },
+        error =>{
+        console.log(error);
     });
   }
 

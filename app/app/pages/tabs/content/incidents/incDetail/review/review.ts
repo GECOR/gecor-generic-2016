@@ -6,6 +6,7 @@ import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './reviewInterface';
 import {Geolocation, Camera, ImagePicker} from 'ionic-native';
 import {GeolocationProvider} from './../../../../../../providers/geolocation';
+import {DBProvider} from './../../../../../../providers/db';
 import {ReviewService} from './reviewService';
 import {GalleryModalPage} from './../../../../../galleryModal/galleryModal';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
@@ -54,6 +55,7 @@ export class ReviewPage {
     , private params: NavParams
     , private reviewService: ReviewService
     , private events: Events
+    , private db: DBProvider
     ) 
   {
     this.showTypology = false;
@@ -66,9 +68,8 @@ export class ReviewPage {
             });
     
     this.storage = new Storage(SqlStorage);    
-    this.storage.get('tiposElementos').then((tiposElementos) => {
+    /*this.storage.get('tiposElementos').then((tiposElementos) => {
         this.tiposElementos = JSON.parse(tiposElementos);
-        //this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID);
     });
     this.storage.get('estados').then((estados) => {
         this.estados = JSON.parse(estados);
@@ -78,8 +79,21 @@ export class ReviewPage {
     });
     this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
+    });*/
+
+    db.getValue('tiposElementos').then((tiposElementos) => {
+        this.tiposElementos = JSON.parse(tiposElementos.toString());
     });
-    
+    db.getValue('estados').then((estados) => {
+        this.estados = JSON.parse(estados.toString());
+    });
+    db.getValue('responsables').then((responsables) => {
+        this.responsables = JSON.parse(responsables.toString());
+    });
+    db.getValue('user').then((user) => {
+        this.user = JSON.parse(user.toString());
+    });
+
     if (this.showMap){
       this.geo.getLocation().then(location =>{
         this.location = location;
@@ -286,10 +300,14 @@ export class ReviewPage {
   }
   
   changeTipoElemento(){
-    this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
+    /*this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
         this.tiposIncidencias = JSON.parse(tiposIncidencias);
         this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.reviewInc.tipoElementoID)
-    })
+    })*/
+    this.db.getValue('tiposIncidencias').then((tiposIncidencias) => {
+        this.tiposIncidencias = JSON.parse(tiposIncidencias.toString());
+        this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.reviewInc.tipoElementoID)
+    });
   }
   
   changeTipoIncidencia(){

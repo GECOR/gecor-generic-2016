@@ -5,13 +5,14 @@ import {CommentsPage} from './comments/comments';
 import {ChatPage} from './chat/chat';
 import {ReviewPage} from './review/review';
 import {GeolocationProvider} from './../../../../../providers/geolocation';
+import {DBProvider} from './../../../../../providers/db';
 import {IncDetailService} from './incDetailService';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/incDetail.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, IncDetailService],
+  providers: [GeolocationProvider, IncDetailService, DBProvider],
   pipes: [TranslatePipe]
 })
 export class IncDetailPage {
@@ -42,7 +43,8 @@ export class IncDetailPage {
     , private nav: NavController
     , private zone: NgZone
     , private geo: GeolocationProvider
-    , private incDetailService: IncDetailService) {
+    , private incDetailService: IncDetailService
+    , private db: DBProvider) {
     this.platform = platform;
     this.isAndroid = platform.is('android');
     this.incident = params.data;
@@ -55,12 +57,18 @@ export class IncDetailPage {
     this.distanceTravel = '0 km';
     
     this.storage = new Storage(SqlStorage);
-    this.storage.get('user').then((user) => {
+    /*this.storage.get('user').then((user) => {
         this.user = JSON.parse(user);
+    });*/
+    db.getValue('user').then((user) => {
+        this.user = JSON.parse(user.toString());
     });
     
-    this.storage.get('entity').then((entity) => {
+    /*this.storage.get('entity').then((entity) => {
         this.entity = JSON.parse(entity);
+    });*/
+    db.getValue('entity').then((entity) => {
+        this.entity = JSON.parse(entity.toString());
     });
 
     this.geo.getLocation().then(location =>{
@@ -192,7 +200,7 @@ export class IncDetailPage {
   addLike(){
     let likes = [];
     let likesFiltered = [];
-    this.storage.get('likes').then((result) => {        
+    /*this.storage.get('likes').then((result) => {        
         if (result != undefined && JSON.parse(result).constructor === Array){
           likes = JSON.parse(result);
           likesFiltered = likes.filter(item => item == this.incident.AvisoID);
@@ -202,7 +210,40 @@ export class IncDetailPage {
             .subscribe((result) =>{
               if (result[0].RowsAffected > 0){
                 likes.push(this.incident.AvisoID);
-                this.storage.set('likes', JSON.stringify(likes));
+                //this.storage.set('likes', JSON.stringify(likes));
+                this.db.setKey('likes', JSON.stringify(likes)).then((result) =>{
+                    console.log(result);                                                                 
+                    },
+                    error =>{
+                    console.log(error);
+                });
+                this.incident.Likes ++;
+              }else{
+                this.showAlert("Error", "There is some errort", "OK");
+              }
+            },
+            error =>{
+              this.errorMessage = <any>error;
+            });    
+        }
+    });*/
+    this.db.getValue('likes').then((result) => {
+        if (result != undefined && JSON.parse(result.toString()).constructor === Array){
+          likes = JSON.parse(result.toString());
+          likesFiltered = likes.filter(item => item == this.incident.AvisoID);
+        }
+        if (likesFiltered.length == 0){
+          this.incDetailService.addLike(this.user.token, this.incident.AvisoID)
+            .subscribe((result) =>{
+              if (result[0].RowsAffected > 0){
+                likes.push(this.incident.AvisoID);
+                //this.storage.set('likes', JSON.stringify(likes));
+                this.db.setKey('likes', JSON.stringify(likes)).then((result) =>{
+                    console.log(result);                                                                 
+                    },
+                    error =>{
+                    console.log(error);
+                });
                 this.incident.Likes ++;
               }else{
                 this.showAlert("Error", "There is some errort", "OK");

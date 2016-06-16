@@ -9,11 +9,13 @@ import {TermsPage} from './terms/terms';
 import {UserPage} from './user/user';
 import {User} from './../../../login/LoginInterface';
 import {EntitiesPage} from './entities/entities';
+import {DBProvider} from './../../../../providers/db';
 
 @Component({
   templateUrl: './build/pages/tabs/content/settings/settings.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  pipes: [TranslatePipe]
+  pipes: [TranslatePipe],
+  providers: [DBProvider]
 })
 export class SettingsPage {
   user: any = {};
@@ -21,14 +23,18 @@ export class SettingsPage {
     , private menu: MenuController
     , private confData: ConferenceData
     , private nav: NavController
-    , private _ngZone: NgZone ) {
+    , private _ngZone: NgZone
+    , private db: DBProvider ) {
 
   }
   ionViewWillEnter() {
     let storage = new Storage(SqlStorage);
-    storage.get('user').then((user) => {
+    /*storage.get('user').then((user) => {
         this.user = JSON.parse(user);
-    })
+    })*/
+    this.db.getValue('user').then((user) => {
+        this.user = JSON.parse(user.toString());
+    });
   }
 
   openNotifications() {

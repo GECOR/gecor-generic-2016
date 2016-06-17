@@ -3,6 +3,7 @@ import {Platform, NavController, NavParams, Storage, SqlStorage} from 'ionic-ang
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {DBProvider} from './../../../../../providers/db';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../appConfig';
 
 @Component({
   templateUrl: 'build/pages/tabs/content/news/newsDetail/newsDetail.html',
@@ -21,7 +22,7 @@ export class NewsDetailPage {
   , private db: DBProvider) {
     this.notice = params.data;
     
-    if(platform.is('ios')){
+    if(platform.is('ios') && useSQLiteOniOS){
        this.db.getValue('user').then((user) => {
           this.user = JSON.parse(user.toString());
       });

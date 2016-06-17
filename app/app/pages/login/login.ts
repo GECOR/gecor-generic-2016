@@ -13,7 +13,7 @@ import {User} from './loginInterface';
 import {Facebook, SQLite} from 'ionic-native';
 import {EntitiesModalPage} from './entitiesModal/entitiesModal';
 import {UtilsProvider} from './../../providers/utils';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from './../../appConfig';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../appConfig';
 import {Globalization} from 'ionic-native';
 
 @Component({
@@ -55,7 +55,7 @@ export class LoginPage {
 
         this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
 
-        if(platform.is('ios')){
+        if(platform.is('ios') && useSQLiteOniOS){
             this.initDB();
             db.getValue('language').then((language) => {
                 if (language == ""){
@@ -125,7 +125,7 @@ export class LoginPage {
       this.entitiesModal.onDismiss(data => {
         this.aytoSuggested = data;
 
-        if(this.platform.is('ios')){
+        if(this.platform.is('ios') && useSQLiteOniOS){
              this.db.setKey('entity', JSON.stringify(this.aytoSuggested)).then((result) =>{
                 console.log(result);                                                                 
                 },
@@ -189,7 +189,7 @@ export class LoginPage {
                                     if (this.aytoSuggested.AyuntamientoID != -1){
                                         this.aytoSuggested = aytos[0];
 
-                                        if(this.platform.is('ios')){
+                                        if(this.platform.is('ios') && useSQLiteOniOS){
                                             this.db.setKey('entity', JSON.stringify(this.aytoSuggested)).then((result) =>{
                                                 console.log(result);                                                                 
                                                 },
@@ -217,7 +217,7 @@ export class LoginPage {
                                     if (this.user.token != '' && this.user.token != null) {
                                         this.configData();        
 
-                                        if(this.platform.is('ios')){
+                                        if(this.platform.is('ios') && useSQLiteOniOS){
                                             this.db.setKey('user', JSON.stringify(this.user)).then((result) =>{
                                                 console.log(result);                                                                 
                                                 },
@@ -278,7 +278,7 @@ export class LoginPage {
             .subscribe(
                 (data) =>{
 
-                    if(this.platform.is('ios')){
+                    if(this.platform.is('ios') && useSQLiteOniOS){
                         this.db.setKey('familias', JSON.stringify(data.Familias)).then((result) =>{
                             console.log(result);                                                                 
                             },
@@ -307,7 +307,7 @@ export class LoginPage {
                         .subscribe(
                             (data) =>{
 
-                                if(this.platform.is('ios')){
+                                if(this.platform.is('ios') && useSQLiteOniOS){
                                    this.db.setKey('estados', JSON.stringify(data)).then((result) =>{
                                         console.log(result);                                                                 
                                         },
@@ -322,7 +322,7 @@ export class LoginPage {
                                     .subscribe(
                                         (data) =>{
 
-                                            if(this.platform.is('ios')){
+                                            if(this.platform.is('ios') && useSQLiteOniOS){
                                                 this.db.setKey('responsables', JSON.stringify(data)).then((result) =>{
                                                     console.log(result);                                                                 
                                                     },

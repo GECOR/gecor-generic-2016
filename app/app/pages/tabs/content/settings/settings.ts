@@ -9,6 +9,7 @@ import {UserPage} from './user/user';
 import {User} from './../../../login/LoginInterface';
 import {EntitiesPage} from './entities/entities';
 import {DBProvider} from './../../../../providers/db';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../appConfig';
 
 @Component({
   templateUrl: './build/pages/tabs/content/settings/settings.html',
@@ -27,7 +28,7 @@ export class SettingsPage {
 
   }
   ionViewWillEnter() {
-    if(this.platform.is('ios')){
+    if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.getValue('user').then((user) => {
           this.user = JSON.parse(user.toString());
       });

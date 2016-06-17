@@ -6,6 +6,7 @@ import {ConferenceData} from './../../../../../providers/conference-data';
 import {DBProvider} from './../../../../../providers/db';
 import {NewIncPage} from './../newInc';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../appConfig';
 
 @Component({
   templateUrl: './build/pages/tabs/content/newInc/families/families.html',
@@ -32,7 +33,7 @@ export class FamiliesPage {
   }
   
   ionViewWillEnter() {
-    if(this.platform.is('ios')){
+    if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.getValue('familias').then((familias) => {
           this.familias = JSON.parse(familias.toString());
           this.lenFamilias = this.familias.length;

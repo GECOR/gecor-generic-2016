@@ -8,3 +8,6 @@ export var folderLanguage = 'assets/i18n';
 export var sourceLanguage = '.json';
 export var compareLanguage = /(es|en)/gi;
 
+//Determina si iOS tiene que usar SQLite
+export var useSQLiteOniOS = false;
+

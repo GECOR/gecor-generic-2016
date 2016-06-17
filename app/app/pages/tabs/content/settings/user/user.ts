@@ -7,6 +7,7 @@ import {ConferenceData} from './../../../../../providers/conference-data';
 import {SlidePage} from './../../../../slides/slide';
 import {LoginPage} from './../../../../login/login';
 import {DBProvider} from './../../../../../providers/db'
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../appConfig';
 
 @Component({
   templateUrl: './build/pages/tabs/content/settings/user/user.html',
@@ -32,7 +33,7 @@ export class UserPage {
   }
   
   ionViewWillEnter() {
-    if(this.platform.is('ios')){
+    if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.getValue('user').then((user) => {
           this.user = JSON.parse(user.toString());
       });
@@ -44,7 +45,7 @@ export class UserPage {
   }
   
   logout() {
-    if(this.platform.is('ios')){
+    if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.setKey('user', '').then((result) =>{
           console.log(result);  
           let _nav = this.app.getRootNav();

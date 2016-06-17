@@ -8,6 +8,7 @@ import {GeolocationProvider} from './../../../../../providers/geolocation';
 import {DBProvider} from './../../../../../providers/db';
 import {IncDetailService} from './incDetailService';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../appConfig';
 
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/incDetail.html',
@@ -57,7 +58,7 @@ export class IncDetailPage {
     this.timeTravel = '0 min';
     this.distanceTravel = '0 km';
 
-    if(platform.is('ios')){
+    if(platform.is('ios') && useSQLiteOniOS){
         db.getValue('user').then((user) => {
             this.user = JSON.parse(user.toString());
         });
@@ -203,7 +204,7 @@ export class IncDetailPage {
   addLike(){
     let likes = [];
     let likesFiltered = [];
-    if(this.platform.is('ios')){
+    if(this.platform.is('ios') && useSQLiteOniOS){
         this.db.getValue('likes').then((result) => {
         if (result != undefined && JSON.parse(result.toString()).constructor === Array){
           likes = JSON.parse(result.toString());

@@ -4,6 +4,7 @@ import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {DBProvider} from './../../../../providers/db';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../appConfig';
 
 @Component({
   templateUrl: 'build/pages/tabs/content/home/home.html',
@@ -21,7 +22,7 @@ export class HomePage {
   , private confData: ConferenceData
   , private db: DBProvider) {
     
-    if(platform.is('ios')){
+    if(platform.is('ios') && useSQLiteOniOS){
       db.getValue('user').then((user) => {
           this.user = JSON.parse(user.toString());
       });      

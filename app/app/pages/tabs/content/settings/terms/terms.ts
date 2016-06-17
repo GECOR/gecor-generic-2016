@@ -3,6 +3,7 @@ import {ViewController, Platform, NavController, NavParams, MenuController, Stor
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {DBProvider} from './../../../../../providers/db';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../appConfig';
 
 @Component({
   templateUrl: './build/pages/tabs/content/settings/terms/terms.html',
@@ -19,7 +20,7 @@ export class TermsPage {
     , private _ngZone: NgZone
     , private db: DBProvider ) {
 
-    if(platform.is('ios')){
+    if(platform.is('ios') && useSQLiteOniOS){
        this.db.getValue('user').then((user) => {
           this.user = JSON.parse(user.toString());
       });

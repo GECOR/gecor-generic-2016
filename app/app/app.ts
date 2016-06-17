@@ -1,7 +1,7 @@
 import {Component, ViewChild, Type, provide} from '@angular/core';
 import {Http} from '@angular/http';
 import {ionicBootstrap, Platform, Storage, SqlStorage} from 'ionic-angular';
-import {Splashscreen, Globalization, Push} from 'ionic-native';
+import {Splashscreen, Globalization} from 'ionic-native';//, Push
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {ConferenceData} from './providers/conference-data';
 import {GeolocationProvider} from './providers/geolocation';
@@ -10,7 +10,7 @@ import {UserData} from './providers/user-data';
 import {SlidePage} from './pages/slides/slide';
 import {TabsPage} from './pages/tabs/tabs';
 import {LoginPage} from './pages/login/login';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from './appConfig';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './appConfig';
 // https://angular.io/docs/ts/latest/api/core/Type-interface.html
 
 @Component({
@@ -30,7 +30,7 @@ export class MyApp {
   , private db: DBProvider) {  
 
     platform.ready().then(() => {
-      if(platform.is('ios')){
+      if(platform.is('ios') && useSQLiteOniOS){
         this.initializeIosApp();
       }else{
         this.initializeApp();
@@ -44,7 +44,7 @@ export class MyApp {
     this.confData.load();    
     this.storage = new Storage(SqlStorage);
 
-    this.initializePush();
+    //this.initializePush();
 
     this.db.initDB().then((result) =>{
         console.log(result);
@@ -85,7 +85,7 @@ export class MyApp {
     this.confData.load();    
     this.rootPage = SlidePage;
 
-    this.initializePush();
+    //this.initializePush();
 
     Globalization.getPreferredLanguage().then((obj) =>{//get device language
       console.log(obj.value);
@@ -99,7 +99,7 @@ export class MyApp {
 
   }
 
-  initializePush(){
+  /*initializePush(){
      this.platform.ready().then(() => {
         var push = Push.init({
             android: {
@@ -124,7 +124,7 @@ export class MyApp {
             console.log(e.message);
           });
      });
-  }
+  }*/
 
   initializeTranslateServiceConfig(lang) {
     //var userLang = compareLanguage.test(lang) ? lang : defaultLanguage;     

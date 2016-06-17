@@ -12,6 +12,7 @@ import {DBProvider} from './../../../../providers/db';
 import {UtilsProvider} from './../../../../providers/utils';
 import {ReviewPage} from './incDetail/review/review';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../appConfig';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incidents.html',
@@ -67,7 +68,7 @@ export class IncidentsPage {
   
   ionViewWillEnter() {
 
-    if(this.platform.is('ios')){
+    if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.getValue('user').then((user) => {
           this.user = JSON.parse(user.toString());
           this.nav.present(this.loadingComponent);

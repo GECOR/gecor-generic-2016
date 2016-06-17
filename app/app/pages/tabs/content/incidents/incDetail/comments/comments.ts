@@ -5,6 +5,7 @@ import {CommentsService} from './commentsService';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {UtilsProvider} from './../../../../../../providers/utils';
 import {DBProvider} from './../../../../../../providers/db';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../../appConfig';
 
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/comments/comments.html',
@@ -34,7 +35,7 @@ export class CommentsPage {
     
     this.message = "";
     
-     if(platform.is('ios')){
+     if(platform.is('ios') && useSQLiteOniOS){
         db.getValue('user').then((user) => {
             this.user = JSON.parse(user.toString());
             this.nav.present(this.loadingComponent);

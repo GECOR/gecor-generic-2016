@@ -13,6 +13,7 @@ import {NewIncService} from './newIncService';
 import {GalleryModalPage} from './../../../galleryModal/galleryModal';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {UtilsProvider} from './../../../../providers/utils';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../appConfig';
 
 @Component({
   templateUrl: './build/pages/tabs/content/newInc/newInc.html',
@@ -88,7 +89,7 @@ export class NewIncPage {
     
     this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
     
-    if(platform.is('ios')){
+    if(platform.is('ios') && useSQLiteOniOS){
        this.db.getValue('tiposElementos').then((tiposElementos) => {
           this.tiposElementos = JSON.parse(tiposElementos.toString());
           this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID);
@@ -430,7 +431,7 @@ export class NewIncPage {
   }
   
   changeTipoElemento(){
-    if(this.platform.is('ios')){
+    if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.getValue('tiposIncidencias').then((tiposIncidencias) => {
           this.tiposIncidencias = JSON.parse(tiposIncidencias.toString());
           this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.newInc.tipoElementoID);

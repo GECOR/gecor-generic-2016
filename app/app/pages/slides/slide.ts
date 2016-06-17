@@ -5,7 +5,7 @@ import {LoginPage} from './../login/login';
 import {DBProvider} from './../../providers/db';
 import {Globalization} from 'ionic-native';
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from './../../appConfig';
+import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../appConfig';
 import {TabsPage} from '../tabs/tabs';
  
 @Component({
@@ -43,15 +43,10 @@ export class SlidePage {
           image: "img/ica-slidebox-img-3.png",
         }
       ];
-      
-      // ADD FIRST RUN SUPPORT
-      if(!platform.is('ios')){
-        this.storage = new Storage(SqlStorage);
-      }
     }
 
   openLoginPage() {
-    if(this.platform.is('ios')){
+    if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.setKey('firstRun', 'true').then((result) =>{
           console.log(result);                                                                 
           },
@@ -59,6 +54,7 @@ export class SlidePage {
           console.log(error);
       });
     }else{
+      this.storage = new Storage(SqlStorage);
       this.storage.set('firstRun', true);
     }
     

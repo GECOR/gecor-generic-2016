@@ -57,19 +57,19 @@
     <ion-card-content>
       <ion-row>
         <ion-col width-25 class="text-center">
-          <button (click)="takePhoto(0)" [hidden]="images[0] != undefined" outline><ion-icon name="image"></ion-icon></button>
+          <button (click)="takePhoto(0)" [hidden]="images[0] != ''" outline><ion-icon name="image"></ion-icon></button>
           <img [src]="images[0]" [hidden]="images[0] == undefined" (click) = "openGallery()"/>
         </ion-col>
         <ion-col width-25 class="text-center">
-          <button (click)="takePhoto(1)" [hidden]="images[1] != undefined" outline><ion-icon name="image"></ion-icon></button>
+          <button (click)="takePhoto(1)" [hidden]="images[1] != ''" outline><ion-icon name="image"></ion-icon></button>
           <img [src]="images[1]" [hidden]="images[1] == undefined" (click) = "openGallery()" />
         </ion-col>
         <ion-col width-25 class="text-center">
-          <button (click)="takePhoto(2)" [hidden]="images[2] != undefined" outline><ion-icon name="image"></ion-icon></button>
+          <button (click)="takePhoto(2)" [hidden]="images[2] != ''" outline><ion-icon name="image"></ion-icon></button>
           <img [src]="images[2]" [hidden]="images[2] == undefined" (click) = "openGallery()" />
         </ion-col>
         <ion-col width-25 class="text-center">
-          <button (click)="takePhoto(3)" [hidden]="images[3] != undefined" outline><ion-icon name="image"></ion-icon></button>
+          <button (click)="takePhoto(3)" [hidden]="images[3] != ''" outline><ion-icon name="image"></ion-icon></button>
           <img [src]="images[3]" [hidden]="images[3] == undefined" (click) = "openGallery()" />
         </ion-col>
       </ion-row>

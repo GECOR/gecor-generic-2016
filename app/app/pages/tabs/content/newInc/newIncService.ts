@@ -19,7 +19,18 @@ export class NewIncService {
         
         return this.http.post(urlGecorApi + 'Incident/nuevaIncidencia', body, options)
                         .map(res => <any> res.json())
-                        .do() // eyeball results in the console
+                        .catch(this.handleError);
+                    
+    }
+
+    guardarFotoBase64(token: string, byteFoto: string): Observable<any> {
+        
+        let body = JSON.stringify({ token, byteFoto });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        
+        return this.http.post(urlGecorApi + 'Incident/guardarFotoBase64', body, options)
+                        .map(res => <any> res.json())
                         .catch(this.handleError);
                     
     }

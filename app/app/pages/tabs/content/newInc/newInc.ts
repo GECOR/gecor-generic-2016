@@ -83,7 +83,7 @@ export class NewIncPage {
   
     this.platform = platform;
     this.isAndroid = platform.is('android');
-    this.images = [undefined, undefined, undefined, undefined];
+    this.images = ["", "", "", ""];
     this.familia = params.data;
     
     this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
@@ -242,11 +242,11 @@ export class NewIncPage {
                           this.images[i] = results[i];
                         });
                     }
-                    */       
-                    console.log('Image URI: ' + results[0]);             
-                    this._ngZone.run(() => {
-                      this.images[id] = results[0];
+                    */
+                    this.encodeImageUri(results[0]).then((resp) => {
+                      this.uploadImage(resp.toString(), id);
                     });
+                    
                 }, (error) => {
                     console.log('Error: ' + error);
                 }
@@ -256,11 +256,12 @@ export class NewIncPage {
         {
           text: this.translate.instant("app.cameraText"),
           handler: () => {            
-            Camera.getPicture({quality: 100, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
-              this.images[id] = this.base64string + imageURI;
+            Camera.getPicture({quality: 70, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
+              //this.images[id] = this.base64string + imageURI;
+              this.uploadImage(this.base64string + imageURI, id);
             }, (message) => {
               this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.cameraErrorAlertMessage"), this.translate.instant("app.btnAccept"));
-              console.log('Failed because: ');
+              console.log('Failed because: ' + message);
               console.log(message);
             });
           }
@@ -277,21 +278,44 @@ export class NewIncPage {
     this.nav.present(actionSheet);
   }
  
-  /*
+  
   encodeImageUri(imageUri){//image from uri to base64 --> used in gallery
-     var c=document.createElement('canvas');
-     var ctx=c.getContext("2d");
-     var img=new Image();
-     img.onload = () => {
-       c.width=img.width;
-       c.height=img.height;
-       ctx.drawImage(img, 0,0);
-     };
-     img.src=imageUri;
-     var dataURL = c.toDataURL("image/jpeg");//.split(',')[1];
-     return dataURL;
+
+    return new Promise((resolve, reject) => {
+      var c=document.createElement('canvas');
+      var ctx=c.getContext("2d");
+      var img=new Image();
+      img.src=imageUri;
+      img.onload = () => {
+        c.width=img.width;
+        c.height=img.height;
+        ctx.drawImage(img, 0,0);
+        resolve(c.toDataURL("image/jpeg"));
+      };
+    });
   }
-  */
+  
+  uploadImage(imgBase64, id){
+    if (imgBase64 != ""){
+      this.newIncService.guardarFotoBase64(this.user.token, imgBase64)
+      .subscribe((result) =>{
+        //this.loadingComponent.dismiss();
+        if (result.rutaFoto){
+          //this.presentIncidentSuccess();
+          console.log(result);
+          this._ngZone.run(() => {
+            this.images[id] = result.rutaFoto;//results[0];
+          });
+        }else{
+          this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("newInc.presentConfirmErrorAlertMessage"), this.translate.instant("app.btnAccept"));
+        }
+      },
+      error =>{
+        //this.loadingComponent.dismiss();
+        this.errorMessage = <any>error;
+      });
+    }
+  }
   
   presentConfirm() {
     let alert = Alert.create({
@@ -310,7 +334,14 @@ export class NewIncPage {
           handler: () => {
             if(this.images){
               this.images.forEach(element => {
-                this.newInc.fotos.push({"byteFoto": element});//this.encodeImageUri(element)});
+                let bf = "";//byteFoto
+                let rf = "";//rutaFoto
+                if (element.indexOf("http") > -1){
+                  rf = element;
+                }else{
+                  bf = element;
+                }
+                this.newInc.fotos.push({"byteFoto": bf, "rutaFoto": rf});//this.encodeImageUri(element)});
               });
             } 
             this.nav.present(this.loadingComponent);          

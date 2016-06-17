@@ -25,7 +25,10 @@
 		"changeModal": "Cambiar",
 		"forgottenPass": "Olvidé la contraseña",
 		"orUse": "O utiliza...",
-		
+		"placeholder": {
+			"username": "Usuario",
+			"password": "Contraseña"
+		},
 		"forgottenAlertTitle":"Contraseña olvidada",
 		"forgottenAlertMessage":"Ingrese correo electrónico para restablecer la contraseña",
 		"forgottenAlertInputPlaceholder":"Email",

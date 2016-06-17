@@ -11,7 +11,7 @@ import {GeolocationProvider} from './../../../../providers/geolocation';
 import {DBProvider} from './../../../../providers/db';
 import {UtilsProvider} from './../../../../providers/utils';
 import {ReviewPage} from './incDetail/review/review';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incidents.html',
@@ -52,6 +52,7 @@ export class IncidentsPage {
     , private incidentService: IncidentService
     , private geo: GeolocationProvider
     , private utils: UtilsProvider 
+    , private translate : TranslateService
     , private db: DBProvider) {
       
     this.platform = platform;
@@ -59,54 +60,55 @@ export class IncidentsPage {
     //this.type = 'list';
     this.order = 'FechaHoraRegistro';
     this.searchText = '';
-    this.storage = new Storage(SqlStorage);
     this.map = null;
     
-    this.loadingComponent = utils.getLoading('Please wait...');
+    this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
   }
   
   ionViewWillEnter() {
-    /*this.storage.get('user').then((user) => {
-        this.user = JSON.parse(user);
-        this.nav.present(this.loadingComponent);
-        this.getMisIncidencias(this.user.CiudadanoID, this.user.token);
-    })*/
 
-    this.db.getValue('user').then((user) => {
-        this.user = JSON.parse(user.toString());
-        this.nav.present(this.loadingComponent);
-        this.getMisIncidencias(this.user.CiudadanoID, this.user.token);
-    });
-    
-    /*this.storage.get('entity').then((entity) => {
-        this.entity = JSON.parse(entity);
-        this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+    if(this.platform.is('ios')){
+      this.db.getValue('user').then((user) => {
+          this.user = JSON.parse(user.toString());
+          this.nav.present(this.loadingComponent);
+          this.getMisIncidencias(this.user.CiudadanoID, this.user.token);
+      });
+      this.db.getValue('entity').then((entity) => {
+          this.entity = JSON.parse(entity.toString());
+          this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
 
-        this.geo.getLocation().then(location =>{
-          this.location = location;
-          if (this.location.error){
-            this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
-          }else{
-            this.latLng = this.location.latLng;
-          }      
-        });
-    })*/
+          this.geo.getLocation().then(location =>{
+            this.location = location;
+            if (this.location.error){
+              this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+            }else{
+              this.latLng = this.location.latLng;
+            }      
+          });
+      });
+    }else{
+      this.storage = new Storage(SqlStorage);
+      
+      this.storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+          this.nav.present(this.loadingComponent);
+          this.getMisIncidencias(this.user.CiudadanoID, this.user.token);
+      });
+      this.storage.get('entity').then((entity) => {
+          this.entity = JSON.parse(entity);
+          this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
 
-    this.db.getValue('entity').then((entity) => {
-        this.entity = JSON.parse(entity.toString());
-        this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+          this.geo.getLocation().then(location =>{
+            this.location = location;
+            if (this.location.error){
+              this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+            }else{
+              this.latLng = this.location.latLng;
+            }      
+          });
+      });
+    }
 
-        this.geo.getLocation().then(location =>{
-          this.location = location;
-          if (this.location.error){
-            this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
-          }else{
-            this.latLng = this.location.latLng;
-          }      
-        });
-    });
-    
-        
   }
 
   showMap() {

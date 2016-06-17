@@ -1,5 +1,5 @@
 import {Component, forwardRef} from '@angular/core';
-import {NavController, MenuController, Alert, Storage, SqlStorage, NavParams, Loading} from 'ionic-angular';
+import {Platform, NavController, MenuController, Alert, Storage, SqlStorage, NavParams, Loading} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {CommentsService} from './commentsService';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
@@ -27,24 +27,27 @@ export class CommentsPage {
   , private translate : TranslateService
   , private utils: UtilsProvider
   , private params: NavParams
+  , private platform: Platform
   , private db: DBProvider) {
     
     this.incident = params.data;
     
     this.message = "";
     
-    this.storage = new Storage(SqlStorage);
-    /*this.storage.get('user').then((user) => {
-        this.user = JSON.parse(user);
-        this.nav.present(this.loadingComponent);
-        this.getComentariosAviso();
-    });*/
-
-    db.getValue('user').then((user) => {
-        this.user = JSON.parse(user.toString());
-        this.nav.present(this.loadingComponent);
-        this.getComentariosAviso();
-    });
+     if(platform.is('ios')){
+        db.getValue('user').then((user) => {
+            this.user = JSON.parse(user.toString());
+            this.nav.present(this.loadingComponent);
+            this.getComentariosAviso();
+        });     
+      }else{
+        this.storage = new Storage(SqlStorage);
+        this.storage.get('user').then((user) => {
+            this.user = JSON.parse(user);
+            this.nav.present(this.loadingComponent);
+            this.getComentariosAviso();
+        });
+      }
     
     this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
   }

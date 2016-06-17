@@ -1,5 +1,5 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
-import {NavController, MenuController, Alert, Storage, SqlStorage, Loading, Modal} from 'ionic-angular';
+import {Platform, NavController, MenuController, Alert, Storage, SqlStorage, Loading, Modal} from 'ionic-angular';
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
@@ -42,9 +42,8 @@ export class LoginPage {
       , private utils: UtilsProvider
       , private translate : TranslateService
       , private zone: NgZone
+      , private platform: Platform
       , private db: DBProvider) {
-        
-        this.storage = new Storage(SqlStorage);
         
         /*this.storage.get('language').then((language) => {
             if (language == undefined){
@@ -56,19 +55,18 @@ export class LoginPage {
 
         this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
 
-        this.initDB();
-
-        db.getValue('language').then((language) => {
-            if (language == ""){
-                this.language = defaultLanguage;
-            }else{
-                this.language = language.toString();
-            }
-        });
-        
-        this.loadingComponent = Loading.create({
-            content: 'Please wait...'
-        });
+        if(platform.is('ios')){
+            this.initDB();
+            db.getValue('language').then((language) => {
+                if (language == ""){
+                    this.language = defaultLanguage;
+                }else{
+                    this.language = language.toString();
+                }
+            });
+        }else{
+            this.storage = new Storage(SqlStorage);
+        }
     }
 
     initDB(){
@@ -80,21 +78,10 @@ export class LoginPage {
                     this.user = JSON.parse(user.toString());
                     this.nav.push(TabsPage);
                 }
-
-                /*this.db.getValue('firstRun').then((resp) => {
-                    if(this.user)
-                    this.rootPage = TabsPage;
-                    else if(resp != "")
-                    this.rootPage = LoginPage;
-                    else
-                    this.rootPage = SlidePage;
-                }); */
             });
 
             Globalization.getPreferredLanguage().then((obj) =>{//get device language
-                console.log(obj.value);
-                this.initializeTranslateServiceConfig(obj.value.split('-')[0]);//initialize sending lowercase language
-                //this.storage.set('language', obj.value.split('-')[0]);
+                console.log(obj.value);                
                 this.db.setKey('language', obj.value.split('-')[0]).then((result) =>{
                 console.log(result);                                                                 
                 },
@@ -103,8 +90,6 @@ export class LoginPage {
                 });
             }, (err)=>{
                 console.log(err); 
-                this.initializeTranslateServiceConfig(defaultLanguage);//initialize sending lowercase language default 
-                //this.storage.set('language', defaultLanguage);
                 this.db.setKey('language', defaultLanguage).then((result) =>{
                 console.log(result);                                                                 
                 },
@@ -112,19 +97,11 @@ export class LoginPage {
                     console.log(error);
                 });
             });
-            
-        });
+
+        });//end db init
     }
 
-    initializeTranslateServiceConfig(lang) {
-        //var userLang = compareLanguage.test(lang) ? lang : defaultLanguage;     
-        this.translate.setDefaultLang(defaultLanguage);   
-        this.translate.use(compareLanguage.test(lang) ? lang : defaultLanguage);
-    }
-    
-    ionViewWillEnter() {
-        
-    }
+    ionViewWillEnter() {}
     
     ionViewLoaded() {
         this.geo.getLocation().then(location =>{
@@ -135,7 +112,6 @@ export class LoginPage {
             }else{
                 this.getAyuntamientosPorDistancia(location, this.language, false);
             }
-            
         });
     }
 
@@ -148,16 +124,19 @@ export class LoginPage {
       this.entitiesModal = Modal.create(EntitiesModalPage, this.aytos);      
       this.entitiesModal.onDismiss(data => {
         this.aytoSuggested = data;
-        //this.storage.set('entity', JSON.stringify(this.aytoSuggested));
-        this.db.setKey('entity', JSON.stringify(this.aytoSuggested)).then((result) =>{
-            console.log(result);                                                                 
-            },
-            error =>{
-            console.log(error);
-        });
+
+        if(this.platform.is('ios')){
+             this.db.setKey('entity', JSON.stringify(this.aytoSuggested)).then((result) =>{
+                console.log(result);                                                                 
+                },
+                error =>{
+                console.log(error);
+            });
+        }else{
+            this.storage.set('entity', JSON.stringify(this.aytoSuggested));
+        }
       });     
       this.nav.present(this.entitiesModal);  
-        
     }
 
     forgottenPass() {
@@ -209,13 +188,17 @@ export class LoginPage {
                                     this.aytos = aytos;
                                     if (this.aytoSuggested.AyuntamientoID != -1){
                                         this.aytoSuggested = aytos[0];
-                                        //this.storage.set('entity', JSON.stringify(this.aytoSuggested));
-                                        this.db.setKey('entity', JSON.stringify(this.aytoSuggested)).then((result) =>{
-                                            console.log(result);                                                                 
-                                            },
-                                            error =>{
-                                            console.log(error);
-                                        });
+
+                                        if(this.platform.is('ios')){
+                                            this.db.setKey('entity', JSON.stringify(this.aytoSuggested)).then((result) =>{
+                                                console.log(result);                                                                 
+                                                },
+                                                error =>{
+                                                console.log(error);
+                                            });
+                                        }else{
+                                            this.storage.set('entity', JSON.stringify(this.aytoSuggested));
+                                        }
                                     }                                                                         
                                 },
                                 error =>  this.errorMessage = <any>error);
@@ -232,14 +215,18 @@ export class LoginPage {
                                     this.user.AyuntamientoNombre = this.aytoSuggested.Nombre;                                 
                                     
                                     if (this.user.token != '' && this.user.token != null) {
-                                        this.configData();                                      
-                                        //this.storage.set('user', JSON.stringify(this.user));
-                                        this.db.setKey('user', JSON.stringify(this.user)).then((result) =>{
-                                            console.log(result);                                                                 
-                                            },
-                                            error =>{
-                                            console.log(error);
-                                        });
+                                        this.configData();        
+
+                                        if(this.platform.is('ios')){
+                                            this.db.setKey('user', JSON.stringify(this.user)).then((result) =>{
+                                                console.log(result);                                                                 
+                                                },
+                                                error =>{
+                                                console.log(error);
+                                            });
+                                        }else{
+                                            this.storage.set('user', JSON.stringify(this.user));
+                                        }
                                     }else{
                                         //this.loginLoading = false;
                                         this.loadingComponent.dismiss();                               
@@ -290,47 +277,62 @@ export class LoginPage {
         this.loginService.getTipologiaPorAyuntamiento(this.user.token)
             .subscribe(
                 (data) =>{
-                    //this.storage.set('familias', JSON.stringify(data.Familias));
-                    //this.storage.set('tiposElementos', JSON.stringify(data.Elementos));
-                    //this.storage.set('tiposIncidencias', JSON.stringify(data.Incidencias));
-                    this.db.setKey('familias', JSON.stringify(data.Familias)).then((result) =>{
-                        console.log(result);                                                                 
-                        },
-                        error =>{
-                        console.log(error);
-                    });
-                    this.db.setKey('tiposElementos', JSON.stringify(data.Elementos)).then((result) =>{
-                        console.log(result);                                                                 
-                        },
-                        error =>{
-                        console.log(error);
-                    });
-                    this.db.setKey('tiposIncidencias', JSON.stringify(data.Familias)).then((result) =>{
-                        console.log(result);                                                                 
-                        },
-                        error =>{
-                        console.log(error);
-                    });
+
+                    if(this.platform.is('ios')){
+                        this.db.setKey('familias', JSON.stringify(data.Familias)).then((result) =>{
+                            console.log(result);                                                                 
+                            },
+                            error =>{
+                            console.log(error);
+                        });
+                        this.db.setKey('tiposElementos', JSON.stringify(data.Elementos)).then((result) =>{
+                            console.log(result);                                                                 
+                            },
+                            error =>{
+                            console.log(error);
+                        });
+                        this.db.setKey('tiposIncidencias', JSON.stringify(data.Familias)).then((result) =>{
+                            console.log(result);                                                                 
+                            },
+                            error =>{
+                            console.log(error);
+                        });
+                    }else{
+                        this.storage.set('familias', JSON.stringify(data.Familias));
+                        this.storage.set('tiposElementos', JSON.stringify(data.Elementos));
+                        this.storage.set('tiposIncidencias', JSON.stringify(data.Incidencias));
+                    }
+                    
                     this.loginService.getEstadosPorAyuntamiento(this.user.token)
                         .subscribe(
                             (data) =>{
-                                //this.storage.set('estados', JSON.stringify(data));
-                                this.db.setKey('estados', JSON.stringify(data)).then((result) =>{
-                                    console.log(result);                                                                 
-                                    },
-                                    error =>{
-                                    console.log(error);
-                                });
+
+                                if(this.platform.is('ios')){
+                                   this.db.setKey('estados', JSON.stringify(data)).then((result) =>{
+                                        console.log(result);                                                                 
+                                        },
+                                        error =>{
+                                        console.log(error);
+                                    }); 
+                                }else{
+                                    this.storage.set('estados', JSON.stringify(data));                                       
+                                }
+                                
                                 this.loginService.getResponsablesPorAyuntamiento(this.user.token)
                                     .subscribe(
                                         (data) =>{
-                                            //this.storage.set('responsables', JSON.stringify(data));
-                                            this.db.setKey('responsables', JSON.stringify(data)).then((result) =>{
-                                                console.log(result);                                                                 
-                                                },
-                                                error =>{
-                                                console.log(error);
-                                            });
+
+                                            if(this.platform.is('ios')){
+                                                this.db.setKey('responsables', JSON.stringify(data)).then((result) =>{
+                                                    console.log(result);                                                                 
+                                                    },
+                                                    error =>{
+                                                    console.log(error);
+                                                });
+                                            }else{
+                                                this.storage.set('responsables', JSON.stringify(data));
+                                            }
+                                            
                                             this.loadingComponent.dismiss();
                                             this.nav.push(TabsPage);
                                         },
@@ -339,8 +341,6 @@ export class LoginPage {
                             error =>  this.errorMessage = <any>error);
                 },
                 error =>  this.errorMessage = <any>error);
-                                
-        
     }
     
     showAlert(title, subTitle, okButton){

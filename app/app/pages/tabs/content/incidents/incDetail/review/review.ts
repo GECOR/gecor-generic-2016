@@ -69,32 +69,34 @@ export class ReviewPage {
     
     this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
     
-    this.storage = new Storage(SqlStorage);    
-    /*this.storage.get('tiposElementos').then((tiposElementos) => {
-        this.tiposElementos = JSON.parse(tiposElementos);
-    });
-    this.storage.get('estados').then((estados) => {
-        this.estados = JSON.parse(estados);
-    });
-    this.storage.get('responsables').then((responsables) => {
-        this.responsables = JSON.parse(responsables);
-    });
-    this.storage.get('user').then((user) => {
-        this.user = JSON.parse(user);
-    });*/
-
-    db.getValue('tiposElementos').then((tiposElementos) => {
+    if(platform.is('ios')){
+       db.getValue('tiposElementos').then((tiposElementos) => {
         this.tiposElementos = JSON.parse(tiposElementos.toString());
-    });
-    db.getValue('estados').then((estados) => {
-        this.estados = JSON.parse(estados.toString());
-    });
-    db.getValue('responsables').then((responsables) => {
-        this.responsables = JSON.parse(responsables.toString());
-    });
-    db.getValue('user').then((user) => {
-        this.user = JSON.parse(user.toString());
-    });
+      });
+      db.getValue('estados').then((estados) => {
+          this.estados = JSON.parse(estados.toString());
+      });
+      db.getValue('responsables').then((responsables) => {
+          this.responsables = JSON.parse(responsables.toString());
+      });
+      db.getValue('user').then((user) => {
+          this.user = JSON.parse(user.toString());
+      });
+    }else{
+      this.storage = new Storage(SqlStorage);    
+      this.storage.get('tiposElementos').then((tiposElementos) => {
+          this.tiposElementos = JSON.parse(tiposElementos);
+      });
+      this.storage.get('estados').then((estados) => {
+          this.estados = JSON.parse(estados);
+      });
+      this.storage.get('responsables').then((responsables) => {
+          this.responsables = JSON.parse(responsables);
+      });
+      this.storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+      });
+    }
 
     if (this.showMap){
       this.geo.getLocation().then(location =>{
@@ -245,7 +247,6 @@ export class ReviewPage {
                 });
                 //this.presentReviewIncidentSuccess();
               }else{
-                //this.showAlert("Error", "There is some error reviewing this incident", "OK");
                 this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("incidents.review.presentConfirmAlertMessage"), this.translate.instant("app.btnAccept"));
               }
             },
@@ -286,7 +287,6 @@ export class ReviewPage {
     
     if (this.reviewInc.desSolucion == ""){
       ok = false;
-      //this.showAlert("Atention", "Please write a solution", "OK");
       this.showAlert(this.translate.instant("incidents.atentionAlertTitle"), this.translate.instant("incidents.review.checkFieldsAlertMessage"), this.translate.instant("app.btnAccept"));
       return ok;
     }
@@ -304,14 +304,17 @@ export class ReviewPage {
   }
   
   changeTipoElemento(){
-    /*this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
-        this.tiposIncidencias = JSON.parse(tiposIncidencias);
-        this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.reviewInc.tipoElementoID)
-    })*/
-    this.db.getValue('tiposIncidencias').then((tiposIncidencias) => {
-        this.tiposIncidencias = JSON.parse(tiposIncidencias.toString());
-        this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.reviewInc.tipoElementoID)
-    });
+    if(this.platform.is('ios')){
+      this.db.getValue('tiposIncidencias').then((tiposIncidencias) => {
+          this.tiposIncidencias = JSON.parse(tiposIncidencias.toString());
+          this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.reviewInc.tipoElementoID)
+      });
+    }else{
+      this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
+          this.tiposIncidencias = JSON.parse(tiposIncidencias);
+          this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.reviewInc.tipoElementoID)
+      })
+    }
   }
   
   changeTipoIncidencia(){

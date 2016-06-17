@@ -29,30 +29,30 @@ export class FamiliesPage {
     , private db: DBProvider ) {
     this.platform = platform;
     this.isAndroid = platform.is('android');
-    
-    this.storage = new Storage(SqlStorage);
-    
   }
   
   ionViewWillEnter() {
-    /*this.storage.get('familias').then((familias) => {
-        this.familias = JSON.parse(familias);
-        this.lenFamilias = this.familias.length;
-    })
-    
-    this.storage.get('user').then((user) => {
-        this.user = JSON.parse(user);
-    })*/
+    if(this.platform.is('ios')){
+      this.db.getValue('familias').then((familias) => {
+          this.familias = JSON.parse(familias.toString());
+          this.lenFamilias = this.familias.length;
+      });
 
-    this.db.getValue('familias').then((familias) => {
-        this.familias = JSON.parse(familias.toString());
-        this.lenFamilias = this.familias.length;
-    });
-
-    this.db.getValue('user').then((user) => {
-        this.user = JSON.parse(user.toString());
-    });
-
+      this.db.getValue('user').then((user) => {
+          this.user = JSON.parse(user.toString());
+      });
+    }else{
+      this.storage = new Storage(SqlStorage);
+      
+      this.storage.get('familias').then((familias) => {
+          this.familias = JSON.parse(familias);
+          this.lenFamilias = this.familias.length;
+      });
+      
+      this.storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+      });
+    }
   }
   
   openNewInc(familia){

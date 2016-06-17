@@ -1,6 +1,5 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
-import {NavController, NavParams, MenuController, Storage, SqlStorage} from 'ionic-angular';
-import {ViewController, Platform} from 'ionic-angular';
+import {ViewController, Platform, NavController, NavParams, MenuController, Storage, SqlStorage} from 'ionic-angular';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
@@ -28,13 +27,16 @@ export class SettingsPage {
 
   }
   ionViewWillEnter() {
-    let storage = new Storage(SqlStorage);
-    /*storage.get('user').then((user) => {
-        this.user = JSON.parse(user);
-    })*/
-    this.db.getValue('user').then((user) => {
-        this.user = JSON.parse(user.toString());
-    });
+    if(this.platform.is('ios')){
+      this.db.getValue('user').then((user) => {
+          this.user = JSON.parse(user.toString());
+      });
+    }else{
+      let storage = new Storage(SqlStorage);
+      storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+      });
+    }
   }
 
   openNotifications() {
@@ -52,5 +54,4 @@ export class SettingsPage {
   openEntities() {
     this.nav.push(EntitiesPage, {});
   }
-
 }

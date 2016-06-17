@@ -1,8 +1,7 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
-import {App, NavController, NavParams, MenuController, ActionSheet, Storage, SqlStorage} from 'ionic-angular';
-import {ViewController, Platform} from 'ionic-angular';
+import {ViewController, Platform, App, NavController, NavParams, MenuController, ActionSheet, Storage, SqlStorage} from 'ionic-angular';
 import {Camera, ImagePicker} from 'ionic-native';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';
 import {SlidePage} from './../../../../slides/slide';
@@ -24,6 +23,7 @@ export class UserPage {
     , private menu: MenuController
     , private nav: NavController
     , private _ngZone: NgZone
+    , private translate : TranslateService
     , private confData: ConferenceData
     , private db: DBProvider) {
         
@@ -32,27 +32,33 @@ export class UserPage {
   }
   
   ionViewWillEnter() {
-    /*this.storage.get('user').then((user) => {
-        this.user = JSON.parse(user);
-    });*/
-    this.db.getValue('user').then((user) => {
-        this.user = JSON.parse(user.toString());
-    });
+    if(this.platform.is('ios')){
+      this.db.getValue('user').then((user) => {
+          this.user = JSON.parse(user.toString());
+      });
+    }else{
+      this.storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+      });
+    }
   }
   
   logout() {
-    /*this.storage.remove('user').then((user) => {
-      let _nav = this.app.getRootNav();
-      _nav.setRoot(LoginPage);
-    });*/
-    this.db.setKey('user', '').then((result) =>{
-        console.log(result);  
+    if(this.platform.is('ios')){
+      this.db.setKey('user', '').then((result) =>{
+          console.log(result);  
+          let _nav = this.app.getRootNav();
+          _nav.setRoot(LoginPage);                                                               
+          },
+          error =>{
+          console.log(error);
+      });
+    }else{
+      this.storage.remove('user').then((user) => {
         let _nav = this.app.getRootNav();
-        _nav.setRoot(LoginPage);                                                               
-        },
-        error =>{
-        console.log(error);
-    });
+        _nav.setRoot(LoginPage);
+      });
+    }
   }
 
   takePhoto() {
@@ -60,7 +66,7 @@ export class UserPage {
       title: '',
       buttons: [
         {
-          text: 'Gallery',
+          text: this.translate.instant("app.galleryText"),
           handler: () => {
             ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
                     for (var i = 0; i < results.length; i++) {
@@ -76,7 +82,7 @@ export class UserPage {
           }
         },
         {
-          text: 'Camera',
+          text: this.translate.instant("app.cameraText"),
           handler: () => {
             Camera.getPicture({quality: 50}).then((imageURI) => {
               this.user.image = imageURI;
@@ -88,7 +94,7 @@ export class UserPage {
           }
         },
         {
-          text: 'Cancel',
+          text: this.translate.instant("app.btnCancel"),
           role: 'cancel',
           handler: () => {
             console.log("Cancel clicked");

@@ -1,5 +1,5 @@
 import {Component, forwardRef, Type} from '@angular/core';
-import {NavController, MenuController, Storage, SqlStorage} from 'ionic-angular';
+import {Platform, NavController, MenuController, Storage, SqlStorage} from 'ionic-angular';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {LoginPage} from './../login/login';
 import {DBProvider} from './../../providers/db';
@@ -23,6 +23,7 @@ export class SlidePage {
 
     constructor(private nav: NavController
     , private menu: MenuController
+    , private platform: Platform
     , private translate: TranslateService
     , private db: DBProvider) {
       this.slides = [
@@ -44,32 +45,30 @@ export class SlidePage {
       ];
       
       // ADD FIRST RUN SUPPORT
-      this.storage = new Storage(SqlStorage);
-      
+      if(!platform.is('ios')){
+        this.storage = new Storage(SqlStorage);
+      }
     }
 
   openLoginPage() {
-    //this.storage.set('firstRun', true);
-    this.db.setKey('firstRun', 'true').then((result) =>{
-        console.log(result);                                                                 
-        },
-        error =>{
-        console.log(error);
-    });
+    if(this.platform.is('ios')){
+      this.db.setKey('firstRun', 'true').then((result) =>{
+          console.log(result);                                                                 
+          },
+          error =>{
+          console.log(error);
+      });
+    }else{
+      this.storage.set('firstRun', true);
+    }
+    
     this.nav.push(LoginPage);
-  }
-
-  initializeTranslateServiceConfig(lang) {
-    //var userLang = compareLanguage.test(lang) ? lang : defaultLanguage;     
-    this.translate.setDefaultLang(defaultLanguage);   
-    this.translate.use(compareLanguage.test(lang) ? lang : defaultLanguage);
   }
 
   ionViewDidEnter() {
     // the left menu should be disabled on the login page
     this.menu.enable(false);
     this.menu.swipeEnable(false);
-
   }
 
   ionViewDidLeave() {

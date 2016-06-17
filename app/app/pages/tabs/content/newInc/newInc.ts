@@ -87,29 +87,31 @@ export class NewIncPage {
     this.familia = params.data;
     
     this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
-
-    this.storage = new Storage(SqlStorage);    
-    /*this.storage.get('tiposElementos').then((tiposElementos) => {
-        this.tiposElementos = JSON.parse(tiposElementos);
-        this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID);
-    });
-    this.storage.get('user').then((user) => {
-        this.user = JSON.parse(user);
-    });
-    this.storage.get('entity').then((entity) => {
-        this.entity = JSON.parse(entity);
-    });*/
-
-    this.db.getValue('tiposElementos').then((tiposElementos) => {
-        this.tiposElementos = JSON.parse(tiposElementos.toString());
-        this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID);
-    });
-    this.db.getValue('user').then((user) => {
-        this.user = JSON.parse(user.toString());
-    });
-    this.db.getValue('entity').then((entity) => {
-        this.entity = JSON.parse(entity.toString());
-    });
+    
+    if(platform.is('ios')){
+       this.db.getValue('tiposElementos').then((tiposElementos) => {
+          this.tiposElementos = JSON.parse(tiposElementos.toString());
+          this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID);
+      });
+      this.db.getValue('user').then((user) => {
+          this.user = JSON.parse(user.toString());
+      });
+      this.db.getValue('entity').then((entity) => {
+          this.entity = JSON.parse(entity.toString());
+      });
+    }else{
+      this.storage = new Storage(SqlStorage);    
+      this.storage.get('tiposElementos').then((tiposElementos) => {
+          this.tiposElementos = JSON.parse(tiposElementos);
+          this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.familia.FamiliasTiposElementosID);
+      });
+      this.storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+      });
+      this.storage.get('entity').then((entity) => {
+          this.entity = JSON.parse(entity);
+      });
+    }
     
     this.geo.getLocation().then(location =>{
       this.location = location;
@@ -397,15 +399,17 @@ export class NewIncPage {
   }
   
   changeTipoElemento(){
-    /*this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
-        this.tiposIncidencias = JSON.parse(tiposIncidencias);
-        this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.newInc.tipoElementoID)
-    })*/
-
-    this.db.getValue('tiposIncidencias').then((tiposIncidencias) => {
-        this.tiposIncidencias = JSON.parse(tiposIncidencias.toString());
-        this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.newInc.tipoElementoID);
-    });
+    if(this.platform.is('ios')){
+      this.db.getValue('tiposIncidencias').then((tiposIncidencias) => {
+          this.tiposIncidencias = JSON.parse(tiposIncidencias.toString());
+          this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.newInc.tipoElementoID);
+      });
+    }else{
+      this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
+          this.tiposIncidencias = JSON.parse(tiposIncidencias);
+          this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.newInc.tipoElementoID)
+      })
+    }
   }
   
   changeTipoIncidencia(){

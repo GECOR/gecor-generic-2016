@@ -1,5 +1,5 @@
 import {Component, forwardRef} from '@angular/core';
-import {NavController, Storage, SqlStorage} from 'ionic-angular';
+import {Platform, NavController, Storage, SqlStorage} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {NewsDetailPage} from './newsDetail/newsDetail';
 import {ConferenceData} from './../../../../providers/conference-data';
@@ -19,14 +19,18 @@ export class NewsPage {
   
   constructor(private nav: NavController
   , private confData: ConferenceData
+  , private platform: Platform
   , private db: DBProvider) {
-    this.storage = new Storage(SqlStorage); 
-    /*this.storage.get('user').then((user) => {
-        this.user = JSON.parse(user);
-    });*/
-    this.db.getValue('user').then((user) => {
-        this.user = JSON.parse(user.toString());
-    });
+    if(platform.is('ios')){
+      this.db.getValue('user').then((user) => {
+          this.user = JSON.parse(user.toString());
+      });
+    }else{
+      this.storage = new Storage(SqlStorage); 
+      this.storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+      });
+    }
    }
   
    ionViewWillEnter() {

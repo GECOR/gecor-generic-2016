@@ -1,5 +1,5 @@
 import {Component, forwardRef} from '@angular/core';
-import {NavController, NavParams, Storage, SqlStorage} from 'ionic-angular';
+import {Platform, NavController, NavParams, Storage, SqlStorage} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {DBProvider} from './../../../../../providers/db';
@@ -17,15 +17,19 @@ export class NewsDetailPage {
   
   constructor(private nav: NavController
   , private params: NavParams
+  , private platform: Platform
   , private db: DBProvider) {
     this.notice = params.data;
     
-    this.storage = new Storage(SqlStorage); 
-    /*this.storage.get('user').then((user) => {
-        this.user = JSON.parse(user);
-    });*/
-    this.db.getValue('user').then((user) => {
-        this.user = JSON.parse(user.toString());
-    });
+    if(platform.is('ios')){
+       this.db.getValue('user').then((user) => {
+          this.user = JSON.parse(user.toString());
+      });
+    }else{
+      this.storage = new Storage(SqlStorage); 
+      this.storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+      });
+    }
   }
 }

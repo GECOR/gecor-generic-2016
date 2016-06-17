@@ -1,6 +1,5 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
-import {NavController, NavParams, MenuController, Storage, SqlStorage} from 'ionic-angular';
-import {ViewController, Platform} from 'ionic-angular';
+import {ViewController, Platform, NavController, NavParams, MenuController, Storage, SqlStorage} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {DBProvider} from './../../../../../providers/db';
@@ -19,17 +18,16 @@ export class TermsPage {
     , private nav: NavController
     , private _ngZone: NgZone
     , private db: DBProvider ) {
-      
-    let storage = new Storage(SqlStorage);
-    /*storage.get('user').then((user) => {
-        this.user = JSON.parse(user);
-    })*/
-    this.db.getValue('user').then((user) => {
-        this.user = JSON.parse(user.toString());
-    });
 
+    if(platform.is('ios')){
+       this.db.getValue('user').then((user) => {
+          this.user = JSON.parse(user.toString());
+      });
+    }else{
+      let storage = new Storage(SqlStorage);
+      storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+      })
+    } 
   }
-
-
-
 }

@@ -45,7 +45,7 @@
       "variables": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.1060313159714-kiq3uggkv91d4g1e993pdubdr1r193ag"
       },
-      "locator": "https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
+      "locator": "cordova-plugin-googleplus",
       "id": "cordova-plugin-googleplus"
     },
     {

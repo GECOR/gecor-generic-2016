@@ -56,21 +56,23 @@ export class IncDetailPage {
     this.travelMode = 'WALKING';
     this.timeTravel = '0 min';
     this.distanceTravel = '0 km';
-    
-    this.storage = new Storage(SqlStorage);
-    /*this.storage.get('user').then((user) => {
-        this.user = JSON.parse(user);
-    });*/
-    db.getValue('user').then((user) => {
-        this.user = JSON.parse(user.toString());
-    });
-    
-    /*this.storage.get('entity').then((entity) => {
-        this.entity = JSON.parse(entity);
-    });*/
-    db.getValue('entity').then((entity) => {
-        this.entity = JSON.parse(entity.toString());
-    });
+
+    if(platform.is('ios')){
+        db.getValue('user').then((user) => {
+            this.user = JSON.parse(user.toString());
+        });
+        db.getValue('entity').then((entity) => {
+            this.entity = JSON.parse(entity.toString());
+        });    
+      }else{
+        this.storage = new Storage(SqlStorage);
+        this.storage.get('user').then((user) => {
+            this.user = JSON.parse(user);
+        });
+        this.storage.get('entity').then((entity) => {
+            this.entity = JSON.parse(entity);
+        });
+      }
 
     this.geo.getLocation().then(location =>{
       this.location = location;
@@ -102,7 +104,6 @@ export class IncDetailPage {
 
     // Display the route between the initial start and end selections.
     this.calculateAndDisplayRoute(this.directionsDisplay, this.stepDisplay);
-
   }
 
   calculateAndDisplayRoute(directionsDisplay, stepDisplay) {
@@ -202,34 +203,8 @@ export class IncDetailPage {
   addLike(){
     let likes = [];
     let likesFiltered = [];
-    /*this.storage.get('likes').then((result) => {        
-        if (result != undefined && JSON.parse(result).constructor === Array){
-          likes = JSON.parse(result);
-          likesFiltered = likes.filter(item => item == this.incident.AvisoID);
-        }
-        if (likesFiltered.length == 0){
-          this.incDetailService.addLike(this.user.token, this.incident.AvisoID)
-            .subscribe((result) =>{
-              if (result[0].RowsAffected > 0){
-                likes.push(this.incident.AvisoID);
-                //this.storage.set('likes', JSON.stringify(likes));
-                this.db.setKey('likes', JSON.stringify(likes)).then((result) =>{
-                    console.log(result);                                                                 
-                    },
-                    error =>{
-                    console.log(error);
-                });
-                this.incident.Likes ++;
-              }else{
-                this.showAlert("Error", "There is some errort", "OK");
-              }
-            },
-            error =>{
-              this.errorMessage = <any>error;
-            });    
-        }
-    });*/
-    this.db.getValue('likes').then((result) => {
+    if(this.platform.is('ios')){
+        this.db.getValue('likes').then((result) => {
         if (result != undefined && JSON.parse(result.toString()).constructor === Array){
           likes = JSON.parse(result.toString());
           likesFiltered = likes.filter(item => item == this.incident.AvisoID);
@@ -239,7 +214,6 @@ export class IncDetailPage {
             .subscribe((result) =>{
               if (result[0].RowsAffected > 0){
                 likes.push(this.incident.AvisoID);
-                //this.storage.set('likes', JSON.stringify(likes));
                 this.db.setKey('likes', JSON.stringify(likes)).then((result) =>{
                     console.log(result);                                                                 
                     },
@@ -256,7 +230,29 @@ export class IncDetailPage {
             });    
         }
     });
-        
+    }else{
+      this.storage.get('likes').then((result) => {        
+          if (result != undefined && JSON.parse(result).constructor === Array){
+            likes = JSON.parse(result);
+            likesFiltered = likes.filter(item => item == this.incident.AvisoID);
+          }
+          if (likesFiltered.length == 0){
+            this.incDetailService.addLike(this.user.token, this.incident.AvisoID)
+              .subscribe((result) =>{
+                if (result[0].RowsAffected > 0){
+                  likes.push(this.incident.AvisoID);
+                  this.storage.set('likes', JSON.stringify(likes));                  
+                  this.incident.Likes ++;
+                }else{
+                  this.showAlert("Error", "There is some errort", "OK");
+                }
+              },
+              error =>{
+                this.errorMessage = <any>error;
+              });    
+          }
+      });
+    }
   }
   
   showAlert(title, subTitle, okButton){

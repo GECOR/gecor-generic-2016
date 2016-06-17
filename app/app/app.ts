@@ -1,7 +1,7 @@
 import {Component, ViewChild, Type, provide} from '@angular/core';
 import {Http} from '@angular/http';
 import {ionicBootstrap, Platform, Storage, SqlStorage} from 'ionic-angular';
-import {Splashscreen, Globalization} from 'ionic-native';
+import {Splashscreen, Globalization, Push} from 'ionic-native';
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {ConferenceData} from './providers/conference-data';
 import {GeolocationProvider} from './providers/geolocation';
@@ -14,16 +14,7 @@ import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage} from '
 // https://angular.io/docs/ts/latest/api/core/Type-interface.html
 
 @Component({
-  templateUrl: './build/app.html',  
-  /*providers: [ConferenceData
-              , UserData
-              , GeolocationProvider
-              , provide(TranslateLoader, {
-                useFactory: (http: Http) => new TranslateStaticLoader(http, folderLanguage, sourceLanguage),
-                deps: [Http]
-              }),
-              TranslateService
-              ],*/
+  templateUrl: './build/app.html',
     providers: [DBProvider],
     pipes: [TranslatePipe]
 })
@@ -32,15 +23,20 @@ export class MyApp {
   user: any;
   rootPage: Type;// = SlidePage;
 
-  constructor(platform: Platform
+  constructor(private platform: Platform
   , private confData: ConferenceData
   , private geo: GeolocationProvider
   , private translate: TranslateService
-  , private db: DBProvider) {
-    
-    //platform.ready().then(() => {
-      this.initializeApp();
-    //});
+  , private db: DBProvider) {  
+
+    platform.ready().then(() => {
+      if(platform.is('ios')){
+        this.initializeIosApp();
+      }else{
+        this.initializeApp();
+      }
+    }); 
+
   }
 
   initializeApp(){
@@ -48,9 +44,9 @@ export class MyApp {
     this.confData.load();    
     this.storage = new Storage(SqlStorage);
 
-    this.rootPage = SlidePage;
+    this.initializePush();
 
-    /*this.db.initDB().then((result) =>{
+    this.db.initDB().then((result) =>{
         console.log(result);
         this.db.getValue('user').then((user) =>{
         if(user != ""){        
@@ -72,32 +68,64 @@ export class MyApp {
     Globalization.getPreferredLanguage().then((obj) =>{//get device language
       console.log(obj.value);
       this.initializeTranslateServiceConfig(obj.value.split('-')[0]);//initialize sending lowercase language
-      //this.storage.set('language', obj.value.split('-')[0]);
-      this.db.setKey('language', obj.value.split('-')[0]).then((result) =>{
-        console.log(result);                                                                 
-        },
-        error =>{
-          console.log(error);
-      });
+      this.storage.set('language', obj.value.split('-')[0]);      
     }, (err)=>{
       console.log(err); 
       this.initializeTranslateServiceConfig(defaultLanguage);//initialize sending lowercase language default 
-      //this.storage.set('language', defaultLanguage);
-      this.db.setKey('language', defaultLanguage).then((result) =>{
-        console.log(result);                                                                 
-        },
-        error =>{
-          console.log(error);
-      });
-    });
-    
+      this.storage.set('language', defaultLanguage);      
+    });    
     //this.initializeTranslateServiceConfig();                                                                
     },
     error =>{
       console.log(error);
-    });*/
+    });
   }
   
+  initializeIosApp(){
+    this.confData.load();    
+    this.rootPage = SlidePage;
+
+    this.initializePush();
+
+    Globalization.getPreferredLanguage().then((obj) =>{//get device language
+      console.log(obj.value);
+      this.initializeTranslateServiceConfig(obj.value.split('-')[0]);//initialize sending lowercase language      
+    }, (err)=>{
+      console.log(err); 
+      this.initializeTranslateServiceConfig(defaultLanguage);//initialize sending lowercase language default       
+    });
+
+    Splashscreen.hide();
+
+  }
+
+  initializePush(){
+     this.platform.ready().then(() => {
+        var push = Push.init({
+            android: {
+              senderID: "1060313159714"
+            },
+            ios: {
+              alert: "true",
+              badge: true,
+              sound: 'false'
+            },
+            windows: {}
+          });
+          push.on('registration', (data) => {
+            console.log(data.registrationId);
+            alert(data.registrationId.toString());
+          });
+          push.on('notification', (data) => {
+            console.log(data);
+            alert("Hi, Am a push notification");
+          });
+          push.on('error', (e) => {
+            console.log(e.message);
+          });
+     });
+  }
+
   initializeTranslateServiceConfig(lang) {
     //var userLang = compareLanguage.test(lang) ? lang : defaultLanguage;     
     this.translate.setDefaultLang(defaultLanguage);   
@@ -106,15 +134,7 @@ export class MyApp {
   
 }
 
-// Pass the main App component as the first argument
-// Pass any providers for your app in the second argument
-// Set any config for your app as the third argument, see the docs for
-// more ways to configure your app:
-// http://ionicframework.com/docs/v2/api/config/Config/
-// Place the tabs on the bottom for all platforms
-// See the theming docs for the default values:
-// http://ionicframework.com/docs/v2/theming/platform-specific-styles/
-
+//Bootstrap(start) the app
 ionicBootstrap(MyApp, [ConferenceData
                       , UserData
                       , GeolocationProvider

@@ -352,7 +352,7 @@ export class NewIncPage {
             .subscribe((inc) =>{
               this.loadingComponent.dismiss();
               if (inc[0].AvisoID != ""){
-                this.presentIncidentSuccess();
+                this.presentIncidentSuccess(inc[0].AvisoID);
               }else{
                 this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("newInc.presentConfirmErrorAlertMessage"), this.translate.instant("app.btnAccept"));
               }
@@ -368,8 +368,8 @@ export class NewIncPage {
     this.nav.present(alert);
   }
 
-  presentIncidentSuccess() {
-    let alert = Alert.create({
+  presentIncidentSuccess(avisoID) {
+    /*let alert = Alert.create({
       title: this.translate.instant("newInc.presentIncidentSuccessAlertTitle"),
       message: 'CIU@24/2016',
       buttons: [
@@ -386,6 +386,21 @@ export class NewIncPage {
           text: this.translate.instant("survey.title"),
           handler: () => {
             this.nav.push(SurveyPage, {});
+          }
+        }
+      ]
+    });
+    this.nav.present(alert);*/
+    let alert = Alert.create({
+      title: this.translate.instant("newInc.presentIncidentSuccessAlertTitle"),
+      message: "COD: " + avisoID,
+      buttons: [
+        {
+          text: this.translate.instant("app.continueBtn"),
+          role: 'cancel',
+          handler: () => {
+            this.nav.pop();           
+            this.events.publish('tab:inc');            
           }
         }
       ]

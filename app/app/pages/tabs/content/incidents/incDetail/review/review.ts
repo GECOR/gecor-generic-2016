@@ -173,7 +173,7 @@ export class ReviewPage {
   }
 
   //END MAP
-  takePhoto(id){
+  /*takePhoto(id){
     let actionSheet = ActionSheet.create({
       title: '',
       buttons: [
@@ -213,6 +213,95 @@ export class ReviewPage {
       ]
     });
     this.nav.present(actionSheet);
+  }*/
+
+  takePhoto(id){
+    let actionSheet = ActionSheet.create({
+      title: '',
+      buttons: [
+        {
+          text: this.translate.instant("app.galleryText"),
+          handler: () => {
+           ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
+                    /*
+                    for (var i = 0; i < results.length; i++) {
+                        //console.log('Image URI: ' + results[i]);
+                        this._ngZone.run(() => {
+                          this.images[i] = results[i];
+                        });
+                    }
+                    */
+                    this.encodeImageUri(results[0]).then((resp) => {
+                      this.uploadImage(resp.toString(), id);
+                    });
+                    
+                }, (error) => {
+                    console.log('Error: ' + error);
+                }
+            );
+          }
+        },
+        {
+          text: this.translate.instant("app.cameraText"),
+          handler: () => {            
+            Camera.getPicture({quality: 70, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
+              //this.images[id] = this.base64string + imageURI;
+              this.uploadImage(this.base64string + imageURI, id);
+            }, (message) => {
+              this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.cameraErrorAlertMessage"), this.translate.instant("app.btnAccept"));
+              console.log('Failed because: ' + message);
+              console.log(message);
+            });
+          }
+        },
+        {
+          text: this.translate.instant("app.btnCancel"),
+          role: 'cancel',
+          handler: () => {
+            console.log("Cancel clicked");
+          }
+        }
+      ]
+    });
+    this.nav.present(actionSheet);
+  }
+
+  encodeImageUri(imageUri){//image from uri to base64 --> used in gallery
+
+    return new Promise((resolve, reject) => {
+      var c=document.createElement('canvas');
+      var ctx=c.getContext("2d");
+      var img=new Image();
+      img.src=imageUri;
+      img.onload = () => {
+        c.width=img.width;
+        c.height=img.height;
+        ctx.drawImage(img, 0,0);
+        resolve(c.toDataURL("image/jpeg"));
+      };
+    });
+  }
+  
+  uploadImage(imgBase64, id){
+    if (imgBase64 != ""){
+      this.reviewService.guardarFotoBase64(this.user.token, imgBase64)
+      .subscribe((result) =>{
+        //this.loadingComponent.dismiss();
+        if (result.rutaFoto){
+          //this.presentIncidentSuccess();
+          console.log(result);
+          this._ngZone.run(() => {
+            this.images[id] = result.rutaFoto;//results[0];
+          });
+        }else{
+          this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("newInc.presentConfirmErrorAlertMessage"), this.translate.instant("app.btnAccept"));
+        }
+      },
+      error =>{
+        //this.loadingComponent.dismiss();
+        this.errorMessage = <any>error;
+      });
+    }
   }
 
   presentConfirm() {
@@ -230,9 +319,21 @@ export class ReviewPage {
         {
           text: this.translate.instant("app.sendBtn"),
           handler: () => {
-            if(this.images){
+            /*if(this.images){
               this.images.forEach(element => {
                 this.reviewInc.fotos.push({"byteFoto": element});//this.encodeImageUri(element)});
+              });
+            }*/
+            if(this.images){
+              this.images.forEach(element => {
+                let bf = "";//byteFoto
+                let rf = "";//rutaFoto
+                if (element.indexOf("http") > -1){
+                  rf = element;
+                }else{
+                  bf = element;
+                }
+                this.reviewInc.fotos.push({"byteFoto": bf, "rutaFoto": rf});//this.encodeImageUri(element)});
               });
             }
             this.nav.present(this.loadingComponent);

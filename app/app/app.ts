@@ -46,24 +46,21 @@ export class MyApp {
 
     //this.initializePush();
 
-    this.db.initDB().then((result) =>{
-        console.log(result);
-        this.db.getValue('user').then((user) =>{
-        if(user != ""){        
-          this.user = JSON.parse(user.toString());
-        }
+    this.storage.get('user').then((user) =>{
+    if(user != "" && user != undefined){        
+      this.user = JSON.parse(user.toString());
+    }
 
-        this.db.getValue('firstRun').then((resp) => {
-          if(this.user)
-            this.rootPage = TabsPage;
-          else if(resp != "")
-            this.rootPage = LoginPage;
-          else
-            this.rootPage = SlidePage;
-        });
-          
-        Splashscreen.hide();  
+    this.storage.get('firstRun').then((resp) => {
+      if(this.user)
+        this.rootPage = TabsPage;
+      else if(resp != "" && user != undefined)
+        this.rootPage = LoginPage;
+      else
+        this.rootPage = SlidePage;
     });
+      
+    Splashscreen.hide();
 
     Globalization.getPreferredLanguage().then((obj) =>{//get device language
       console.log(obj.value);

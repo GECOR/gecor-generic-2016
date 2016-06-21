@@ -196,10 +196,10 @@
 				  "push": "Push" 
 			 },
 			 "termspage":{
-				 "tittle": "Terms and Conditions"				  
+				 "title": "Terms and Conditions"				  
 			 },
 			 "user":{
-				 "tittle": "User",
+				 "title": "User",
 				 "logout":"Logout"		  			 
 			 }
 		 }     

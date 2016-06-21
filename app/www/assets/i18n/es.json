@@ -195,10 +195,10 @@
 				  "push": "Push" 
 			 },
 			 "termspage":{
-				 "tittle": "Términos y condiciones"
+				 "title": "Términos y condiciones"
 				  },
 			 "user":{
-				 "tittle": "Usuario",
+				 "title": "Usuario",
 				 "logout":"Logout"		  			 
 			 }
 		 } 

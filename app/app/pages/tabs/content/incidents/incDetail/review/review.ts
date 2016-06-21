@@ -64,7 +64,7 @@ export class ReviewPage {
   {
     this.showTypology = false;
     this.showMap = false;
-    this.images = [undefined, undefined, undefined, undefined];
+    this.images = ["", "", "", ""];
     this.reviewInc = params.data;
     this.reviewInc.fotos = [];
     
@@ -271,12 +271,29 @@ export class ReviewPage {
     return new Promise((resolve, reject) => {
       var c=document.createElement('canvas');
       var ctx=c.getContext("2d");
+
+      var cw=c.width;
+      var ch=c.height;
+
+      var maxW=1024;
+      var maxH=768;
+
       var img=new Image();
       img.src=imageUri;
       img.onload = () => {
-        c.width=img.width;
-        c.height=img.height;
-        ctx.drawImage(img, 0,0);
+        var iw=img.width;
+        var ih=img.height;
+
+        var scale=Math.min((maxW/iw),(maxH/ih));
+
+        var iwScaled=iw*scale;
+        var ihScaled=ih*scale;
+
+        c.width=iwScaled;
+        c.height=ihScaled;
+
+        ctx.drawImage(img,0,0,iwScaled,ihScaled);
+
         resolve(c.toDataURL("image/jpeg"));
       };
     });
@@ -305,6 +322,7 @@ export class ReviewPage {
   }
 
   presentConfirm() {
+    
     let alert = Alert.create({
       title: this.translate.instant("incidents.review.presentConfirmAlertTitle"),
       message: this.reviewInc.desSolucion,
@@ -319,11 +337,12 @@ export class ReviewPage {
         {
           text: this.translate.instant("app.sendBtn"),
           handler: () => {
-            /*if(this.images){
-              this.images.forEach(element => {
-                this.reviewInc.fotos.push({"byteFoto": element});//this.encodeImageUri(element)});
-              });
-            }*/
+            //if(this.images){
+              //this.images.forEach(element => {
+                //this.reviewInc.fotos.push({"byteFoto": element});//this.encodeImageUri(element)});
+              //});
+            //}
+            console.log("testtttt");
             if(this.images){
               this.images.forEach(element => {
                 let bf = "";//byteFoto
@@ -335,7 +354,7 @@ export class ReviewPage {
                 }
                 this.reviewInc.fotos.push({"byteFoto": bf, "rutaFoto": rf});//this.encodeImageUri(element)});
               });
-            }
+            }            
             this.nav.present(this.loadingComponent);
             let navTransition = alert.dismiss();
             this.reviewService.revisarIncidencia(this.user.token, this.reviewInc.AvisoID, this.reviewInc.DesSolucion, this.reviewInc.EstadoAvisoID, this.reviewInc.OrigenIDResponsable,

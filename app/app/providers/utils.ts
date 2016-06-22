@@ -34,4 +34,94 @@ export class UtilsProvider {
             content: title
         });
     }
+
+    /*getImageFromGallery_iOS(url){
+        return new Promise((resolve, reject) => {
+            var c=document.createElement('canvas');
+            var ctx=c.getContext("2d");
+
+            var img=new Image();
+            img.src=url;
+            img.onload = () => {
+                c.width=img.width;
+                c.height=img.height;
+                ctx.drawImage(img,0,0);
+                resolve(img);
+            };
+        });
+    }*/
+
+    /*resizeImage(img, width, heigth){
+        return new Promise((resolve, reject) => {
+            var c=document.createElement('canvas');
+            var ctx=c.getContext("2d");
+
+            var cw=c.width;
+            var ch=c.height;
+
+            var maxW=1024;
+            var maxH=768;
+
+            var nImg = new Image();
+            nImg.src = img.src;
+
+            nImg.onload = () => {
+                var iw=nImg.width;
+                var ih=nImg.height;
+
+                var scale=Math.min((maxW/iw),(maxH/ih));
+
+                var iwScaled=iw*scale;
+                var ihScaled=ih*scale;
+
+                c.width=iwScaled;
+                c.height=ihScaled;
+
+                ctx.drawImage(nImg,0,0,iwScaled,ihScaled);
+
+                resolve(nImg);
+            };
+        });
+    }*/
+
+    resizeImage_iOS(imageUri, width, height){
+
+        return new Promise((resolve, reject) => {
+            var c=document.createElement('canvas');
+            var ctx=c.getContext("2d");
+
+            var cw=c.width;
+            var ch=c.height;
+
+            var maxW=width;
+            var maxH=height;
+
+            var img=new Image();
+            img.src=imageUri;
+            img.onload = () => {
+                var iw=img.width;
+                var ih=img.height;
+
+                var scale=Math.min((maxW/iw),(maxH/ih));
+
+                var iwScaled=iw*scale;
+                var ihScaled=ih*scale;
+
+                c.width=iwScaled;
+                c.height=ihScaled;
+
+                ctx.drawImage(img,0,0,iwScaled,ihScaled);
+
+                resolve(c.toDataURL("image/jpeg", 0.3));
+            };
+        });
+    }
+
+    /*getBase64FromImage(img){
+        var c=document.createElement('canvas');
+        var ctx=c.getContext("2d");
+
+        ctx.drawImage(img,0,0);
+        return c.toDataURL("image/jpeg");
+    }*/
 }

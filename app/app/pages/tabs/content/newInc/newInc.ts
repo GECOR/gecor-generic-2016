@@ -244,8 +244,8 @@ export class NewIncPage {
                         });
                     }
                     */
-                    this.encodeImageUri(results[0]).then((resp) => {
-                      this.uploadImage(resp.toString(), id);
+                    this.utils.resizeImage_iOS(results[0], 1024, 768).then((imgResized) => {
+                      this.uploadImage(imgResized, id);
                     });
                     
                 }, (error) => {
@@ -257,9 +257,12 @@ export class NewIncPage {
         {
           text: this.translate.instant("app.cameraText"),
           handler: () => {            
-            Camera.getPicture({quality: 70, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
+            Camera.getPicture({quality: 100, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
               //this.images[id] = this.base64string + imageURI;
-              this.uploadImage(this.base64string + imageURI, id);
+              //this.uploadImage(this.base64string + imageURI, id);
+              this.utils.resizeImage_iOS(this.base64string + imageURI, 1024, 768).then((imgResized) => {
+                this.uploadImage(imgResized, id);
+              });
             }, (message) => {
               this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.cameraErrorAlertMessage"), this.translate.instant("app.btnAccept"));
               console.log('Failed because: ' + message);

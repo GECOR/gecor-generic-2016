@@ -231,8 +231,8 @@ export class ReviewPage {
                         });
                     }
                     */
-                    this.encodeImageUri(results[0]).then((resp) => {
-                      this.uploadImage(resp.toString(), id);
+                    this.utils.resizeImage_iOS(results[0], 1024, 768).then((imgResized) => {
+                      this.uploadImage(imgResized, id);
                     });
                     
                 }, (error) => {
@@ -246,7 +246,10 @@ export class ReviewPage {
           handler: () => {            
             Camera.getPicture({quality: 70, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
               //this.images[id] = this.base64string + imageURI;
-              this.uploadImage(this.base64string + imageURI, id);
+              //this.uploadImage(this.base64string + imageURI, id);
+              this.utils.resizeImage_iOS(this.base64string + imageURI, 1024, 768).then((imgResized) => {
+                this.uploadImage(imgResized, id);
+              });
             }, (message) => {
               this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.cameraErrorAlertMessage"), this.translate.instant("app.btnAccept"));
               console.log('Failed because: ' + message);
@@ -264,39 +267,6 @@ export class ReviewPage {
       ]
     });
     this.nav.present(actionSheet);
-  }
-
-  encodeImageUri(imageUri){//image from uri to base64 --> used in gallery
-
-    return new Promise((resolve, reject) => {
-      var c=document.createElement('canvas');
-      var ctx=c.getContext("2d");
-
-      var cw=c.width;
-      var ch=c.height;
-
-      var maxW=1024;
-      var maxH=768;
-
-      var img=new Image();
-      img.src=imageUri;
-      img.onload = () => {
-        var iw=img.width;
-        var ih=img.height;
-
-        var scale=Math.min((maxW/iw),(maxH/ih));
-
-        var iwScaled=iw*scale;
-        var ihScaled=ih*scale;
-
-        c.width=iwScaled;
-        c.height=ihScaled;
-
-        ctx.drawImage(img,0,0,iwScaled,ihScaled);
-
-        resolve(c.toDataURL("image/jpeg"));
-      };
-    });
   }
   
   uploadImage(imgBase64, id){

@@ -84,7 +84,7 @@ export class UtilsProvider {
         });
     }*/
 
-    resizeImage_iOS(imageUri, width, height){
+    resizeImage(imageUri, width, height){
 
         return new Promise((resolve, reject) => {
             var c=document.createElement('canvas');

@@ -244,7 +244,7 @@ export class NewIncPage {
                         });
                     }
                     */
-                    this.utils.resizeImage_iOS(results[0], 1024, 768).then((imgResized) => {
+                    this.utils.resizeImage(results[0], 1024, 768).then((imgResized) => {
                       this.uploadImage(imgResized, id);
                     });
                     
@@ -260,7 +260,7 @@ export class NewIncPage {
             Camera.getPicture({quality: 100, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
               //this.images[id] = this.base64string + imageURI;
               //this.uploadImage(this.base64string + imageURI, id);
-              this.utils.resizeImage_iOS(this.base64string + imageURI, 1024, 768).then((imgResized) => {
+              this.utils.resizeImage(this.base64string + imageURI, 1024, 768).then((imgResized) => {
                 this.uploadImage(imgResized, id);
               });
             }, (message) => {

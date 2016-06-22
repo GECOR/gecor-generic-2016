@@ -68,12 +68,11 @@
   
   <div id="switch" [ngSwitch]="type">
 
-    <ion-list no-lines *ngSwitchWhen="'list'">   
+    <ion-list no-lines *ngSwitchWhen="'list'">
       <ion-item-sliding class="incident" *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText" [ngClass]="classIncident(incident)" #slidingItem>
         <button class="incident-button" ion-item (click)="openDetail(incident)">
           <ion-thumbnail item-left class="thumb-inc">
-            <!--<img src="{{incident.RutaFoto != '' ? incident.RutaFoto : 'img/no_image_512.png'}}" incident-img>-->
-
+            <img src="{{incident.RutaFoto != '' ? incident.RutaFoto : 'img/no_image_512.png'}}" incident-img>
           </ion-thumbnail>
           <h2>{{incident.DesTipoElemento}}</h2>
           <p>{{incident.DesUbicacion}}</p>

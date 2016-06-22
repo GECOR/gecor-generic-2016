@@ -13,6 +13,7 @@ import {UtilsProvider} from './../../../../providers/utils';
 import {ReviewPage} from './incDetail/review/review';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../appConfig';
+//import {LazyLoadImageDirective} from 'ng2-lazyload-image';
 
 @Page({
   templateUrl: './build/pages/tabs/content/incidents/incidents.html',

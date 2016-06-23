@@ -217,4 +217,14 @@ export class IncidentsPage {
       return this.utils.roundTwoDecimals(this.utils.getDistanceFromLatLonInKm(incident["Lat"], incident["Lng"], this.latLng.lat(), this.latLng.lng())) + " km";
     }
   }
+
+  sizeByteOfImage(url){
+    this.utils.getContentLengthFromUrl(url)
+            .subscribe((res) =>{
+              console.log(res);
+            },
+            error =>{
+              this.errorMessage = <any>error;
+            });
+  }
 }

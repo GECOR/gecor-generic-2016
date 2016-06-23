@@ -363,7 +363,7 @@ export class NewIncPage {
             error =>{
               this.loadingComponent.dismiss();
               this.errorMessage = <any>error;
-            } );
+            });
           }
         }
       ]

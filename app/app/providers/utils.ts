@@ -1,11 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Loading} from 'ionic-angular';
-
+import {urlGecorApi} from './../appConfig';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/Rx';
 
 @Injectable()
 export class UtilsProvider {
 
-  constructor() {}
+  constructor(private http: Http) {}
 
   getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
         var R = 6371; // Radius of the earth in km
@@ -124,4 +127,23 @@ export class UtilsProvider {
         ctx.drawImage(img,0,0);
         return c.toDataURL("image/jpeg");
     }*/
+
+    getContentLengthFromUrl(url: string): Observable<any> {
+        
+        return this.http.get(url)
+                        .map(this.extractData)
+                        .catch(this.handleError);
+                    
+    }
+
+    extractData(res: Response){
+        console.log(res);
+    }
+    
+    private handleError (error: Response) {
+        // in a real world app, we may send the error to some remote logging infrastructure
+        // instead of just logging it to the console
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
+    }
 }

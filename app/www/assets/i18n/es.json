@@ -149,6 +149,9 @@
 
 		  "presentIncidentSuccessAlertTitle": "Incidencia enviada",
 
+		  "presentConfirmChangeLocAlertTitle": "¿Cambiar ubicación?",
+		  "presentConfirmChangeLocAlertMessage": "Haga click en aceptar si desea cambiar la ubicación de la incidecnia",
+
 		  "families":{
 				"title":"Familias"
 		  },

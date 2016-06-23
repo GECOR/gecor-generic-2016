@@ -150,6 +150,9 @@
 
 		  "presentIncidentSuccessAlertTitle": "Incident sent",
 
+		  "presentConfirmChangeLocAlertTitle": "Change location?",
+		  "presentConfirmChangeLocAlertMessage": "Accept if you want to change the incidence location",
+
 		  "families":{
 				"title":"Families"	   			  
 		  },

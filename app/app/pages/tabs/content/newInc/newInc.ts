@@ -50,6 +50,8 @@ export class NewIncPage {
   };
   user: any = {};
   entity: any = {};
+  hideMap: boolean = true;
+  mapShowedOnce: boolean = false;
   
   //MAP
   map: google.maps.Map;
@@ -127,13 +129,46 @@ export class NewIncPage {
         this.newInc.lng = this.latLng.lng();
         this.newInc.desUbicacion = this.location.startAddress;
       }      
-      setTimeout(() =>
-          this.initMap()
-        , 100);      
+      //setTimeout(() =>
+          //this.initMap()
+        //, 100);      
     });    
   }
 
-  //MAP  
+  //MAP
+
+  showMap(){
+    if (!this.hideMap){
+      this.hideMap=!this.hideMap;
+    }else{
+      let alert = Alert.create({
+        title: this.translate.instant("newInc.presentConfirmChangeLocAlertTitle"),
+        message: this.translate.instant("newInc.presentConfirmChangeLocAlertMessage"),
+        buttons: [
+          {
+            text: this.translate.instant("app.btnCancel"),
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: this.translate.instant("app.btnAccept"),
+            handler: () => {
+              this.hideMap=!this.hideMap;
+              if(!this.hideMap && !this.mapShowedOnce){
+                this.mapShowedOnce = true;
+                this.initMap();
+              }
+            }
+          }
+        ]
+      });    
+      this.nav.present(alert); 
+    }
+    
+  }
+
   initMap() {
     let mapEle = document.getElementById('mapInc');
 
@@ -473,6 +508,14 @@ export class NewIncPage {
       //console.log(data);
     //});     
     this.nav.present(galleryModal);  
+  }
+
+  mapClass(){
+    if (this.hideMap){
+      return "mapIncHidden";
+    }else{
+      return "mapInc";
+    }
   }
   
 }

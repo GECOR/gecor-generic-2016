@@ -40,16 +40,16 @@
   
   <ion-card class="ion-card-map">
 
-    <div id="mapInc"></div>
-    <button fab fab-right class="fab-map" (click)="centerMap()">
-      <ion-icon name="pin"></ion-icon>
-    </button>
-    
-    <ion-item>
+    <ion-item (click)="showMap()">
       <ion-icon name="contact" item-left large></ion-icon>
       <h2>{{"newInc.location" | translate}}</h2>      
       <p>{{newInc.desUbicacion}}</p>
     </ion-item>
+
+    <div id="mapInc" [ngClass]="mapClass()"></div>
+    <button fab fab-right class="fab-map" [hidden]="hideMap" (click)="centerMap()">
+      <ion-icon name="pin"></ion-icon>
+    </button>
 
   </ion-card>
 

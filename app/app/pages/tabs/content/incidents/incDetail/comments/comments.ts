@@ -10,8 +10,8 @@ import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQL
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/comments/comments.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [CommentsService, DBProvider],
-  pipes: [TranslatePipe, UtilsProvider]
+  providers: [CommentsService, DBProvider, UtilsProvider],
+  pipes: [TranslatePipe]
 })
 export class CommentsPage {
   errorMessage: any;

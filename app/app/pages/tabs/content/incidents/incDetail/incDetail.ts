@@ -37,6 +37,7 @@ export class IncDetailPage {
   storage: any;
   user: any = {};
   entity: any;
+  blockMap: boolean = true;
 
   constructor(private platform: Platform
     , private menu: MenuController
@@ -269,5 +270,13 @@ export class IncDetailPage {
       buttons: [okButton]
     });
     this.nav.present(alert);
+  }
+
+  classMapIncidentBlock(){
+    if (this.blockMap){
+      return "mapIncidentBlockIn";
+    }else{
+      return "mapIncidentBlockOut";
+    }
   }
 }

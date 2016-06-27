@@ -51,7 +51,8 @@
 
 <ion-card class="ion-card-map">
 
-  <div id="mapIncident"></div>
+  <div id="mapIncidentBlock" [ngClass]="classMapIncidentBlock()" (click)="blockMap=!blockMap"></div>
+  <div id="mapIncident" class="mapIncident"></div>
   <button fab fab-right class="fab-map" (click)="centerMap()">
     <ion-icon name="pin"></ion-icon>
   </button>

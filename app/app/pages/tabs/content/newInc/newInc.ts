@@ -386,7 +386,7 @@ export class NewIncPage {
             this.nav.present(this.loadingComponent);          
             this.newIncService.nuevaIncidencia(this.user.token, this.newInc.tipoElementoID, this.newInc.tipoIncidenciaID, this.newInc.desAveria,
             this.newInc.lat, this.newInc.lng, this.newInc.calleID, this.newInc.nomCalle, this.newInc.numCalle, this.newInc.desUbicacion, this.newInc.edificioID, 
-            this.newInc.estadoAvisoID, this.newInc.tipoProcedenciaID, this.newInc.fotos)
+            this.newInc.estadoAvisoID, this.newInc.tipoProcedenciaID, this.newInc.fotos, this.newInc.desTipoElemento, this.newInc.desTipoIncidencia)
             .subscribe((inc) =>{
               this.loadingComponent.dismiss();
               if (inc[0].AvisoID != ""){

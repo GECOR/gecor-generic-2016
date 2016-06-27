@@ -2,9 +2,12 @@ ion-row[families]{
     margin-bottom: -15px;
 }
 
-ion-card[families] {
+button[families] {
     //margin: 5px;
-    min-height: 130px;
+    height: 150px;
+    padding-left: 3px;
+    padding-right: 3px;
+    //width: 100%;
 }
 
 ion-content[families] {

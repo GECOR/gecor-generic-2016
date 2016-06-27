@@ -16,11 +16,27 @@
 [no-pad-top] {
   padding-top: 0;
 }
+[no-pad-left] {
+  padding-left: 0;
+}
+[no-pad-right] {
+  padding-right: 0;
+}
+[no-pad-rl] {
+  padding-right: 0;
+  padding-left: 0;
+}
+[no-marg] {
+  margin: 0;
+}
 [no-marg-bottom] {
   margin-bottom: 0;
 }
 [padding-5] {
   padding: 5px;
+}
+[fs-9] {
+  font-size: 9px;
 }
 ion-list-header[light] {
   background-color: #f4f4f4;
@@ -121,4 +137,8 @@ img[size-24] {
     height: 74px;
     line-height: 1;
     display: inline-block;
+  }
+
+  .icon-size-m{
+    font-size: 2.2em;
   }

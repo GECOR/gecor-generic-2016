@@ -16,16 +16,17 @@
     </ion-avatar>
     <h2>{{incident.DesTipoElemento}}: {{incident.TipoInc}}</h2>
     <p>{{incident.FechaHoraRegistro}}</p>
+    <p>{{incident.DesEstadoAviso}}</p>
     <div item-right text-right>
-      <ion-icon name="more" (click)="showMore(incident)"></ion-icon>
-      <div [ngSwitch]=incident.state>
+      <ion-icon class="icon-size-m" name="apps" (click)="showMore(incident)"></ion-icon>
+      <!--<div [ngSwitch]=incident.state>
         <p secondary item-right *ngSwitchWhen="'Terminada'">
             {{incident.Estado}}
         </p>
         <p danger item-right *ngSwitchWhen="'Pendiente'">
             {{incident.Estado}}
         </p>
-      </div>
+      </div>-->
     </div>
   </ion-item>
   <img src={{incident.RutaFoto}}>

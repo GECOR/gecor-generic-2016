@@ -80,7 +80,7 @@
           <p>{{incident.CodAviso}}</p>
           <p distance>{{distance(incident)}}</p>
         </button>
-        <ion-item-options>
+        <ion-item-options *ngIf="user.Aplicacion == 'G'">
           <button (click)="openReview(incident, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>{{"incidents.reviewTxt" | translate}}</button>
         </ion-item-options>
       </ion-item-sliding>

@@ -10,10 +10,10 @@ export class NewIncService {
     
     nuevaIncidencia(token: string, tipoElementoID: number, tipoIncID: number, desAveria: string, 
     x: number, y: number, calleID: number, nomCalle: number, numCalle: number, desUbicacion: string,
-    edificioID: number, estadoAvisoID: number, tipoProcedenciaID: number, fotos: any[]): Observable<any> {
+    edificioID: number, estadoAvisoID: number, tipoProcedenciaID: number, fotos: any[], desTipoElemento: string, tipoInc: string): Observable<any> {
         
         let body = JSON.stringify({ token, tipoElementoID, tipoIncID, desAveria, x, y, calleID, nomCalle, numCalle,
-            desUbicacion, edificioID, estadoAvisoID, tipoProcedenciaID, fotos });
+            desUbicacion, edificioID, estadoAvisoID, tipoProcedenciaID, fotos, desTipoElemento, tipoInc });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         

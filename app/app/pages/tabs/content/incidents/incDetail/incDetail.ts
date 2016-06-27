@@ -175,28 +175,34 @@ export class IncDetailPage {
   }
 
   showMore(incident){
+
+    var buttons;
+    if (this.user.Aplicacion == "G"){
+      buttons = [
+        {text: this.translate.instant("incidents.incdetail.actionSheetReview"),
+          handler: () => {
+            this.openReview(incident);}},
+        {text: this.translate.instant("incidents.incdetail.actionSheetShare"),
+          handler: () => {}},
+        {text: this.translate.instant("app.btnCancel"),
+          role: 'cancel',
+          handler: () => {console.log("Cancel clicked");}
+        }
+      ];
+    }else{
+      buttons = [
+        {text: this.translate.instant("incidents.incdetail.actionSheetShare"),
+          handler: () => {}},
+        {text: this.translate.instant("app.btnCancel"),
+          role: 'cancel',
+          handler: () => {console.log("Cancel clicked");}
+        }
+      ];
+    }    
+
     let actionSheet = ActionSheet.create({
       title: '',
-      buttons: [
-        {
-          text: this.translate.instant("incidents.incdetail.actionSheetReview"),
-          handler: () => {
-            this.openReview(incident);
-          }
-        },
-        {
-          text: this.translate.instant("incidents.incdetail.actionSheetShare"),
-          handler: () => {
-          }
-        },
-        {
-          text: this.translate.instant("app.btnCancel"),
-          role: 'cancel',
-          handler: () => {
-            console.log("Cancel clicked");
-          }
-        }
-      ]
+      buttons: buttons
     });
     this.nav.present(actionSheet);
   }

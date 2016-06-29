@@ -274,6 +274,7 @@ export class NewIncPage {
         {
           text: this.translate.instant("app.galleryText"),
           handler: () => {
+          this.uploadingImages[id] = true;
            ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
                     /*
                     for (var i = 0; i < results.length; i++) {
@@ -295,7 +296,8 @@ export class NewIncPage {
         },
         {
           text: this.translate.instant("app.cameraText"),
-          handler: () => {            
+          handler: () => {
+            this.uploadingImages[id] = true;            
             Camera.getPicture({quality: 100, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
               //this.images[id] = this.base64string + imageURI;
               //this.uploadImage(this.base64string + imageURI, id);
@@ -349,6 +351,7 @@ export class NewIncPage {
           this._ngZone.run(() => {
             this.images[id] = result.rutaFoto;//results[0];
           });
+          this.uploadingImages[id] = false;
         }else{
           this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("newInc.presentConfirmErrorAlertMessage"), this.translate.instant("app.btnAccept"));
         }

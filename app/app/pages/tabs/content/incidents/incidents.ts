@@ -210,6 +210,10 @@ export class IncidentsPage {
     return result;
   }
 
+  styleIncident(incident){
+    return "'border-left-color': 'blue'";
+  }
+
   distance(incident) {
     if(!this.latLng){
       return "Calculating distance..."

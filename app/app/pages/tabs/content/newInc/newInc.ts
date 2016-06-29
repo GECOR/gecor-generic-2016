@@ -25,6 +25,7 @@ export class NewIncPage {
   isAndroid: any;
   activeMenu: any;
   images: any;
+  uploadingImages: any;
   familia: any;
   tiposElementos: any;
   tiposIncidencias: any;
@@ -87,6 +88,7 @@ export class NewIncPage {
     this.platform = platform;
     this.isAndroid = platform.is('android');
     this.images = ["", "", "", ""];
+    this.uploadingImages = [false, false, false, false];
     this.familia = params.data;
     
     this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
@@ -101,6 +103,7 @@ export class NewIncPage {
       });
       this.db.getValue('entity').then((entity) => {
           this.entity = JSON.parse(entity.toString());
+          this.newInc.tipoProcedenciaID = this.entity.ProcedenciaMovil;
       });
     }else{
       this.storage = new Storage(SqlStorage);    
@@ -113,6 +116,7 @@ export class NewIncPage {
       });
       this.storage.get('entity').then((entity) => {
           this.entity = JSON.parse(entity);
+          this.newInc.tipoProcedenciaID = this.entity.ProcedenciaMovil;
       });
     }
     

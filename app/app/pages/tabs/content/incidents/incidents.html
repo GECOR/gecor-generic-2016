@@ -69,7 +69,7 @@
   <div id="switch" [ngSwitch]="type">
 
     <ion-list no-lines *ngSwitchWhen="'list'">
-      <ion-item-sliding class="incident" *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText" [ngClass]="classIncident(incident)" #slidingItem>
+      <ion-item-sliding class="incident" *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText"  [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}" #slidingItem>
         <button class="incident-button" ion-item (click)="openDetail(incident)">
           <ion-thumbnail item-left class="thumb-inc">
             <img src="{{incident.RutaFoto != '' ? incident.RutaFoto : 'img/no_image_512.png'}}" incident-img>

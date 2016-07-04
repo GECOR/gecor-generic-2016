@@ -1,11 +1,13 @@
-<ion-navbar *navbar class="show-navbar android-attr">
-  <ion-title>
-    {{"news.title" | translate}}  
-    <div toolbar-subtitle>
-      {{user.AyuntamientoNombre}}
-    </div>
-  </ion-title>
-</ion-navbar>
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{"news.title" | translate}}  
+      <div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
 <ion-content class="news-content" >
 
   <div *ngFor='let new of news; let i = index'>

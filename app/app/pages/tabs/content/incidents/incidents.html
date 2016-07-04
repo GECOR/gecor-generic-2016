@@ -1,40 +1,42 @@
-<ion-navbar *navbar hideBackButton class="show-navbar android-attr">
+<ion-header>
+  <ion-navbar hideBackButton>
 
-  <div showWhen="android,windows">
-    <ion-title pull-left>
-      {{"incidents.title" | translate}}
-      <div toolbar-subtitle>
-        {{user.AyuntamientoNombre}}
-      </div>
-    </ion-title>
-    <ion-buttons end pull-right>
-        <button (click)="type='list'" [hidden]="type=='list'" outline><ion-icon name="list-box"></ion-icon></button>
-        <button (click)="type='list'" [hidden]="type!='list'" class="activated" outline><ion-icon name="list-box"></ion-icon></button>
-        <button (click)="showMap();type='map'" [hidden]="type=='map'" outline><ion-icon name="map"></ion-icon></button>
-        <button (click)="showMap();type='map'" [hidden]="type!='map'" class="activated" outline><ion-icon name="map"></ion-icon></button>
-        <button (click)="type='gallery'" [hidden]="type=='gallery'" outline><ion-icon name="images"></ion-icon></button>
-        <button (click)="type='gallery'" [hidden]="type!='gallery'" class="activated" outline><ion-icon name="images"></ion-icon></button>
-    </ion-buttons>
-  </div>
+    <div showWhen="android,windows">
+      <ion-title pull-left>
+        {{"incidents.title" | translate}}
+        <div toolbar-subtitle>
+          {{user.AyuntamientoNombre}}
+        </div>
+      </ion-title>
+      <ion-buttons end pull-right>
+          <button (click)="type='list'" [hidden]="type=='list'" outline><ion-icon name="list-box"></ion-icon></button>
+          <button (click)="type='list'" [hidden]="type!='list'" class="activated" outline><ion-icon name="list-box"></ion-icon></button>
+          <button (click)="showMap();type='map'" [hidden]="type=='map'" outline><ion-icon name="map"></ion-icon></button>
+          <button (click)="showMap();type='map'" [hidden]="type!='map'" class="activated" outline><ion-icon name="map"></ion-icon></button>
+          <button (click)="type='gallery'" [hidden]="type=='gallery'" outline><ion-icon name="images"></ion-icon></button>
+          <button (click)="type='gallery'" [hidden]="type!='gallery'" class="activated" outline><ion-icon name="images"></ion-icon></button>
+      </ion-buttons>
+    </div>
 
-  <div showWhen="ios">
-    <ion-title>
-      {{"incidents.title" | translate}}
-      <div toolbar-subtitle>
-        {{user.AyuntamientoNombre}}
-      </div>
-    </ion-title>
-    <ion-buttons end >
-        <button (click)="type='list'" [hidden]="type=='list'" ><ion-icon name="list-box"></ion-icon></button>
-        <button (click)="type='list'" [hidden]="type!='list'" class="activated" ><ion-icon name="list-box"></ion-icon></button>
-        <button (click)="showMap();type='map'" [hidden]="type=='map'" ><ion-icon name="map"></ion-icon></button>
-        <button (click)="showMap();type='map'" [hidden]="type!='map'" class="activated" ><ion-icon name="map"></ion-icon></button>
-        <button (click)="type='gallery'" [hidden]="type=='gallery'" ><ion-icon name="images"></ion-icon></button>
-        <button (click)="type='gallery'" [hidden]="type!='gallery'" class="activated"><ion-icon name="images"></ion-icon></button>
-    </ion-buttons>
-  </div>
+    <div showWhen="ios">
+      <ion-title>
+        {{"incidents.title" | translate}}
+        <div toolbar-subtitle>
+          {{user.AyuntamientoNombre}}
+        </div>
+      </ion-title>
+      <ion-buttons end >
+          <button (click)="type='list'" [hidden]="type=='list'" ><ion-icon name="list-box"></ion-icon></button>
+          <button (click)="type='list'" [hidden]="type!='list'" class="activated" ><ion-icon name="list-box"></ion-icon></button>
+          <button (click)="showMap();type='map'" [hidden]="type=='map'" ><ion-icon name="map"></ion-icon></button>
+          <button (click)="showMap();type='map'" [hidden]="type!='map'" class="activated" ><ion-icon name="map"></ion-icon></button>
+          <button (click)="type='gallery'" [hidden]="type=='gallery'" ><ion-icon name="images"></ion-icon></button>
+          <button (click)="type='gallery'" [hidden]="type!='gallery'" class="activated"><ion-icon name="images"></ion-icon></button>
+      </ion-buttons>
+    </div>
 
-</ion-navbar>
+  </ion-navbar>
+</ion-header>
 
 <!--
 <ion-toolbar [attr.primary]="isAndroid ? '' : null" [hidden]="type == 'map'" >

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.gecorsystem.gecorn" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Gecor Incidencias</name>
-    <description>Gestor de Incidencias en vias publicas.</description>
+    <description>Gestor de Incidencias en vías públicas.</description>
     <author email="	info@gecor.es" href="http://www.gecor.es">GECOR SYSTEM S.L.</author>
     <content src="index.html" />
     <access origin="*" />

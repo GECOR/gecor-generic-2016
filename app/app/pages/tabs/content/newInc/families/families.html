@@ -1,11 +1,13 @@
-<ion-navbar *navbar class="show-navbar android-attr">
-  <ion-title>
-   {{"newInc.families.title" | translate}}  
-    <div toolbar-subtitle>
-      {{user.AyuntamientoNombre}}
-    </div>
-  </ion-title>
-</ion-navbar>
+<ion-header>
+    <ion-navbar>
+    <ion-title>
+        {{"newInc.families.title" | translate}}  
+        <div toolbar-subtitle>
+            {{user.AyuntamientoNombre}}
+        </div>
+    </ion-title>
+    </ion-navbar>
+</ion-header>
 <ion-content families>
     <ion-row families *ngFor='let familia of familias; let i = index'>
         <ion-col no-pad-rl width-33 class="text-center" *ngIf="i%3 == 0 && i <= lenFamilias - 1">

@@ -55,7 +55,7 @@
   <ion-refresher *ngIf="type!='map'" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-<!-- -->
+  
   <ion-searchbar [hidden]="type=='map'"
     [(ngModel)]="searchText"
     (ionInput)="inputSearch($event)">

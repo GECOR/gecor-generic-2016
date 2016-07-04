@@ -10,13 +10,26 @@ import 'rxjs/Rx';
 export class LoginService {
     constructor (private http: Http) {}
     
-    loginUser(Email: string, Password: string, AyuntamientoID): Observable<any> {
+    loginUser(Email: string, Password: string, AyuntamientoID: number): Observable<any> {
         
         let body = JSON.stringify({ Email, Password, AyuntamientoID });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         
         return this.http.post(urlGecorApi + 'User/loginUser', body, options)
+                        .map(res => <any> res.json())
+                        //.do() // eyeball results in the console
+                        .catch(this.handleError)
+                    
+    }
+
+    loginUserFacebook(Email: string, AyuntamientoID: number, FacebookID: string, FacebookAccessToken: string): Observable<any> {
+        
+        let body = JSON.stringify({ Email, AyuntamientoID, FacebookID, FacebookAccessToken });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        
+        return this.http.post(urlGecorApi + 'User/loginUserFacebook', body, options)
                         .map(res => <any> res.json())
                         //.do() // eyeball results in the console
                         .catch(this.handleError)

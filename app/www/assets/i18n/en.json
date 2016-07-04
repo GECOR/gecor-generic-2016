@@ -83,7 +83,8 @@
 		 "title":"Home",
 		 "incidence": "New Incidence",
 		 "beaches": "Beaches",
-		 "renewalDNI": "Renewal DNI"	 
+		 "renewalDNI": "Renewal DNI",
+		 "myIncs": "My incedences"	 
 	  },	   
 	"incidents":{
 			"title": "Incidents",
@@ -128,7 +129,7 @@
 		  "presentConfirmAlertMessage": "There is some error reviewing this incident",
 		  
 		  "presentReviewAlertTitle": "Incident reviewed",
-		  "presentReviewAlertMessage": "",
+		  "presentReviewAlertMessage": "Incident reviewed succesfully",
 		  
 		  "checkFieldsAlertMessage": "Please write a solution"
 	  }
@@ -137,7 +138,7 @@
 		  "title": "New Incident",
 	   	  "element": "Element",
 		  "incident": "Incident",
-		  "location": "User location",
+		  "location": "Incidence location",
 		   "send": "Send",
 
 		  "elementAlertMessage": "Please choose a element",

@@ -72,8 +72,10 @@ export class IncidentsPage {
     if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.getValue('user').then((user) => {
           this.user = JSON.parse(user.toString());
-          this.nav.present(this.loadingComponent);
-          this.getMisIncidencias(this.user.CiudadanoID, this.user.token);
+          if (this.incidents.length == 0){
+            this.nav.present(this.loadingComponent);
+            this.getMisIncidencias(this.user.CiudadanoID, this.user.token, undefined);
+          }
       });
       this.db.getValue('entity').then((entity) => {
           this.entity = JSON.parse(entity.toString());
@@ -93,8 +95,10 @@ export class IncidentsPage {
       
       this.storage.get('user').then((user) => {
           this.user = JSON.parse(user);
-          this.nav.present(this.loadingComponent);
-          this.getMisIncidencias(this.user.CiudadanoID, this.user.token);
+          if (this.incidents.length == 0){
+            this.nav.present(this.loadingComponent);
+            this.getMisIncidencias(this.user.CiudadanoID, this.user.token, undefined);
+          }
       });
       this.storage.get('entity').then((entity) => {
           this.entity = JSON.parse(entity);
@@ -168,17 +172,24 @@ export class IncidentsPage {
     console.log(search.value);
   }
   
-  getMisIncidencias(ciudadanoID, token) {
+  getMisIncidencias(ciudadanoID, token, refresher) {
         this.incidentService.getMisIncidencias(ciudadanoID, token)
                             .subscribe(
                                 (result) =>{
                                   this.loadingComponent.dismiss();
-                                  this.incidents = result;                                                                   
+                                  this.incidents = result;
+                                  if (refresher != undefined) refresher.complete();                                                          
                                 },
                                 error =>{
                                   this.errorMessage = <any>error;
                                   this.loadingComponent.dismiss();
+                                  if (refresher != undefined) refresher.complete(); 
                                 });
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+    this.getMisIncidencias(this.user.CiudadanoID, this.user.token, refresher);
   }
   
   openReview(incident, slidingItem) {

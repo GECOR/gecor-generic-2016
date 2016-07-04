@@ -1,10 +1,11 @@
 import {Component, forwardRef} from '@angular/core';
-import {Platform, NavController, Storage, SqlStorage} from 'ionic-angular';
+import {Platform, NavController, Storage, SqlStorage, Events} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {DBProvider} from './../../../../providers/db';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../appConfig';
+import {InAppBrowser} from 'ionic-native';
 
 @Component({
   templateUrl: 'build/pages/tabs/content/home/home.html',
@@ -20,6 +21,7 @@ export class HomePage {
   constructor(private nav: NavController
   , private platform: Platform
   , private confData: ConferenceData
+  , private events: Events
   , private db: DBProvider) {
     
     if(platform.is('ios') && useSQLiteOniOS){
@@ -34,7 +36,15 @@ export class HomePage {
     }
   }
 
-  openNoticeDetail(notice){
-    //this.nav.push(NewsDetailPage, notice);
+  openNewInc(){
+    this.events.publish('tab:addInc');
+  }
+
+  openIncidents(){
+    this.events.publish('tab:inc');
+  }
+
+  openUrl(url){
+    InAppBrowser.open(url, "_system", "location=yes");
   }
 }

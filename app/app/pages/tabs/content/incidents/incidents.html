@@ -52,6 +52,9 @@
 -->
 
 <ion-content class="incidents-page">
+  <ion-refresher *ngIf="type!='map'" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 <!-- -->
   <ion-searchbar [hidden]="type=='map'"
     [(ngModel)]="searchText"
@@ -67,7 +70,6 @@
     
   
   <div id="switch" [ngSwitch]="type">
-
     <ion-list no-lines *ngSwitchWhen="'list'">
       <ion-item-sliding class="incident" *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText"  [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}" #slidingItem>
         <button class="incident-button" ion-item (click)="openDetail(incident)">

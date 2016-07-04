@@ -22,8 +22,8 @@ import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQL
 export class ReviewPage {
   showTypology: boolean;
   showMap: boolean;
-  
   images: any;
+  uploadingImages: any;
   estados:any;
   responsables: any;
   tiposElementos: any;
@@ -65,6 +65,7 @@ export class ReviewPage {
     this.showTypology = false;
     this.showMap = false;
     this.images = ["", "", "", ""];
+    this.uploadingImages = [false, false, false, false];
     this.reviewInc = params.data;
     this.reviewInc.fotos = [];
     
@@ -222,7 +223,8 @@ export class ReviewPage {
         {
           text: this.translate.instant("app.galleryText"),
           handler: () => {
-           ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
+          this.uploadingImages[id] = true;
+          ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
                     /*
                     for (var i = 0; i < results.length; i++) {
                         //console.log('Image URI: ' + results[i]);
@@ -243,7 +245,8 @@ export class ReviewPage {
         },
         {
           text: this.translate.instant("app.cameraText"),
-          handler: () => {            
+          handler: () => {     
+            this.uploadingImages[id] = true;       
             Camera.getPicture({quality: 100, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
               //this.images[id] = this.base64string + imageURI;
               //this.uploadImage(this.base64string + imageURI, id);
@@ -280,6 +283,7 @@ export class ReviewPage {
           this._ngZone.run(() => {
             this.images[id] = result.rutaFoto;//results[0];
           });
+          this.uploadingImages[id] = false;
         }else{
           this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("newInc.presentConfirmErrorAlertMessage"), this.translate.instant("app.btnAccept"));
         }
@@ -376,7 +380,7 @@ export class ReviewPage {
   checkFields(){
     var ok = true;
     
-    if (this.reviewInc.desSolucion == ""){
+    if (this.reviewInc.DesSolucion == ""){
       ok = false;
       this.showAlert(this.translate.instant("incidents.atentionAlertTitle"), this.translate.instant("incidents.review.checkFieldsAlertMessage"), this.translate.instant("app.btnAccept"));
       return ok;
@@ -419,6 +423,12 @@ export class ReviewPage {
       //console.log(data);
     //});     
     this.nav.present(galleryModal);  
+  }
+
+  sendButtonClass(){
+    if (this.uploadImage[0] || this.uploadImage[1] || this.uploadImage[2] || this.uploadImage[3]){
+      return "disabled";
+    }
   }
   
 }

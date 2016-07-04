@@ -83,7 +83,8 @@
 		 "title":"Inicio",
 		 "incidence": "Nueva Incidencia",
 		 "beaches": "Playas",
-		 "renewalDNI": "Renovación DNI"	 
+		 "renewalDNI": "Renovación DNI",
+		 "myIncs": "Mis avisos"
 	  },	   
 	"incidents":{
 			"title": "Incidentes",	 
@@ -128,7 +129,7 @@
 		  "presentConfirmAlertMessage": "Hay algun error revisando este aviso",
 		  
 		  "presentReviewAlertTitle": "Aviso revisado",
-		  "presentReviewAlertMessage": "",
+		  "presentReviewAlertMessage": "El aviso ha sido revisado con éxito",
 		  
 		  "checkFieldsAlertMessage": "Por favor, escriba una solución"
 	  }
@@ -137,7 +138,7 @@
 		  "title": "Nueva incidencia",
 		  "element": "Elemento",
 		  "incident": "Incidencia",
-		  "location": "Localización del usuario",
+		  "location": "Localización de la incidencia",
 		   "send": "Enviar",
 		  "elementAlertMessage": "Por favor seleccione un elemento",
 		  "incidentAlertMessage": "Por favor, elija una incidencia",

@@ -62,7 +62,7 @@ export class NewIncPage {
   geocoderService: any;
   startAddress: string;
   // google maps zoom level
-  zoom: number = 12;
+  zoom: number = 16;
   // initial center position for the map
   lat: any;
   lng: any;
@@ -275,7 +275,7 @@ export class NewIncPage {
           text: this.translate.instant("app.galleryText"),
           handler: () => {
           this.uploadingImages[id] = true;
-           ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
+          ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
                     /*
                     for (var i = 0; i < results.length; i++) {
                         //console.log('Image URI: ' + results[i]);
@@ -397,7 +397,7 @@ export class NewIncPage {
             .subscribe((inc) =>{
               this.loadingComponent.dismiss();
               if (inc[0].AvisoID != ""){
-                this.presentIncidentSuccess(inc[0].AvisoID);
+                this.presentIncidentSuccess(inc[0].AvisoID == undefined ? inc[0].AvisoCiudadanoID : inc[0].AvisoID);
               }else{
                 this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("newInc.presentConfirmErrorAlertMessage"), this.translate.instant("app.btnAccept"));
               }
@@ -522,6 +522,12 @@ export class NewIncPage {
       return "mapIncHidden";
     }else{
       return "mapInc";
+    }
+  }
+
+  sendButtonClass(){
+    if (this.uploadImage[0] || this.uploadImage[1] || this.uploadImage[2] || this.uploadImage[3]){
+      return "disabled";
     }
   }
   

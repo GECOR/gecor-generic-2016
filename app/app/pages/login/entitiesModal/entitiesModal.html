@@ -11,7 +11,7 @@
 </ion-toolbar>
 
 <ion-content light>
-  <ion-searchbar [hidden]="type=='map'"
+  <ion-searchbar
     [(ngModel)]="searchText"
     (ionInput)="inputSearch($event)">
   </ion-searchbar>

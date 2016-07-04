@@ -56,6 +56,13 @@ img[size-24] {
   width: 24px;
   height: 24px;
 }
+
+.disabled{
+  cursor: default;
+  opacity: .4;
+  pointer-events: none;
+}
+
 .ios [toolbar-subtitle] {
   font-size: 1.3rem;
   font-weight: 400;

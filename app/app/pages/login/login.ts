@@ -242,8 +242,45 @@ export class LoginPage {
     }
     
     loginFacebookUser() {
-        Facebook.login(["email"]).then((result) => {
+        Facebook.login(["email", "public_profile"]).then((result) => {
             console.log(result)
+
+            var FacebookID = result.authResponse.userID;
+            var AccessToken = result.authResponse.accessToken;
+            
+            Facebook.api('/me?fields=name,email', []).then((result) =>  {
+                console.log('Good to see you, ' + result.name + '.');
+
+                this.loginService.loginUserFacebook(result.email, this.aytoSuggested.AyuntamientoID, FacebookID, AccessToken)
+                            .subscribe(
+                                (user) =>{                                    
+                                    this.user = user;
+                                    this.user.AyuntamientoNombre = this.aytoSuggested.Nombre;                                 
+                                    
+                                    if (this.user.token != '' && this.user.token != null) {
+                                        this.configData();        
+
+                                        if(this.platform.is('ios') && useSQLiteOniOS){
+                                            this.db.setKey('user', JSON.stringify(this.user)).then((result) =>{
+                                                console.log(result);                                                                 
+                                                },
+                                                error =>{
+                                                console.log(error);
+                                            });
+                                        }else{
+                                            this.storage.set('user', JSON.stringify(this.user));
+                                        }
+                                    }else{
+                                        //this.loginLoading = false;
+                                        this.loadingComponent.dismiss();                               
+                                        this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.translate.instant("login.loginAlertMessage"), this.translate.instant("app.btnAccept"));
+                                    }
+                                },
+                                error => {
+                                    this.errorMessage = <any>error;
+                                    this.loadingComponent.dismiss();
+                                });
+            });
         })
     }
     

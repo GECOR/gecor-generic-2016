@@ -64,7 +64,8 @@
     "cordova-plugin-image-picker",
     "cordova-sqlite-storage",
     "cordova-plugin-globalization",
-    "cordova-plugin-crosswalk-webview"
+    "cordova-plugin-crosswalk-webview",
+    "cordova-plugin-inappbrowser"
   ],
   "cordovaPlatforms": [
     "ios",

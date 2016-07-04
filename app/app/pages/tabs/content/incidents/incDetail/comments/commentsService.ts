@@ -16,7 +16,6 @@ export class CommentsService {
         
         return this.http.post(urlGecorApi + 'Incident/newComentarioAviso', body, options)
                         .map(res => <any> res.json())
-                        .do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }
@@ -29,7 +28,6 @@ export class CommentsService {
         
         return this.http.post(urlGecorApi + 'Incident/getComentariosAviso', body, options)
                         .map(res => <any> res.json())
-                        .do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }

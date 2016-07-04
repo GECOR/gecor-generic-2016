@@ -17,7 +17,6 @@ export class IncidentService {
         
         return this.http.post(urlGecorApi + 'Incident/getMisIncidencias', body, options)
                         .map(res => <Aviso> res.json())
-                        .do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }

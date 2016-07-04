@@ -34,6 +34,7 @@ export class LoginPage {
     entitiesModal: any;
     location: any;
     language: string;
+    window: any;
     
     constructor(private nav: NavController
       , private menu: MenuController
@@ -52,6 +53,8 @@ export class LoginPage {
                 this.language = language;
             }            
         })*/
+
+        this.window = window;
 
         this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
 
@@ -286,7 +289,7 @@ export class LoginPage {
     
     loginGooglePlusUser(){
          //window['plugins'].googleplus.login(
-         window.plugins.googleplus.login(
+         this.window.plugins.googleplus.login(
             {},
              (obj)=> {
                 console.log(obj);

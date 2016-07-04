@@ -17,7 +17,6 @@ export class ChatService {
         
         return this.http.post(urlGecorApi + 'Incident/getChatAviso', body, options)
                         .map(res => <any> res.json())
-                        .do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }

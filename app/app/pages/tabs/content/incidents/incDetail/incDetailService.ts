@@ -16,7 +16,6 @@ export class IncDetailService {
         
         return this.http.post(urlGecorApi + 'Incident/addLike', body, options)
                         .map(res => <any> res.json())
-                        .do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }

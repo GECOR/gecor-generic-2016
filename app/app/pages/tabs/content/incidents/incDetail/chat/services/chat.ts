@@ -11,16 +11,18 @@ declare var io;
 @Injectable()
 export class ChatNodeService {
   socket: any;
-  me: User;
-  usersStream: Rx.Observable<User[]> = Rx.Observable<User[]>();
+  me: any;
+  usersStream: any = new Rx.Observable<User[]>();
   usersResponseStream: any;
-  messagesStream: Rx.Observable<Message[]> = Rx.Observable<Message[]>();
+  messagesStream: any = new Rx.Observable<Message[]>();
   messagesResponseStream: any;
-  messages: Rx.Subject<Message> = new Rx.Subject<Message>(null);
-  currentMessages: Rx.Subject<Message[]> = new Rx.Subject<Message[]>(null);
-  createMessage: Rx.Subject<Message> = new Rx.Subject<Message>();
-  friends: Rx.Subject<User[]> = new Rx.Subject<User[]>(null);
-  currentFriend: Rx.Subject<User> = new Rx.BehaviorSubject<User>(null);
+  messages: any = new Rx.Subject<Message>(null);
+  currentMessages: any = new Rx.Subject<Message[]>(null);
+  createMessage: any = new Rx.Subject<Message>();
+  friends: any = new Rx.Subject<User[]>(null);
+  currentFriend: any = new Rx.BehaviorSubject<User>(null);
+  n_message: any;
+  n_user: any;
 
   constructor(public e: Events) { }
 
@@ -66,18 +68,20 @@ export class ChatNodeService {
 
   public getCurrentMessages(user: User): Message[] {
     let msgs: Message[] = [];
+    this.n_user = user;
     return this.messages.map((message: Message) => {
-      if ((message.recipient.id === user.id &&
-          message.sender.id === this.me.id) ||
-          (message.recipient.id === this.me.id &&
-           message.sender.id === user.id)) {
+      this.n_message = message;
+      if ((this.n_message.recipient.id === this.n_user .id &&
+          this.n_message.sender.id === this.me.id) ||
+          (this.n_message.recipient.id === this.me.id &&
+           this.n_message.sender.id === this.n_user .id)) {
         msgs.push(new Message(message));
       }
       return msgs;
     });
   }
 
-  public sendMessage(msg: Message): Promise {
+  public sendMessage(msg: Message): Promise<any> {
     return new Promise((resolve, reject) => {
       this.socket.emit('sendMessage', msg, (resp) => {
         if (resp.status) {

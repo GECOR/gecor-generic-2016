@@ -35,6 +35,11 @@ export class LoginPage {
     location: any;
     language: string;
     window: any;
+
+    dispositivo: string = "";
+    aplicacion: string = "C";
+    idioma: string = "es";
+    modeloMovil: string = "";
     
     constructor(private nav: NavController
       , private menu: MenuController
@@ -245,16 +250,16 @@ export class LoginPage {
     }
     
     loginFacebookUser() {
+        
+        this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));
+        this.nav.present(this.loadingComponent);
         Facebook.login(["email", "public_profile"]).then((result) => {
-            console.log(result)
-
             var FacebookID = result.authResponse.userID;
             var AccessToken = result.authResponse.accessToken;
             
             Facebook.api('/me?fields=name,email', []).then((result) =>  {
-                console.log('Good to see you, ' + result.name + '.');
-
-                this.loginService.loginUserFacebook(result.email, this.aytoSuggested.AyuntamientoID, FacebookID, AccessToken)
+                this.loginService.loginUserExternal(result.email, this.aytoSuggested.AyuntamientoID, FacebookID, AccessToken, result.name, this.dispositivo
+                , this.aplicacion, this.idioma, this.modeloMovil, "", "")
                             .subscribe(
                                 (user) =>{                                    
                                     this.user = user;
@@ -283,20 +288,58 @@ export class LoginPage {
                                     this.errorMessage = <any>error;
                                     this.loadingComponent.dismiss();
                                 });
-            });
+            })
+            .catch((result) =>  {
+                console.log(result);
+                this.loadingComponent.dismiss();
+            }); 
         })
+        .catch((result) =>  {
+            console.log(result);
+            this.loadingComponent.dismiss();
+        });
     }
     
     loginGooglePlusUser(){
-         //window['plugins'].googleplus.login(
-         this.window.plugins.googleplus.login(
-            {},
-             (obj)=> {
-                console.log(obj);
-            },
-            (msg)=> {
-                console.error(msg);
-            }
+        this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));
+        this.nav.present(this.loadingComponent);
+        this.window.plugins.googleplus.login({},(result)=> {
+            console.log(result);
+            this.loginService.loginUserExternal(result.email, this.aytoSuggested.AyuntamientoID, "", "", result.displayName, this.dispositivo
+            , this.aplicacion, this.idioma, this.modeloMovil, result.userId, result.imageUrl)
+            .subscribe(
+                (user) =>{                                    
+                    this.user = user;
+                    this.user.AyuntamientoNombre = this.aytoSuggested.Nombre;                                 
+                    
+                    if (this.user.token != '' && this.user.token != null) {
+                        this.configData();        
+
+                        if(this.platform.is('ios') && useSQLiteOniOS){
+                            this.db.setKey('user', JSON.stringify(this.user)).then((result) =>{
+                                console.log(result);                                                                 
+                                },
+                                error =>{
+                                console.log(error);
+                            });
+                        }else{
+                            this.storage.set('user', JSON.stringify(this.user));
+                        }
+                    }else{
+                        //this.loginLoading = false;
+                        this.loadingComponent.dismiss();                               
+                        this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.translate.instant("login.loginAlertMessage"), this.translate.instant("app.btnAccept"));
+                    }
+                },
+                error => {
+                    this.errorMessage = <any>error;
+                    this.loadingComponent.dismiss();
+                });
+        },
+        (msg)=> {
+            console.error(msg);
+            this.loadingComponent.dismiss();
+        }
         );
     }
     

@@ -80,6 +80,6 @@
         <variable name="APP_NAME" value="Gecor" />
     </plugin>
     <plugin name="cordova-plugin-googleplus" spec="https://github.com/EddyVerbruggen/cordova-plugin-googleplus">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.1060313159714-kiq3uggkv91d4g1e993pdubdr1r193ag" />
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.461328316057-r76oiug2pm0qs3v39aj2lid268jrq7bs" />
     </plugin>
 </widget>

@@ -23,13 +23,15 @@ export class LoginService {
                     
     }
 
-    loginUserFacebook(Email: string, AyuntamientoID: number, FacebookID: string, FacebookAccessToken: string): Observable<any> {
+    loginUserExternal(Email: string, AyuntamientoID: number, FacebookID: string, FacebookAccessToken: string, Nombre: string, 
+    Dispositivo: string, Aplicacion: string, Idioma: string, ModeloMovil: string, GoogleID: string, UrlImage: string): Observable<any> {
         
-        let body = JSON.stringify({ Email, AyuntamientoID, FacebookID, FacebookAccessToken });
+        let body = JSON.stringify({ Email, AyuntamientoID, FacebookID, FacebookAccessToken, Nombre, Dispositivo, Aplicacion, 
+            Idioma, ModeloMovil, GoogleID, UrlImage });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         
-        return this.http.post(urlGecorApi + 'User/loginUserFacebook', body, options)
+        return this.http.post(urlGecorApi + 'User/loginUserExternal', body, options)
                         .map(res => <any> res.json())
                         //.do() // eyeball results in the console
                         .catch(this.handleError)

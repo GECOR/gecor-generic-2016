@@ -1,14 +1,16 @@
-<ion-toolbar>
-  <ion-title>
-    {{"login.entitiesmodal.title" | translate}}
-  </ion-title>
-  <ion-buttons start>
-    <button (click)="dismiss(aytoSuggested)">
-      <span primary showWhen="ios">{{"login.entitiesmodal.cancel" | translate}}</span>
-      <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-    </button>
-  </ion-buttons>
-</ion-toolbar>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{"login.entitiesmodal.title" | translate}}
+    </ion-title>
+    <ion-buttons start>
+      <button (click)="dismiss(aytoSuggested)">
+        <span primary showWhen="ios">{{"login.entitiesmodal.cancel" | translate}}</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content light>
   <ion-searchbar>

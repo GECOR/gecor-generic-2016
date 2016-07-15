@@ -108,5 +108,6 @@
     </ion-card-content>
   </ion-card>
 
-  <button full send-incident class="sendButtonClass()" (click)="reviewIncident()">{{"incidents.review.reviewIncident" | translate}}</button>
+  <button *ngIf="!uploadingImages[0] && !uploadingImages[1] && !uploadingImages[2] && !uploadingImages[3]" full send-review (click)="reviewIncident()">{{"incidents.review.reviewIncident" | translate}}</button>
+  <button *ngIf="uploadingImages[0] || uploadingImages[1] || uploadingImages[2] || uploadingImages[3]" disabled full send-review (click)="reviewIncident()">{{"incidents.review.reviewIncident" | translate}}</button>
 </ion-content>

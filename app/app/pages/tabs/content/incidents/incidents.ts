@@ -1,4 +1,4 @@
-import {NavController, NavParams, MenuController, Storage, SqlStorage, Alert, Loading} from 'ionic-angular';
+import {NavController, NavParams, MenuController, Storage, SqlStorage, Alert, Loading, Events} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
@@ -45,6 +45,8 @@ export class IncidentsPage {
   timeTravel: string;
   loadingComponent: any;
   entity: any;
+  incFromPush: any;
+  incFromPushPending: boolean = false;
   
   constructor(private platform: Platform
     , private menu: MenuController
@@ -55,7 +57,8 @@ export class IncidentsPage {
     , private geo: GeolocationProvider
     , private utils: UtilsProvider 
     , private translate : TranslateService
-    , private db: DBProvider) {
+    , private db: DBProvider
+    , private events: Events) {
       
     this.platform = platform;
     this.isAndroid = platform.is('android');
@@ -63,11 +66,31 @@ export class IncidentsPage {
     this.order = 'FechaHoraRegistro';
     this.searchText = '';
     this.map = null;
+
+    this.storage = new Storage(SqlStorage);
     
     this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
+
+    this.events.subscribe('newPush', () => {
+      if (this.incidents.length > 0){
+        this.openDetailFromPush();
+      }else{
+        this.incFromPushPending = true;
+      }
+    });
+    
+  }
+
+  showAlert(title, subTitle, okButton){
+    let alert = Alert.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: [okButton]
+    });
+    this.nav.present(alert);
   }
   
-  ionViewWillEnter() {
+  ionViewWillEnter() {   
 
     if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.getValue('user').then((user) => {
@@ -91,14 +114,22 @@ export class IncidentsPage {
           });
       });
     }else{
-      this.storage = new Storage(SqlStorage);
       
       this.storage.get('user').then((user) => {
           this.user = JSON.parse(user);
           if (this.incidents.length == 0){
             this.nav.present(this.loadingComponent);
             this.getMisIncidencias(this.user.CiudadanoID, this.user.token, undefined);
-          }
+          }/*else{
+            this.storage.get('incFromPush').then((resp) => {
+              if (resp != "" && resp != undefined){
+                resp = JSON.parse(resp);
+                var index = this.incidents.findIndex(item => item.AvisoID == resp.id);
+                if(index != undefined) this.incidents[index].TimeUpdated = resp.time;
+                this.storage.set('incFromPush', '');
+              }
+            });
+          }*/
       });
       this.storage.get('entity').then((entity) => {
           this.entity = JSON.parse(entity);
@@ -113,7 +144,7 @@ export class IncidentsPage {
             }      
           });
       });
-    }
+    } 
 
   }
 
@@ -168,6 +199,23 @@ export class IncidentsPage {
     this.nav.push(IncDetailPage, incident);
   }
 
+  openDetailFromPush(){
+    this.storage.get('incFromPush').then((resp) => {
+        if (resp != "" && resp != undefined){
+          resp = JSON.parse(resp);
+          var aux = this.incidents.filter(item => item.AvisoID == resp.id);
+          if (aux.length > 0){
+            this.incFromPush = aux[0];
+            this.openDetail(this.incFromPush)
+          }else{
+            this.showAlert(this.translate.instant("incidents.atentionAlertTitle"), this.translate.instant("incidents.incNotFound"), this.translate.instant("app.btnAccept"));
+          }
+          this.incFromPush = undefined;
+          this.storage.set('incFromPush', '');          
+        }
+      });
+  }
+
   inputSearch(search) {
     console.log(search.value);
   }
@@ -176,9 +224,10 @@ export class IncidentsPage {
         this.incidentService.getMisIncidencias(ciudadanoID, token)
                             .subscribe(
                                 (result) =>{
-                                  this.loadingComponent.dismiss();
                                   this.incidents = result;
-                                  if (refresher != undefined) refresher.complete();                                                          
+                                  this.loadingComponent.dismiss();                                  
+                                  if (refresher != undefined) refresher.complete(); 
+                                  if (this.incFromPushPending) this.openDetailFromPush(); 
                                 },
                                 error =>{
                                   this.errorMessage = <any>error;

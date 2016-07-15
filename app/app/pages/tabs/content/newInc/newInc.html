@@ -82,6 +82,7 @@
     </ion-card-content>
   </ion-card>
 
-  <button full send-incident class="sendButtonClass()" (click)="newIncident()">{{"newInc.send" | translate}} </button>
+  <button *ngIf="!uploadingImages[0] && !uploadingImages[1] && !uploadingImages[2] && !uploadingImages[3]" full send-incident (click)="newIncident()">{{"newInc.send" | translate}} </button>
+  <button *ngIf="uploadingImages[0] || uploadingImages[1] || uploadingImages[2] || uploadingImages[3]" disabled full send-incident (click)="newIncident()">{{"newInc.send" | translate}} </button>
 
 </ion-content>

@@ -82,4 +82,7 @@
     <plugin name="cordova-plugin-googleplus" spec="https://github.com/EddyVerbruggen/cordova-plugin-googleplus">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.461328316057-r76oiug2pm0qs3v39aj2lid268jrq7bs" />
     </plugin>
+    <plugin name="phonegap-plugin-push" spec="~1.7.0">
++       <variable name="SENDER_ID" value="1060313159714" />
++   </plugin>
 </widget>

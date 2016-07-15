@@ -31,20 +31,20 @@
             <ion-input type="password" placeholder='{{"login.placeholder.password" | translate}}' [(ngModel)]="password"></ion-input>
         </ion-item>
         </ion-list>
-        <button block (click)="loginUser()">{{"login.title" | translate}}</button>
+
+        <button *ngIf="aytoSuggested.AyuntamientoID" block (click)="loginUser()">{{"login.title" | translate}}</button>
+        <button *ngIf="!aytoSuggested.AyuntamientoID" disabled block (click)="loginUser()">{{"login.title" | translate}}</button>
         
-        <button light block (click)="openSignInPage()">{{"login.signIn" | translate}}</button>
+        <button *ngIf="aytoSuggested.AyuntamientoID" light block (click)="openSignInPage()">{{"login.signIn" | translate}}</button>
+        <button *ngIf="!aytoSuggested.AyuntamientoID" disabled light block (click)="openSignInPage()">{{"login.signIn" | translate}}</button>
+
         <button clear block (click)="forgottenPass()">{{"login.forgottenPass" | translate}}</button>
         <div block class="label-or">
         {{"login.orUse" | translate}}
         </div>
-        <button block (click)="loginFacebookUser()">
-        <ion-icon name="logo-facebook"></ion-icon>
-        Facebook
-        </button>
-        <button block danger (click)="loginGooglePlusUser()">
-        <ion-icon name="logo-googleplus"></ion-icon>
-        Google
-        </button>
+        <button *ngIf="aytoSuggested.AyuntamientoID" block (click)="loginFacebookUser()"><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
+        <button *ngIf="!aytoSuggested.AyuntamientoID" disabled block (click)="loginFacebookUser()"><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
+        <button *ngIf="aytoSuggested.AyuntamientoID" block danger (click)="loginGooglePlusUser()"><ion-icon name="logo-googleplus"></ion-icon>Google</button>
+        <button *ngIf="!aytoSuggested.AyuntamientoID" disabled block danger (click)="loginGooglePlusUser()"><ion-icon name="logo-googleplus"></ion-icon>Google</button>
     </div>
 </ion-content>

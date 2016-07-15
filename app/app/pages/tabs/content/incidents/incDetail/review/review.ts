@@ -233,12 +233,17 @@ export class ReviewPage {
                         });
                     }
                     */
-                    this.utils.resizeImage(results[0], 1024, 768).then((imgResized) => {
-                      this.uploadImage(imgResized, id);
-                    });
+                    if (results.length > 0){
+                      this.utils.resizeImage(results[0], 1024, 768).then((imgResized) => {
+                        this.uploadImage(imgResized, id);
+                      });
+                    }else{
+                      this.uploadingImages[id] = false;
+                    }
                     
                 }, (error) => {
                     console.log('Error: ' + error);
+                    this.uploadingImages[id] = false;
                 }
             );
           }
@@ -256,6 +261,7 @@ export class ReviewPage {
             }, (message) => {
               this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.cameraErrorAlertMessage"), this.translate.instant("app.btnAccept"));
               console.log('Failed because: ' + message);
+              this.uploadingImages[id] = false;
               console.log(message);
             });
           }
@@ -265,6 +271,7 @@ export class ReviewPage {
           role: 'cancel',
           handler: () => {
             console.log("Cancel clicked");
+            this.uploadingImages[id] = false;
           }
         }
       ]
@@ -423,12 +430,6 @@ export class ReviewPage {
       //console.log(data);
     //});     
     this.nav.present(galleryModal);  
-  }
-
-  sendButtonClass(){
-    if (this.uploadImage[0] || this.uploadImage[1] || this.uploadImage[2] || this.uploadImage[3]){
-      return "disabled";
-    }
   }
   
 }

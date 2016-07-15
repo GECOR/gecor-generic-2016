@@ -32,6 +32,32 @@ export class ArraySortPipe {
                     }
                 }); 
             }
+        /*}else if(args == "TimeUpdated"){
+            if (order == 'asc'){
+                array.sort((a: any, b: any) => {
+                    if (a[args] == undefined && b[args] == undefined){
+                        return a["FechaHoraRegistro"].toString().localeCompare(b["FechaHoraRegistro"].toString());
+                    }else if(a[args] == undefined){
+                        return a["FechaHoraRegistro"].toString().localeCompare(b[args].toString());
+                    }else if(b[args] == undefined){
+                        return a[args].toString().localeCompare(b["FechaHoraRegistro"].toString());
+                    }else{
+                        return a[args].toString().localeCompare(b[args].toString());
+                    }
+                }); 
+            }else if(order == 'desc'){
+                array.sort((a: any, b: any) => {
+                    if (a[args] == undefined && b[args] == undefined){
+                        return b["FechaHoraRegistro"].toString().localeCompare(a["FechaHoraRegistro"].toString());
+                    }else if(a[args] == undefined){
+                        return b["FechaHoraRegistro"].toString().localeCompare(a[args].toString());
+                    }else if(b[args] == undefined){
+                        return b[args].toString().localeCompare(a["FechaHoraRegistro"].toString());
+                    }else{
+                        return b[args].toString().localeCompare(a[args].toString());
+                    }
+                }); 
+            }*/
         } else {
             if (order == 'asc'){
                 array.sort((a: any, b: any) => {

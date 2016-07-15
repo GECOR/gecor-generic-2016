@@ -1,7 +1,7 @@
 import {Component, ViewChild, Type, provide} from '@angular/core';
 import {Http} from '@angular/http';
-import {ionicBootstrap, Platform, Storage, SqlStorage} from 'ionic-angular';
-import {Splashscreen, Globalization} from 'ionic-native';//, Push
+import {ionicBootstrap, Platform, Storage, SqlStorage, Events} from 'ionic-angular';
+import {Splashscreen, Globalization, Push} from 'ionic-native';
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {ConferenceData} from './providers/conference-data';
 import {GeolocationProvider} from './providers/geolocation';
@@ -22,12 +22,14 @@ export class MyApp {
   storage: any;
   user: any;
   rootPage: Type;// = SlidePage;
+  push: any;
 
   constructor(private platform: Platform
   , private confData: ConferenceData
   , private geo: GeolocationProvider
   , private translate: TranslateService
-  , private db: DBProvider) {  
+  , private db: DBProvider
+  , private events: Events) {  
 
     platform.ready().then(() => {
       if(platform.is('ios') && useSQLiteOniOS){
@@ -35,16 +37,26 @@ export class MyApp {
       }else{
         this.initializeApp();
       }
+
+      document.addEventListener('resume', () => {
+        this.push.setApplicationIconBadgeNumber(function() {
+            console.log('success');
+        }, function() {
+            console.log('error');
+        }, 0);
+      });
     }); 
 
   }
+
+  
 
   initializeApp(){
     // load the conference data
     this.confData.load();    
     this.storage = new Storage(SqlStorage);
 
-    //this.initializePush();
+    this.initializePush();
 
     this.storage.get('user').then((user) =>{
     if(user != "" && user != undefined){        
@@ -82,7 +94,7 @@ export class MyApp {
     this.confData.load();    
     this.rootPage = SlidePage;
 
-    //this.initializePush();
+    this.initializePush();
 
     Globalization.getPreferredLanguage().then((obj) =>{//get device language
       console.log(obj.value);
@@ -96,9 +108,9 @@ export class MyApp {
 
   }
 
-  /*initializePush(){
+  initializePush(){
      this.platform.ready().then(() => {
-        var push = Push.init({
+        this.push = Push.init({
             android: {
               senderID: "1060313159714"
             },
@@ -109,19 +121,34 @@ export class MyApp {
             },
             windows: {}
           });
-          push.on('registration', (data) => {
+          this.push.on('registration', (data) => {
             console.log(data.registrationId);
-            alert(data.registrationId.toString());
           });
-          push.on('notification', (data) => {
-            console.log(data);
-            alert("Hi, Am a push notification");
+          this.push.on('notification', (data) => {
+            console.log(data);       
+
+            this.push.setApplicationIconBadgeNumber(function() {
+              console.log('success');
+            }, function() {
+              console.log('error');
+            }, data.count);
+
+            
+
+            if (!data.additionalData.foreground){
+              this.events.publish('tab:inc');
+              this.storage.set('incFromPush',  JSON.stringify({"id": data.additionalData.id, "time": data.additionalData.time}))
+              setTimeout(() =>
+                this.events.publish('newPush')
+              , 100);
+              
+            }
           });
-          push.on('error', (e) => {
+          this.push.on('error', (e) => {
             console.log(e.message);
           });
      });
-  }*/
+  }
 
   initializeTranslateServiceConfig(lang) {
     //var userLang = compareLanguage.test(lang) ? lang : defaultLanguage;     

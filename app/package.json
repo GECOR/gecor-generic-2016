@@ -60,6 +60,13 @@
       "locator": "https://github.com/uiktiomasfeliz/cordova-plugin-camera.git",
       "id": "cordova-plugin-camera"
     },
+    {
+      "variables": {
+        "SENDER_ID": "1060313159714"
+      },
+      "locator": "phonegap-plugin-push",
+      "id": "phonegap-plugin-push"
+    },
     "cordova-plugin-geolocation",
     "cordova-plugin-image-picker",
     "cordova-sqlite-storage",

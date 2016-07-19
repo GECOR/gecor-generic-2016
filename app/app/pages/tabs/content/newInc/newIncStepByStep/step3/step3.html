@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{"newInc.newIncStepByStep.step3.title" | translate}} 
+      <div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <div class="topInfoSection1">{{inc.familia.Nombre}}</div>
+    <div class="topInfoSection2">{{inc.tipoElemento.DesTipoElemento}}</div>
+    <div class="topInfoSection3">{{inc.tipoIncidencia.TipoInc}}</div>
+
+    <div padding-10 class="containerButtons">
+        <button block class="buttonCamera" (click)="openCamera(getIdPhoto())">{{"newInc.newIncStepByStep.step3.cameraButton" | translate}}</button>
+        <button block light (click)="openImgPicker(getIdPhoto())">{{"newInc.newIncStepByStep.step3.galleryButton" | translate}}</button>
+    </div>
+
+    <ion-card>
+        <ion-card-content>
+            <ion-row>
+                <ion-col width-25 class="text-center">
+                <ion-spinner item-left *ngIf="uploadingImages[0]"></ion-spinner>
+                <button (click)="takePhoto(0)" [hidden]="images[0] != '' || uploadingImages[0]" outline><ion-icon name="image"></ion-icon></button>
+                <img [src]="images[0]" [hidden]="images[0] == '' || uploadingImages[0]" (click) = "openGallery()"/>
+                </ion-col>
+                <ion-col width-25 class="text-center">
+                <ion-spinner item-left *ngIf="uploadingImages[1]"></ion-spinner>
+                <button (click)="takePhoto(1)" [hidden]="images[1] != '' || uploadingImages[1]" outline><ion-icon name="image"></ion-icon></button>
+                <img [src]="images[1]" [hidden]="images[1] == '' || uploadingImages[1]" (click) = "openGallery()" />
+                </ion-col>
+                <ion-col width-25 class="text-center">
+                <ion-spinner item-left *ngIf="uploadingImages[2]"></ion-spinner>
+                <button (click)="takePhoto(2)" [hidden]="images[2] != '' || uploadingImages[2]" outline><ion-icon name="image"></ion-icon></button>
+                <img [src]="images[2]" [hidden]="images[2] == '' || uploadingImages[2]" (click) = "openGallery()" />
+                </ion-col>
+                <ion-col width-25 class="text-center">
+                <ion-spinner item-left *ngIf="uploadingImages[3]"></ion-spinner>
+                <button (click)="takePhoto(3)" [hidden]="images[3] != '' || uploadingImages[3]" outline><ion-icon name="image"></ion-icon></button>
+                <img [src]="images[3]" [hidden]="images[3] == '' || uploadingImages[3]" (click) = "openGallery()" />
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+
+    <div padding-10 class="containerButtons">
+        <button *ngIf="!uploadingImages[0] && !uploadingImages[1] && !uploadingImages[2] && !uploadingImages[3]" block send-incident (click)="openStep4()">{{"app.next" | translate}} </button>
+        <button *ngIf="uploadingImages[0] || uploadingImages[1] || uploadingImages[2] || uploadingImages[3]" disabled block send-incident (click)="openStep4()">{{"app.next" | translate}} </button>
+    </div>
+    
+</ion-content>

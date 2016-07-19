@@ -135,38 +135,54 @@
 	  }
 	  },
 	  "newInc":{
-		  "title": "New Incident",
-	   	  "element": "Element",
-		  "incident": "Incident",
-		  "location": "Incidence location",
-		   "send": "Send",
+			"title": "New Incident",
+			"element": "Element",
+			"incident": "Incident",
+			"location": "Incidence location",
+			"send": "Send",
 
-		  "elementAlertMessage": "Please choose a element",
-		  "incidentAlertMessage": "Please choose a incident",
-		  "descriptionAlertMessage": "Please write some description",		  
-		  
-		  "presentConfirmAlertTitle": "Confirm incident",
-		  "presentConfirmAlertMessage": "",
-		  "presentConfirmErrorAlertMessage": "There is some error sending this incident",
+			"elementAlertMessage": "Please choose a element",
+			"incidentAlertMessage": "Please choose a incident",
+			"descriptionAlertMessage": "Please write some description",		  
+			
+			"presentConfirmAlertTitle": "Confirm incident",
+			"presentConfirmAlertMessage": "",
+			"presentConfirmErrorAlertMessage": "There is some error sending this incident",
 
-		  "presentIncidentSuccessAlertTitle": "Incident sent",
+			"presentIncidentSuccessAlertTitle": "Incident sent",
 
-		  "presentConfirmChangeLocAlertTitle": "Change location?",
-		  "presentConfirmChangeLocAlertMessage": "Accept if you want to change the incidence location",
+			"presentConfirmChangeLocAlertTitle": "Change location?",
+			"presentConfirmChangeLocAlertMessage": "Accept if you want to change the incidence location",
 
-		  "families":{
+			"families":{
 				"title":"Families"	   			  
-		  },
-		  "survey":{
-			  	"title":"Survey",
+			},
+			"survey":{
+				"title":"Survey",
 				"opinion": "What you think of the app?",
 				"cleaning": "Rate the cleanliness of your city",
 				"security": "Rate the security of your city",
 				"politics": "Rate the politics of your city",
 				"cancel": "Cancel",
 				"send": "Send"
-				  }
-		  },
+			},
+			"newIncStepByStep":{
+				"step1": {
+					"title": "Elements",
+					"subtitle": "Please choose a element"
+				},
+				"step2": {
+					"title": "Incidents",
+					"subtitle": "Please choose a incident"
+				},
+				"step3": {
+					"title": "Images",
+					"subtitle": "Taking images",
+					"cameraButton": "Take photo from camera",
+					"galleryButton": "Choose photo from gallery"
+				}
+			}
+		},
 		 "news":{
 			 "title":"News",
 			 "newsdetail":{

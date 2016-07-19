@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{"newInc.newIncStepByStep.step2.title" | translate}} 
+      <div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <div class="topInfoSection1">{{inc.familia.Nombre}}</div>
+    <div class="topInfoSection2">{{inc.tipoElemento.DesTipoElemento}}</div>
+    <ion-searchbar
+    [(ngModel)]="searchText"
+    (ionInput)="inputSearch($event)">
+    </ion-searchbar>
+
+    <ion-list>
+        <ion-list-header light>{{"newInc.newIncStepByStep.step2.subtitle" | translate}}</ion-list-header>
+        <ion-item *ngFor="let tipoIncidencia of tiposIncidencias | search: searchText" (click)="openChooseImg(tipoIncidencia)">
+        {{tipoIncidencia.TipoInc}}
+        </ion-item>
+    </ion-list>
+</ion-content>

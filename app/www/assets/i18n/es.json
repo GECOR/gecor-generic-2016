@@ -135,37 +135,53 @@
 	  }
 	  },
 	  "newInc":{
-		  "title": "Nueva incidencia",
-		  "element": "Elemento",
-		  "incident": "Incidencia",
-		  "location": "Localización de la incidencia",
-		   "send": "Enviar",
-		  "elementAlertMessage": "Por favor seleccione un elemento",
-		  "incidentAlertMessage": "Por favor, elija una incidencia",
-		  "descriptionAlertMessage": "Por favor, escribir alguna descripción",
+			"title": "Nueva incidencia",
+			"element": "Elemento",
+			"incident": "Incidencia",
+			"location": "Localización de la incidencia",
+			"send": "Enviar",
+			"elementAlertMessage": "Por favor seleccione un elemento",
+			"incidentAlertMessage": "Por favor, elija una incidencia",
+			"descriptionAlertMessage": "Por favor, escribir alguna descripción",
 
-		  "presentConfirmAlertTitle": "Confirmar incidencia",
-		  "presentConfirmAlertMessage": "",
-		  "presentConfirmErrorAlertMessage": "Hubo un error al enviar esta incidencia",
+			"presentConfirmAlertTitle": "Confirmar incidencia",
+			"presentConfirmAlertMessage": "",
+			"presentConfirmErrorAlertMessage": "Hubo un error al enviar esta incidencia",
 
-		  "presentIncidentSuccessAlertTitle": "Incidencia enviada",
+			"presentIncidentSuccessAlertTitle": "Incidencia enviada",
 
-		  "presentConfirmChangeLocAlertTitle": "¿Cambiar ubicación?",
-		  "presentConfirmChangeLocAlertMessage": "Haga click en aceptar si desea cambiar la ubicación de la incidecnia",
+			"presentConfirmChangeLocAlertTitle": "¿Cambiar ubicación?",
+			"presentConfirmChangeLocAlertMessage": "Haga click en aceptar si desea cambiar la ubicación de la incidecnia",
 
-		  "families":{
+			"families":{
 				"title":"Familias"
-		  },
-		  "survey":{
-			  	"title":"Encuesta",
+			},
+			"survey":{
+				"title":"Encuesta",
 				"opinion": "¿Qué le parece la app?",
 				"cleaning": "Puntue la limpieza de su ciudad",
 				"security": "Puntue la seguridad de su ciudad",
 				"politics": "Puntue la politica de su ciudad",
 				"cancel": "Cancelar",
 				"send": "Enviar"
-				  }
-		  },
+			},
+			"newIncStepByStep":{
+				"step1": {
+					"title": "Elementos",
+					"subtitle": "Por favor elija un tipo de elemento"
+				},
+				"step2": {
+					"title": "Incidencias",
+					"subtitle": "Por favor elija un tipo de incidencia"
+				},
+				"step3": {
+					"title": "Imágenes",
+					"subtitle": "Eligiendo imágenes",
+					"cameraButton": "Hace foto con la cámara",
+					"galleryButton": "Elegir foto desde la galería"
+				}
+			}
+		},
 		 "news":{
 			 "title":"Noticias",
 			 "newsdetail":{

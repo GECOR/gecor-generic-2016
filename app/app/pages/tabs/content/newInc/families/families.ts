@@ -7,6 +7,7 @@ import {DBProvider} from './../../../../../providers/db';
 import {NewIncPage} from './../newInc';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS, newIncStepByStep} from './../../../../../appConfig';
+import {Step1Page} from './../newIncStepByStep/step1/step1'
 
 @Component({
   templateUrl: './build/pages/tabs/content/newInc/families/families.html',
@@ -57,7 +58,11 @@ export class FamiliesPage {
   }
   
   openNewInc(familia){
-    this.nav.push(NewIncPage, familia);
+    //this.nav.push(NewIncPage, familia);
+    var inc = {
+      "familia": familia
+    };
+    this.nav.push(Step1Page, inc);
   }
   
   checkFamily(i){

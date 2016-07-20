@@ -31,6 +31,7 @@ export class Step4Page {
   base64string = "data:image/jpeg;base64,";
   entity: any;
   loadingComponent: any;
+  sendingInc: boolean = false;
 
   //MAP
   hideMap: boolean = true;
@@ -60,46 +61,52 @@ export class Step4Page {
     , private events: Events
     , private db: DBProvider) {
 
-        this.inc = params.data;
-        this.inc.desAveria = "";
-        this.inc.fotos = [];
-        this.inc.edificioID = -1;
-        this.inc.estadoAvisoID = -1;
-        this.inc.tipoProcedenciaID = 2;
-        this.inc.lat = 0.0;
-        this.inc.lng = 0.0;
-        this.inc.calleID = -1;
-        this.inc.numCalle = 0;
-        this.inc.nomCalle = "";
+      platform.registerBackButtonAction((event) => {
+        if (this.sendingInc){
+          event.preventDefault();
+        }
+      }, 100);
 
-        this.storage = new Storage(SqlStorage);
+      this.inc = params.data;
+      this.inc.desAveria = "";
+      this.inc.fotos = [];
+      this.inc.edificioID = -1;
+      this.inc.estadoAvisoID = -1;
+      this.inc.tipoProcedenciaID = 2;
+      this.inc.lat = 0.0;
+      this.inc.lng = 0.0;
+      this.inc.calleID = -1;
+      this.inc.numCalle = 0;
+      this.inc.nomCalle = "";
 
-        this.storage.get('user').then((user) => {
-            this.user = JSON.parse(user);
-        });
+      this.storage = new Storage(SqlStorage);
 
-        this.storage.get('entity').then((entity) => {
-            this.entity = JSON.parse(entity);
-            this.inc.tipoProcedenciaID = this.entity.ProcedenciaMovil;
-        });
+      this.storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+      });
 
-        this.geo.getLocation().then(location =>{
-          this.location = location;
-          if (this.location.error){
-            this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
-            this.inc.lat = this.entity.latitude;
-            this.inc.lng = this.entity.longitude;
-            this.inc.desUbicacion = this.translate.instant("incidents.incdetail.addresOf") + this.entity.Nombre;
-          }else{        
-            this.latLng = this.location.latLng;
-            this.inc.lat = this.latLng.lat();
-            this.inc.lng = this.latLng.lng();
-            this.inc.desUbicacion = this.location.startAddress;
-          }      
-          //setTimeout(() =>
-              //this.initMap()
-            //, 100);      
-        });  
+      this.storage.get('entity').then((entity) => {
+          this.entity = JSON.parse(entity);
+          this.inc.tipoProcedenciaID = this.entity.ProcedenciaMovil;
+      });
+
+      this.geo.getLocation().then(location =>{
+        this.location = location;
+        if (this.location.error){
+          this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+          this.inc.lat = this.entity.latitude;
+          this.inc.lng = this.entity.longitude;
+          this.inc.desUbicacion = this.translate.instant("incidents.incdetail.addresOf") + this.entity.Nombre;
+        }else{        
+          this.latLng = this.location.latLng;
+          this.inc.lat = this.latLng.lat();
+          this.inc.lng = this.latLng.lng();
+          this.inc.desUbicacion = this.location.startAddress;
+        }      
+        //setTimeout(() =>
+            //this.initMap()
+          //, 100);      
+      });  
     
   }
 
@@ -265,11 +272,13 @@ export class Step4Page {
               });
             }
             this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));
-            this.nav.present(this.loadingComponent);          
+            this.nav.present(this.loadingComponent);
+            this.sendingInc = true;        
             this.newIncService.nuevaIncidencia(this.user.token, this.inc.tipoElemento.TipoElementoID, this.inc.tipoIncidencia.TipoIncID, this.inc.desAveria,
             this.inc.lat, this.inc.lng, this.inc.calleID, this.inc.nomCalle, this.inc.numCalle, this.inc.desUbicacion, this.inc.edificioID, 
             this.inc.estadoAvisoID, this.inc.tipoProcedenciaID, this.inc.fotos, this.inc.tipoElemento.DesTipoElemento, this.inc.tipoIncidencia.TipoInc)
             .subscribe((inc) =>{
+              this.sendingInc = false;
               this.loadingComponent.dismiss();
               if (inc[0].AvisoID != ""){
                 this.presentIncidentSuccess(inc[0].AvisoID == undefined ? inc[0].AvisoCiudadanoID : inc[0].AvisoID);
@@ -278,6 +287,7 @@ export class Step4Page {
               }
             },
             error =>{
+              this.sendingInc = false;
               this.loadingComponent.dismiss();
               this.errorMessage = <any>error;
             });
@@ -298,9 +308,9 @@ export class Step4Page {
           role: 'cancel',
           handler: () => {
             this.nav.push(TabsPage);
-            setTimeout(() =>
+            /*setTimeout(() =>
               this.events.publish('tab:inc') 
-            , 100);     
+            , 100);*/     
                        
           }
         }

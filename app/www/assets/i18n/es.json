@@ -10,7 +10,8 @@
 		"genericErrorAlertMessage": "Hay algun error",
 		"cameraErrorAlertMessage": "Fallo debido a la cámara!",
 		"galleryText": "Galería",
-		"cameraText": "Cámara"
+		"cameraText": "Cámara",
+		"next": "Siguiente"
 	},	
 	"calendar":{
 			"title": "Calendario",

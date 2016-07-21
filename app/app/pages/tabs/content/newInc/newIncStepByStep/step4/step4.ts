@@ -15,6 +15,7 @@ import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {UtilsProvider} from './../../../../../../providers/utils';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../../appConfig';
 import {TabsPage} from './../../../../../tabs/tabs';
+import {FamiliesPage} from './../../families/families';
 
 @Component({
   templateUrl: './build/pages/tabs/content/newInc/newIncStepByStep/step4/step4.html',
@@ -307,10 +308,10 @@ export class Step4Page {
           text: this.translate.instant("app.continueBtn"),
           role: 'cancel',
           handler: () => {
-            this.nav.push(TabsPage);
-            /*setTimeout(() =>
+            this.nav.push(FamiliesPage);
+            setTimeout(() =>
               this.events.publish('tab:inc') 
-            , 100);*/     
+            , 100);    
                        
           }
         }

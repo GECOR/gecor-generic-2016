@@ -308,10 +308,17 @@ export class Step4Page {
           text: this.translate.instant("app.continueBtn"),
           role: 'cancel',
           handler: () => {
-            this.nav.push(FamiliesPage);
-            setTimeout(() =>
-              this.events.publish('tab:inc') 
-            , 100);    
+            if(this.platform.is('ios')){
+              this.nav.push(FamiliesPage);
+              setTimeout(() =>
+                this.events.publish('tab:inc') 
+              , 100); 
+            }else{
+              this.nav.push(TabsPage);
+              setTimeout(() =>
+                this.events.publish('tab:home') 
+              , 100); 
+            }   
                        
           }
         }

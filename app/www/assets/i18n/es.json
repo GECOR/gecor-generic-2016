@@ -55,7 +55,9 @@
 			"suggested": "Sugerido",
 			"other": "Otras entidades",
 			"cancel": "Cancelar"
-		}
+		},
+		"resetPassTitle": "Perfecto!",
+		"resetPassSubtitle": "Te hemos enviado un email para cambiar la contraseña"
 	},	
 	"signin":{
 		"title": "Registrarse",

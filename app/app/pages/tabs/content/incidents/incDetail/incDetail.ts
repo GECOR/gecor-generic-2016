@@ -38,6 +38,8 @@ export class IncDetailPage {
   user: any = {};
   entity: any;
   blockMap: boolean = true;
+  likes = [];
+  likesFiltered = [];
 
   constructor(private platform: Platform
     , private menu: MenuController
@@ -89,6 +91,13 @@ export class IncDetailPage {
           this.loadMap()
         , 100);
       });
+
+      this.storage.get('likes').then((result) => {        
+        if (result != undefined && JSON.parse(result).constructor === Array){
+          this.likes = JSON.parse(result);
+          this.likesFiltered = this.likes.filter(item => item == this.incident.AvisoID);
+        }
+    });
   }
 
   //MAP  
@@ -209,57 +218,24 @@ export class IncDetailPage {
   }
   
   addLike(){
-    let likes = [];
-    let likesFiltered = [];
-    if(this.platform.is('ios') && useSQLiteOniOS){
-        this.db.getValue('likes').then((result) => {
-        if (result != undefined && JSON.parse(result.toString()).constructor === Array){
-          likes = JSON.parse(result.toString());
-          likesFiltered = likes.filter(item => item == this.incident.AvisoID);
-        }
-        if (likesFiltered.length == 0){
-          this.incDetailService.addLike(this.user.token, this.incident.AvisoID)
-            .subscribe((result) =>{
-              if (result[0].RowsAffected > 0){
-                likes.push(this.incident.AvisoID);
-                this.db.setKey('likes', JSON.stringify(likes)).then((result) =>{
-                    console.log(result);                                                                 
-                    },
-                    error =>{
-                    console.log(error);
-                });
-                this.incident.Likes ++;
-              }else{
-                this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.genericErrorAlertMessage"), this.translate.instant("app.btnAccept"));
-              }
-            },
-            error =>{
-              this.errorMessage = <any>error;
-            });    
-        }
-    });
-    }else{
-      this.storage.get('likes').then((result) => {        
-          if (result != undefined && JSON.parse(result).constructor === Array){
-            likes = JSON.parse(result);
-            likesFiltered = likes.filter(item => item == this.incident.AvisoID);
+    //let likes = [];
+    //let likesFiltered = [];
+    if (this.likesFiltered.length == 0){
+      this.likesFiltered.push(this.incident.AvisoID);
+      this.incDetailService.addLike(this.user.token, this.incident.AvisoID)
+        .subscribe((result) =>{
+          if (result[0].RowsAffected > 0){
+            this.likes.push(this.incident.AvisoID);
+            this.storage.set('likes', JSON.stringify(this.likes));                  
+            this.incident.Likes ++;
+          }else{
+            this.likesFiltered = [];
+            this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.genericErrorAlertMessage"), this.translate.instant("app.btnAccept"));
           }
-          if (likesFiltered.length == 0){
-            this.incDetailService.addLike(this.user.token, this.incident.AvisoID)
-              .subscribe((result) =>{
-                if (result[0].RowsAffected > 0){
-                  likes.push(this.incident.AvisoID);
-                  this.storage.set('likes', JSON.stringify(likes));                  
-                  this.incident.Likes ++;
-                }else{
-                  this.showAlert("Error", "There is some errort", "OK");
-                }
-              },
-              error =>{
-                this.errorMessage = <any>error;
-              });    
-          }
-      });
+        },
+        error =>{
+          this.errorMessage = <any>error;
+        });    
     }
   }
   

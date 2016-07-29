@@ -61,8 +61,6 @@ export class LoginPage {
 
         this.window = window;
 
-        this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
-
         if(platform.is('ios') && useSQLiteOniOS){
             this.initDB();
             db.getValue('language').then((language) => {
@@ -219,7 +217,8 @@ export class LoginPage {
     }
     
     loginUser() {
-        if (this.validateLogin()){          
+        if (this.validateLogin()){    
+            this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));      
             this.nav.present(this.loadingComponent);
             //this.loginLoading = true;
             this.loginService.loginUser(this.email.trim(), this.password.trim(), this.aytoSuggested.AyuntamientoID)

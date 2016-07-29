@@ -55,7 +55,9 @@
 			"suggested": "Suggested",
 			"other": "Other entities",
 			"cancel": "Cancelar"
-		}
+		},
+		"resetPassTitle": "Perfect!",
+		"resetPassSubtitle": "We have sent you an email to reset password"
 	},	
 	"signin":{
 		"title": "Sign In",

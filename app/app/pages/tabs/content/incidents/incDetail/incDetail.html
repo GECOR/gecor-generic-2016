@@ -36,7 +36,11 @@
   <p>{{incident.DesAveria}}</p>
   </ion-card-content>
   <ion-item>
-    <button primary clear item-left>
+    <button disabled primary clear item-left *ngIf="likesFiltered.length != 0">
+      <ion-icon name="thumbs-up"></ion-icon>
+      <div (click)="addLike()">{{incident.Likes}} Likes</div>
+    </button>
+    <button primary clear item-left *ngIf="likesFiltered.length == 0">
       <ion-icon name="thumbs-up"></ion-icon>
       <div (click)="addLike()">{{incident.Likes}} Likes</div>
     </button>

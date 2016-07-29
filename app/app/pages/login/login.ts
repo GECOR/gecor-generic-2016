@@ -167,7 +167,13 @@ export class LoginPage {
           {
             text: this.translate.instant("login.forgottenAlertBtnReset"),//'Reset',
             handler: data => {
-              console.log('Reset clicked');
+                prompt.dismiss()
+                this.loginService.restaurarPass(data.email, this.aytoSuggested.AyuntamientoID, this.language)
+                            .subscribe(
+                                (result) =>{
+                                    this.showAlert(this.translate.instant("login.resetPassTitle"), this.translate.instant("login.resetPassSubtitle"), this.translate.instant("app.btnAccept"))
+                                },
+                                error =>  this.errorMessage = <any>error);
             }
           }
         ]

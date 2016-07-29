@@ -71,7 +71,12 @@
 		"confirmPassAlertTitle":"",
 		"confirmPassAlertMessage":"Passwords does not match",
 		"legalTermsAlertTitle":"",
-		"legalTermsAlertMessage":"Please accept legal terms"
+		"legalTermsAlertMessage":"Please accept legal terms",
+		"legalterms": {
+			"title": "Aviso legal"
+		},
+		"presentSignInSuccessTitle": "Listo!",
+		"presentSignInSuccessMessage": "We have sent you an activation email"
 	},	
 	  "slide":{
 		  "skip":"Skip",
@@ -221,7 +226,8 @@
 			 },
 			 "user":{
 				 "title": "User",
-				 "logout":"Logout"		  			 
+				 "logout":"Logout",
+				 "tech": "Technical"		  			 
 			 }
 		 }     
 }

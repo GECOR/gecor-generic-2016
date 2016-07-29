@@ -10,6 +10,9 @@ export class IncidentsSearchPipe  implements PipeTransform {
           item.DesTipoElemento.toLowerCase().indexOf(args.toLowerCase()) != -1
           || item.TipoInc.toLowerCase().indexOf(args.toLowerCase()) != -1
           || item.DesUbicacion.toLowerCase().indexOf(args.toLowerCase()) != -1
+          || item.CodAviso.toLowerCase().indexOf(args.toLowerCase()) != -1
+          || item.DesEstadoAviso.toLowerCase().indexOf(args.toLowerCase()) != -1
+          || item.Responsable.toLowerCase().indexOf(args.toLowerCase()) != -1
       );
     }
     return value;

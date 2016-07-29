@@ -14,7 +14,7 @@
 <ion-card>
   <ion-item>
     <ion-avatar item-left>
-      <img src="img/marty-avatar.png">
+      <img src="img/user-128.png">
     </ion-avatar>
     <h2>{{incident.DesTipoElemento}}: {{incident.TipoInc}}</h2>
     <p>{{incident.FechaHoraRegistro}}</p>
@@ -76,22 +76,22 @@
     <span item-left>({{distanceTravel}})</span>
     <span item-left><ion-icon name="walk" item-left large ></ion-icon></span>
 
-    <button primary clear item-right>
+    <!--<button primary clear item-right>
       <ion-icon name="navigate"></ion-icon>
       {{"incidents.incdetail.start" | translate}}
-    </button>
+    </button>-->
   </ion-item>
 
 </ion-card>
 
-<ion-card>
+<ion-card *ngIf="incident.UltimoComentario">
   <ion-card-header>
- {{"incidents.incdetail.lastcomment" | translate}}
+    {{"incidents.incdetail.lastcomment" | translate}}
   </ion-card-header>
   <ion-list>
     <ion-item>
       <ion-avatar item-left>
-        <img src="img/avatar-finn.png">
+        <img src="img/user-128.png">
       </ion-avatar>
       <h2>{{incident.NomUsuarioUltimoComentario}}</h2>
       <p>{{incident.UltimoComentario}}</p>

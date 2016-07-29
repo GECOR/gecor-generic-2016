@@ -55,7 +55,20 @@ export class SignInPage {
                           this.result = result[0];
                                                           
                           if (this.result.CiudadanoID > 0) {
-                            
+                            let alert = Alert.create({
+                              title: this.translate.instant("signin.presentSignInSuccessTitle"),
+                              message: this.translate.instant("signin.presentSignInSuccessMessage"),
+                              buttons: [
+                                {
+                                  text: this.translate.instant("app.continueBtn"),
+                                  role: 'cancel',
+                                  handler: () => {
+                                    this.openLoginPage();
+                                  }
+                                }
+                              ]
+                            });
+                            this.nav.present(alert);
                           }else if(this.result.Error){
                             this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.result.Error, "Accept");
                           }else{

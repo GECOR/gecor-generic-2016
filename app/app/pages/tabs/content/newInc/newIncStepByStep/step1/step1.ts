@@ -56,7 +56,7 @@ export class Step1Page {
   }
 
   inputSearch(search) {
-    console.log(search.value);
+    //console.log(search.value);
   }
 
   openIncidents(element){

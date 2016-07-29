@@ -71,22 +71,27 @@
 		"confirmPassAlertTitle":"",
 		"confirmPassAlertMessage":"Las contraseñas no coinciden",
 		"legalTermsAlertTitle":"",
-		"legalTermsAlertMessage":"Por favor, acepte los términos legales"
+		"legalTermsAlertMessage":"Por favor, acepte los términos legales",
+		"legalterms": {
+			"title": "Aviso legal"
+		},
+		"presentSignInSuccessTitle": "Ready!",
+		"presentSignInSuccessMessage": "Hemos enviado un correo de verficación a tu email, activate!"
 	},	
-	  "slide":{
-		  "skip":"Saltar",
-		  "ready": "¿Preparado para jugar?"
-	  },	  
-	  "tabs":{
-		  "title":"Menu"
-	  },	  
-	  "home":{
-		 "title":"Inicio",
-		 "incidence": "Nueva Incidencia",
-		 "beaches": "Playas",
-		 "renewalDNI": "Renovación DNI",
-		 "myIncs": "Mis avisos"
-	  },	   
+	"slide":{
+	"skip":"Saltar",
+	"ready": "¿Preparado para jugar?"
+	},	  
+	"tabs":{
+		"title":"Menu"
+	},	  
+	"home":{
+		"title":"Inicio",
+		"incidence": "Nueva Incidencia",
+		"beaches": "Playas",
+		"renewalDNI": "Renovación DNI",
+		"myIncs": "Mis avisos"
+	},	   
 	"incidents":{
 			"title": "Incidentes",	 
 			"atentionAlertTitle": "Atención",
@@ -94,133 +99,134 @@
 			"distanceTxt": "Distancia",
 			"reviewTxt": "Revisar",
 			"viewTxt": "Ver",
-	  "incdetail":{
-		    "title": "Incidentes",
+		"incdetail":{
+			"title": "Incidentes",
 			"userlocation": "Localización del usuario",	
-			"incidentlocation": "Localizacón del incidente",
-	  		"chat": "Chat",
+			"incidentlocation": "Localización del incidente",
+			"chat": "Chat",
 			"start":"Empezar",
 			"lastcomment": "Último comentario",
 			"directionRequestFailed": "Solicitud de direcciones suspendida debido a la ",
 			"actionSheetReview": "Revisar",
 			"actionSheetShare": "Compartir",
 			"addresOf": "Dirección de "				
-	  },
-	  "pagechat":{
-		  "title": "Chat",
-		  "send": "Enviar",
-		  "close": "Cerrar",
-		  "alertTitle": "Error",
-		  "alertMessage": "No se puede conectar al servicio de chat. Inténtelo de nuevo más tarde."
-		  },
-	  "comments":{
-		  "title": "Comentarios",
-		  "placeholder": "Añadir mensage"
-		  },
-	  "review":{
-		  "title":"Revisar",
-		  "element": "Elemento",
-		  "incident": "Incidente",
-		  "state": "Estado",
-		  "responsible": "Responsable",
-		  "location": "Localización del usuario",
-		  "reviewIncident": "Revisar",
-		  
-		  "presentConfirmAlertTitle": "Confirmar revisión",
-		  "presentConfirmAlertMessage": "Hay algun error revisando este aviso",
-		  
-		  "presentReviewAlertTitle": "Aviso revisado",
-		  "presentReviewAlertMessage": "El aviso ha sido revisado con éxito",
-		  
-		  "checkFieldsAlertMessage": "Por favor, escriba una solución"
-	  }
-	  },
-	  "newInc":{
-			"title": "Nueva incidencia",
-			"element": "Elemento",
-			"incident": "Incidencia",
-			"location": "Localización de la incidencia",
-			"send": "Enviar",
-			"elementAlertMessage": "Por favor seleccione un elemento",
-			"incidentAlertMessage": "Por favor, elija una incidencia",
-			"descriptionAlertMessage": "Por favor, escribir alguna descripción",
-
-			"presentConfirmAlertTitle": "Confirmar incidencia",
-			"presentConfirmAlertMessage": "",
-			"presentConfirmErrorAlertMessage": "Hubo un error al enviar esta incidencia",
-
-			"presentIncidentSuccessAlertTitle": "Incidencia enviada",
-
-			"presentConfirmChangeLocAlertTitle": "¿Cambiar ubicación?",
-			"presentConfirmChangeLocAlertMessage": "Haga click en aceptar si desea cambiar la ubicación de la incidecnia",
-
-			"families":{
-				"title":"Familias"
-			},
-			"survey":{
-				"title":"Encuesta",
-				"opinion": "¿Qué le parece la app?",
-				"cleaning": "Puntue la limpieza de su ciudad",
-				"security": "Puntue la seguridad de su ciudad",
-				"politics": "Puntue la politica de su ciudad",
-				"cancel": "Cancelar",
-				"send": "Enviar"
-			},
-			"newIncStepByStep":{
-				"step1": {
-					"title": "Elementos",
-					"subtitle": "Por favor elija un tipo de elemento"
-				},
-				"step2": {
-					"title": "Incidencias",
-					"subtitle": "Por favor elija un tipo de incidencia"
-				},
-				"step3": {
-					"title": "Imágenes",
-					"subtitle": "Eligiendo imágenes",
-					"cameraButton": "Hace foto con la cámara",
-					"galleryButton": "Elegir foto desde la galería"
-				}
-			}
 		},
-		 "news":{
-			 "title":"Noticias",
-			 "newsdetail":{
-				 "title":"Detalle de noticias",
-				 "favorite": "Favorito",
-				 "share": "Compartir"
-			 }				
-		 },
-		 "settings":{
-			 "title": "Ajustes",
-			 "notifications": "Notificaciones",
-			 "terms": "Términos y condiciones",
-			 "relatedapp": "APLICACIONES RELACIONADAS",
-			 "mlgfunciona": "MLG Funciona",
-			 "algaba": "La Algaba",
-			 "fuengirola": "Fuengirola Avanza",
-			 "puerto": "Mejora el Puerto",
-			 "velez": "Incidencias Vélez-Málaga",
-			 "abisuek": "Abisuek",
-			 "torreon": "Torreón",
-			 "prudenco": "Prudenco",
-			 "cuajimalpa": "Cuajimalpa",
-			 "entities":{
-				 "title": "Entidades",
-				"suggested": "SUGERIDO",
-				"other": "OTRAS ENTIDADES"
-			 },
-			 "notificationspage":{
-				 "title": "Notificaciones",
-				  "email": "E-mail",
-				  "push": "Push" 
-			 },
-			 "termspage":{
-				 "title": "Términos y condiciones"
-				  },
-			 "user":{
-				 "title": "Usuario",
-				 "logout":"Logout"		  			 
-			 }
-		 } 
+		"pagechat":{
+			"title": "Chat",
+			"send": "Enviar",
+			"close": "Cerrar",
+			"alertTitle": "Error",
+			"alertMessage": "No se puede conectar al servicio de chat. Inténtelo de nuevo más tarde."
+			},
+		"comments":{
+			"title": "Comentarios",
+			"placeholder": "Añadir mensage"
+			},
+		"review":{
+			"title":"Revisar",
+			"element": "Elemento",
+			"incident": "Incidente",
+			"state": "Estado",
+			"responsible": "Responsable",
+			"location": "Localización del usuario",
+			"reviewIncident": "Revisar",
+			
+			"presentConfirmAlertTitle": "Confirmar revisión",
+			"presentConfirmAlertMessage": "Hay algun error revisando este aviso",
+			
+			"presentReviewAlertTitle": "Aviso revisado",
+			"presentReviewAlertMessage": "El aviso ha sido revisado con éxito",
+			
+			"checkFieldsAlertMessage": "Por favor, escriba una solución"
+		}
+	},
+	"newInc":{
+		"title": "Nueva incidencia",
+		"element": "Elemento",
+		"incident": "Incidencia",
+		"location": "Localización de la incidencia",
+		"send": "Enviar",
+		"elementAlertMessage": "Por favor seleccione un elemento",
+		"incidentAlertMessage": "Por favor, elija una incidencia",
+		"descriptionAlertMessage": "Por favor, escribir alguna descripción",
+
+		"presentConfirmAlertTitle": "Confirmar incidencia",
+		"presentConfirmAlertMessage": "",
+		"presentConfirmErrorAlertMessage": "Hubo un error al enviar esta incidencia",
+
+		"presentIncidentSuccessAlertTitle": "Incidencia enviada",
+
+		"presentConfirmChangeLocAlertTitle": "¿Cambiar ubicación?",
+		"presentConfirmChangeLocAlertMessage": "Haga click en aceptar si desea cambiar la ubicación de la incidecnia",
+
+		"families":{
+			"title":"Familias"
+		},
+		"survey":{
+			"title":"Encuesta",
+			"opinion": "¿Qué le parece la app?",
+			"cleaning": "Puntue la limpieza de su ciudad",
+			"security": "Puntue la seguridad de su ciudad",
+			"politics": "Puntue la politica de su ciudad",
+			"cancel": "Cancelar",
+			"send": "Enviar"
+		},
+		"newIncStepByStep":{
+			"step1": {
+				"title": "Elementos",
+				"subtitle": "Por favor elija un tipo de elemento"
+			},
+			"step2": {
+				"title": "Incidencias",
+				"subtitle": "Por favor elija un tipo de incidencia"
+			},
+			"step3": {
+				"title": "Imágenes",
+				"subtitle": "Eligiendo imágenes",
+				"cameraButton": "Hace foto con la cámara",
+				"galleryButton": "Elegir foto desde la galería"
+			}
+		}
+	},
+		"news":{
+			"title":"Noticias",
+			"newsdetail":{
+				"title":"Detalle de noticias",
+				"favorite": "Favorito",
+				"share": "Compartir"
+			}				
+		},
+		"settings":{
+			"title": "Ajustes",
+			"notifications": "Notificaciones",
+			"terms": "Términos y condiciones",
+			"relatedapp": "APLICACIONES RELACIONADAS",
+			"mlgfunciona": "MLG Funciona",
+			"algaba": "La Algaba",
+			"fuengirola": "Fuengirola Avanza",
+			"puerto": "Mejora el Puerto",
+			"velez": "Incidencias Vélez-Málaga",
+			"abisuek": "Abisuek",
+			"torreon": "Torreón",
+			"prudenco": "Prudenco",
+			"cuajimalpa": "Cuajimalpa",
+			"entities":{
+				"title": "Entidades",
+			"suggested": "SUGERIDO",
+			"other": "OTRAS ENTIDADES"
+			},
+			"notificationspage":{
+				"title": "Notificaciones",
+				"email": "E-mail",
+				"push": "Push" 
+			},
+			"termspage":{
+				"title": "Términos y condiciones"
+				},
+			"user":{
+				"title": "Usuario",
+				"logout":"Logout",
+				"tech": "Técnico"		  			 
+			}
+		} 
 }

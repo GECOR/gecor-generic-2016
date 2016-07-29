@@ -279,4 +279,17 @@ export class IncDetailPage {
       return "mapIncidentBlockOut";
     }
   }
+
+  centerMap(){
+    this.geo.getLocation().then(location => {
+      this.location = location;
+      if (this.location.error){
+        this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+        this.map.setCenter(this.latLng);
+      }else{        
+        this.latLng = this.location.latLng;
+        this.map.setCenter(this.latLng);
+      }    
+    }); 
+  }
 }

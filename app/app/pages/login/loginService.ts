@@ -18,7 +18,6 @@ export class LoginService {
         
         return this.http.post(urlGecorApi + 'User/loginUser', body, options)
                         .map(res => <any> res.json())
-                        //.do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }
@@ -33,7 +32,6 @@ export class LoginService {
         
         return this.http.post(urlGecorApi + 'User/loginUserExternal', body, options)
                         .map(res => <any> res.json())
-                        //.do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }
@@ -46,7 +44,6 @@ export class LoginService {
         
         return this.http.post(urlGecorApi + 'Utils/getAyuntamientosPorCercania', body, options)
                         .map(res => <Ayuntamiento> res.json())
-                        //.do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }
@@ -59,7 +56,6 @@ export class LoginService {
         
         return this.http.post(urlGecorApi + 'Typology/getTipologiaPorAyuntamiento', body, options)
                         .map(res => <any> res.json())
-                        //.do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }
@@ -72,7 +68,6 @@ export class LoginService {
         
         return this.http.post(urlGecorApi + 'Utils/getEstadosPorAyuntamiento', body, options)
                         .map(res => <any> res.json())
-                        //.do() // eyeball results in the console
                         .catch(this.handleError)
                     
     }
@@ -85,7 +80,18 @@ export class LoginService {
         
         return this.http.post(urlGecorApi + 'Utils/getResponsablesPorAyuntamiento', body, options)
                         .map(res => <any> res.json())
-                        //.do() // eyeball results in the console
+                        .catch(this.handleError)
+                    
+    }
+
+    restaurarPass(Email: string, AyuntamientoID: string, Idioma: string): Observable<any> {
+        
+        let body = JSON.stringify({ Email, AyuntamientoID, Idioma });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        
+        return this.http.post(urlGecorApi + 'User/restaurarPass', body, options)
+                        .map(res => <any> res.json())
                         .catch(this.handleError)
                     
     }

@@ -166,7 +166,7 @@ export class LoginPage {
             text: this.translate.instant("login.forgottenAlertBtnReset"),//'Reset',
             handler: data => {
                 prompt.dismiss()
-                this.loginService.restaurarPass(data.email, this.aytoSuggested.AyuntamientoID, this.language)
+                this.loginService.restaurarPass(data.email, this.aytoSuggested.AyuntamientoID, this.language, this.aytoSuggested.UsuarioIDCiudadano)
                             .subscribe(
                                 (result) =>{
                                     this.showAlert(this.translate.instant("login.resetPassTitle"), this.translate.instant("login.resetPassSubtitle"), this.translate.instant("app.btnAccept"))

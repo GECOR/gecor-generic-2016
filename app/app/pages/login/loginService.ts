@@ -84,9 +84,9 @@ export class LoginService {
                     
     }
 
-    restaurarPass(Email: string, AyuntamientoID: string, Idioma: string): Observable<any> {
+    restaurarPass(Email: string, AyuntamientoID: string, Idioma: string, UsuarioID: string): Observable<any> {
         
-        let body = JSON.stringify({ Email, AyuntamientoID, Idioma });
+        let body = JSON.stringify({ Email, AyuntamientoID, Idioma, UsuarioID });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         

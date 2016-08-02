@@ -9,6 +9,7 @@ import {DBProvider} from './../../../../../providers/db';
 import {IncDetailService} from './incDetailService';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../appConfig';
+import {SocialSharing} from 'ionic-native';
 
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/incDetail.html',
@@ -191,21 +192,41 @@ export class IncDetailPage {
       buttons = [
         {text: this.translate.instant("incidents.incdetail.actionSheetReview"),
           handler: () => {
-            this.openReview(incident);}},
+            this.openReview(incident);
+          }
+        },
         {text: this.translate.instant("incidents.incdetail.actionSheetShare"),
-          handler: () => {}},
+          handler: () => {
+            console.log('Share');
+            let subjet = this.incident.DesTipoElemento + ': ' + this.incident.TipoInc;
+            let body = this.incident.DesAveria;
+            let image = this.incident.RutaFoto;
+            SocialSharing.share(body, subjet, image);
+          }
+        },
         {text: this.translate.instant("app.btnCancel"),
           role: 'cancel',
-          handler: () => {console.log("Cancel clicked");}
+          handler: () => {
+            console.log("Cancel clicked");
+          }
         }
       ];
     }else{
       buttons = [
         {text: this.translate.instant("incidents.incdetail.actionSheetShare"),
-          handler: () => {}},
+          handler: () => {
+            console.log('Share');
+            let subjet = this.incident.DesTipoElemento + ': ' + this.incident.TipoInc;
+            let body = this.incident.DesAveria;
+            let image = this.incident.RutaFoto;
+            SocialSharing.share(body, subjet, image);
+          }
+        },
         {text: this.translate.instant("app.btnCancel"),
           role: 'cancel',
-          handler: () => {console.log("Cancel clicked");}
+          handler: () => {
+            console.log("Cancel clicked");
+          }
         }
       ];
     }    

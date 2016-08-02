@@ -47,6 +47,18 @@ export class LoginService {
                         .catch(this.handleError)
                     
     }
+
+    getAyuntamientos(language: string): Observable<Ayuntamiento> {
+        
+        let body = JSON.stringify({language });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        
+        return this.http.post(urlGecorApi + 'Utils/getAyuntamientos', body, options)
+                        .map(res => <Ayuntamiento> res.json())
+                        .catch(this.handleError)
+                    
+    }
     
     getTipologiaPorAyuntamiento(token: string): Observable<any> {
         

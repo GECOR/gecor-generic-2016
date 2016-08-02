@@ -110,6 +110,8 @@ export class LoginPage {
     ionViewWillEnter() {}
     
     ionViewLoaded() {
+        /*this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));      
+        this.nav.present(this.loadingComponent);
         this.geo.getLocation().then(location =>{
             this.location = location;
             if (this.location.error){
@@ -118,7 +120,8 @@ export class LoginPage {
             }else{
                 this.getAyuntamientosPorDistancia(location, this.language, false);
             }
-        });
+        });*/
+        this.getAyuntamientos(this.language);
     }
 
     openMainPage() {
@@ -133,11 +136,11 @@ export class LoginPage {
 
         if(this.platform.is('ios') && useSQLiteOniOS){
              this.db.setKey('entity', JSON.stringify(this.aytoSuggested)).then((result) =>{
-                console.log(result);                                                                 
+                    console.log(result);                                                                 
                 },
                 error =>{
-                console.log(error);
-            });
+                    console.log(error);
+                });
         }else{
             this.storage.set('entity', JSON.stringify(this.aytoSuggested));
         }
@@ -192,26 +195,62 @@ export class LoginPage {
         this.loginService.getAyuntamientosPorDistancia(location.lat, location.lng, language)
                             .subscribe(
                                 (aytos) =>{
+                                    this.loadingComponent.dismiss();
+
                                     if(errEntityManually){
                                         this.showAlert(this.translate.instant("login.suggestedAlertTitle"), this.translate.instant("login.suggestedAlertMessage"), this.translate.instant("app.btnAccept"));
                                         this.aytoSuggested.AyuntamientoID = -1;
                                         this.aytoSuggested.Nombre = "Choose a entity manually";
                                     }
                                     this.aytos = aytos;
-                                    if (this.aytoSuggested.AyuntamientoID != -1){
-                                        this.aytoSuggested = aytos[0];
-
-                                        if(this.platform.is('ios') && useSQLiteOniOS){
-                                            this.db.setKey('entity', JSON.stringify(this.aytoSuggested)).then((result) =>{
-                                                console.log(result);                                                                 
-                                                },
-                                                error =>{
-                                                console.log(error);
-                                            });
+                                    this.storage.get('entity').then((entity) => {
+                                        if (entity != undefined){
+                                            this.aytoSuggested = JSON.parse(entity);
                                         }else{
-                                            this.storage.set('entity', JSON.stringify(this.aytoSuggested));
+                                            if (this.aytoSuggested.AyuntamientoID != -1){
+                                                this.aytoSuggested = aytos[0];
+                                                if(this.platform.is('ios') && useSQLiteOniOS){
+                                                    this.db.setKey('entity', JSON.stringify(this.aytoSuggested)).then((result) =>{
+                                                        console.log(result);                                                                 
+                                                        },
+                                                        error =>{
+                                                        console.log(error);
+                                                    });
+                                                }else{
+                                                    this.storage.set('entity', JSON.stringify(this.aytoSuggested));
+                                                }
+                                            }
+
+                                            this.openEntitiesPage();   
                                         }
-                                    }                                                                         
+                                    });
+                                                                                                    
+                                },
+                                error =>  this.errorMessage = <any>error);
+    }
+
+    getAyuntamientos(language) {
+        this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));      
+        this.nav.present(this.loadingComponent);
+        this.loginService.getAyuntamientos(language)
+                            .subscribe(
+                                (aytos) =>{
+                                    this.loadingComponent.dismiss();
+                                    this.aytos = aytos;
+                                    this.storage.get('entity').then((entity) => {
+                                        if (entity != undefined){
+                                            this.aytoSuggested = JSON.parse(entity);
+                                        }else{
+                                            this.openEntitiesPage();  
+                                        }//else{
+                                            //if (this.aytoSuggested.AyuntamientoID != -1){
+                                                //this.aytoSuggested = aytos[0];
+                                                //this.storage.set('entity', JSON.stringify(this.aytoSuggested));
+                                            //}
+                                             
+                                        //}
+                                        
+                                    });                                                                                                   
                                 },
                                 error =>  this.errorMessage = <any>error);
     }

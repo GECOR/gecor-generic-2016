@@ -72,7 +72,8 @@
     "cordova-sqlite-storage",
     "cordova-plugin-globalization",
     "cordova-plugin-crosswalk-webview",
-    "cordova-plugin-inappbrowser"
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-x-socialsharing"
   ],
   "cordovaPlatforms": [
     "ios",

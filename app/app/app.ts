@@ -133,16 +133,14 @@ export class MyApp {
               console.log('error');
             }, data.count);
 
-            
-
             if (!data.additionalData.foreground){
               this.events.publish('tab:inc');
               this.storage.set('incFromPush',  JSON.stringify({"id": data.additionalData.id, "time": data.additionalData.time}))
               setTimeout(() =>
                 this.events.publish('newPush')
-              , 100);
-              
+              , 100);              
             }
+
           });
           this.push.on('error', (e) => {
             console.log(e.message);

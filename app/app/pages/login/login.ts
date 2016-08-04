@@ -169,9 +169,12 @@ export class LoginPage {
             text: this.translate.instant("login.forgottenAlertBtnReset"),//'Reset',
             handler: data => {
                 prompt.dismiss()
+                this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));      
+                this.nav.present(this.loadingComponent);
                 this.loginService.restaurarPass(data.email, this.aytoSuggested.AyuntamientoID, this.language, this.aytoSuggested.UsuarioIDCiudadano)
                             .subscribe(
                                 (result) =>{
+                                    this.loadingComponent.dismiss();
                                     this.showAlert(this.translate.instant("login.resetPassTitle"), this.translate.instant("login.resetPassSubtitle"), this.translate.instant("app.btnAccept"))
                                 },
                                 error =>  this.errorMessage = <any>error);

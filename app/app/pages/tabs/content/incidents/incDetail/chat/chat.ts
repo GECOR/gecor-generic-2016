@@ -13,7 +13,8 @@ import {UtilsProvider} from './../../../../../../providers/utils';
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/chat/chat.html',
   directives: [NgClass],
-  providers:[ChatService, ChatNodeService, AuthService, UtilsProvider]
+  providers:[ChatService, ChatNodeService, AuthService, UtilsProvider],
+  pipes: [TranslatePipe]
 })
 
 export class ChatPage implements OnInit {

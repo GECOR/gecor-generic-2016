@@ -1,25 +1,37 @@
+<!--<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{"incidents.pagechat.title" | translate}}  
+    </ion-title>
+    <ion-buttons start>
+      <button (click)="close()">
+        <span primary showWhen="ios">{{"incidents.pagechat.close" | translate}}  </span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>-->
 
-<ion-toolbar>
-  <ion-title>
-    {{"incidents.pagechat.title" | translate}}  
-  </ion-title>
-  <ion-buttons start>
-    <button (click)="close()">
-      <span primary showWhen="ios">{{"incidents.pagechat.close" | translate}}  </span>
-      <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-    </button>
-  </ion-buttons>
-</ion-toolbar>
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{"incidents.pagechat.title" | translate}}  
+      <!--<div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>-->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
 
 <ion-content #chatContent class="chat">
   
  <div class="message-list">    
     <div *ngFor="let m of msgs">
-      <!--
-      <div class="author-name">
+      
+      <!--<div class="author-name">
           <span>{{ m.Nombre }}</span>
-      </div> 
-      -->
+      </div> -->
+      
       <div class="chat-message" [ngClass]="{in: m.UsuarioID != me.UsuarioID, out: m.UsuarioID == me.UsuarioID}"> 
         
         <div class="message tail">
@@ -41,5 +53,17 @@
       {{"incidents.pagechat.send" | translate}}  
     </button>
   </ion-footer-bar>
+
+
+  <!--<ion-toolbar position="bottom">
+    <input type="text" placeholder="Message ..." [(ngModel)]="msg" (keydown.enter)="sendMessage()">
+    <ion-buttons end>
+      <button royal>
+        Send
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>-->
+
   
 </ion-content>

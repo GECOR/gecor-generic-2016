@@ -107,7 +107,7 @@
           <button (click)="openReview(incident, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>{{"incidents.reviewTxt" | translate}}</button>
         </ion-item-options>
       </ion-item-sliding>-->
-      <ion-item-sliding #slidingItem class="incident" *virtualItem="let incident" [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}">
+      <ion-item-sliding #slidingItem class="incident" *virtualItem="let incident" [approxItemHeight]="'100px'" [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}">
         <button class="incident-button" ion-item (click)="openDetail(incident)">
           <ion-avatar item-left >
             <ion-img incident-img [src]="incident.RutaFoto"></ion-img>

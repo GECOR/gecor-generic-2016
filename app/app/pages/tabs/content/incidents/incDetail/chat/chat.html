@@ -45,14 +45,7 @@
     </div>
   </div>
   
-   <ion-footer-bar keyboard-attach class="message-form">
-    <label class="item-input-wrapper">
-      <input type="text" placeholder="Message ..." [(ngModel)]="msg" (keydown.enter)="sendMessage()">
-    </label>
-    <button class="button button-clear" (click)="sendMessage()">
-      {{"incidents.pagechat.send" | translate}}  
-    </button>
-  </ion-footer-bar>
+   
 
 
   <!--<ion-toolbar position="bottom">
@@ -67,3 +60,12 @@
 
   
 </ion-content>
+
+<ion-footer-bar keyboard-attach class="message-form">
+    <label class="item-input-wrapper">
+      <input type="text" placeholder="Message ..." [(ngModel)]="msg" (keydown.enter)="sendMessage()">
+    </label>
+    <button class="button button-clear" (click)="sendMessage()">
+      {{"incidents.pagechat.send" | translate}}  
+    </button>
+  </ion-footer-bar>

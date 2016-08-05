@@ -32,6 +32,7 @@ export class MyApp {
   , private events: Events) {  
 
     platform.ready().then(() => {
+
       if(platform.is('ios') && useSQLiteOniOS){
         this.initializeIosApp();
       }else{

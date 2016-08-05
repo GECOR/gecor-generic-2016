@@ -47,6 +47,8 @@ export class IncidentsPage {
   entity: any;
   incFromPush: any;
   incFromPushPending: boolean = false;
+
+  exitOnBack: boolean = true;
   
   constructor(private platform: Platform
     , private menu: MenuController
@@ -59,25 +61,31 @@ export class IncidentsPage {
     , private translate : TranslateService
     , private db: DBProvider
     , private events: Events) {
+
+      platform.registerBackButtonAction((event) => {
+          if (this.exitOnBack){
+              this.platform.exitApp();
+          }
+      }, 100);
       
-    this.platform = platform;
-    this.isAndroid = platform.is('android');
-    //this.type = 'list';
-    this.order = 'FechaHoraRegistro';
-    this.searchText = '';
-    this.map = null;
+      this.platform = platform;
+      this.isAndroid = platform.is('android');
+      //this.type = 'list';
+      this.order = 'FechaHoraRegistro';
+      this.searchText = '';
+      this.map = null;
 
-    this.storage = new Storage(SqlStorage);
-    
-    this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
+      this.storage = new Storage(SqlStorage);
+      
+      this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
 
-    this.events.subscribe('newPush', () => {
-      if (this.incidents.length > 0){
-        this.openDetailFromPush();
-      }else{
-        this.incFromPushPending = true;
-      }
-    });
+      this.events.subscribe('newPush', () => {
+        if (this.incidents.length > 0){
+          this.openDetailFromPush();
+        }else{
+          this.incFromPushPending = true;
+        }
+      });
     
   }
 
@@ -89,8 +97,14 @@ export class IncidentsPage {
     });
     this.nav.present(alert);
   }
+
+  ionViewWillLeave() {
+    this.exitOnBack = false;
+  }
   
   ionViewWillEnter() {   
+
+    this.exitOnBack = true;
 
     if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.getValue('user').then((user) => {

@@ -19,6 +19,7 @@ import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQL
 })
 export class SettingsPage {
   user: any = {};
+  exitOnBack: boolean = true;
   constructor(private platform: Platform
     , private menu: MenuController
     , private confData: ConferenceData
@@ -26,8 +27,21 @@ export class SettingsPage {
     , private _ngZone: NgZone
     , private db: DBProvider ) {
 
+
+      platform.registerBackButtonAction((event) => {
+          if (this.exitOnBack){
+              this.platform.exitApp();
+          }
+      }, 100);
+
   }
+
+  ionViewWillLeave() {
+    this.exitOnBack = false;
+  }
+
   ionViewWillEnter() {
+    this.exitOnBack = true;
     if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.getValue('user').then((user) => {
           this.user = JSON.parse(user.toString());

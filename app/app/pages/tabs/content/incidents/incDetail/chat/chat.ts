@@ -112,7 +112,9 @@ export class ChatPage implements OnInit {
         this.msg = '';
         this.scrollTo();
       });
-    } 
+    }
+
+    this.msg = '';
        
   }
 

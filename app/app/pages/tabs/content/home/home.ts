@@ -17,12 +17,20 @@ export class HomePage {
   news: any[];
   storage: any;
   user: any = {};
+
+  exitOnBack: boolean = true;
   
   constructor(private nav: NavController
   , private platform: Platform
   , private confData: ConferenceData
   , private events: Events
   , private db: DBProvider) {
+
+    platform.registerBackButtonAction((event) => {
+        if (this.exitOnBack){
+            this.platform.exitApp();
+        }
+    }, 100);
     
     if(platform.is('ios') && useSQLiteOniOS){
       db.getValue('user').then((user) => {
@@ -34,6 +42,14 @@ export class HomePage {
           this.user = JSON.parse(user);
       });
     }
+  }
+
+  ionViewWillLeave() {
+    this.exitOnBack = false;
+  }
+
+  ionViewWillEnter() {
+    this.exitOnBack = true;
   }
 
   openNewInc(){

@@ -60,6 +60,8 @@ export class CommentsPage {
           if (result[0].AvisoComentarioID > 0){
             this.message = "";
             this.messages.unshift(result[0]);
+            this.incident.ComentariosAviso++;
+            this.incident.UltimoComentario = message;
           }else{
             this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.genericErrorAlertMessage"), this.translate.instant("app.btnAccept"));
           }

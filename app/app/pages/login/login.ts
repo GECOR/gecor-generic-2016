@@ -40,6 +40,8 @@ export class LoginPage {
     aplicacion: string = "C";
     idioma: string = "es";
     modeloMovil: string = "";
+
+    exitOnBack: boolean = true;
     
     constructor(private nav: NavController
       , private menu: MenuController
@@ -60,6 +62,12 @@ export class LoginPage {
         })*/
 
         this.window = window;
+
+        platform.registerBackButtonAction((event) => {
+            if (this.exitOnBack){
+                this.platform.exitApp();
+            }
+        }, 100);
 
         if(platform.is('ios') && useSQLiteOniOS){
             this.initDB();
@@ -107,7 +115,9 @@ export class LoginPage {
         });//end db init
     }
 
-    ionViewWillEnter() {}
+    ionViewWillLeave() {
+        this.exitOnBack = false;
+    }
     
     ionViewLoaded() {
         /*this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));      

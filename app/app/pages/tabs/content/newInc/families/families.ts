@@ -22,6 +22,8 @@ export class FamiliesPage {
   storage: any;
   lenFamilias: any;
   user: any = {};
+
+  exitOnBack: boolean = true;
   
   constructor(private platform: Platform
     , private menu: MenuController
@@ -31,9 +33,21 @@ export class FamiliesPage {
     , private db: DBProvider ) {
     this.platform = platform;
     this.isAndroid = platform.is('android');
+
+    platform.registerBackButtonAction((event) => {
+        if (this.exitOnBack){
+            this.platform.exitApp();
+        }
+    }, 100);
+  }
+
+  ionViewWillLeave() {
+    this.exitOnBack = false;
   }
   
   ionViewWillEnter() {
+    this.exitOnBack = true;
+
     if(this.platform.is('ios') && useSQLiteOniOS){
       this.db.getValue('familias').then((familias) => {
           this.familias = JSON.parse(familias.toString());

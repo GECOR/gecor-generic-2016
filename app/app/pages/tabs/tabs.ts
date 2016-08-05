@@ -49,16 +49,29 @@ export class TabsPage {
   tabFour;
   tabFive;
   @ViewChild('myTabs') tabRef: Tabs;
+
+  exitOnBack: boolean = true;
   
   constructor(private geo: GeolocationProvider
-    , private events: Events) {
+    , private events: Events
+    , private platform: Platform) {
     this.tabOne = IncidentsPage;
     this.tabTwo = FamiliesPage;
     this.tabThree = NewsPage;
     this.tabFour = SettingsPage;
     this.tabFive = HomePage;
+
+    platform.registerBackButtonAction((event) => {
+        if (this.exitOnBack){
+            this.platform.exitApp();
+        }
+    }, 100);
     
     this.listenToTabEvents();
+  }
+
+  ionViewWillLeave() {
+    this.exitOnBack = false;
   }
 
   onPageWillLeave() {
@@ -85,8 +98,7 @@ export class TabsPage {
     
     this.events.subscribe('tab:settings', () => {
       this.tabRef.select(4);//Settings
-    });
-    
+    });    
   }
 
 }

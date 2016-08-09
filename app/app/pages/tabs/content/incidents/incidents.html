@@ -73,7 +73,7 @@
     
   
   <div id="switch" [ngSwitch]="type">
-    <!--<ion-list no-lines *ngSwitchWhen="'list'">
+    <ion-list no-lines *ngSwitchWhen="'list'" showWhen="ios">
       <ion-item-sliding class="incident" *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText"  [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}" #slidingItem>
         <button class="incident-button" ion-item (click)="openDetail(incident)">
           <ion-thumbnail item-left class="thumb-inc">
@@ -89,25 +89,10 @@
           <button (click)="openReview(incident, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>{{"incidents.reviewTxt" | translate}}</button>
         </ion-item-options>
       </ion-item-sliding>
-    </ion-list>-->
+    </ion-list>
 
-    <ion-list *ngSwitchWhen="'list'" [virtualScroll]="incidents  | incidentsArraySort:order:'desc':latLng | search: searchText">
-      <!--<ion-item-sliding class="incident" *virtualItem="let incident"  [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}" #slidingItem>
-        <button class="incident-button" ion-item (click)="openDetail(incident)">
-          <ion-thumbnail item-left class="thumb-inc">
-            <ion-img src="{{incident.RutaFoto != '' ? incident.RutaFoto : 'img/no_image_512.png'}}" incident-img>
-          </ion-thumbnail>
-          <h2>{{incident.DesTipoElemento}}</h2>
-          <p>{{incident.DesUbicacion}}</p>
-          <p>{{incident.Responsable}}</p>
-          <p>{{incident.CodAviso}}</p>
-          <p distance>{{distance(incident)}}</p>
-        </button>
-        <ion-item-options *ngIf="user.Aplicacion == 'G'">
-          <button (click)="openReview(incident, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>{{"incidents.reviewTxt" | translate}}</button>
-        </ion-item-options>
-      </ion-item-sliding>-->
-      <ion-item-sliding #slidingItem class="incident" *virtualItem="let incident" [approxItemHeight]="'100px'" [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}">
+    <ion-list *ngSwitchWhen="'list'" [virtualScroll]="incidents  | incidentsArraySort:order:'desc':latLng | search: searchText" showWhen="android,windows">
+      <ion-item-sliding #slidingItem class="incident" *virtualItem="let incident" [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}">
         <button class="incident-button" ion-item (click)="openDetail(incident)">
           <ion-avatar item-left >
             <ion-img incident-img [src]="incident.RutaFoto"></ion-img>

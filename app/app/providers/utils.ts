@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Loading} from 'ionic-angular';
+import {LoadingController} from 'ionic-angular';
 import {urlGecorApi} from './../appConfig';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
@@ -8,7 +8,8 @@ import 'rxjs/Rx';
 @Injectable()
 export class UtilsProvider {
 
-  constructor(private http: Http) {}
+  constructor(private http: Http
+                ,public loadingCtrl: LoadingController) {}
 
   getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
         var R = 6371; // Radius of the earth in km
@@ -33,7 +34,7 @@ export class UtilsProvider {
     }
 
     getLoading(title: string){
-        return Loading.create({
+        return this.loadingCtrl.create({
             content: title
         });
     }

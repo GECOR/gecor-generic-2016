@@ -1,6 +1,6 @@
 import {Component, forwardRef, NgZone, provide} from '@angular/core';
-import {NavController, NavParams, MenuController, Alert, ActionSheet, ViewController, 
-        Platform, Storage, SqlStorage, Events, Loading, Modal} from 'ionic-angular';
+import {NavController, NavParams, MenuController, AlertController, ActionSheetController, ViewController, 
+        Platform, Storage, SqlStorage, Events, ModalController} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './../../newIncInterface';
@@ -43,7 +43,10 @@ export class Step3Page {
     , private utils: UtilsProvider
     , private translate : TranslateService
     , private events: Events
-    , private db: DBProvider) {
+    , private db: DBProvider
+    , public modalCtrl: ModalController
+    , public alertCtrl: AlertController
+    , public actionSheetCtrl: ActionSheetController) {
 
         this.inc = params.data;
         this.images = ["", "", "", ""];
@@ -62,15 +65,15 @@ export class Step3Page {
   }
 
   openGallery(){
-    let galleryModal = Modal.create(GalleryModalPage, this.images);      
+    let galleryModal = this.modalCtrl.create(GalleryModalPage, this.images);      
     //galleryModal.onDismiss(data => {
       //console.log(data);
     //});     
-    this.nav.present(galleryModal);  
+    galleryModal.present(); 
   }
 
   takePhoto(id){
-    let actionSheet = ActionSheet.create({
+    let actionSheet = this.actionSheetCtrl.create({
       title: '',
       buttons: [
         {
@@ -95,7 +98,7 @@ export class Step3Page {
         }
       ]
     });
-    this.nav.present(actionSheet);
+    actionSheet.present();
   }
 
   uploadImage(imgBase64, id){
@@ -119,12 +122,12 @@ export class Step3Page {
   }
 
   showAlert(title, subTitle, okButton){
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: title,
       subTitle: subTitle,
       buttons: [okButton]
     });
-    this.nav.present(alert);
+    alert.present();
   }
 
   openCamera(id){

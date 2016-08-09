@@ -1,5 +1,5 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
-import {Platform, NavController, MenuController, Alert, Storage, SqlStorage, Loading, Modal} from 'ionic-angular';
+import {Platform, NavController, MenuController, AlertController, Storage, SqlStorage, ModalController} from 'ionic-angular';
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
@@ -51,7 +51,9 @@ export class LoginPage {
       , private translate : TranslateService
       , private zone: NgZone
       , private platform: Platform
-      , private db: DBProvider) {
+      , private db: DBProvider
+      , public modalCtrl: ModalController
+      , public alertCtrl: AlertController) {
         
         /*this.storage.get('language').then((language) => {
             if (language == undefined){
@@ -140,8 +142,8 @@ export class LoginPage {
 
     openEntitiesPage() {
       //this.nav.push(EntitiesPage, this.aytos);
-      this.entitiesModal = Modal.create(EntitiesModalPage, this.aytos);      
-      this.entitiesModal.onDismiss(data => {
+      this.entitiesModal = this.modalCtrl.create(EntitiesModalPage, this.aytos);      
+      this.entitiesModal.onDidDismiss(data => {
         this.aytoSuggested = data;
 
         if(this.platform.is('ios') && useSQLiteOniOS){
@@ -155,11 +157,11 @@ export class LoginPage {
             this.storage.set('entity', JSON.stringify(this.aytoSuggested));
         }
       });     
-      this.nav.present(this.entitiesModal);  
+      this.entitiesModal.present(); 
     }
 
     forgottenPass() {
-      let prompt = Alert.create({
+      let prompt = this.alertCtrl.create({
         title: this.translate.instant("login.forgottenAlertTitle"),
         message: this.translate.instant("login.forgottenAlertMessage"),
         inputs: [
@@ -180,7 +182,7 @@ export class LoginPage {
             handler: data => {
                 prompt.dismiss()
                 this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));      
-                this.nav.present(this.loadingComponent);
+                this.loadingComponent.present();
                 this.loginService.restaurarPass(data.email, this.aytoSuggested.AyuntamientoID, this.language, this.aytoSuggested.UsuarioIDCiudadano)
                             .subscribe(
                                 (result) =>{
@@ -192,7 +194,7 @@ export class LoginPage {
           }
         ]
       });
-      this.nav.present(prompt);
+      prompt.present();
     }
 
     openSignInPage() {
@@ -244,7 +246,7 @@ export class LoginPage {
 
     getAyuntamientos(language) {
         this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));      
-        this.nav.present(this.loadingComponent);
+        this.loadingComponent.present();
         this.loginService.getAyuntamientos(language)
                             .subscribe(
                                 (aytos) =>{
@@ -271,7 +273,7 @@ export class LoginPage {
     loginUser() {
         if (this.validateLogin()){    
             this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));      
-            this.nav.present(this.loadingComponent);
+            this.loadingComponent.present();
             //this.loginLoading = true;
             this.loginService.loginUser(this.email.trim(), this.password.trim(), this.aytoSuggested.AyuntamientoID)
                             .subscribe(
@@ -309,7 +311,7 @@ export class LoginPage {
     loginFacebookUser() {
         
         this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));
-        this.nav.present(this.loadingComponent);
+        this.loadingComponent.present();
         Facebook.login(["email", "public_profile"]).then((result) => {
             var FacebookID = result.authResponse.userID;
             var AccessToken = result.authResponse.accessToken;
@@ -359,7 +361,7 @@ export class LoginPage {
     
     loginGooglePlusUser(){
         this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));
-        this.nav.present(this.loadingComponent);
+        this.loadingComponent.present();
         this.window.plugins.googleplus.login({},(result)=> {
             console.log(result);
             this.loginService.loginUserExternal(result.email, this.aytoSuggested.AyuntamientoID, "", "", result.displayName, this.dispositivo
@@ -484,11 +486,11 @@ export class LoginPage {
     }
     
     showAlert(title, subTitle, okButton){
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: title,
       subTitle: subTitle,
       buttons: [okButton]
     });
-    this.nav.present(alert);
+    alert.present();
   }
 }

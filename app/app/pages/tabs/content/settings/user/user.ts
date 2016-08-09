@@ -1,5 +1,5 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
-import {ViewController, Platform, App, NavController, NavParams, MenuController, ActionSheet, Storage, SqlStorage} from 'ionic-angular';
+import {ViewController, Platform, App, NavController, NavParams, MenuController, ActionSheetController, Storage, SqlStorage} from 'ionic-angular';
 import {Camera, ImagePicker} from 'ionic-native';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
@@ -26,7 +26,8 @@ export class UserPage {
     , private _ngZone: NgZone
     , private translate : TranslateService
     , private confData: ConferenceData
-    , private db: DBProvider) {
+    , private db: DBProvider
+    , public actionSheetCtrl: ActionSheetController) {
         
         this.storage = new Storage(SqlStorage);
 
@@ -63,7 +64,7 @@ export class UserPage {
   }
 
   takePhoto() {
-    let actionSheet = ActionSheet.create({
+    let actionSheet = this.actionSheetCtrl.create({
       title: '',
       buttons: [
         {
@@ -104,7 +105,7 @@ export class UserPage {
       ]
     });
 
-    this.nav.present(actionSheet);
+    actionSheet.present();
   }
 
 }

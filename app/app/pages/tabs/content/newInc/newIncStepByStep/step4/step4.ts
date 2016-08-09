@@ -1,6 +1,6 @@
 import {Component, forwardRef, NgZone, provide} from '@angular/core';
-import {NavController, NavParams, MenuController, Alert, ActionSheet, ViewController, 
-        Platform, Storage, SqlStorage, Events, Loading, Modal} from 'ionic-angular';
+import {NavController, NavParams, MenuController, AlertController, ViewController, 
+        Platform, Storage, SqlStorage, Events} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './../../newIncInterface';
@@ -60,7 +60,8 @@ export class Step4Page {
     , private utils: UtilsProvider
     , private translate : TranslateService
     , private events: Events
-    , private db: DBProvider) {
+    , private db: DBProvider
+    , public alertCtrl: AlertController) {
 
       platform.registerBackButtonAction((event) => {
         if (this.sendingInc){
@@ -116,19 +117,19 @@ export class Step4Page {
   }
 
   showAlert(title, subTitle, okButton){
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: title,
       subTitle: subTitle,
       buttons: [okButton]
     });
-    this.nav.present(alert);
+    alert.present();
   }
 
   showMap(){
     if (!this.hideMap){
       this.hideMap=!this.hideMap;
     }else{
-      let alert = Alert.create({
+      let alert = this.alertCtrl.create({
         title: this.translate.instant("newInc.presentConfirmChangeLocAlertTitle"),
         message: this.translate.instant("newInc.presentConfirmChangeLocAlertMessage"),
         buttons: [
@@ -151,7 +152,7 @@ export class Step4Page {
           }
         ]
       });    
-      this.nav.present(alert); 
+      alert.present(); 
     }
     
   }
@@ -246,7 +247,7 @@ export class Step4Page {
   }
 
   presentConfirm() {
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: this.translate.instant("newInc.presentConfirmAlertTitle"),
       message: this.inc.tipoElemento.DesTipoElemento + ' - ' + this.inc.tipoIncidencia.TipoInc + '<br>' + this.inc.desUbicacion,
       buttons: [
@@ -273,7 +274,7 @@ export class Step4Page {
               });
             }
             this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));
-            this.nav.present(this.loadingComponent);
+            this.loadingComponent.present();
             this.sendingInc = true;        
             this.newIncService.nuevaIncidencia(this.user.token, this.inc.tipoElemento.TipoElementoID, this.inc.tipoIncidencia.TipoIncID, this.inc.desAveria,
             this.inc.lat, this.inc.lng, this.inc.calleID, this.inc.nomCalle, this.inc.numCalle, this.inc.desUbicacion, this.inc.edificioID, 
@@ -296,11 +297,11 @@ export class Step4Page {
         }
       ]
     });    
-    this.nav.present(alert);
+    alert.present();
   }
 
   presentIncidentSuccess(avisoID) {
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: this.translate.instant("newInc.presentIncidentSuccessAlertTitle"),
       message: "COD: " + avisoID,
       buttons: [
@@ -324,7 +325,7 @@ export class Step4Page {
         }
       ]
     });
-    this.nav.present(alert);
+    alert.present();
   }
   
 }

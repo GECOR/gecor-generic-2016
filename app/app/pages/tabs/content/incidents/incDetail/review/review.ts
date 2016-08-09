@@ -1,6 +1,6 @@
 import {Component, forwardRef, NgZone, provide} from '@angular/core';
-import {NavController, NavParams, MenuController, Alert, ActionSheet, ViewController, 
-        Platform, Storage, SqlStorage, Events, Loading, Modal} from 'ionic-angular';
+import {NavController, NavParams, MenuController, AlertController, ActionSheetController, ViewController, 
+        Platform, Storage, SqlStorage, Events, ModalController} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './reviewInterface';
@@ -60,6 +60,9 @@ export class ReviewPage {
     , private translate : TranslateService
     , private events: Events
     , private db: DBProvider
+    , public modalCtrl: ModalController
+    , public alertCtrl: AlertController
+    , public actionSheetCtrl: ActionSheetController
     ) 
   {
     this.showTypology = false;
@@ -217,7 +220,7 @@ export class ReviewPage {
   }*/
 
   takePhoto(id){
-    let actionSheet = ActionSheet.create({
+    let actionSheet = this.actionSheetCtrl.create({
       title: '',
       buttons: [
         {
@@ -276,7 +279,7 @@ export class ReviewPage {
         }
       ]
     });
-    this.nav.present(actionSheet);
+    actionSheet.present();
   }
   
   uploadImage(imgBase64, id){
@@ -304,7 +307,7 @@ export class ReviewPage {
 
   presentConfirm() {
     
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: this.translate.instant("incidents.review.presentConfirmAlertTitle"),
       message: this.reviewInc.desSolucion,
       buttons: [
@@ -336,7 +339,7 @@ export class ReviewPage {
                 this.reviewInc.fotos.push({"byteFoto": bf, "rutaFoto": rf});//this.encodeImageUri(element)});
               });
             }            
-            this.nav.present(this.loadingComponent);
+            this.loadingComponent.present();
             let navTransition = alert.dismiss();
             this.reviewService.revisarIncidencia(this.user.token, this.reviewInc.AvisoID, this.reviewInc.DesSolucion, this.reviewInc.EstadoAvisoID, this.reviewInc.OrigenIDResponsable,
             this.reviewInc.fotos)
@@ -360,11 +363,11 @@ export class ReviewPage {
         }
       ]
     });    
-    this.nav.present(alert);
+    alert.present();
   }
 
   presentReviewIncidentSuccess() {
-    let alertSuccess = Alert.create({
+    let alertSuccess = this.alertCtrl.create({
       title: this.translate.instant("incidents.review.presentReviewAlertTitle"),
       message: this.translate.instant("incidents.review.presentReviewAlertMessage"),
       buttons: [
@@ -377,7 +380,7 @@ export class ReviewPage {
         }
       ]
     });
-    this.nav.present(alertSuccess);
+    alertSuccess.present();
   }
 
   reviewIncident(){
@@ -397,12 +400,12 @@ export class ReviewPage {
   }
   
   showAlert(title, subTitle, okButton){
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: title,
       subTitle: subTitle,
       buttons: [okButton]
     });
-    this.nav.present(alert);
+    alert.present();
   }
   
   changeTipoElemento(){
@@ -425,11 +428,11 @@ export class ReviewPage {
   }
   
    openGallery(){
-    let galleryModal = Modal.create(GalleryModalPage, this.images);      
+    let galleryModal = this.modalCtrl.create(GalleryModalPage, this.images);      
     //galleryModal.onDismiss(data => {
       //console.log(data);
     //});     
-    this.nav.present(galleryModal);  
+    galleryModal.present();  
   }
   
 }

@@ -167,5 +167,5 @@ ionicBootstrap(MyApp, [ConferenceData
                       }),
                       TranslateService
                       ], {
-                        tabbarPlacement: 'bottom'
+                        tabsPlacement: 'bottom'
                       });

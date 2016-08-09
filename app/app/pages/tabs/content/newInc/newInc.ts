@@ -1,6 +1,6 @@
 import {Component, forwardRef, NgZone, provide} from '@angular/core';
-import {NavController, NavParams, MenuController, Alert, ActionSheet, ViewController, 
-        Platform, Storage, SqlStorage, Events, Loading, Modal} from 'ionic-angular';
+import {NavController, NavParams, MenuController, AlertController, ActionSheetController, ViewController, 
+        Platform, Storage, SqlStorage, Events, ModalController} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {marker} from './newIncInterface';
@@ -83,7 +83,10 @@ export class NewIncPage {
     , private utils: UtilsProvider
     , private translate : TranslateService
     , private events: Events
-    , private db: DBProvider) {
+    , private db: DBProvider
+    , public modalCtrl: ModalController
+    , public alertCtrl: AlertController
+    , public actionSheetCtrl: ActionSheetController) {
   
     this.platform = platform;
     this.isAndroid = platform.is('android');
@@ -145,7 +148,7 @@ export class NewIncPage {
     if (!this.hideMap){
       this.hideMap=!this.hideMap;
     }else{
-      let alert = Alert.create({
+      let alert = this.alertCtrl.create({
         title: this.translate.instant("newInc.presentConfirmChangeLocAlertTitle"),
         message: this.translate.instant("newInc.presentConfirmChangeLocAlertMessage"),
         buttons: [
@@ -168,7 +171,7 @@ export class NewIncPage {
           }
         ]
       });    
-      this.nav.present(alert); 
+      alert.present();
     }
     
   }
@@ -268,7 +271,7 @@ export class NewIncPage {
   //END MAP
 
   takePhoto(id){
-    let actionSheet = ActionSheet.create({
+    let actionSheet = this.actionSheetCtrl.create({
       title: '',
       buttons: [
         {
@@ -328,7 +331,7 @@ export class NewIncPage {
         }
       ]
     });
-    this.nav.present(actionSheet);
+    actionSheet.present();
   }
  
   
@@ -372,7 +375,7 @@ export class NewIncPage {
   }
   
   presentConfirm() {
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: this.translate.instant("newInc.presentConfirmAlertTitle"),
       message: this.newInc.desTipoElemento + ' - ' + this.newInc.desTipoIncidencia + '<br>' + this.newInc.desUbicacion,
       buttons: [
@@ -398,7 +401,7 @@ export class NewIncPage {
                 this.newInc.fotos.push({"byteFoto": bf, "rutaFoto": rf});//this.encodeImageUri(element)});
               });
             } 
-            this.nav.present(this.loadingComponent);          
+            this.loadingComponent.present();        
             this.newIncService.nuevaIncidencia(this.user.token, this.newInc.tipoElementoID, this.newInc.tipoIncidenciaID, this.newInc.desAveria,
             this.newInc.lat, this.newInc.lng, this.newInc.calleID, this.newInc.nomCalle, this.newInc.numCalle, this.newInc.desUbicacion, this.newInc.edificioID, 
             this.newInc.estadoAvisoID, this.newInc.tipoProcedenciaID, this.newInc.fotos, this.newInc.desTipoElemento, this.newInc.desTipoIncidencia)
@@ -418,7 +421,7 @@ export class NewIncPage {
         }
       ]
     });    
-    this.nav.present(alert);
+    alert.present();
   }
 
   presentIncidentSuccess(avisoID) {
@@ -444,7 +447,7 @@ export class NewIncPage {
       ]
     });
     this.nav.present(alert);*/
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: this.translate.instant("newInc.presentIncidentSuccessAlertTitle"),
       message: "COD: " + avisoID,
       buttons: [
@@ -458,7 +461,7 @@ export class NewIncPage {
         }
       ]
     });
-    this.nav.present(alert);
+    alert.present();
   }
 
   newIncident(){
@@ -490,12 +493,12 @@ export class NewIncPage {
   }
   
   showAlert(title, subTitle, okButton){
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: title,
       subTitle: subTitle,
       buttons: [okButton]
     });
-    this.nav.present(alert);
+    alert.present();
   }
   
   changeTipoElemento(){
@@ -518,11 +521,11 @@ export class NewIncPage {
   }
   
   openGallery(){
-    let galleryModal = Modal.create(GalleryModalPage, this.images);      
+    let galleryModal = this.modalCtrl.create(GalleryModalPage, this.images);      
     //galleryModal.onDismiss(data => {
       //console.log(data);
     //});     
-    this.nav.present(galleryModal);  
+    galleryModal.present();  
   }
 
   mapClass(){

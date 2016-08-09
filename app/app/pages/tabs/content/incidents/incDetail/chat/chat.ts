@@ -1,7 +1,7 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {NgClass} from '@angular/common';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {ViewController, App, Events, NavParams, Loading, NavController, Alert} from 'ionic-angular';;
+import {ViewController, App, Events, NavParams, NavController, AlertController} from 'ionic-angular';;
 import * as Rx from 'rxjs/Rx';
 import { ChatNodeService } from './services/chat';
 import { Message } from './models/message';
@@ -37,7 +37,8 @@ export class ChatPage implements OnInit {
               private app: App,
               private utils: UtilsProvider,
               private translate : TranslateService,
-              private e: Events) {
+              private e: Events
+              , public alertCtrl: AlertController) {
     
     this.e.subscribe('newMessage', (e) => {
       if(e){
@@ -59,7 +60,7 @@ export class ChatPage implements OnInit {
 
   ngOnInit(): void {
     this.msg = '';
-    this.nav.present(this.loadingComponent);
+    this.loadingComponent.present();
     /* SERVER 1 required 
     this.auth.getToken({name: this.me.Nombre, id: this.me.UsuarioID, avisoID: this.incident.AvisoID}).then((status) => {
       if (status) {
@@ -71,7 +72,7 @@ export class ChatPage implements OnInit {
     //this.chat.socketJoin(this.incident.AvisoID, this.me.token);//seccond test with token
     //this.chat.socketJoin(this.me.token);//first test
     if(!this.chat.socketJoin(this.incident.AvisoID, this.me.token)){
-      let alert = Alert.create({
+      let alert = this.alertCtrl.create({
       title: this.translate.instant("incidents.pagechat.alertTitle"),
       message: this.translate.instant("incidents.pagechat.alertMessage"),
       buttons: [{
@@ -81,7 +82,7 @@ export class ChatPage implements OnInit {
             }
           }]
     });
-    this.nav.present(alert);
+    alert.present();
     }
   }
 

@@ -1,6 +1,6 @@
 import {Component, forwardRef, NgZone, provide} from '@angular/core';
-import {NavController, NavParams, MenuController, Alert, ActionSheet, ViewController, 
-        Platform, Storage, SqlStorage, Events, Loading, Modal} from 'ionic-angular';
+import {NavController, NavParams, MenuController, ViewController, 
+        Platform, Storage, SqlStorage, Events} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './../../newIncInterface';

@@ -1,5 +1,5 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
-import {NavController, NavParams, MenuController, Alert, Modal, ActionSheet, Storage, SqlStorage, ViewController, Platform} from 'ionic-angular';
+import {NavController, NavParams, MenuController, AlertController, ModalController, ActionSheetController, Storage, SqlStorage, ViewController, Platform} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {CommentsPage} from './comments/comments';
 import {ChatPage} from './chat/chat';
@@ -50,7 +50,11 @@ export class IncDetailPage {
     , private geo: GeolocationProvider
     , private translate : TranslateService
     , private incDetailService: IncDetailService
-    , private db: DBProvider) {
+    , private db: DBProvider
+    , public modalCtrl: ModalController
+    , public alertCtrl: AlertController
+    , public actionSheetCtrl: ActionSheetController) {
+
     this.platform = platform;
     this.isAndroid = platform.is('android');
     this.incident = params.data;
@@ -177,7 +181,7 @@ export class IncDetailPage {
   }
 
   openChat(messages) {
-    let aux = Modal.create(ChatPage, {"messages": messages, "user": this.user, "incident": this.incident});
+    let aux = this.modalCtrl.create(ChatPage, {"messages": messages, "user": this.user, "incident": this.incident});
     //this.nav.present(aux);
     this.nav.push(ChatPage, {"messages": messages, "user": this.user, "incident": this.incident});
   }
@@ -232,11 +236,11 @@ export class IncDetailPage {
       ];
     }    
 
-    let actionSheet = ActionSheet.create({
+    let actionSheet = this.actionSheetCtrl.create({
       title: '',
       buttons: buttons
     });
-    this.nav.present(actionSheet);
+    actionSheet.present()
   }
   
   addLike(){
@@ -262,12 +266,12 @@ export class IncDetailPage {
   }
   
   showAlert(title, subTitle, okButton){
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: title,
       subTitle: subTitle,
       buttons: [okButton]
     });
-    this.nav.present(alert);
+    alert.present();
   }
 
   classMapIncidentBlock(){

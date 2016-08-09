@@ -27,13 +27,13 @@
         <ion-item>
           <ion-label>{{"incidents.review.element" | translate}}</ion-label>
           <ion-select [(ngModel)]="reviewInc.tipoElementoID" multiple="false" (ngModelChange)="changeTipoElemento()">
-            <ion-option *ngFor="let tipoElemento of tiposElementos" value="{{tipoElemento.TipoElementoID}}" [checked]="false">{{tipoElemento.DesTipoElemento}}</ion-option>
+            <ion-option *ngFor="let tipoElemento of tiposElementos" value="{{tipoElemento.TipoElementoID}}" selected="false">{{tipoElemento.DesTipoElemento}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
           <ion-label>{{"incidents.review.incident" | translate}}</ion-label>
           <ion-select [(ngModel)]="reviewInc.tipoIncidenciaID" multiple="false">
-            <ion-option *ngFor="let tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" [checked]="false">{{tipoIncidencia.TipoInc}}</ion-option>
+            <ion-option *ngFor="let tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" selected="false">{{tipoIncidencia.TipoInc}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>
@@ -46,7 +46,7 @@
         <ion-item>
           <ion-label>{{"incidents.review.state" | translate}}</ion-label>
           <ion-select [(ngModel)]="reviewInc.EstadoAvisoID" multiple="false">
-            <ion-option *ngFor="let estado of estados" value="{{estado.EstadoAvisoID}}" [checked]="false">{{estado.Nombre}}</ion-option>
+            <ion-option *ngFor="let estado of estados" value="{{estado.EstadoAvisoID}}" selected="false">{{estado.Nombre}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>
@@ -59,7 +59,7 @@
         <ion-item>
           <ion-label>{{"incidents.review.responsible" | translate}}</ion-label>
           <ion-select [(ngModel)]="reviewInc.OrigenIDResponsable" multiple="false">
-            <ion-option *ngFor="let responsable of responsables" value="{{responsable.OrigenID}}" [checked]="false">{{responsable.DesOrigen}}</ion-option>
+            <ion-option *ngFor="let responsable of responsables" value="{{responsable.OrigenID}}" selected="false">{{responsable.DesOrigen}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>

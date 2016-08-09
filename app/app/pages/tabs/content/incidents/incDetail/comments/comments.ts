@@ -1,5 +1,5 @@
 import {Component, forwardRef} from '@angular/core';
-import {Platform, NavController, MenuController, Alert, Storage, SqlStorage, NavParams, Loading} from 'ionic-angular';
+import {Platform, NavController, MenuController, AlertController, Storage, SqlStorage, NavParams} from 'ionic-angular';
 import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {CommentsService} from './commentsService';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
@@ -29,28 +29,31 @@ export class CommentsPage {
   , private utils: UtilsProvider
   , private params: NavParams
   , private platform: Platform
-  , private db: DBProvider) {
+  , private db: DBProvider
+  , public alertCtrl: AlertController) {
     
     this.incident = params.data;
     
     this.message = "";
+
+    this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
     
      if(platform.is('ios') && useSQLiteOniOS){
         db.getValue('user').then((user) => {
             this.user = JSON.parse(user.toString());
-            this.nav.present(this.loadingComponent);
+            this.loadingComponent.present();
             this.getComentariosAviso();
         });     
       }else{
         this.storage = new Storage(SqlStorage);
         this.storage.get('user').then((user) => {
             this.user = JSON.parse(user);
-            this.nav.present(this.loadingComponent);
+            this.loadingComponent.present();
             this.getComentariosAviso();
         });
       }
     
-    this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
+    
   }
     
     newComentarioAviso(message){
@@ -86,12 +89,12 @@ export class CommentsPage {
     }
 
     showAlert(title, subTitle, okButton){
-      let alert = Alert.create({
+      let alert = this.alertCtrl.create({
         title: title,
         subTitle: subTitle,
         buttons: [okButton]
       });
-      this.nav.present(alert);
+      alert.present();
     }   
     
 }

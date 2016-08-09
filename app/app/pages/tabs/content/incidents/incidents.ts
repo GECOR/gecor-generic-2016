@@ -1,4 +1,4 @@
-import {NavController, NavParams, MenuController, Storage, SqlStorage, Alert, Loading, Events} from 'ionic-angular';
+import {NavController, NavParams, MenuController, Storage, SqlStorage, AlertController, Events} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone} from '@angular/core';
 import {AndroidAttribute} from './../../../../directives/global.helpers';
@@ -60,7 +60,8 @@ export class IncidentsPage {
     , private utils: UtilsProvider 
     , private translate : TranslateService
     , private db: DBProvider
-    , private events: Events) {
+    , private events: Events
+    , public alertCtrl: AlertController) {
 
       platform.registerBackButtonAction((event) => {
           if (this.exitOnBack){
@@ -90,12 +91,12 @@ export class IncidentsPage {
   }
 
   showAlert(title, subTitle, okButton){
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: title,
       subTitle: subTitle,
       buttons: [okButton]
     });
-    this.nav.present(alert);
+    alert.present();
   }
 
   ionViewWillLeave() {
@@ -110,7 +111,7 @@ export class IncidentsPage {
       this.db.getValue('user').then((user) => {
           this.user = JSON.parse(user.toString());
           if (this.incidents.length == 0){
-            this.nav.present(this.loadingComponent);
+            this.loadingComponent.present();
             this.getMisIncidencias(this.user.CiudadanoID, this.user.token, undefined);
           }
       });
@@ -132,7 +133,7 @@ export class IncidentsPage {
       this.storage.get('user').then((user) => {
           this.user = JSON.parse(user);
           if (this.incidents.length == 0){
-            this.nav.present(this.loadingComponent);
+            this.loadingComponent.present();
             this.getMisIncidencias(this.user.CiudadanoID, this.user.token, undefined);
           }/*else{
             this.storage.get('incFromPush').then((resp) => {

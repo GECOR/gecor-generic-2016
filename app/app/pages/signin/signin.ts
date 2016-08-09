@@ -1,5 +1,5 @@
 import {Component, forwardRef} from '@angular/core';
-import {NavController, MenuController, Loading, Alert, NavParams, Modal} from 'ionic-angular';
+import {NavController, MenuController, AlertController, NavParams, ModalController} from 'ionic-angular';
 import {AndroidAttribute} from './../../directives/global.helpers';
 import {LoginPage} from './../login/login';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
@@ -38,7 +38,9 @@ export class SignInPage {
   , private params: NavParams
   , private utils: UtilsProvider
   , private translate : TranslateService
-  , private signinService: SignInService) {
+  , private signinService: SignInService
+  , public modalCtrl: ModalController
+  , public alertCtrl: AlertController) {
     
     this.aytoSuggested = params.data;
     this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
@@ -46,7 +48,7 @@ export class SignInPage {
   
   nuevoUsuario(){
     if (this.validateFields()){
-      this.nav.present(this.loadingComponent);
+      this.loadingComponent.present();
       this.signinService.nuevoUsuario(this.nombre.trim(), this.email.trim(), this.password.trim(), this.aytoSuggested.AyuntamientoID,
       this.dispositivo, this.aplicacion, this.idioma, this.modeloMovil)
                   .subscribe(
@@ -55,7 +57,7 @@ export class SignInPage {
                           this.result = result[0];
                                                           
                           if (this.result.CiudadanoID > 0) {
-                            let alert = Alert.create({
+                            let alert = this.alertCtrl.create({
                               title: this.translate.instant("signin.presentSignInSuccessTitle"),
                               message: this.translate.instant("signin.presentSignInSuccessMessage"),
                               buttons: [
@@ -68,7 +70,7 @@ export class SignInPage {
                                 }
                               ]
                             });
-                            this.nav.present(alert);
+                            alert.present();
                           }else if(this.result.Error){
                             this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.result.Error, "Accept");
                           }else{
@@ -97,12 +99,12 @@ export class SignInPage {
   }
     
   showAlert(title, subTitle, okButton){
-    let alert = Alert.create({
+    let alert = this.alertCtrl.create({
       title: title,
       subTitle: subTitle,
       buttons: [okButton]
     });
-    this.nav.present(alert);
+    alert.present();
   }
 
   openLoginPage() {
@@ -111,8 +113,8 @@ export class SignInPage {
   
   openLegalTerms() {
     if (this.acceptLegalTerms){
-      this.legalTermsModal = Modal.create(LegalTermsPage, this.aytoSuggested);
-      this.nav.present(this.legalTermsModal);
+      this.legalTermsModal = this.modalCtrl.create(LegalTermsPage, this.aytoSuggested);
+      this.legalTermsModal.present();
     }
   }
   

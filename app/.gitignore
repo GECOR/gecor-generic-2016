@@ -25,6 +25,7 @@ plugins/ios.json
 www/build/
 $RECYCLE.BIN/
 ../serverCompiled/
+./../npm-debug.log
 
 .DS_Store
 Thumbs.db

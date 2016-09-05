@@ -10,11 +10,12 @@ import {IncDetailService} from './incDetailService';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../appConfig';
 import {SocialSharing} from 'ionic-native';
+import {UtilsProvider} from './../../../../../providers/utils';
 
 @Component({
   templateUrl: './build/pages/tabs/content/incidents/incDetail/incDetail.html',
   directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, IncDetailService, DBProvider],
+  providers: [GeolocationProvider, IncDetailService, DBProvider, UtilsProvider],
   pipes: [TranslatePipe]
 })
 export class IncDetailPage {
@@ -53,7 +54,8 @@ export class IncDetailPage {
     , private db: DBProvider
     , public modalCtrl: ModalController
     , public alertCtrl: AlertController
-    , public actionSheetCtrl: ActionSheetController) {
+    , public actionSheetCtrl: ActionSheetController
+    , public utils: UtilsProvider) {
 
     this.platform = platform;
     this.isAndroid = platform.is('android');
@@ -147,7 +149,13 @@ export class IncDetailPage {
         //this.showSteps(response, stepDisplay);
       } else {
         //window.alert('Directions request failed due to ' + status);
-        this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("incidents.incdetail.directionRequestFailed"), this.translate.instant("app.btnAccept"));
+        //this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("incidents.incdetail.directionRequestFailed"), this.translate.instant("app.btnAccept"));
+        let alert = this.alertCtrl.create({
+          title: this.translate.instant("app.genericErrorAlertTitle"),
+          subTitle: this.translate.instant("incidents.incdetail.directionRequestFailed"),
+          buttons: [this.translate.instant("app.btnAccept")]
+        });
+        alert.present();
       }
     });
   }
@@ -181,8 +189,9 @@ export class IncDetailPage {
   }
 
   openChat(messages) {
-    let aux = this.modalCtrl.create(ChatPage, {"messages": messages, "user": this.user, "incident": this.incident});
+    //let aux = this.modalCtrl.create(ChatPage, {"messages": messages, "user": this.user, "incident": this.incident});
     //this.nav.present(aux);
+    //aux.present();
     this.nav.push(ChatPage, {"messages": messages, "user": this.user, "incident": this.incident});
   }
 
@@ -202,7 +211,13 @@ export class IncDetailPage {
         },
         {text: this.translate.instant("incidents.incdetail.actionSheetShare"),
           handler: () => {
-            console.log('Share');
+
+            let loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));
+            loadingComponent.present();
+            setTimeout(() => {
+              loadingComponent.dismiss();
+            }, 3000);
+
             let subjet = this.incident.DesTipoElemento + ': ' + this.incident.TipoInc;
             let body = this.incident.DesAveria;
             let image = this.incident.RutaFoto;

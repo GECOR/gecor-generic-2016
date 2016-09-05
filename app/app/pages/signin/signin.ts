@@ -65,6 +65,7 @@ export class SignInPage {
                                   text: this.translate.instant("app.continueBtn"),
                                   role: 'cancel',
                                   handler: () => {
+                                    alert.dismiss();
                                     this.openLoginPage();
                                   }
                                 }

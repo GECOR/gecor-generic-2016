@@ -274,19 +274,25 @@ export class Step4Page {
               });
             }
             this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));
+            this.loadingComponent.onDidDismiss((inc) => {
+              let navTransition = alert.dismiss();
+              navTransition.then(() => { 
+                this.sendingInc = false;
+                if (inc[0].AvisoID != ""){
+                  this.presentIncidentSuccess(inc[0].AvisoID == undefined ? inc[0].AvisoCiudadanoID : inc[0].AvisoID);
+                }else{
+                  this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("newInc.presentConfirmErrorAlertMessage"), this.translate.instant("app.btnAccept"));
+                }
+              });
+              
+            });
             this.loadingComponent.present();
             this.sendingInc = true;        
             this.newIncService.nuevaIncidencia(this.user.token, this.inc.tipoElemento.TipoElementoID, this.inc.tipoIncidencia.TipoIncID, this.inc.desAveria,
             this.inc.lat, this.inc.lng, this.inc.calleID, this.inc.nomCalle, this.inc.numCalle, this.inc.desUbicacion, this.inc.edificioID, 
             this.inc.estadoAvisoID, this.inc.tipoProcedenciaID, this.inc.fotos, this.inc.tipoElemento.DesTipoElemento, this.inc.tipoIncidencia.TipoInc)
-            .subscribe((inc) =>{
-              this.sendingInc = false;
-              this.loadingComponent.dismiss();
-              if (inc[0].AvisoID != ""){
-                this.presentIncidentSuccess(inc[0].AvisoID == undefined ? inc[0].AvisoCiudadanoID : inc[0].AvisoID);
-              }else{
-                this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("newInc.presentConfirmErrorAlertMessage"), this.translate.instant("app.btnAccept"));
-              }
+            .subscribe((inc) =>{              
+              this.loadingComponent.dismiss(inc);              
             },
             error =>{
               this.sendingInc = false;
@@ -309,7 +315,17 @@ export class Step4Page {
           text: this.translate.instant("app.continueBtn"),
           role: 'cancel',
           handler: () => {
-            if(this.platform.is('ios')){
+            alert.dismiss();
+            
+            
+            /*this.nav.push(FamiliesPage);
+            setTimeout(() =>
+              this.events.publish('tab:inc') 
+            , 100);*/ 
+
+            this.nav.popToRoot();
+
+           /*if(this.platform.is('ios')){
               this.nav.push(FamiliesPage);
               setTimeout(() =>
                 this.events.publish('tab:inc') 
@@ -319,7 +335,7 @@ export class Step4Page {
               setTimeout(() =>
                 this.events.publish('tab:home') 
               , 100); 
-            }   
+            } */  
                        
           }
         }

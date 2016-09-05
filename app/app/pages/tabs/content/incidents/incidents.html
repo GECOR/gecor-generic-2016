@@ -73,7 +73,7 @@
     
   
   <div id="switch" [ngSwitch]="type">
-    <ion-list no-lines *ngSwitchWhen="'list'" showWhen="ios">
+    <ion-list no-lines *ngSwitchWhen="'list'" ><!--showWhen="ios"-->
       <ion-item-sliding class="incident" *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText"  [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}" #slidingItem>
         <button class="incident-button" ion-item (click)="openDetail(incident)">
           <ion-thumbnail item-left class="thumb-inc">
@@ -91,7 +91,7 @@
       </ion-item-sliding>
     </ion-list>
 
-    <ion-list *ngSwitchWhen="'list'" [virtualScroll]="incidents  | incidentsArraySort:order:'desc':latLng | search: searchText" showWhen="android,windows">
+    <!--<ion-list *ngSwitchWhen="'list'" [virtualScroll]="incidents  | incidentsArraySort:order:'desc':latLng | search: searchText" showWhen="android,windows">
       <ion-item-sliding #slidingItem class="incident" *virtualItem="let incident" [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}">
         <button class="incident-button" ion-item (click)="openDetail(incident)">
           <ion-avatar item-left >
@@ -107,7 +107,7 @@
           <button (click)="openReview(incidenjt, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>{{"incidents.reviewTxt" | translate}}</button>
         </ion-item-options>        
       </ion-item-sliding>
-    </ion-list>
+    </ion-list>-->
 
     <div id="mapContainer" *ngSwitchWhen="'map'">
       <div id="mapDetail"></div>      

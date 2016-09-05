@@ -168,4 +168,5 @@ ionicBootstrap(MyApp, [ConferenceData
                       TranslateService
                       ], {
                         tabsPlacement: 'bottom'
+                        , tabsHideOnSubPages: true
                       });

@@ -24,48 +24,55 @@
 </ion-header>
 
 <ion-content #chatContent class="chat">
+  <div>
   
- <div class="message-list">    
-    <div *ngFor="let m of msgs">
-      
-      <!--<div class="author-name">
-          <span>{{ m.Nombre }}</span>
-      </div> -->
-      
-      <div class="chat-message" [ngClass]="{in: m.UsuarioID != me.UsuarioID, out: m.UsuarioID == me.UsuarioID}"> 
-        
+    <div class="message-list">    
+      <div *ngFor="let m of msgs">
+        <div class="chat-message" [ngClass]="{in: m.UsuarioID != me.UsuarioID, out: m.UsuarioID == me.UsuarioID}"> 
+          <div class="message tail">
+            <span class="author-name">{{ m.Nombre }}</span>  
+            <span class="message-date">{{ setDate(m.FechaHoraRegistro) | date:'HH:mm' }}</span>                
+            <span class="message-content">{{ m.Mensaje }}</span>  
+          </div>
+        </div>   
+      </div>
+    </div>
+
+    <!--<ion-list class="message-list">
+      <ion-item *ngFor="let m of msgs" class="chat-message" [ngClass]="{in: m.UsuarioID != me.UsuarioID, out: m.UsuarioID == me.UsuarioID}">
         <div class="message tail">
           <span class="author-name">{{ m.Nombre }}</span>  
           <span class="message-date">{{ setDate(m.FechaHoraRegistro) | date:'HH:mm' }}</span>                
           <span class="message-content">{{ m.Mensaje }}</span>  
         </div>
-      
-      </div>      
-          
-    </div>
+      </ion-item>
+    </ion-list>-->
+
+    <ion-toolbar position="bottom" class="message-form">
+      <ion-grid>
+        <ion-row>
+          <ion-col width-80><input type="text" placeholder="Message ..." [(ngModel)]="msg" (keydown.enter)="sendMessage()"></ion-col>
+          <ion-col width-20>
+            <ion-buttons>
+              <button royal (click)="sendMessage()">
+                Send
+                <ion-icon name="send"></ion-icon>
+              </button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+
   </div>
-  
-   
-
-
-  <!--<ion-toolbar position="bottom">
-    <input type="text" placeholder="Message ..." [(ngModel)]="msg" (keydown.enter)="sendMessage()">
-    <ion-buttons end>
-      <button royal>
-        Send
-        <ion-icon name="send"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>-->
-
   
 </ion-content>
 
-<ion-footer-bar keyboard-attach class="message-form">
-    <label class="item-input-wrapper">
-      <input type="text" placeholder="Message ..." [(ngModel)]="msg" (keydown.enter)="sendMessage()">
-    </label>
-    <button class="button button-clear" (click)="sendMessage()">
-      {{"incidents.pagechat.send" | translate}}  
-    </button>
-  </ion-footer-bar>
+<!--<ion-footer-bar keyboard-attach class="message-form">
+  <label class="item-input-wrapper">
+    <input type="text" placeholder="Message ..." [(ngModel)]="msg" (keydown.enter)="sendMessage()">
+  </label>
+  <button class="button button-clear" (click)="sendMessage()">
+    {{"incidents.pagechat.send" | translate}}  
+  </button>
+</ion-footer-bar>-->

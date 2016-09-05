@@ -321,12 +321,6 @@ export class ReviewPage {
         {
           text: this.translate.instant("app.sendBtn"),
           handler: () => {
-            //if(this.images){
-              //this.images.forEach(element => {
-                //this.reviewInc.fotos.push({"byteFoto": element});//this.encodeImageUri(element)});
-              //});
-            //}
-            console.log("testtttt");
             if(this.images){
               this.images.forEach(element => {
                 let bf = "";//byteFoto
@@ -338,15 +332,11 @@ export class ReviewPage {
                 }
                 this.reviewInc.fotos.push({"byteFoto": bf, "rutaFoto": rf});//this.encodeImageUri(element)});
               });
-            }            
+            }    
             this.loadingComponent.present();
-            let navTransition = alert.dismiss();
-            this.reviewService.revisarIncidencia(this.user.token, this.reviewInc.AvisoID, this.reviewInc.DesSolucion, this.reviewInc.EstadoAvisoID, this.reviewInc.OrigenIDResponsable,
-            this.reviewInc.fotos)
-            .subscribe((result) =>{
-              this.loadingComponent.dismiss();
-              //alert.dismiss();
+            this.loadingComponent.onDidDismiss((result) => {
               if (result[0].RowsAffected > 0){
+                let navTransition = alert.dismiss();
                 navTransition.then(() => { 
                   this.presentReviewIncidentSuccess()
                 });
@@ -354,6 +344,12 @@ export class ReviewPage {
               }else{
                 this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("incidents.review.presentConfirmAlertMessage"), this.translate.instant("app.btnAccept"));
               }
+            });
+            
+            this.reviewService.revisarIncidencia(this.user.token, this.reviewInc.AvisoID, this.reviewInc.DesSolucion, this.reviewInc.EstadoAvisoID, this.reviewInc.OrigenIDResponsable,
+            this.reviewInc.fotos)
+            .subscribe((result) =>{
+              this.loadingComponent.dismiss(result);              
             },
             error =>{
               this.loadingComponent.dismiss();
@@ -374,12 +370,17 @@ export class ReviewPage {
         {
           text: this.translate.instant("app.continueBtn"),
           role: 'cancel',
-          handler: () => {            
-            setTimeout(() => this.nav.pop(), 200);              
+          handler: () => {
+            //alertSuccess.dismiss(); 
+            let navTransition = alertSuccess.dismiss();
+            navTransition.then(() => { 
+              setTimeout(() => this.nav.pop(), 200);
+            });         
           }
         }
       ]
     });
+    
     alertSuccess.present();
   }
 
@@ -392,7 +393,13 @@ export class ReviewPage {
     
     if (this.reviewInc.DesSolucion == ""){
       ok = false;
-      this.showAlert(this.translate.instant("incidents.atentionAlertTitle"), this.translate.instant("incidents.review.checkFieldsAlertMessage"), this.translate.instant("app.btnAccept"));
+      //this.showAlert(this.translate.instant("incidents.atentionAlertTitle"), this.translate.instant("incidents.review.checkFieldsAlertMessage"), this.translate.instant("app.btnAccept"));
+      let alert = this.alertCtrl.create({
+        title: this.translate.instant("incidents.atentionAlertTitle"),
+        subTitle: this.translate.instant("incidents.review.checkFieldsAlertMessage"),
+        buttons: [this.translate.instant("app.btnAccept")]
+      });
+      alert.present();
       return ok;
     }
     

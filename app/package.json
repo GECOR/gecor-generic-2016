@@ -34,9 +34,18 @@
     "ionic-gulp-html-copy": "^1.0.0",
     "ionic-gulp-sass-build": "^1.0.0",
     "ionic-gulp-scripts-copy": "^2.0.0",
+    "karma": "^1.1.2",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
     "run-sequence": "1.1.5",
     "tslint": "^3.10.1",
-    "tslint-eslint-rules": "^1.3.0"
+    "tslint-eslint-rules": "^1.3.0",
+    "jasmine-core": "^2.4.1",
+    "karma-browserify": "5.0.5",
+    "browserify": "13.0.0",
+    "browserify-istanbul": "2.0.0",
+    "tsify": "0.16.0",
+    "isparta": "4.0.0"
   },
   "cordovaPlugins": [
     {
@@ -80,5 +89,8 @@
   "cordovaPlatforms": [
     "ios",
     "android"
-  ]
+  ],
+  "scripts": {
+    "test": "karma start karma.conf.js"
+  }
 }

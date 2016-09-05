@@ -182,12 +182,14 @@ export class LoginPage {
             handler: data => {
                 prompt.dismiss()
                 this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));      
+                this.loadingComponent.onDidDismiss(() => {
+                    this.showAlert(this.translate.instant("login.resetPassTitle"), this.translate.instant("login.resetPassSubtitle"), this.translate.instant("app.btnAccept"))
+                });
                 this.loadingComponent.present();
                 this.loginService.restaurarPass(data.email, this.aytoSuggested.AyuntamientoID, this.language, this.aytoSuggested.UsuarioIDCiudadano)
                             .subscribe(
                                 (result) =>{
                                     this.loadingComponent.dismiss();
-                                    this.showAlert(this.translate.instant("login.resetPassTitle"), this.translate.instant("login.resetPassSubtitle"), this.translate.instant("app.btnAccept"))
                                 },
                                 error =>  this.errorMessage = <any>error);
             }
@@ -245,29 +247,33 @@ export class LoginPage {
     }
 
     getAyuntamientos(language) {
-        this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));      
+        this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));  
+        this.loadingComponent.onDidDismiss((entity) => {
+            if (entity != undefined && entity != 'null'){
+                this.aytoSuggested = JSON.parse(entity);
+            }else{
+                this.openEntitiesPage();  
+            }//else{
+                //if (this.aytoSuggested.AyuntamientoID != -1){
+                    //this.aytoSuggested = aytos[0];
+                    //this.storage.set('entity', JSON.stringify(this.aytoSuggested));
+                //}
+                    
+            //}
+        });    
         this.loadingComponent.present();
         this.loginService.getAyuntamientos(language)
                             .subscribe(
                                 (aytos) =>{
-                                    this.loadingComponent.dismiss();
                                     this.aytos = aytos;
                                     this.storage.get('entity').then((entity) => {
-                                        if (entity != undefined){
-                                            this.aytoSuggested = JSON.parse(entity);
-                                        }else{
-                                            this.openEntitiesPage();  
-                                        }//else{
-                                            //if (this.aytoSuggested.AyuntamientoID != -1){
-                                                //this.aytoSuggested = aytos[0];
-                                                //this.storage.set('entity', JSON.stringify(this.aytoSuggested));
-                                            //}
-                                             
-                                        //}
-                                        
+                                        this.loadingComponent.dismiss(entity);
                                     });                                                                                                   
                                 },
-                                error =>  this.errorMessage = <any>error);
+                                error => {
+                                    this.errorMessage = <any>error;
+                                    this.loadingComponent.dismiss();
+                                });
     }
     
     loginUser() {

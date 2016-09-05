@@ -17,7 +17,7 @@ import {UtilsProvider} from './../../../../../../providers/utils';
   pipes: [TranslatePipe]
 })
 
-export class ChatPage implements OnInit {
+export class ChatPage {
   
   @ViewChild('chatContent') content;
   
@@ -27,6 +27,8 @@ export class ChatPage implements OnInit {
   msgs: any;  
   loadingComponent: any;
   errorMessage: any;
+
+  tab:any;
   
   constructor(private chat: ChatNodeService,
               private auth: AuthService,
@@ -39,6 +41,10 @@ export class ChatPage implements OnInit {
               private translate : TranslateService,
               private e: Events
               , public alertCtrl: AlertController) {
+
+    this.msg = '';
+    this.me = params.get('user');
+    this.incident = params.get('incident');
     
     this.e.subscribe('newMessage', (e) => {
       if(e){
@@ -49,28 +55,12 @@ export class ChatPage implements OnInit {
       }            
     });
     
-    this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
-    
-    this.me = params.get('user');
-    this.incident = params.get('incident'); 
-    
-    this.getMessages(this.me.token, this.incident.AvisoID);   
+      
     //this.msgs = params.get('messages');
   }
 
-  ngOnInit(): void {
-    this.msg = '';
-    this.loadingComponent.present();
-    /* SERVER 1 required 
-    this.auth.getToken({name: this.me.Nombre, id: this.me.UsuarioID, avisoID: this.incident.AvisoID}).then((status) => {
-      if (status) {
-        this.chat.socketAuth();
-      }
-    });
-    */
+  ionViewDidEnter(){
 
-    //this.chat.socketJoin(this.incident.AvisoID, this.me.token);//seccond test with token
-    //this.chat.socketJoin(this.me.token);//first test
     if(!this.chat.socketJoin(this.incident.AvisoID, this.me.token)){
       let alert = this.alertCtrl.create({
       title: this.translate.instant("incidents.pagechat.alertTitle"),
@@ -81,19 +71,16 @@ export class ChatPage implements OnInit {
               this.close();
             }
           }]
-    });
-    alert.present();
+      });
+      alert.present();
     }
-  }
 
-  ngAfterViewInit(): void {
-    //this.content = this.app.getComponent('chat');
-    //this.el = this.content.elementRef.nativeElement;
+    this.getMessages(this.me.token, this.incident.AvisoID); 
   }
 
   scrollTo(): void {
-     let dimensions = this.content.getContentDimensions();
-      this.content.scrollTo(0, dimensions.scrollBottom, 0);
+    let dimensions = this.content.getContentDimensions();
+    this.content.scrollTo(0, dimensions.scrollBottom, 0);
   }
 
   sendMessage(): void {
@@ -127,19 +114,24 @@ export class ChatPage implements OnInit {
   }
   
   getMessages(token: string, avisoID: number){
-    this.chatProvider.getChatAviso(token, avisoID)
-                            .subscribe(
-                                (result) =>{
-                                  this.loadingComponent.dismiss();
-                                  
-                                  this.msgs = result; 
-                                  
-                                  this.scrollTo();                                                                  
-                                },
-                                error =>{
-                                  this.errorMessage = <any>error;
-                                  this.loadingComponent.dismiss();
-                                });
+    this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));    
+    this.loadingComponent.onDidDismiss((result) => {
+      this.msgs = result;
+      this.scrollTo(); 
+    });
+    
+    let navTransition = this.loadingComponent.present();
+    navTransition.then(() => { 
+      this.chatProvider.getChatAviso(token, avisoID)
+        .subscribe(
+            (result) =>{
+              this.loadingComponent.dismiss(result);                                           
+            },
+            error =>{
+              this.errorMessage = <any>error;
+              this.loadingComponent.dismiss();
+            });
+    });
   }
   
   setDate(date: string) {

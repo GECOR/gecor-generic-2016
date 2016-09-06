@@ -36,15 +36,15 @@
   <p>{{incident.DesAveria}}</p>
   </ion-card-content>
   <ion-item>
-    <button disabled primary clear item-left *ngIf="likesFiltered.length != 0 && user.Aplicacion == 'G'">
+    <button disabled primary clear item-left *ngIf="likesFiltered.length != 0 && incident.Aplicacion == 'G'">
       <ion-icon name="thumbs-up"></ion-icon>
       <div (click)="addLike()">{{incident.Likes}} Likes</div>
     </button>
-    <button primary clear item-left *ngIf="likesFiltered.length == 0 && user.Aplicacion == 'G'">
+    <button primary clear item-left *ngIf="likesFiltered.length == 0 && incident.Aplicacion == 'G'">
       <ion-icon name="thumbs-up"></ion-icon>
       <div (click)="addLike()">{{incident.Likes}} Likes</div>
     </button>
-    <button primary clear item-left *ngIf="user.Aplicacion == 'G'">
+    <button primary clear item-left *ngIf="incident.Aplicacion == 'G'">
       <ion-icon name="text"></ion-icon>
       <div (click)="openComments()">{{incident.ComentariosAviso}} Comments</div>
     </button>

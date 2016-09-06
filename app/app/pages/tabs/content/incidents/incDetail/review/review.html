@@ -45,7 +45,7 @@
       <ion-list>
         <ion-item>
           <ion-label>{{"incidents.review.state" | translate}}</ion-label>
-          <ion-select [(ngModel)]="reviewInc.EstadoAvisoID" multiple="false">
+          <ion-select [(ngModel)]="reviewInc.EstadoAvisoID" multiple="false" (ngModelChange)="changeEstado()">
             <ion-option *ngFor="let estado of estados" value="{{estado.EstadoAvisoID}}" selected="false">{{estado.Nombre}}</ion-option>
           </ion-select>
         </ion-item>
@@ -58,7 +58,7 @@
       <ion-list>
         <ion-item>
           <ion-label>{{"incidents.review.responsible" | translate}}</ion-label>
-          <ion-select [(ngModel)]="reviewInc.OrigenIDResponsable" multiple="false">
+          <ion-select [(ngModel)]="reviewInc.OrigenIDResponsable" multiple="false" (ngModelChange)="changeResponsable()">
             <ion-option *ngFor="let responsable of responsables" value="{{responsable.OrigenID}}" selected="false">{{responsable.DesOrigen}}</ion-option>
           </ion-select>
         </ion-item>

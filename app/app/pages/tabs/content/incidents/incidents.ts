@@ -186,8 +186,18 @@ export class IncidentsPage {
     for (let i = 0; i < this.incidents.length; i++) {
       let marker = new google.maps.Marker;
       marker.setMap(this.map);
+
       let location = new google.maps.LatLng(this.incidents[i].Lat, this.incidents[i].Lng)
       marker.setPosition(location);
+
+      let color = "";
+      if (this.user.Aplicacion == 'G'){
+        color = this.incidents[i].ColorTecnico;
+      }else{
+        color = this.incidents[i].ColorCiudadano;
+      }
+
+      marker.setIcon('http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + color.replace('#', ''));
         
       contentString = '<div id="content">'+
       '<div id="siteNotice"></div>'+

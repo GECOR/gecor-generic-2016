@@ -335,6 +335,7 @@ export class ReviewPage {
             }    
             this.loadingComponent.present();
             this.loadingComponent.onDidDismiss((result) => {
+
               if (result[0].RowsAffected > 0){
                 let navTransition = alert.dismiss();
                 navTransition.then(() => { 
@@ -432,6 +433,14 @@ export class ReviewPage {
   changeTipoIncidencia(){
     this.reviewInc.desTipoElemento = this.tiposElementos.filter(item => item.TipoElementoID == this.reviewInc.tipoElementoID)[0].DesTipoElemento
     this.reviewInc.desTipoIncidencia = this.tiposIncidencias.filter(item => item.TipoIncID == this.reviewInc.tipoIncidenciaID)[0].TipoInc
+  }
+
+  changeResponsable(){
+    this.reviewInc.Responsable = this.responsables.filter(item => item.OrigenIDResponsable == this.reviewInc.OrigenIDResponsable)[0].DesOrigen
+  }
+
+  changeEstado(){
+    this.reviewInc.DesEstadoAviso = this.estados.filter(item => item.EstadoAvisoID == this.reviewInc.EstadoAvisoID)[0].Nombre
   }
   
    openGallery(){

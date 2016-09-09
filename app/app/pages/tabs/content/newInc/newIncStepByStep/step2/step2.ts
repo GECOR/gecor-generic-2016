@@ -48,10 +48,20 @@ export class Step2Page {
       this.searchText = '';
 
       this.storage = new Storage(SqlStorage);    
-      this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
-          this.tiposIncidencias = JSON.parse(tiposIncidencias);
-          this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.inc.tipoElemento.TipoElementoID)
-      })
+
+      this.storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+
+          this.storage.get('tiposIncidencias').then((tiposIncidencias) => {
+              this.tiposIncidencias = JSON.parse(tiposIncidencias);
+              if (this.user.Aplicacion == 'G'){
+                this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.inc.tipoElemento.TipoElementoID)
+              }else{
+                this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.inc.tipoElemento.TipoElementoID
+                && item.EsInterno == false)
+              }
+          })
+      });
     
   }
 

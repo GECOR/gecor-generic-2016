@@ -147,7 +147,7 @@ export class IncDetailPage {
         directionsDisplay.setDirections(response);
         //Muestra markers en los cambios de dirección
         //this.showSteps(response, stepDisplay);
-      } else {
+      }/* else {
         //window.alert('Directions request failed due to ' + status);
         //this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("incidents.incdetail.directionRequestFailed"), this.translate.instant("app.btnAccept"));
         let alert = this.alertCtrl.create({
@@ -156,7 +156,7 @@ export class IncDetailPage {
           buttons: [this.translate.instant("app.btnAccept")]
         });
         alert.present();
-      }
+      }*/
     });
   }
 

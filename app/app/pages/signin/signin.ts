@@ -49,34 +49,37 @@ export class SignInPage {
   nuevoUsuario(){
     if (this.validateFields()){
       this.loadingComponent.present();
+      this.loadingComponent.onDidDismiss((result) => {
+        this.result = result[0];
+                                                          
+        if (this.result.CiudadanoID > 0) {
+          let alert = this.alertCtrl.create({
+            title: this.translate.instant("signin.presentSignInSuccessTitle"),
+            message: this.translate.instant("signin.presentSignInSuccessMessage"),
+            buttons: [
+              {
+                text: this.translate.instant("app.continueBtn"),
+                role: 'cancel',
+                handler: () => {
+                  alert.dismiss();
+                  this.openLoginPage();
+                }
+              }
+            ]
+          });
+          alert.present();
+        }else if(this.result.Error){
+          this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.result.Error, "Accept");
+        }else{
+          this.showAlert(this.translate.instant("app.oopsAlertTitle"), "There is a problem with server, try again later", "Accept");
+        }
+      });
+      
       this.signinService.nuevoUsuario(this.nombre.trim(), this.email.trim(), this.password.trim(), this.aytoSuggested.AyuntamientoID,
       this.dispositivo, this.aplicacion, this.idioma, this.modeloMovil)
                   .subscribe(
                       (result) =>{                                    
-                          this.loadingComponent.dismiss();
-                          this.result = result[0];
-                                                          
-                          if (this.result.CiudadanoID > 0) {
-                            let alert = this.alertCtrl.create({
-                              title: this.translate.instant("signin.presentSignInSuccessTitle"),
-                              message: this.translate.instant("signin.presentSignInSuccessMessage"),
-                              buttons: [
-                                {
-                                  text: this.translate.instant("app.continueBtn"),
-                                  role: 'cancel',
-                                  handler: () => {
-                                    alert.dismiss();
-                                    this.openLoginPage();
-                                  }
-                                }
-                              ]
-                            });
-                            alert.present();
-                          }else if(this.result.Error){
-                            this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.result.Error, "Accept");
-                          }else{
-                            this.showAlert(this.translate.instant("app.oopsAlertTitle"), "There is a problem with server, try again later", "Accept");
-                          }
+                          this.loadingComponent.dismiss(result);                          
                       },
                       error => {
                           this.errorMessage = <any>error;

@@ -47,10 +47,21 @@ export class Step1Page {
       this.inc = params.data;
       this.searchText = '';
 
-      this.storage = new Storage(SqlStorage);    
-      this.storage.get('tiposElementos').then((tiposElementos) => {
-          this.tiposElementos = JSON.parse(tiposElementos);
-          this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.inc.familia.FamiliasTiposElementosID);
+      this.storage = new Storage(SqlStorage);  
+
+      this.storage.get('user').then((user) => {
+          this.user = JSON.parse(user);
+
+          this.storage.get('tiposElementos').then((tiposElementos) => {
+              this.tiposElementos = JSON.parse(tiposElementos);
+              if (this.user.Aplicacion == 'G'){
+                this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.inc.familia.FamiliasTiposElementosID);
+              }else{
+                this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.inc.familia.FamiliasTiposElementosID
+                && item.EsInterno == false);
+              }
+              
+          });
       });
     
   }

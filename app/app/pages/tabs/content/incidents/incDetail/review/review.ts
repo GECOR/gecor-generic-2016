@@ -32,8 +32,10 @@ export class ReviewPage {
   errorMessage: any;
   user: any = {};
   reviewInc: any;
+  private reviewIncBackup: any;
   loadingComponent: any;
   base64string = "data:image/jpeg;base64,";
+  incReviewd: boolean = false;
   
   //MAP
   map: google.maps.Map;
@@ -68,8 +70,9 @@ export class ReviewPage {
     this.showTypology = false;
     this.showMap = false;
     this.images = ["", "", "", ""];
-    this.uploadingImages = [false, false, false, false];
+    this.uploadingImages = [false, false, false, false];    
     this.reviewInc = params.data;
+    this.reviewIncBackup = Object.assign({}, this.reviewInc);
     this.reviewInc.fotos = [];
     
     this.loadingComponent = utils.getLoading(this.translate.instant("app.loadingMessage"));
@@ -114,6 +117,15 @@ export class ReviewPage {
             this.initMap()
           , 100);      
       });    
+    }
+  }
+
+  ionViewWillLeave(){
+    if (!this.incReviewd){
+      this.reviewInc.EstadoAvisoID = this.reviewIncBackup.EstadoAvisoID;
+      this.reviewInc.DesEstadoAviso = this.reviewIncBackup.DesEstadoAviso;
+      this.reviewInc.Responsable = this.reviewIncBackup.Responsable;
+      this.reviewInc.OrigenIDResponsable = this.reviewIncBackup.OrigenIDResponsable;
     }
   }
 
@@ -177,47 +189,6 @@ export class ReviewPage {
   }
 
   //END MAP
-  /*takePhoto(id){
-    let actionSheet = ActionSheet.create({
-      title: '',
-      buttons: [
-        {
-          text: this.translate.instant("app.galleryText"),
-          handler: () => {
-           ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {     
-                    console.log('Image URI: ' + results[0]);             
-                    this._ngZone.run(() => {
-                      this.images[id] = results[0];
-                    });
-                }, (error) => {
-                    console.log('Error: ' + error);
-                }
-            );
-          }
-        },
-        {
-          text: this.translate.instant("app.cameraText"),
-          handler: () => {            
-            Camera.getPicture({quality: 100, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {//, destinationType: Camera.DestinationType.DATA_URL
-              this.images[id] = this.base64string + imageURI;
-            }, (message) => {
-              this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("app.cameraErrorAlertMessage"), this.translate.instant("app.btnAccept"));
-              console.log('Failed because: ');
-              console.log(message);
-            });
-          }
-        },
-        {
-          text: this.translate.instant("app.btnCancel"),
-          role: 'cancel',
-          handler: () => {
-            console.log("Cancel clicked");
-          }
-        }
-      ]
-    });
-    this.nav.present(actionSheet);
-  }*/
 
   takePhoto(id){
     let actionSheet = this.actionSheetCtrl.create({
@@ -373,6 +344,7 @@ export class ReviewPage {
           role: 'cancel',
           handler: () => {
             //alertSuccess.dismiss(); 
+            this.incReviewd = true;
             let navTransition = alertSuccess.dismiss();
             navTransition.then(() => { 
               setTimeout(() => this.nav.pop(), 200);
@@ -436,7 +408,7 @@ export class ReviewPage {
   }
 
   changeResponsable(){
-    this.reviewInc.Responsable = this.responsables.filter(item => item.OrigenIDResponsable == this.reviewInc.OrigenIDResponsable)[0].DesOrigen
+    this.reviewInc.Responsable = this.responsables.filter(item => item.OrigenID == this.reviewInc.OrigenIDResponsable)[0].DesOrigen
   }
 
   changeEstado(){

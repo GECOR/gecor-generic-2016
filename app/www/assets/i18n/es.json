@@ -187,6 +187,9 @@
 				"subtitle": "Eligiendo imágenes",
 				"cameraButton": "Hace foto con la cámara",
 				"galleryButton": "Elegir foto desde la galería"
+			},
+			"step4": {
+				"localizando": "Localizando..."
 			}
 		}
 	},

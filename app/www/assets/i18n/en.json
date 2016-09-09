@@ -188,6 +188,9 @@
 					"subtitle": "Taking images",
 					"cameraButton": "Take photo from camera",
 					"galleryButton": "Choose photo from gallery"
+				},
+				"step4": {
+					"localizando": "Searching..."
 				}
 			}
 		},

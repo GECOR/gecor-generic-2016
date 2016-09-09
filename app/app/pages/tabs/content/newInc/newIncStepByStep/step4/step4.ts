@@ -33,6 +33,7 @@ export class Step4Page {
   entity: any;
   loadingComponent: any;
   sendingInc: boolean = false;
+  localizando: boolean = false;
 
   //MAP
   hideMap: boolean = true;
@@ -90,25 +91,40 @@ export class Step4Page {
       this.storage.get('entity').then((entity) => {
           this.entity = JSON.parse(entity);
           this.inc.tipoProcedenciaID = this.entity.ProcedenciaMovil;
-      });
 
-      this.geo.getLocation().then(location =>{
-        this.location = location;
-        if (this.location.error){
           this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
           this.inc.lat = this.entity.latitude;
           this.inc.lng = this.entity.longitude;
-          this.inc.desUbicacion = this.translate.instant("incidents.incdetail.addresOf") + this.entity.Nombre;
-        }else{        
+          this.inc.desUbicacion = this.translate.instant("incidents.incdetail.addresOf") + this.entity.Nombre; 
+
+          setTimeout(() =>
+            this.initMap()
+          , 100); 
+      });
+
+      
+      //this.latLng = new google.maps.LatLng(36.721352, -4.421473); //Por defecto asignamos el centro de Málaga
+
+      this.localizando = true;
+      this.geo.getLocation().then(location =>{
+        this.localizando = false;
+        this.location = location;
+        if (!this.location.error){        
           this.latLng = this.location.latLng;
           this.inc.lat = this.latLng.lat();
           this.inc.lng = this.latLng.lng();
           this.inc.desUbicacion = this.location.startAddress;
-        }      
-        //setTimeout(() =>
-            //this.initMap()
-          //, 100);      
-      });  
+          this.map.setCenter(this.latLng);
+        }   
+      });        
+    
+  }
+
+  ionViewWillLeave(){
+    this.mapShowedOnce = false;
+  }
+
+  ionViewDidEnter(){
     
   }
 
@@ -126,34 +142,37 @@ export class Step4Page {
   }
 
   showMap(){
-    if (!this.hideMap){
-      this.hideMap=!this.hideMap;
-    }else{
-      let alert = this.alertCtrl.create({
-        title: this.translate.instant("newInc.presentConfirmChangeLocAlertTitle"),
-        message: this.translate.instant("newInc.presentConfirmChangeLocAlertMessage"),
-        buttons: [
-          {
-            text: this.translate.instant("app.btnCancel"),
-            role: 'cancel',
-            handler: () => {
-              console.log('Cancel clicked');
-            }
-          },
-          {
-            text: this.translate.instant("app.btnAccept"),
-            handler: () => {
-              this.hideMap=!this.hideMap;
-              if(!this.hideMap && !this.mapShowedOnce){
-                this.mapShowedOnce = true;
-                this.initMap();
+    if (this.latLng){
+      if (!this.hideMap){
+        this.hideMap=!this.hideMap;
+      }else{
+        let alert = this.alertCtrl.create({
+          title: this.translate.instant("newInc.presentConfirmChangeLocAlertTitle"),
+          message: this.translate.instant("newInc.presentConfirmChangeLocAlertMessage"),
+          buttons: [
+            {
+              text: this.translate.instant("app.btnCancel"),
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: this.translate.instant("app.btnAccept"),
+              handler: () => {
+                this.hideMap=!this.hideMap;
+                if(!this.hideMap && !this.mapShowedOnce){
+                  this.mapShowedOnce = true;
+                  this.initMap();
+                }
               }
             }
-          }
-        ]
-      });    
-      alert.present(); 
+          ]
+        });    
+        alert.present(); 
+      }
     }
+    
     
   }
 
@@ -163,7 +182,12 @@ export class Step4Page {
       this.map = new google.maps.Map(mapEle, {
         center: this.latLng,
         zoom: this.zoom
-      });        
+      });     
+
+      google.maps.event.addListenerOnce(this.map, 'idle', function() {
+        google.maps.event.trigger(this.map, 'resize');
+      });
+
       this.marker = new google.maps.Marker({
         position: this.latLng,
         map: this.map,
@@ -208,11 +232,14 @@ export class Step4Page {
       google.maps.event.addListenerOnce(this.map, 'idle', () => {
         mapEle.classList.add('show-map');
       });
+
+      
   }
 
   mapClass(){
     if (this.hideMap){
-      return "mapIncHidden";
+      //return "mapIncHidden";
+      return "mapInc";
     }else{
       return "mapInc";
     }

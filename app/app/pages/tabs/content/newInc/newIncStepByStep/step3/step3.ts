@@ -157,13 +157,12 @@ export class Step3Page {
             ImagePicker.getPictures({maximumImagesCount: 1}).then((results) => {
 
                         if (results.length > 0){
-                        this.utils.resizeImage(results[0], 1024, 768).then((imgResized) => {
-                            this.uploadImage(imgResized, id);
-                        });
+                          this.utils.resizeImage(results[0], 1024, 768).then((imgResized) => {
+                              this.uploadImage(imgResized, id);
+                          });
                         }else{
-                        this.uploadingImages[id] = false;
-                        }
-                        
+                          this.uploadingImages[id] = false;
+                        }                        
                         
                     }, (error) => {
                         console.log('Error: ' + error);

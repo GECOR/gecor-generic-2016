@@ -44,19 +44,24 @@
 
     <ion-card class="ion-card-map" no-marg-left no-marg-right>
 
-      <ion-item (click)="showMap()">
+      <ion-item> <!--(click)="showMap()"-->
         <ion-icon name="contact" item-left large></ion-icon>
-        <h2>{{"newInc.location" | translate}}</h2>      
-        <p>{{inc.desUbicacion}}</p>
+        <h2 *ngIf="!localizando">{{"newInc.location" | translate}}</h2>      
+        <p *ngIf="!localizando">{{inc.desUbicacion}}</p>
+        <p item-left *ngIf="localizando">{{"newInc.newIncStepByStep.step4.localizando" | translate}}</p>
+        <ion-spinner item-right *ngIf="localizando"></ion-spinner>
       </ion-item>
 
       <div id="mapInc" [ngClass]="mapClass()"></div>
-      <button fab fab-right class="fab-map" [hidden]="hideMap" (click)="centerMap()">
+      <!--<button fab fab-right class="fab-map" [hidden]="hideMap" (click)="centerMap()">
         <ion-icon name="pin"></ion-icon>
-      </button>
+      </button>-->
 
     </ion-card>
 
-    <button full send-incident (click)="newIncident()">{{"newInc.send" | translate}} </button>
+    <button fab send-incident (click)="newIncident()">
+      <!--{{"newInc.send" | translate}}--> 
+      <ion-icon name="send"></ion-icon>
+    </button>
   </div>
 </ion-content>

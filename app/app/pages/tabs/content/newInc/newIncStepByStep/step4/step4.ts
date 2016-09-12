@@ -114,6 +114,7 @@ export class Step4Page {
           this.inc.lat = this.latLng.lat();
           this.inc.lng = this.latLng.lng();
           this.inc.desUbicacion = this.location.startAddress;
+          this.marker.setPosition(this.latLng);
           this.map.setCenter(this.latLng);
         }   
       });        

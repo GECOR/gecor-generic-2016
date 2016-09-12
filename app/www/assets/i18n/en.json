@@ -75,9 +75,10 @@
 		"legalTermsAlertTitle":"",
 		"legalTermsAlertMessage":"Please accept legal terms",
 		"legalterms": {
-			"title": "Aviso legal"
+			"title": "Legal terms",
+			"cancel": "Close"
 		},
-		"presentSignInSuccessTitle": "Listo!",
+		"presentSignInSuccessTitle": "Ready!",
 		"presentSignInSuccessMessage": "We have sent you an activation email"
 	},	
 	  "slide":{

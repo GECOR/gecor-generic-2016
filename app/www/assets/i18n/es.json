@@ -75,7 +75,8 @@
 		"legalTermsAlertTitle":"",
 		"legalTermsAlertMessage":"Por favor, acepte los términos legales",
 		"legalterms": {
-			"title": "Aviso legal"
+			"title": "Aviso legal",
+			"cancel": "Cerrar"
 		},
 		"presentSignInSuccessTitle": "Ready!",
 		"presentSignInSuccessMessage": "Hemos enviado un correo de verficación a tu email, activate!"

@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [1.0.0-beta.2] - 2016-08-09
+## [1.0.0-beta.2] - 2016-09-12
 
 ### Changed
 - Update project to Ionic beta.11

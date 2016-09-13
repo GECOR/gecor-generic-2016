@@ -8,12 +8,17 @@ ion-col[home]{
   margin-right: 0px;
 }
 
-/*ion-card[home] {
-  margin: 0;
-}*/
+ion-card[home] {
+  box-shadow: inherit;
+}
 
 
 p[home] {
    background-color: rgba(86, 86, 86, 0.29);
    font-size: large !important;
+}
+
+button[home] {
+  height: 150px;
+  padding: 0;
 }

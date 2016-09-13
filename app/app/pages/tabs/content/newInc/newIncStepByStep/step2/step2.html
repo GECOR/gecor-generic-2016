@@ -10,7 +10,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content class="step2">
   <div class="contentAll">
     <div class="topInfoSection1">{{inc.familia.Nombre}}</div>
     <div class="topInfoSection2">{{inc.tipoElemento.DesTipoElemento}}</div>
@@ -21,8 +21,10 @@
 
     <ion-list>
         <ion-list-header light>{{"newInc.newIncStepByStep.step2.subtitle" | translate}}</ion-list-header>
-        <ion-item *ngFor="let tipoIncidencia of tiposIncidencias | search: searchText" (click)="openChooseImg(tipoIncidencia)">
-        {{tipoIncidencia.TipoInc}}
+        <ion-item *ngFor="let tipoIncidencia of tiposIncidencias | search: searchText">
+          <button clear (click)="openChooseImg(tipoIncidencia)" class="step2-button-item">
+            <p>{{tipoIncidencia.TipoInc}}</p>
+          </button>
         </ion-item>
     </ion-list>
   </div>

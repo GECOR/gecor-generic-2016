@@ -4,6 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- Home buttons style changed and effect button click added
+- List elements and list type incidences (step1 and step 2): change style and effect button click added
+
+### Fixed
+- In step 4 when geolocation fails, we can't send incidence because the entity location is wrong
+- Login -> EntitiesModal -> TRIM to search field
+
 ## [1.0.0-beta.2] - 2016-09-12
 
 ### Changed

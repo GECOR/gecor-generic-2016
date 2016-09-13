@@ -93,8 +93,8 @@ export class Step4Page {
           this.inc.tipoProcedenciaID = this.entity.ProcedenciaMovil;
 
           this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
-          this.inc.lat = this.entity.latitude;
-          this.inc.lng = this.entity.longitude;
+          this.inc.lat = this.entity.Latitud;
+          this.inc.lng = this.entity.Longitud;
           this.inc.desUbicacion = this.translate.instant("incidents.incdetail.addresOf") + this.entity.Nombre; 
 
           setTimeout(() =>

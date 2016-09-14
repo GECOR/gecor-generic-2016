@@ -88,23 +88,6 @@ export class Step4Page {
           this.user = JSON.parse(user);
       });
 
-      this.storage.get('entity').then((entity) => {
-          this.entity = JSON.parse(entity);
-          this.inc.tipoProcedenciaID = this.entity.ProcedenciaMovil;
-
-          this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
-          this.inc.lat = this.entity.Latitud;
-          this.inc.lng = this.entity.Longitud;
-          this.inc.desUbicacion = this.translate.instant("incidents.incdetail.addresOf") + this.entity.Nombre; 
-
-          setTimeout(() =>
-            this.initMap()
-          , 100); 
-      });
-
-      
-      //this.latLng = new google.maps.LatLng(36.721352, -4.421473); //Por defecto asignamos el centro de Málaga
-
       this.localizando = true;
       this.geo.getLocation().then(location =>{
         this.localizando = false;
@@ -114,9 +97,28 @@ export class Step4Page {
           this.inc.lat = this.latLng.lat();
           this.inc.lng = this.latLng.lng();
           this.inc.desUbicacion = this.location.startAddress;
-          this.marker.setPosition(this.latLng);
-          this.map.setCenter(this.latLng);
-        }   
+          
+          setTimeout(() => {
+              this.initMap()
+              this.marker.setPosition(this.latLng);
+              this.map.setCenter(this.latLng);
+            }
+            , 100);
+        }else{
+          this.storage.get('entity').then((entity) => {
+            this.entity = JSON.parse(entity);
+            this.inc.tipoProcedenciaID = this.entity.ProcedenciaMovil;
+
+            this.latLng = new google.maps.LatLng(this.entity.Latitud, this.entity.Longitud);
+            this.inc.lat = this.entity.Latitud;
+            this.inc.lng = this.entity.Longitud;
+            this.inc.desUbicacion = this.translate.instant("incidents.incdetail.addresOf") + this.entity.Nombre; 
+
+            setTimeout(() =>
+              this.initMap()
+            , 100); 
+        });
+        }
       });        
     
   }
@@ -127,6 +129,10 @@ export class Step4Page {
 
   ionViewDidEnter(){
     
+  }
+
+  ionViewWillEnter(){
+
   }
 
   inputSearch(search) {

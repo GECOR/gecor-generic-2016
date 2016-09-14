@@ -28,10 +28,10 @@
   
     <div class="message-list">    
       <div *ngFor="let m of msgs">
-        <div class="chat-message" [ngClass]="{in: m.UsuarioID != me.UsuarioID, out: m.UsuarioID == me.UsuarioID}"> 
+        <div class="chat-message" [ngClass]="{in: m.UsuarioID != me.UsuarioID, out: m.UsuarioID == me.UsuarioID}">
           <div class="message tail">
             <span class="author-name">{{ m.Nombre }}</span>  
-            <span class="message-date">{{ setDate(m.FechaHoraRegistro) | date:'HH:mm' }}</span>                
+            <span class="message-date">{{ setDate(m.FechaHoraRegistro) }}</span>              
             <span class="message-content">{{ m.Mensaje }}</span>  
           </div>
         </div>   

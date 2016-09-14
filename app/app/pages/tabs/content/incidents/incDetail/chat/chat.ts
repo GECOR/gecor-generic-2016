@@ -135,7 +135,14 @@ export class ChatPage {
   }
   
   setDate(date: string) {
-    return new Date(date);
+    var n_date = new Date(date);
+    var h = n_date.getHours();
+    var m = n_date.getMinutes();
+    var s_m = m.toString();
+    if (m < 10){
+      s_m = '0' + m;
+    }
+    return h + ':' + s_m;
   }
   
 }

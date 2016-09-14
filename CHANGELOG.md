@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - In step 4 when geolocation fails, we can't send incidence because the entity location is wrong
 - Login -> EntitiesModal -> TRIM to search field
+- iPhone -> The second time sending an incidence always print entity location
 
 ## [1.0.0-beta.2] - 2016-09-12
 

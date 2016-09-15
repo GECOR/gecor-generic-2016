@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.0-beta.3] - 2016-09-15
+
 ### Changed
 - Home buttons style changed and effect button click added
 - List elements and list type incidences (step1 and step 2): change style and effect button click added

@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - iPhone -> Chat
 - EntitiesModalPage -> If AyuntamientoID = 0 HTML not works fine
 - Like citizen not appear the loading component when we want to share an incidence
+- Chat -> When you connect to second chat the scroll to bottom crash
 
 ## [1.0.0-beta.2] - 2016-09-12
 

@@ -78,9 +78,18 @@ export class ChatPage {
     this.getMessages(this.me.token, this.incident.AvisoID); 
   }
 
+  ionViewWillLeave(){
+    this.close();
+  }
+
   scrollTo(): void {
-    let dimensions = this.content.getContentDimensions();
-    this.content.scrollTo(0, dimensions.scrollBottom, 0);
+    //let dimensions = this.content.getContentDimensions();
+    //this.content.scrollTo(0, dimensions.scrollBottom, 0);
+    setTimeout(() => {
+              this.content.scrollToBottom(300);
+            }
+            , 100);
+    
   }
 
   sendMessage(): void {
@@ -109,8 +118,8 @@ export class ChatPage {
   public close(): void {
     //this.chat.disconnectChat();//server V1
     this.chat.disconnectUserChat(this.incident.AvisoID);
-    let data = {};
-    this.viewController.dismiss(data);
+    //let data = {};
+    //this.viewController.dismiss(data);
   }
   
   getMessages(token: string, avisoID: number){
@@ -118,6 +127,7 @@ export class ChatPage {
     this.loadingComponent.onDidDismiss((result) => {
       this.msgs = result;
       this.scrollTo(); 
+      
     });
     
     let navTransition = this.loadingComponent.present();

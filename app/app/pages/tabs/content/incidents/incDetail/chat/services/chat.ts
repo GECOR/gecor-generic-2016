@@ -162,7 +162,8 @@ export class ChatNodeService {
 
   public disconnectUserChat(idRoom): void {//SERVER 2
     if(this.socket)
-      this.socket.emit('leave', idRoom);      
+      this.socket.emit('leave', idRoom);
+      //this.socket.emit('disconnect');      
   }
 
 }

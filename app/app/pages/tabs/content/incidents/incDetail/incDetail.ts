@@ -235,7 +235,13 @@ export class IncDetailPage {
       buttons = [
         {text: this.translate.instant("incidents.incdetail.actionSheetShare"),
           handler: () => {
-            console.log('Share');
+
+            let loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));
+            loadingComponent.present();
+            setTimeout(() => {
+              loadingComponent.dismiss();
+            }, 3000);
+
             let subjet = this.incident.DesTipoElemento + ': ' + this.incident.TipoInc;
             let body = this.incident.DesAveria;
             let image = this.incident.RutaFoto;

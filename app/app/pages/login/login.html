@@ -13,7 +13,7 @@
                 <ion-spinner item-left></ion-spinner>
                 {{"login.aytoSuggested" | translate}}
             </ion-item>-->
-            <ion-item *ngIf="aytoSuggested.AyuntamientoID">                
+            <ion-item *ngIf="aytoSuggested.AyuntamientoID != undefined">                
                 <ion-thumbnail item-left small>
                     <img src="{{aytoSuggested.Logo}}" alt="Foto" size-24>
                 </ion-thumbnail>
@@ -32,19 +32,19 @@
         </ion-item>
         </ion-list>
 
-        <button *ngIf="aytoSuggested.AyuntamientoID" block (click)="loginUser()">{{"login.title" | translate}}</button>
-        <button *ngIf="!aytoSuggested.AyuntamientoID" disabled block (click)="loginUser()">{{"login.title" | translate}}</button>
+        <button *ngIf="aytoSuggested.AyuntamientoID != undefined" block (click)="loginUser()">{{"login.title" | translate}}</button>
+        <button *ngIf="aytoSuggested.AyuntamientoID == undefined" disabled block (click)="loginUser()">{{"login.title" | translate}}</button>
         
-        <button *ngIf="aytoSuggested.AyuntamientoID" light block (click)="openSignInPage()">{{"login.signIn" | translate}}</button>
-        <button *ngIf="!aytoSuggested.AyuntamientoID" disabled light block (click)="openSignInPage()">{{"login.signIn" | translate}}</button>
+        <button *ngIf="aytoSuggested.AyuntamientoID != undefined" light block (click)="openSignInPage()">{{"login.signIn" | translate}}</button>
+        <button *ngIf="aytoSuggested.AyuntamientoID == undefined" disabled light block (click)="openSignInPage()">{{"login.signIn" | translate}}</button>
 
         <button clear block (click)="forgottenPass()">{{"login.forgottenPass" | translate}}</button>
         <div block class="label-or">
         {{"login.orUse" | translate}}
         </div>
-        <button *ngIf="aytoSuggested.AyuntamientoID" block (click)="loginFacebookUser()"><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
-        <button *ngIf="!aytoSuggested.AyuntamientoID" disabled block (click)="loginFacebookUser()"><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
-        <button *ngIf="aytoSuggested.AyuntamientoID" block danger (click)="loginGooglePlusUser()"><ion-icon name="logo-googleplus"></ion-icon>Google</button>
-        <button *ngIf="!aytoSuggested.AyuntamientoID" disabled block danger (click)="loginGooglePlusUser()"><ion-icon name="logo-googleplus"></ion-icon>Google</button>
+        <button *ngIf="aytoSuggested.AyuntamientoID != undefined" block (click)="loginFacebookUser()"><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
+        <button *ngIf="aytoSuggested.AyuntamientoID == undefined" disabled block (click)="loginFacebookUser()"><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
+        <button *ngIf="aytoSuggested.AyuntamientoID != undefined" block danger (click)="loginGooglePlusUser()"><ion-icon name="logo-googleplus"></ion-icon>Google</button>
+        <button *ngIf="aytoSuggested.AyuntamientoID == undefined" disabled block danger (click)="loginGooglePlusUser()"><ion-icon name="logo-googleplus"></ion-icon>Google</button>
     </div>
 </ion-content>

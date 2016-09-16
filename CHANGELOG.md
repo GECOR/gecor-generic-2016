@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- InAppBrowser deprecated for iOS, new version installed
+
 ### Changed
 - Home buttons style changed and effect button click added
 - List elements and list type incidences (step1 and step 2): change style and effect button click added

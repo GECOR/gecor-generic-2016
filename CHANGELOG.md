@@ -4,12 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-<<<<<<< HEAD
 ### Fixed
 - InAppBrowser deprecated for iOS, new version installed
-=======
+
 ## [1.0.0-beta.3] - 2016-09-15
->>>>>>> 4c58bd9da69269693322c296e4c8933428adfaf5
 
 ### Changed
 - Home buttons style changed and effect button click added

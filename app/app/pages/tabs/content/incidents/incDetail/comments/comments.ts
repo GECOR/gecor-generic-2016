@@ -21,6 +21,7 @@ export class CommentsPage {
   message: any;
   messages: any;
   loadingComponent: any;
+  sendingMsg: boolean = false;
 
   constructor(private nav: NavController
   , private menu: MenuController
@@ -58,8 +59,13 @@ export class CommentsPage {
     
     newComentarioAviso(message){
       if (this.message != ""){
+        this.sendingMsg = true;
+        this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));
+        this.loadingComponent.present();
         this.commentsService.newComentarioAviso(this.user.token, this.incident.AvisoID, message)
         .subscribe((result) =>{
+          this.sendingMsg = false;
+          this.loadingComponent.dismiss();
           if (result[0].AvisoComentarioID > 0){
             this.message = "";
             this.messages.unshift(result[0]);
@@ -71,6 +77,8 @@ export class CommentsPage {
         },
         error =>{
           this.errorMessage = <any>error;
+          this.loadingComponent.dismiss();
+          this.sendingMsg = false;
         });  
       }               
     }

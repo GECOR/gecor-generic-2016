@@ -8,6 +8,7 @@ import {NewIncPage} from './../newInc';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS, newIncStepByStep} from './../../../../../appConfig';
 import {Step1Page} from './../newIncStepByStep/step1/step1'
+import {Step2Page} from './../newIncStepByStep/step2/step2';
 
 @Component({
   templateUrl: './build/pages/tabs/content/newInc/families/families.html',
@@ -22,6 +23,8 @@ export class FamiliesPage {
   storage: any;
   lenFamilias: any;
   user: any = {};
+  tiposElementos: any;
+  inc: any = {};
 
   exitOnBack: boolean = true;
   
@@ -73,10 +76,24 @@ export class FamiliesPage {
   
   openNewInc(familia){
     //this.nav.push(NewIncPage, familia);
-    var inc = {
-      "familia": familia
-    };
-    this.nav.push(Step1Page, inc);
+    this.inc.familia = familia
+
+    this.storage.get('tiposElementos').then((tiposElementos) => {
+        this.tiposElementos = JSON.parse(tiposElementos);
+        if (this.user.Aplicacion == 'G'){
+          this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.inc.familia.FamiliasTiposElementosID);
+        }else{
+          this.tiposElementos = this.tiposElementos.filter(item => item.FamiliaTipoElementoID == this.inc.familia.FamiliasTiposElementosID
+          && item.EsInterno == false);
+        }
+
+        if (this.tiposElementos.length == 1){
+          this.inc.tipoElemento = this.tiposElementos[0];
+          this.nav.push(Step2Page, this.inc);
+        }else{
+          this.nav.push(Step1Page, this.inc);
+        }
+    });    
   }
   
   checkFamily(i){

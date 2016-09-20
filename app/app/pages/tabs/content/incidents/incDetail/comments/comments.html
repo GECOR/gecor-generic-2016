@@ -16,7 +16,10 @@
         <ion-input type="text" placeholder='{{"incidents.comments.placeholder" | translate}}' [(ngModel)]="message"></ion-input>
       </ion-col>
       <ion-col width-20>
-        <button (click)="newComentarioAviso(message)">
+        <button (click)="newComentarioAviso(message)" *ngIf="!sendingMsg">
+          <ion-icon name="send"></ion-icon>
+        </button>
+        <button disabled (click)="newComentarioAviso(message)" *ngIf="sendingMsg">
           <ion-icon name="send"></ion-icon>
         </button>
       </ion-col>

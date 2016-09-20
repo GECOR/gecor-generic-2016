@@ -78,7 +78,7 @@
 			"title": "Aviso legal",
 			"cancel": "Cerrar"
 		},
-		"presentSignInSuccessTitle": "Ready!",
+		"presentSignInSuccessTitle": "Listo!",
 		"presentSignInSuccessMessage": "Hemos enviado un correo de verficación a tu email, activate!"
 	},	
 	"slide":{
@@ -101,6 +101,7 @@
 			"dateTxt": "Fecha",
 			"distanceTxt": "Distancia",
 			"reviewTxt": "Revisar",
+			"statusTxt": "Estado",
 			"viewTxt": "Ver",
 		"incdetail":{
 			"title": "Incidentes",
@@ -132,7 +133,7 @@
 			"state": "Estado",
 			"responsible": "Responsable",
 			"location": "Localización del usuario",
-			"reviewIncident": "Revisar",
+			"reviewIncident": "Send",
 			
 			"presentConfirmAlertTitle": "Confirmar revisión",
 			"presentConfirmAlertMessage": "Hay algun error revisando este aviso",

@@ -100,6 +100,7 @@
 			"atentionAlertTitle": "Atention",
 			"dateTxt": "Date",
 			"distanceTxt": "Distance",
+			"statusTxt": "Status",
 			"reviewTxt": "Review",
 			"viewTxt": "View",
 	  "incdetail":{
@@ -132,7 +133,7 @@
 		  "state": "State",
 		  "responsible": "Responsible",
 		  "location": "User location",
-		  "reviewIncident": "Review",		  
+		  "reviewIncident": "Send",		  
 		  
 		  "presentConfirmAlertTitle": "Confirm review",
 		  "presentConfirmAlertMessage": "There is some error reviewing this incident",

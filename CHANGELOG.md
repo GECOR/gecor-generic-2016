@@ -4,8 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- Skip step 1 sending incidence if it is not necessary
+- Reviewing incidence changed send button text: "Review" by "Send"
+
 ### Fixed
-- InAppBrowser deprecated for iOS, new version installed
+- InAppBrowser deprecated, new version installed
+- In the incidence's comments if you click more of one time in send button, the messages will send several times
+
+### Added
+- Order by status
 
 ## [1.0.0-beta.3] - 2016-09-15
 

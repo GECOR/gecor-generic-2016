@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - InAppBrowser deprecated, new version installed
 - In the incidence's comments if you click more of one time in send button, the messages will send several times
+- In iPhone when de login failed the loading component not dismiss
+- iOS, added NSCameraUsageDescription and NSPhotoLibraryUsageDescription to info plist
 
 ### Added
 - Order by status

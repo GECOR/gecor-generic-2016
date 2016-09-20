@@ -280,7 +280,9 @@ export class LoginPage {
         if (this.validateLogin()){    
             this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));      
             this.loadingComponent.present();
-            //this.loginLoading = true;
+            this.loadingComponent.onDidDismiss((ok) => { 
+                if (ok == false) this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.translate.instant("login.loginAlertMessage"), this.translate.instant("app.btnAccept"));;
+            });
             this.loginService.loginUser(this.email.trim(), this.password.trim(), this.aytoSuggested.AyuntamientoID)
                             .subscribe(
                                 (user) =>{                                    
@@ -302,8 +304,8 @@ export class LoginPage {
                                         }
                                     }else{
                                         //this.loginLoading = false;
-                                        this.loadingComponent.dismiss();                               
-                                        this.showAlert(this.translate.instant("app.oopsAlertTitle"), this.translate.instant("login.loginAlertMessage"), this.translate.instant("app.btnAccept"));
+                                        this.loadingComponent.dismiss(false);                               
+                                        
                                     }
                                 },
                                 error => {

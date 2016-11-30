@@ -1,0 +1,240 @@
+{		
+	"app": {	
+  		"btnAccept": "Accept",
+  		"btnCancel": "Cancel",
+		"sendBtn": "Send",
+		"continueBtn": "Continue",
+		"loadingMessage": "Please wait...",
+		"oopsAlertTitle": "Oops!",
+		"genericErrorAlertTitle": "Error",
+		"genericErrorAlertMessage": "There is some error",
+		"cameraErrorAlertMessage": "Failed because Camera!",
+		"galleryText": "Gallery",
+		"cameraText": "Camera",
+		"next": "Next"
+	},	
+	"calendar":{
+			"title": "Calendar",
+			"meetings": "Meetings",
+			"reminders": "Reminders",
+			"notes": "Notes"
+	},	
+	"login": {
+		"title": "Login",
+		"aytoSuggested": "Show Default",
+		"signIn": "Sign in",
+		"changeModal": "Change",
+		"forgottenPass": "Forgotten Pass",
+		"orUse": "Or use...",
+		"placeholder": {
+			"username": "Username",
+			"password": "Password"
+		},
+		"forgottenAlertTitle":"Forgotten password",
+		"forgottenAlertMessage":"Enter email to reset password",
+		"forgottenAlertInputPlaceholder":"Email",
+		"forgottenAlertBtnReset":"Reset",
+		
+		"suggestedAlertTitle":"Error",
+		"suggestedAlertMessage":"We have problems to locate you, please choose a entity manually.",
+		
+		"loginAlertTitle":"",
+		"loginAlertMessage":"The user was incorrect",
+		
+		"validateEmptyAlertTitle":"Data is empty",
+		"validateEmptyAlertMessage":"Please enter an email and password",
+		"validateSuggestedAlertTitle":"Entity not found",
+		"validateSuggestedAlertMessage":"Please choose a entity manually",
+		"entities": {
+			"title": "Entities",
+			"suggested": "Suggested",
+			"other": "Other entities"
+		},
+		"entitiesmodal":{
+			"title": "Entities",
+			"suggested": "Suggested",
+			"other": "Other entities",
+			"cancel": "Cancelar"
+		},
+		"resetPassTitle": "Perfect!",
+		"resetPassSubtitle": "We have sent you an email to reset password"
+	},	
+	"signin":{
+		"title": "Sign In",
+		"terms": "Accept the terms",
+		"signin": "Sign In",
+		"back" : "Back",
+		"placeholder": {
+			"name": "Name",
+			"email":"Email",
+			"password": "Password",
+			"password_2": "Confirm password"
+		},
+		"confirmPassAlertTitle":"",
+		"confirmPassAlertMessage":"Passwords does not match",
+		"legalTermsAlertTitle":"",
+		"legalTermsAlertMessage":"Please accept legal terms",
+		"legalterms": {
+			"title": "Legal terms",
+			"cancel": "Close"
+		},
+		"presentSignInSuccessTitle": "Ready!",
+		"presentSignInSuccessMessage": "We have sent you an activation email"
+	},	
+	  "slide":{
+		  "skip":"Skip",
+		  "ready": "Ready to play?"
+	  },	  
+	  "tabs":{
+		  "title":"Menu"
+	  },	  
+	  "home":{
+		 "title":"Home",
+		 "incidence": "New Incidence",
+		 "beaches": "Beaches",
+		 "renewalDNI": "Renewal DNI",
+		 "myIncs": "My incedences"	 
+	  },	   
+	"incidents":{
+			"title": "Incidents",
+			"atentionAlertTitle": "Atention",
+			"dateTxt": "Date",
+			"distanceTxt": "Distance",
+			"statusTxt": "Status",
+			"reviewTxt": "Review",
+			"viewTxt": "View",
+	  "incdetail":{
+		    "title": "Incidents",
+			"userlocation": "User location",	
+			"incidentlocation": "Inicident location",
+	  		"chat": "Chat",
+			"start":"Start",
+			"lastcomment": "Last comment",
+			"directionRequestFailed": "Directions request failed due to ",
+			"actionSheetReview": "Review",
+			"actionSheetShare": "Share",
+			"addresOf": "Address of "			
+	  },
+	  "pagechat":{
+		  "title": "Chat",		  
+		  "send": "Send",
+		  "close": "Close",
+		  "alertTitle": "Error",
+		  "alertMessage": "Unable to connect to Chat Service. Try again later."
+		  },
+	  "comments":{
+		  "title": "Comments",
+		  "placeholder": "Add message"
+	  },
+	  "review":{
+		  "title":"Review",
+		  "element": "Element",
+		  "incident": "Incident",
+		  "state": "State",
+		  "responsible": "Responsible",
+		  "location": "User location",
+		  "reviewIncident": "Send",		  
+		  
+		  "presentConfirmAlertTitle": "Confirm review",
+		  "presentConfirmAlertMessage": "There is some error reviewing this incident",
+		  
+		  "presentReviewAlertTitle": "Incident reviewed",
+		  "presentReviewAlertMessage": "Incident reviewed succesfully",
+		  
+		  "checkFieldsAlertMessage": "Please write a solution"
+	  }
+	  },
+	  "newInc":{
+			"title": "New Incident",
+			"element": "Element",
+			"incident": "Incident",
+			"location": "Incidence location",
+			"send": "Send",
+
+			"elementAlertMessage": "Please choose a element",
+			"incidentAlertMessage": "Please choose a incident",
+			"descriptionAlertMessage": "Please write some description",		  
+			
+			"presentConfirmAlertTitle": "Confirm incident",
+			"presentConfirmAlertMessage": "",
+			"presentConfirmErrorAlertMessage": "There is some error sending this incident",
+
+			"presentIncidentSuccessAlertTitle": "Incident sent",
+
+			"presentConfirmChangeLocAlertTitle": "Change location?",
+			"presentConfirmChangeLocAlertMessage": "Accept if you want to change the incidence location",
+
+			"families":{
+				"title":"Families"	   			  
+			},
+			"survey":{
+				"title":"Survey",
+				"opinion": "What you think of the app?",
+				"cleaning": "Rate the cleanliness of your city",
+				"security": "Rate the security of your city",
+				"politics": "Rate the politics of your city",
+				"cancel": "Cancel",
+				"send": "Send"
+			},
+			"newIncStepByStep":{
+				"step1": {
+					"title": "Elements",
+					"subtitle": "Please choose a element"
+				},
+				"step2": {
+					"title": "Incidents",
+					"subtitle": "Please choose a incident"
+				},
+				"step3": {
+					"title": "Images",
+					"subtitle": "Taking images",
+					"cameraButton": "Take photo from camera",
+					"galleryButton": "Choose photo from gallery"
+				},
+				"step4": {
+					"localizando": "Searching..."
+				}
+			}
+		},
+		 "news":{
+			 "title":"News",
+			 "newsdetail":{
+				 "title":"News detail",
+				 "favorite": "Favorite",
+				 "share": "Share"
+			 }				
+		 },
+		 "settings":{
+			 "title": "Settings",
+			 "notifications": "Notificaciones",
+			 "terms": "Terms and conditions ",
+			 "relatedapp": "APPS RELATED",
+			 "mlgfunciona": "MLG Funciona",
+			 "algaba": "La Algaba",
+			 "fuengirola": "Fuengirola Avanza",
+			 "puerto": "Mejora el Puerto",
+			 "velez": "Incidencias Vélez-Málaga",
+			 "abisuek": "Abisuek",
+			 "torreon": "Torreón",
+			 "prudenco": "Prudenco",
+			 "cuajimalpa": "Cuajimalpa",
+			 "entities":{
+				 "title": "Entities",
+				 "suggested": "SUGGESTED",
+				 "other": "OTHER ENTITIES"
+			 },
+			 "notificationspage":{
+				 "title": "Notifications",
+				  "email": "E-mail",
+				  "push": "Push" 
+			 },
+			 "termspage":{
+				 "title": "Terms and Conditions"				  
+			 },
+			 "user":{
+				 "title": "User",
+				 "logout":"Logout",
+				 "tech": "Technical"		  			 
+			 }
+		 }     
+}

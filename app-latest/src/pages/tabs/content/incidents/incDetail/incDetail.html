@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{"incidents.incdetail.title" | translate}}
+      <div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="incidents-page">
+
+<ion-card>
+  <ion-item>
+    <ion-avatar item-left>
+      <img src="assets/img/user-128.png">
+    </ion-avatar>
+    <h2>{{incident.DesTipoElemento}}: {{incident.TipoInc}}</h2>
+    <p>{{incident.FechaHoraRegistro}}</p>
+    <p>{{incident.DesEstadoAviso}}</p>
+    <div item-right text-right>
+      <ion-icon class="icon-size-m" name="apps" (click)="showMore(incident)"></ion-icon>
+      <!--<div [ngSwitch]=incident.state>
+        <p secondary item-right *ngSwitchCase="'Terminada'">
+            {{incident.Estado}}
+        </p>
+        <p color="danger" item-right *ngSwitchCase="'Pendiente'">
+            {{incident.Estado}}
+        </p>
+      </div>-->
+    </div>
+  </ion-item>
+  <img src={{incident.RutaFoto}}>
+  <ion-card-content>
+  <p>{{incident.DesAveria}}</p>
+  </ion-card-content>
+  <ion-item>
+    <button ion-button disabled color="primary" clear item-left *ngIf="likesFiltered.length != 0 && incident.Aplicacion == 'G'">
+      <ion-icon name="thumbs-up"></ion-icon>
+      <div (click)="addLike()">{{incident.Likes}} Likes</div>
+    </button>
+    <button ion-button color="primary" clear item-left *ngIf="likesFiltered.length == 0 && incident.Aplicacion == 'G'">
+      <ion-icon name="thumbs-up"></ion-icon>
+      <div (click)="addLike()">{{incident.Likes}} Likes</div>
+    </button>
+    <button ion-button color="primary" clear item-left *ngIf="incident.Aplicacion == 'G'">
+      <ion-icon name="text"></ion-icon>
+      <div (click)="openComments()">{{incident.ComentariosAviso}} Comments</div>
+    </button>
+    <button ion-button color="primary" clear item-left *ngIf="user.Aplicacion == 'G'">
+      <ion-icon name="chatbubbles"></ion-icon>
+      <div (click)="openChat([])">Chat</div>
+    </button>
+  </ion-item>
+</ion-card>
+
+<ion-card class="ion-card-map">
+
+  <div id="mapIncidentBlock" [ngClass]="classMapIncidentBlock()" (click)="blockMap=!blockMap"></div>
+  <div id="mapIncident" class="mapIncident"></div>
+  <button ion-button fab fab-right class="fab-map" (click)="centerMap()">
+    <ion-icon name="pin"></ion-icon>
+  </button>
+
+  <ion-item>
+    <ion-icon name="contact" item-left large></ion-icon>
+    <h2>{{"incidents.incdetail.userlocation" | translate}}</h2>
+    <p>{{startAddress}}</p>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="alert" item-left large ></ion-icon>
+    <h2>{{"incidents.incdetail.incidentlocation" | translate}}</h2>
+    <p>{{incident.DesUbicacion}}</p>
+  </ion-item>
+
+  <ion-item>
+    <span item-left>{{timeTravel}}</span>
+    <span item-left>({{distanceTravel}})</span>
+    <span item-left><ion-icon name="walk" item-left large ></ion-icon></span>
+
+    <!--<button ion-button color="primary" clear item-right>
+      <ion-icon name="navigate"></ion-icon>
+      {{"incidents.incdetail.start" | translate}}
+    </button>-->
+  </ion-item>
+
+</ion-card>
+
+<ion-card *ngIf="incident.UltimoComentario">
+  <ion-card-header>
+    {{"incidents.incdetail.lastcomment" | translate}}
+  </ion-card-header>
+  <ion-list>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="assets/img/user-128.png">
+      </ion-avatar>
+      <h2>{{incident.NomUsuarioUltimoComentario}}</h2>
+      <p>{{incident.UltimoComentario}}</p>
+    </ion-item>
+  </ion-list>
+</ion-card>
+
+
+</ion-content>

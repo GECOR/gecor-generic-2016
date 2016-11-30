@@ -1,0 +1,29 @@
+inc-detail-page{
+  .fab-map {
+    top: 214px !important;
+    z-index: 1500 !important;
+  }
+
+  .ion-card-map {
+    position: relative;
+  }
+
+  .mapIncident {
+    width: 100%;
+    height: 248px;
+  }
+
+  .mapIncidentBlockOut {
+    width: 100%;
+    height: 248px;
+    position: absolute;
+  }
+
+  .mapIncidentBlockIn {
+    width: 100%;
+    height: 248px;
+    z-index: 1000;
+    position: absolute;
+  }
+
+}

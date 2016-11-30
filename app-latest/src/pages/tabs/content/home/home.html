@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{"home.title" | translate}}
+      <div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content >
+  <ion-row home>
+    <ion-col home width-50>
+      <ion-card home class="advanced-background">
+        <button ion-button home clear (click)="openNewInc()">
+          <div>
+            <img src="assets/img/imp_city.png"/>
+            <p home class="advanced-background-title">{{"home.incidence" | translate}}</p>
+          </div>
+        </button>
+      </ion-card>
+    </ion-col>
+    <ion-col home width-50>
+      <ion-card home class="advanced-background">
+        <button ion-button home clear (click)="openIncidents()">
+          <div>
+            <img src="assets/img/myNotes.png"/>
+            <p home class="advanced-background-title">{{"home.myIncs" | translate}}</p>
+          </div>
+        </button>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row home>
+    <ion-col home width-50>
+      <ion-card home class="advanced-background">
+        <button ion-button home clear (click)="openUrl('https://twitter.com/GECOR_Esp')">
+            <div>
+              <img src="assets/img/twitter-icon.png"/>
+              <!--<p home class="advanced-background-title">{{"home.myIncs" | translate}}</p>-->
+            </div>
+        </button>
+      </ion-card>
+    </ion-col>
+    <ion-col home width-50>
+      <ion-card home class="advanced-background">
+        <button ion-button home clear (click)="openUrl('https://www.facebook.com/GECOR.Esp/?fref=ts')">
+              <div>
+                <img src="assets/img/fb_icon_325.png"/>
+                <!--<p home class="advanced-background-title">{{"home.renewalDNI" | translate}}</p>-->
+              </div>
+        </button>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

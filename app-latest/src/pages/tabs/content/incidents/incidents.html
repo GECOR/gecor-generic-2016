@@ -1,0 +1,144 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+
+    <div showWhen="android,windows">
+      <ion-title pull-left>
+        {{"incidents.title" | translate}}
+        <div toolbar-subtitle>
+          {{user.AyuntamientoNombre}}
+        </div>
+      </ion-title>
+      <ion-buttons end pull-right>
+          <button ion-button (click)="type='list'" [hidden]="type=='list'" outline><ion-icon name="list-box"></ion-icon></button>
+          <button ion-button (click)="type='list'" [hidden]="type!='list'" class="activated" outline><ion-icon name="list-box"></ion-icon></button>
+          <button ion-button (click)="showMap();type='map'" [hidden]="type=='map'" outline><ion-icon name="map"></ion-icon></button>
+          <button ion-button (click)="showMap();type='map'" [hidden]="type!='map'" class="activated" outline><ion-icon name="map"></ion-icon></button>
+          <button ion-button (click)="type='gallery'" [hidden]="type=='gallery'" outline><ion-icon name="images"></ion-icon></button>
+          <button ion-button (click)="type='gallery'" [hidden]="type!='gallery'" class="activated" outline><ion-icon name="images"></ion-icon></button>
+      </ion-buttons>
+    </div>
+
+    <div showWhen="ios">
+      <ion-title>
+        {{"incidents.title" | translate}}
+        <div toolbar-subtitle>
+          {{user.AyuntamientoNombre}}
+        </div>
+      </ion-title>
+      <ion-buttons end >
+          <button ion-button (click)="type='list'" [hidden]="type=='list'" ><ion-icon name="list-box"></ion-icon></button>
+          <button ion-button (click)="type='list'" [hidden]="type!='list'" class="activated" ><ion-icon name="list-box"></ion-icon></button>
+          <button ion-button (click)="showMap();type='map'" [hidden]="type=='map'" ><ion-icon name="map"></ion-icon></button>
+          <button ion-button (click)="showMap();type='map'" [hidden]="type!='map'" class="activated" ><ion-icon name="map"></ion-icon></button>
+          <button ion-button (click)="type='gallery'" [hidden]="type=='gallery'" ><ion-icon name="images"></ion-icon></button>
+          <button ion-button (click)="type='gallery'" [hidden]="type!='gallery'" class="activated"><ion-icon name="images"></ion-icon></button>
+      </ion-buttons>
+    </div>
+
+  </ion-navbar>
+</ion-header>
+
+<!--
+<ion-toolbar [attr.primary]="isAndroid ? '' : null" [hidden]="type == 'map'" >
+  <div padding-5>
+    <ion-segment [(ngModel)]="order">
+      <ion-segment-button value="FechaHoraRegistro">Date</ion-segment-button>
+      <ion-segment-button value="Distancia">Distance</ion-segment-button>
+    </ion-segment>
+  </div>
+</ion-toolbar>
+
+<ion-toolbar [attr.primary]="isAndroid ? '' : null" [hidden]="type == 'map'" >    
+  <ion-searchbar [(ngModel)]="searchText" (ionInput)="inputSearch($event)"></ion-searchbar>
+</ion-toolbar>
+-->
+
+<ion-content class="incidents-page">
+  <ion-refresher *ngIf="type!='map'" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-searchbar [hidden]="type=='map'"
+    [(ngModel)]="searchText"
+    (ionInput)="inputSearch($event)">
+  </ion-searchbar>
+  
+    <div padding-5 [hidden]="type == 'map'">
+      <ion-segment [(ngModel)]="order" [attr.primary]="isAndroid ? '' : null">
+        <ion-segment-button value="FechaHoraRegistro">{{"incidents.dateTxt" | translate}}</ion-segment-button>
+        <ion-segment-button value="Distancia">{{"incidents.distanceTxt" | translate}}</ion-segment-button>
+        <ion-segment-button value="DesEstadoAviso">{{"incidents.statusTxt" | translate}}</ion-segment-button>
+        <!--<ion-segment-button value="TimeUpdated"><ion-icon name="time"></ion-icon></ion-segment-button>-->        
+      </ion-segment>
+    </div>
+    
+  
+  <div id="switch" [ngSwitch]="type">
+    <ion-list no-lines *ngSwitchCase="'list'" ><!--showWhen="ios"-->
+      <!--<ion-item-sliding class="incident" *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText"  [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}" #slidingItem>
+        <button ion-button class="incident-button" ion-item (click)="openDetail(incident)">
+          <ion-thumbnail item-left class="thumb-inc">
+            <img src="{{incident.RutaFoto != '' ? incident.RutaFoto : 'assets/img/no_image_512.png'}}" incident-img>
+          </ion-thumbnail>
+          <h2>{{incident.DesTipoElemento}}</h2>
+          <p>{{incident.DesUbicacion}}</p>
+          <p>{{incident.Responsable}}</p>
+          <p>{{incident.CodAviso}}</p>
+          <p distance>{{distance(incident)}}</p>
+        </button>
+        <ion-item-options *ngIf="user.Aplicacion == 'G'">
+          <button ion-button (click)="openReview(incident, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>{{"incidents.reviewTxt" | translate}}</button>
+        </ion-item-options>
+      </ion-item-sliding>-->
+      <ion-item-sliding class="incident" *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText"  [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}" #slidingItem>
+        <ion-item (click)="openDetail(incident)">
+          <ion-thumbnail item-left class="thumb-inc">
+            <img src="{{incident.RutaFoto != '' ? incident.RutaFoto : 'assets/img/no_image_512.png'}}" incident-img>
+          </ion-thumbnail>
+          <h2>{{incident.DesTipoElemento}}</h2>
+          <p>{{incident.DesUbicacion}}</p>
+          <p>{{incident.Responsable}}</p>
+          <p>{{incident.CodAviso}}</p>
+          <p distance>{{distance(incident)}}</p>
+        </ion-item>
+        <ion-item-options *ngIf="user.Aplicacion == 'G'">
+          <button ion-button (click)="openReview(incident, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>{{"incidents.reviewTxt" | translate}}</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <!--<ion-list *ngSwitchCase="'list'" [virtualScroll]="incidents  | incidentsArraySort:order:'desc':latLng | search: searchText" showWhen="android,windows">
+      <ion-item-sliding #slidingItem class="incident" *virtualItem="let incident" [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}">
+        <button ion-button class="incident-button" ion-item (click)="openDetail(incident)">
+          <ion-avatar item-left >
+            <ion-img incident-img [src]="incident.RutaFoto"></ion-img>
+          </ion-avatar>
+          <h2>{{incident.DesTipoElemento}}</h2>
+          <p>{{incident.DesUbicacion}}</p>
+          <p>{{incident.Responsable}}</p>
+          <p>{{incident.CodAviso}}</p>
+          <p distance>{{distance(incident)}}</p>
+        </button>
+        <ion-item-options *ngIf="user.Aplicacion == 'G'">
+          <button ion-button (click)="openReview(incidenjt, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>{{"incidents.reviewTxt" | translate}}</button>
+        </ion-item-options>        
+      </ion-item-sliding>
+    </ion-list>-->
+
+    <div id="mapContainer" *ngSwitchCase="'map'">
+      <div id="mapDetail"></div>      
+    </div>
+
+    <div id="gallery" *ngSwitchCase="'gallery'">
+      <ion-card *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText">
+        <img src={{incident.RutaFoto}}/>
+        <ion-card-content>
+          <p>
+            {{incident.DesUbicacion}}
+          </p>
+          <button ion-button clear item-right class="pull-right" (click)="openDetail(incident)">{{"incidents.viewTxt" | translate}}</button>
+        </ion-card-content>
+      </ion-card>
+    </div> <!-- //END GALLERY -->
+  </div> <!-- //END SWITCH -->
+</ion-content> <!-- //END CONTENT -->

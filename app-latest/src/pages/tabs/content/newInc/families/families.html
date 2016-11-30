@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-navbar>
+    <ion-title>
+        {{"newInc.families.title" | translate}}  
+        <div toolbar-subtitle>
+            {{user.AyuntamientoNombre}}
+        </div>
+    </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content families>
+    <ion-row families *ngFor='let familia of familias; let i = index'>
+        <ion-col no-pad-rl width-33 class="text-center" *ngIf="i%3 == 0 && i <= lenFamilias - 1">
+            <button ion-button color="light" families (click)="openNewInc(familias[i])">
+                <div>
+                    <img src={{familias[i].Icono}}/>
+                    <p fs-9 no-marg>{{familias[i].Nombre}}</p>
+                </div>                
+            </button>
+        </ion-col>
+        <ion-col no-pad-rl width-33 class="text-center" *ngIf="i%3 == 0 && i+1 <= lenFamilias - 1">
+            <button ion-button color="light" families (click)="openNewInc(familias[i+1])">
+                <div>
+                    <img src={{familias[i+1].Icono}}/>
+                    <p fs-9 no-marg>{{familias[i+1].Nombre}}</p>
+                </div> 
+            </button>
+        </ion-col>
+        <ion-col no-pad-rl width-33 class="text-center" *ngIf="i%3 == 0 && i+2 <= lenFamilias - 1">
+            <button ion-button color="light" families (click)="openNewInc(familias[i+2])">
+                <div>
+                    <img src={{familias[i+2].Icono}}/>
+                    <p fs-9 no-marg>{{familias[i+2].Nombre}}</p>
+                </div> 
+            </button>
+        </ion-col>
+    </ion-row>
+</ion-content>

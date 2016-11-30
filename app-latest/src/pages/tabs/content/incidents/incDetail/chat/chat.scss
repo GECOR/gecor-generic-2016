@@ -1,0 +1,125 @@
+chat-page{
+  .chat {
+    //padding-bottom: 50px;
+    
+    background: #ede9e4;
+    background: -webkit-linear-gradient(top,#ede9e4 0%,#ede9e4 20%,#e5ddd5 100%);
+    background: linear-gradient(to bottom,#ede9e4 0%,#ede9e4 20%,#e5ddd5 100%);  
+    
+    scroll-content {
+      //bottom: 7% !important;
+      //margin-bottom: 56px;
+    }  
+    
+    .message-list {
+        /*
+        -webkit-box-flex: 0;
+        -webkit-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        padding-bottom: 8px;
+        -webkit-transition: padding .3s cubic-bezier(.69,0,.79,.14);
+        transition: padding .3s cubic-bezier(.69,0,.79,.14);
+        padding-left: 0;
+        */
+      padding: 15px;
+      margin-bottom: 56px;
+    }
+    
+    .chat-message {
+      padding: 0;
+      display: table;
+      width: 100%;
+      margin-bottom: 4px;
+    }
+    
+    .message-content {
+      display: block;
+      word-wrap: break-word;
+      margin-bottom: 6px;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+    
+    .message {
+        background-color: #fff;
+        border: 1px solid #e7eaec;
+        text-align: left;
+        display: block;
+        padding: 10px 20px;
+        position: relative;
+        border-radius: 4px;
+        box-shadow: 0 1px .5px rgba(0,0,0,.13);
+    }
+    
+    .message-date {
+      font-size: 10px;
+      color: #888888;
+      position: absolute;
+      bottom: 0px;
+    }
+    
+    .chat-message.in .message-date {
+      float: right;
+      right: 4px;
+    }
+    
+    .chat-message.out .message-date {
+      float: left;
+      right: 18px;
+    }
+    
+    .chat-message.in .message {
+      text-align: left;
+      max-width: 336px;
+      float: left;
+      padding: 3px 3px 10px 3px;
+      min-width: 108px;
+    }
+    
+    .chat-message.out .message {
+      text-align: right;
+      max-width: 336px;
+      float: right;
+      padding: 3px 3px 10px 3px;
+      min-width: 108px;
+      background-color: #dcf8c6;
+    }
+  
+  .author-name {
+      font-weight: bold;
+      margin-bottom: 3px;
+      font-size: 12px;
+    }
+  
+  }
+
+  .message-form {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 0 5px;
+    /*padding: 10px 10px;*/
+    width: 100%;
+    height: 40px;
+    border-top: 1px solid #222;
+    background: #f4f4f4;
+    input {
+      display: block;
+      float: left;
+      width: 100%;
+      outline: none;
+      border: 1px solid #222;
+      border-radius: 3px;
+      padding: 4px 5px;
+      margin-top: 6px;
+    }
+    button {
+      display: block;
+      //float: right;
+      //width: 18%;
+      margin-top: 5px;
+    }
+  }
+
+}

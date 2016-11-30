@@ -1,0 +1,89 @@
+{
+  "name": "ionic-hello-world",
+  "author": "Ionic Framework",
+  "homepage": "http://ionicframework.com/",
+  "private": true,
+  "scripts": {
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve"
+  },
+  "config": {
+    "ionic_bundler": "rollup",
+    "ionic_source_map": "source-map",
+    "ionic_cleancss": "./config/cleancss.config.js"
+  },
+  "dependencies": {
+    "@angular/common": "2.1.1",
+    "@angular/compiler": "2.1.1",
+    "@angular/compiler-cli": "2.1.1",
+    "@angular/core": "2.1.1",
+    "@angular/forms": "2.1.1",
+    "@angular/http": "2.1.1",
+    "@angular/platform-browser": "2.1.1",
+    "@angular/platform-browser-dynamic": "2.1.1",
+    "@angular/platform-server": "2.1.1",
+    "@ionic/storage": "1.1.6",
+    "@ionic/app-scripts": "0.0.44",
+    "ionic-angular": "2.0.0-rc.3",
+    "ionic-native": "2.2.3",
+    "ionicons": "3.0.0",
+    "rxjs": "5.0.0-beta.12",
+    "zone.js": "0.6.26",
+    "ng2-translate": "4.0.1",
+    "angular2-jwt": "0.1.25"
+  },
+  "devDependencies": {
+    "@ionic/app-scripts": "0.0.46",
+    "typescript": "2.0.6"
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-whitelist",
+    "cordova-plugin-console",
+    "cordova-plugin-statusbar",
+    "cordova-plugin-device",
+    "ionic-plugin-keyboard",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-geolocation",
+    "cordova-plugin-image-picker",
+    "cordova-sqlite-storage",
+    "cordova-plugin-globalization",
+    "cordova-plugin-crosswalk-webview",
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-x-socialsharing",
+    {
+      "variables": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.1060313159714-kiq3uggkv91d4g1e993pdubdr1r193ag"
+      },
+      "locator": "cordova-plugin-googleplus",
+      "id": "cordova-plugin-googleplus"
+    },
+    {
+      "variables": {
+        "APP_ID": "966036306826184",
+        "APP_NAME": "Gecor"
+      },
+      "locator": "https://github.com/jeduan/cordova-plugin-facebook4.git",
+      "id": "cordova-plugin-facebook4"
+    },
+    {
+      "locator": "https://github.com/uiktiomasfeliz/cordova-plugin-camera.git",
+      "id": "cordova-plugin-camera"
+    },
+    {
+      "variables": {
+        "SENDER_ID": "1060313159714"
+      },
+      "locator": "phonegap-plugin-push",
+      "id": "phonegap-plugin-push"
+    },
+    {
+      "variables": {
+        "API_KEY_FOR_ANDROID": "AIzaSyAipRQNlB6wgM6P7PE9E-T48TmVvoHZDtk"
+      },
+      "locator": "cordova-plugin-googlemaps",
+      "id": "cordova-plugin-googlemaps"
+    }
+  ],
+  "cordovaPlatforms": [],
+  "description": "Gecor genérico"
+}

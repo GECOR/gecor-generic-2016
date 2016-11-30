@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-title>
+            {{"login.title" | translate}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="login">
+    <ion-card>
+        <ion-card-content>
+            <!--<ion-item *ngIf="!aytoSuggested.AyuntamientoID">
+                <ion-spinner item-left></ion-spinner>
+                {{"login.aytoSuggested" | translate}}
+            </ion-item>-->
+            <ion-item *ngIf="aytoSuggested.AyuntamientoID != undefined">                
+                <ion-thumbnail item-left small>
+                    <img src="{{aytoSuggested.Logo}}" alt="Foto" size-24>
+                </ion-thumbnail>
+                {{aytoSuggested.Nombre}}
+                <button ion-button clear item-right (click)="openEntitiesPage()">{{"login.changeModal" | translate}}</button>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <div padding>
+        <ion-list>
+        <ion-item>
+            <ion-input type="text" placeholder='{{"login.placeholder.username" | translate}}' [(ngModel)]="email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="password" placeholder='{{"login.placeholder.password" | translate}}' [(ngModel)]="password"></ion-input>
+        </ion-item>
+        </ion-list>
+
+        <button ion-button *ngIf="aytoSuggested.AyuntamientoID != undefined" block (click)="loginUser()">{{"login.title" | translate}}</button>
+        <button ion-button *ngIf="aytoSuggested.AyuntamientoID == undefined" disabled block (click)="loginUser()">{{"login.title" | translate}}</button>
+        
+        <button ion-button *ngIf="aytoSuggested.AyuntamientoID != undefined" color="light" block (click)="openSignInPage()">{{"login.signIn" | translate}}</button>
+        <button ion-button *ngIf="aytoSuggested.AyuntamientoID == undefined" disabled color="light" block (click)="openSignInPage()">{{"login.signIn" | translate}}</button>
+
+        <button ion-button clear block (click)="forgottenPass()">{{"login.forgottenPass" | translate}}</button>
+        <div block class="label-or">
+        {{"login.orUse" | translate}}
+        </div>
+        <button ion-button *ngIf="aytoSuggested.AyuntamientoID != undefined" block (click)="loginFacebookUser()"><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
+        <button ion-button *ngIf="aytoSuggested.AyuntamientoID == undefined" disabled block (click)="loginFacebookUser()"><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
+        <button ion-button *ngIf="aytoSuggested.AyuntamientoID != undefined" block color="danger" (click)="loginGooglePlusUser()"><ion-icon name="logo-googleplus"></ion-icon>Google</button>
+        <button ion-button *ngIf="aytoSuggested.AyuntamientoID == undefined" disabled block color="danger" (click)="loginGooglePlusUser()"><ion-icon name="logo-googleplus"></ion-icon>Google</button>
+    </div>
+</ion-content>

@@ -1,0 +1,35 @@
+
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-title>
+          {{"signin.title" | translate}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div padding>
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" placeholder='{{"signin.placeholder.name" | translate}}' [(ngModel)]="nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="email" placeholder='{{"signin.placeholder.email" | translate}}' [(ngModel)]="email"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-input type="password" placeholder='{{"signin.placeholder.password" | translate}}' [(ngModel)]="password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder='{{"signin.placeholder.password_2" | translate}}' [(ngModel)]="confirmPassword"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+    <ion-label>{{"signin.terms" | translate}}</ion-label>
+      <ion-checkbox dark [(ngModel)]="acceptLegalTerms" (ionChange)="openLegalTerms()"></ion-checkbox>
+    </ion-item>
+    <button ion-button block (click)="nuevoUsuario()">{{"signin.signin" | translate}}</button>
+    <button ion-button color="light" block (click)="openLoginPage()">{{"signin.back" | translate}}</button>
+  </div>
+</ion-content>

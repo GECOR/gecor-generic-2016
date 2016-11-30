@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{"news.newsdetail.title" | translate}} 
+      <div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="has-header components-demo cards-bg">
+
+  <ion-card>
+    <img src={{notice.images[0].image}}/>
+    <ion-card-content>
+      <h2 class="card-title">
+        {{notice.title}}
+      </h2>
+      <p>
+        {{notice.content}}
+      </p>
+    </ion-card-content>
+    <ion-row no-padding>
+      <ion-col>
+      </ion-col>
+      <ion-col text-center>
+        <button ion-button clear small color="danger">
+          <ion-icon name='star'></ion-icon>
+                   {{"news.favorite" | translate}}  
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button clear small color="danger">
+          <ion-icon name='share-alt'></ion-icon>
+              {{"news.share" | translate}} 
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+  </ion-content>

@@ -1,0 +1,249 @@
+{
+  "user": {
+    "name": "Jose",
+    "img": "img/avatar-finn.png"
+  },
+  "incidents": [
+    {
+      "type": "Farola descolgada",
+      "route": "Calle Marie Curie, 5, Málaga",
+      "state": "Pendiente",
+      "img": "img/farola-descolgada.jpg",
+      "lat": 43.074395,
+      "lng": -89.381056,
+      "date": 1458026132
+    },
+    {
+      "type": "Calzada rota",
+      "route": "Calle Cataluña, 47, Málaga",
+      "state": "Pendiente",
+      "img": "img/calzada-rota.jpg",
+      "lat": 43.071584,
+      "lng": -89.380120,
+      "center": true,
+      "date": 1458112532
+    },    
+    {
+      "type": "Pintada",
+      "route": "Calle Álamos, 36, Alhaurín de la Torre",
+      "state": "Terminada",
+      "img": "img/pintada.jpg",
+      "lat": 43.07336,
+      "lng": -89.38335,
+      "date": 1457939732
+    }
+  ],
+  "families":[
+      {
+          "name": "Acerado",
+          "icon": "img/acerado.png"
+      },
+      {
+          "name": "Alcantarillado",
+          "icon": "img/alcantarillado.png"
+      },
+      {
+          "name": "Alumbrado",
+          "icon": "img/Alumbrado.png"
+      },
+      {
+          "name": "Árboles",
+          "icon": "img/arboles.png"
+      },
+      {
+          "name": "Calzada",
+          "icon": "img/calzada.png"
+      },
+      {
+          "name": "Carril bici",
+          "icon": "img/carrilbici.png"
+      },
+      {
+          "name": "Fuentes",
+          "icon": "img/fuentes.png"
+      },
+      {
+          "name": "Jardines",
+          "icon": "img/jardines.png"
+      },
+      {
+          "name": "Mobiliario Urbano",
+          "icon": "img/mobiliariourbano.png"
+      },
+      {
+          "name": "Monumentos",
+          "icon": "img/monumentos.png"
+      },
+      {
+          "name": "Parques Infantiles",
+          "icon": "img/parquesinfantiles.png"
+      },
+      {
+          "name": "Pintadas",
+          "icon": "img/pintadas.png"
+      },
+      {
+          "name": "Semáforos",
+          "icon": "img/semaforos.png"
+      },
+      {
+          "name": "Señales verticales",
+          "icon": "img/senalesverticales.png"
+      },
+      {
+          "name": "Vallas de obra",
+          "icon": "img/vallasobra.png"
+      }
+  ],
+  "news":[
+    [
+      {
+        "title": "Nine Inch Nails Live",
+        "subtitle":"The most popular industrial group ever",
+        "content": "The most popular industrial group ever, and largely responsible for bringing the music to a mass audience, play's today at 21:00 on Málaga Town.",
+        "important": true,
+        "images": [
+          {
+            "image": "img/nin-live.png"
+          },
+          {
+            "image": "img/badu-live.png"
+          },
+          {
+            "image": "img/queen-live.png"
+          },
+          {
+            "image": "img/rundmc-live.png"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "title": "Erykah Badu",
+        "subtitle":"American singer-songwriter",
+        "content": "American singer-songwriter, record producer, activist, and actress, Badu's style is a prime example of neo-soul.",
+        "important": false,
+        "images": [
+          {
+            "image": "img/badu-live.png"
+          },
+          {
+            "image": "img/nin-live.png"
+          },
+          {
+            "image": "img/queen-live.png"
+          },
+          {
+            "image": "img/rundmc-live.png"
+          }
+        ]
+      },
+      {
+        "title": "A",
+        "subtitle":"Actualidad",
+        "content": "Noticias de actualidad",
+        "important": false,
+        "images": [
+          {
+            "image": "img/badu-live.png"
+          },
+          {
+            "image": "img/nin-live.png"
+          },
+          {
+            "image": "img/queen-live.png"
+          },
+          {
+            "image": "img/rundmc-live.png"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "title": "B",
+        "subtitle":"Beta",
+        "content": "Noticias de beta",
+        "important": true,
+        "images": [
+          {
+            "image": "img/badu-live.png"
+          },
+          {
+            "image": "img/nin-live.png"
+          },
+          {
+            "image": "img/queen-live.png"
+          },
+          {
+            "image": "img/rundmc-live.png"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "title": "Erykah Badu",
+        "subtitle":"American singer-songwriter",
+        "content": "American singer-songwriter, record producer, activist, and actress, Badu's style is a prime example of neo-soul.",
+        "important": false,
+        "images": [
+          {
+            "image": "img/badu-live.png"
+          },
+          {
+            "image": "img/nin-live.png"
+          },
+          {
+            "image": "img/queen-live.png"
+          },
+          {
+            "image": "img/rundmc-live.png"
+          }
+        ]
+      },
+      {
+        "title": "A",
+        "subtitle":"Actualidad",
+        "content": "Noticias de actualidad",
+        "important": false,
+        "images": [
+          {
+            "image": "img/badu-live.png"
+          },
+          {
+            "image": "img/nin-live.png"
+          },
+          {
+            "image": "img/queen-live.png"
+          },
+          {
+            "image": "img/rundmc-live.png"
+          }
+        ]
+      },
+      {
+        "title": "A",
+        "subtitle":"Actualidad",
+        "content": "Noticias de actualidad",
+        "important": false,
+        "images": [
+          {
+            "image": "img/badu-live.png"
+          },
+          {
+            "image": "img/nin-live.png"
+          },
+          {
+            "image": "img/queen-live.png"
+          },
+          {
+            "image": "img/rundmc-live.png"
+          }
+        ]
+      }
+    ]
+  ]
+
+}

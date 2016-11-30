@@ -1,0 +1,65 @@
+<ion-navbar hideBackButton>
+  <ion-title>
+    {{"newInc.survey.title" | translate}} 
+    <div toolbar-subtitle>
+      {{user.AyuntamientoNombre}}
+    </div>
+  </ion-title>
+</ion-navbar>
+
+<ion-content class="has-header components-demo cards-bg">
+  <ion-card>
+    <ion-card-content>
+          {{"newInc.survey.opinion" | translate}}  
+      <ion-row>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+          {{"newInc.survey.cleaning" | translate}}  
+      <ion-row>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+     {{"newInc.survey.security" | translate}}  
+      <ion-row>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <ion-card no-marg-bottom>
+    <ion-card-content>
+               {{"newInc.survey.politics" | translate}}  
+      <ion-row>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star"></ion-icon></button></ion-col>
+        <ion-col width-20><button ion-button clear><ion-icon name="star-outline"></ion-icon></button></ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <div padding no-pad-top>
+    <ion-row>
+      <ion-col width-50><button ion-button color="light" block (click)="cancelSurvey()">{{"newInc.survey.cancel" | translate}} </button></ion-col>
+      <ion-col width-50><button ion-button block (click)="sendSurvey()">{{"newInc.survey.send" | translate}} </button></ion-col>
+    </ion-row>
+  </div>
+</ion-content>

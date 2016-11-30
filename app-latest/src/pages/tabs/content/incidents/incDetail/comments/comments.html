@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+        {{"incidents.comments.title" | translate}}
+      <div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="incidents-page">
+  <ion-grid>
+    <ion-row>
+      <ion-col width-80>
+        <ion-input type="text" placeholder='{{"incidents.comments.placeholder" | translate}}' [(ngModel)]="message"></ion-input>
+      </ion-col>
+      <ion-col width-20>
+        <button ion-button (click)="newComentarioAviso(message)" *ngIf="!sendingMsg">
+          <ion-icon name="send"></ion-icon>
+        </button>
+        <button ion-button disabled (click)="newComentarioAviso(message)" *ngIf="sendingMsg">
+          <ion-icon name="send"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list>
+    <ion-item *ngFor="let message of messages">
+      <ion-avatar item-left>
+        <img src="assets/img/user-128.png">
+      </ion-avatar>
+      <h2>{{message.NomUsuario}}</h2>
+      <p>{{message.Comentario}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

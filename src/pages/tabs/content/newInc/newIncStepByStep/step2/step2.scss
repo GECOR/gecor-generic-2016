@@ -1,0 +1,32 @@
+step2-page{
+    .topInfoSection2{
+        width: 100%;
+        height: 30px;
+        background-color: #e0e0e0;
+        text-align: center;
+        line-height: 30px;
+        font-weight: bold;
+        color: #5d5b5b;
+        box-shadow: inset 0 -5px 5px -5px #333;
+    }
+    .step2{
+
+        .step2-button-item{
+            text-transform: capitalize;
+            color: black;
+            margin: 0;
+            width: 100%;
+            font-size: 1.4rem;
+            font-weight: inherit;
+        }
+
+        ion-label{
+            margin: 0 !important;
+        }
+        p{
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+}

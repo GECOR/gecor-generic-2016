@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+        {{"settings.user.title" | translate}}  
+      <div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content light>
+
+  <ion-list no-border>
+    <ion-list-header light></ion-list-header>
+    <ion-item class="text-center" (click)="takePhoto()">
+        <img src="assets/img/user-128.png">
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" placeholder="Name" [(ngModel)]="user.Email"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="user.Aplicacion == 'G'">
+    <ion-list-header light></ion-list-header>
+    <ion-item>
+      {{"settings.user.tech" | translate}} 
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header light></ion-list-header>
+    <ion-item (click)="logout()">
+      <ion-icon name="power" item-left></ion-icon>
+      {{"settings.user.logout" | translate}} 
+    </ion-item>
+  </ion-list>
+  
+</ion-content>
+

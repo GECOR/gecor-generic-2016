@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{"incidents.review.title" | translate}}
+      <div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content color="light" class="review-page">
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-textarea type="text" placeholder="Solution" [(ngModel)]="reviewInc.DesSolucion"></ion-textarea>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="showTypology">
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>{{"incidents.review.element" | translate}}</ion-label>
+          <ion-select [(ngModel)]="reviewInc.tipoElementoID" multiple="false" (ngModelChange)="changeTipoElemento()">
+            <ion-option *ngFor="let tipoElemento of tiposElementos" value="{{tipoElemento.TipoElementoID}}" selected="false">{{tipoElemento.DesTipoElemento}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{"incidents.review.incident" | translate}}</ion-label>
+          <ion-select [(ngModel)]="reviewInc.tipoIncidenciaID" multiple="false">
+            <ion-option *ngFor="let tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" selected="false">{{tipoIncidencia.TipoInc}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>{{"incidents.review.state" | translate}}</ion-label>
+          <ion-select [(ngModel)]="reviewInc.EstadoAvisoID" multiple="false" (ngModelChange)="changeEstado()">
+            <ion-option *ngFor="let estado of estados" value="{{estado.EstadoAvisoID}}" selected="false">{{estado.Nombre}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>{{"incidents.review.responsible" | translate}}</ion-label>
+          <ion-select [(ngModel)]="reviewInc.OrigenIDResponsable" multiple="false" (ngModelChange)="changeResponsable()">
+            <ion-option *ngFor="let responsable of responsables" value="{{responsable.OrigenID}}" selected="false">{{responsable.DesOrigen}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="ion-card-map" *ngIf="showMap">
+
+    <div id="mapInc"></div>
+    <button ion-button fab fab-right class="fab-map" (click)="centerMap()">
+      <ion-icon name="pin"></ion-icon>
+    </button>
+    
+    <ion-item>
+      <ion-icon name="contact" item-left large></ion-icon>
+      <h2>{{"incidents.review.location" | translate}}</h2>      
+      <p>{{reviewInc.desUbicacion}}</p>
+    </ion-item>
+
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-row>
+        <ion-col width-25 class="text-center">
+          <ion-spinner item-left *ngIf="uploadingImages[0]"></ion-spinner>
+          <button ion-button (click)="takePhoto(0)" [hidden]="images[0] != '' || uploadingImages[0]" outline><ion-icon name="image"></ion-icon></button>
+          <img [src]="images[0]" [hidden]="images[0] == '' || uploadingImages[0]" (click) = "openGallery()"/>
+        </ion-col>
+        <ion-col width-25 class="text-center">
+          <ion-spinner item-left *ngIf="uploadingImages[1]"></ion-spinner>
+          <button ion-button (click)="takePhoto(1)" [hidden]="images[1] != '' || uploadingImages[1]" outline><ion-icon name="image"></ion-icon></button>
+          <img [src]="images[1]" [hidden]="images[1] == '' || uploadingImages[1]" (click) = "openGallery()" />
+        </ion-col>
+        <ion-col width-25 class="text-center">
+          <ion-spinner item-left *ngIf="uploadingImages[2]"></ion-spinner>
+          <button ion-button (click)="takePhoto(2)" [hidden]="images[2] != '' || uploadingImages[2]" outline><ion-icon name="image"></ion-icon></button>
+          <img [src]="images[2]" [hidden]="images[2] == '' || uploadingImages[2]" (click) = "openGallery()" />
+        </ion-col>
+        <ion-col width-25 class="text-center">
+          <ion-spinner item-left *ngIf="uploadingImages[3]"></ion-spinner>
+          <button ion-button (click)="takePhoto(3)" [hidden]="images[3] != '' || uploadingImages[3]" outline><ion-icon name="image"></ion-icon></button>
+          <img [src]="images[3]" [hidden]="images[3] == '' || uploadingImages[3]" (click) = "openGallery()" />
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <button ion-button *ngIf="!uploadingImages[0] && !uploadingImages[1] && !uploadingImages[2] && !uploadingImages[3]" full send-review (click)="reviewIncident()">{{"incidents.review.reviewIncident" | translate}}</button>
+  <button ion-button *ngIf="uploadingImages[0] || uploadingImages[1] || uploadingImages[2] || uploadingImages[3]" disabled full send-review (click)="reviewIncident()">{{"incidents.review.reviewIncident" | translate}}</button>
+</ion-content>

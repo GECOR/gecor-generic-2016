@@ -1,0 +1,239 @@
+{		
+	"app": {	
+  		"btnAccept": "Aceptar",
+  		"btnCancel": "Cancelar",
+		"sendBtn": "Enviar",
+		"continueBtn": "Continuar",
+		"loadingMessage": "Por favor espera...",
+		"oopsAlertTitle": "Uy!",
+		"genericErrorAlertTitle": "Error",
+		"genericErrorAlertMessage": "Hay algun error",
+		"cameraErrorAlertMessage": "Fallo debido a la cámara!",
+		"galleryText": "Galería",
+		"cameraText": "Cámara",
+		"next": "Siguiente"
+	},	
+	"calendar":{
+			"title": "Calendario",
+			"meetings": "Reuniones",
+			"reminders": "Recordatorios",
+			"notes": "Notas"
+	},	
+	"login": {
+		"title": "Login",
+		"aytoSuggested": "Mostrar por defecto",
+		"signIn": "Registrarse",
+		"changeModal": "Cambiar",
+		"forgottenPass": "Olvidé la contraseña",
+		"orUse": "O utiliza...",
+		"placeholder": {
+			"username": "Usuario",
+			"password": "Contraseña"
+		},
+		"forgottenAlertTitle":"Contraseña olvidada",
+		"forgottenAlertMessage":"Ingrese correo electrónico para restablecer la contraseña",
+		"forgottenAlertInputPlaceholder":"Email",
+		"forgottenAlertBtnReset":"Restablecer",
+		
+		"suggestedAlertTitle":"Error",
+		"suggestedAlertMessage":"Tenemos problemas para localizarle, por favor elija una entidad de forma manual.",
+		
+		"loginAlertTitle":"",
+		"loginAlertMessage":"El usuario es incorrecto",
+		
+		"validateEmptyAlertTitle":"Los datos están vacíos",
+		"validateEmptyAlertMessage":"Por favor, introduzca un correo electrónico y contraseña",
+		"validateSuggestedAlertTitle":"Entidad no encontrada",
+		"validateSuggestedAlertMessage":"Por favor elige una entidad de forma manual",
+		"entities": {
+			"title": "Entidades",
+			"suggested": "Sugerido",
+			"other": "Otras entidades"
+		},
+		"entitiesmodal":{
+			"title": "Entidades",
+			"suggested": "Sugerido",
+			"other": "Otras entidades",
+			"cancel": "Cancelar"
+		},
+		"resetPassTitle": "Perfecto!",
+		"resetPassSubtitle": "Te hemos enviado un email para cambiar la contraseña"
+	},	
+	"signin":{
+		"title": "Registrarse",
+		"terms": "Aceptar los términos",
+		"signin": "Registrarse",
+		"back" : "Volver",
+		"placeholder": {
+			"name": "Nombre",
+			"email":"Correo electronico",
+			"password": "Contraseña",
+			"password_2": "Confirmar contraseña"
+		},
+		"confirmPassAlertTitle":"",
+		"confirmPassAlertMessage":"Las contraseñas no coinciden",
+		"legalTermsAlertTitle":"",
+		"legalTermsAlertMessage":"Por favor, acepte los términos legales",
+		"legalterms": {
+			"title": "Aviso legal",
+			"cancel": "Cerrar"
+		},
+		"presentSignInSuccessTitle": "Listo!",
+		"presentSignInSuccessMessage": "Hemos enviado un correo de verficación a tu email, activate!"
+	},	
+	"slide":{
+	"skip":"Saltar",
+	"ready": "¿Preparado para jugar?"
+	},	  
+	"tabs":{
+		"title":"Menu"
+	},	  
+	"home":{
+		"title":"Inicio",
+		"incidence": "Nueva Incidencia",
+		"beaches": "Playas",
+		"renewalDNI": "Renovación DNI",
+		"myIncs": "Mis avisos"
+	},	   
+	"incidents":{
+			"title": "Incidentes",	 
+			"atentionAlertTitle": "Atención",
+			"dateTxt": "Fecha",
+			"distanceTxt": "Distancia",
+			"reviewTxt": "Revisar",
+			"statusTxt": "Estado",
+			"viewTxt": "Ver",
+		"incdetail":{
+			"title": "Incidentes",
+			"userlocation": "Localización del usuario",	
+			"incidentlocation": "Localización del incidente",
+			"chat": "Chat",
+			"start":"Empezar",
+			"lastcomment": "Último comentario",
+			"directionRequestFailed": "Solicitud de direcciones suspendida debido a la ",
+			"actionSheetReview": "Revisar",
+			"actionSheetShare": "Compartir",
+			"addresOf": "Dirección de "				
+		},
+		"pagechat":{
+			"title": "Chat",
+			"send": "Enviar",
+			"close": "Cerrar",
+			"alertTitle": "Error",
+			"alertMessage": "No se puede conectar al servicio de chat. Inténtelo de nuevo más tarde."
+			},
+		"comments":{
+			"title": "Comentarios",
+			"placeholder": "Añadir mensage"
+			},
+		"review":{
+			"title":"Revisar",
+			"element": "Elemento",
+			"incident": "Incidente",
+			"state": "Estado",
+			"responsible": "Responsable",
+			"location": "Localización del usuario",
+			"reviewIncident": "Send",
+			
+			"presentConfirmAlertTitle": "Confirmar revisión",
+			"presentConfirmAlertMessage": "Hay algun error revisando este aviso",
+			
+			"presentReviewAlertTitle": "Aviso revisado",
+			"presentReviewAlertMessage": "El aviso ha sido revisado con éxito",
+			
+			"checkFieldsAlertMessage": "Por favor, escriba una solución"
+		}
+	},
+	"newInc":{
+		"title": "Nueva incidencia",
+		"element": "Elemento",
+		"incident": "Incidencia",
+		"location": "Localización de la incidencia",
+		"send": "Enviar",
+		"elementAlertMessage": "Por favor seleccione un elemento",
+		"incidentAlertMessage": "Por favor, elija una incidencia",
+		"descriptionAlertMessage": "Por favor, escribir alguna descripción",
+
+		"presentConfirmAlertTitle": "Confirmar incidencia",
+		"presentConfirmAlertMessage": "",
+		"presentConfirmErrorAlertMessage": "Hubo un error al enviar esta incidencia",
+
+		"presentIncidentSuccessAlertTitle": "Incidencia enviada",
+
+		"presentConfirmChangeLocAlertTitle": "¿Cambiar ubicación?",
+		"presentConfirmChangeLocAlertMessage": "Haga click en aceptar si desea cambiar la ubicación de la incidecnia",
+
+		"families":{
+			"title":"Familias"
+		},
+		"survey":{
+			"title":"Encuesta",
+			"opinion": "¿Qué le parece la app?",
+			"cleaning": "Puntue la limpieza de su ciudad",
+			"security": "Puntue la seguridad de su ciudad",
+			"politics": "Puntue la politica de su ciudad",
+			"cancel": "Cancelar",
+			"send": "Enviar"
+		},
+		"newIncStepByStep":{
+			"step1": {
+				"title": "Elementos",
+				"subtitle": "Por favor elija un tipo de elemento"
+			},
+			"step2": {
+				"title": "Incidencias",
+				"subtitle": "Por favor elija un tipo de incidencia"
+			},
+			"step3": {
+				"title": "Imágenes",
+				"subtitle": "Eligiendo imágenes",
+				"cameraButton": "Hace foto con la cámara",
+				"galleryButton": "Elegir foto desde la galería"
+			},
+			"step4": {
+				"localizando": "Localizando..."
+			}
+		}
+	},
+		"news":{
+			"title":"Noticias",
+			"newsdetail":{
+				"title":"Detalle de noticias",
+				"favorite": "Favorito",
+				"share": "Compartir"
+			}				
+		},
+		"settings":{
+			"title": "Ajustes",
+			"notifications": "Notificaciones",
+			"terms": "Términos y condiciones",
+			"relatedapp": "APLICACIONES RELACIONADAS",
+			"mlgfunciona": "MLG Funciona",
+			"algaba": "La Algaba",
+			"fuengirola": "Fuengirola Avanza",
+			"puerto": "Mejora el Puerto",
+			"velez": "Incidencias Vélez-Málaga",
+			"abisuek": "Abisuek",
+			"torreon": "Torreón",
+			"prudenco": "Prudenco",
+			"cuajimalpa": "Cuajimalpa",
+			"entities":{
+				"title": "Entidades",
+			"suggested": "SUGERIDO",
+			"other": "OTRAS ENTIDADES"
+			},
+			"notificationspage":{
+				"title": "Notificaciones",
+				"email": "E-mail",
+				"push": "Push" 
+			},
+			"termspage":{
+				"title": "Términos y condiciones"
+				},
+			"user":{
+				"title": "Usuario",
+				"logout":"Logout",
+				"tech": "Técnico"		  			 
+			}
+		} 
+}

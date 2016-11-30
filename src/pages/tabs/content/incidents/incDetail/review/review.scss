@@ -1,0 +1,33 @@
+review-page {
+  .fab-map {
+    top: 214px;
+    z-index: 50;
+  }
+
+  .ion-card-map {
+    position: relative;
+  }
+
+  .sebm-google-map-container {
+    width: 100%;
+    height: 248px;
+  }
+
+  button[send-review] {
+    margin-left: 3%;
+    margin-bottom: 3%;
+    width: 94%;
+  }
+
+  ion-select {
+    max-width: 100%;
+  }
+}
+
+.wp .review-page ion-select {
+  flex: 4;
+}
+
+.md .review-page .item-input::after{
+  left: 0px;
+}

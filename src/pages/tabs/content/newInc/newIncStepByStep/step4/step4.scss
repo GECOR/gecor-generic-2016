@@ -1,0 +1,52 @@
+step4-page{
+  .topInfoSection4{
+      background-color: #e0e0e0;
+      box-shadow: inset 0 -5px 5px -5px #333;
+  }
+
+  .step4-page {
+    
+    .fab-map {
+      top: 214px;
+      z-index: 50;
+    }
+
+    .ion-card-map {
+      position: relative;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .ion-card-desc {
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+    }
+
+    .mapInc {
+      width: 100%;
+      height: 248px;
+    }
+
+    .mapIncHidden {
+      width: 100%;
+      height: 0px;
+    }
+
+    .contentAll{
+      padding: 10px;
+    }
+    
+    .des-averia {
+      padding-left: 0px;
+    }
+
+    button[send-incident] {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+    }
+    
+  }
+}

@@ -1,0 +1,181 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+.pull-right {
+  float: right;
+}
+.text-center {
+  text-align: center;
+}
+[text-right] {
+  text-align: right;
+}
+[pull-right] {
+  float: right;
+}
+[pull-left] {
+  float: left;
+}
+[no-pad-top] {
+  padding-top: 0;
+}
+[no-pad-left] {
+  padding-left: 0;
+}
+[no-pad-right] {
+  padding-right: 0;
+}
+[no-pad-rl] {
+  padding-right: 0;
+  padding-left: 0;
+}
+[no-marg] {
+  margin: 0;
+}
+[no-marg-left] {
+  margin-left: 0;
+}
+[no-marg-right] {
+  margin-right: 0;
+}
+[no-marg-bottom] {
+  margin-bottom: 0;
+}
+[padding-5] {
+  padding: 5px;
+}
+[padding-10] {
+  padding: 10px;
+}
+[fs-9] {
+  font-size: 9px;
+}
+ion-list-header[light] {
+  background-color: #f4f4f4;
+  color: black;
+}
+
+ion-content[light] {
+  background-color: #f4f4f4;
+}
+
+ion-thumbnail[small] {
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+img[size-24] {
+  width: 24px;
+  height: 24px;
+}
+
+.disabled{
+  cursor: default;
+  opacity: .4;
+  pointer-events: none;
+}
+
+.ios [toolbar-subtitle] {
+  font-size: 1.3rem;
+  font-weight: 400;
+  text-align: center;
+  pointer-events: auto;
+  color: #6F6F6F;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.md [toolbar-subtitle] {
+  font-size: 1.4rem;
+  font-weight: 100;
+  /*text-align: center;*/
+  text-align: inherit;
+  pointer-events: auto;
+  color: E8E8E8;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+ion-content ion-card ion-item.advanced-trans p {
+  color: #fff;
+}
+
+ion-card p.advanced-background-subtitle {
+  font-size: 1.0em;
+  position: absolute;
+  top: 60%;
+  width: 100%;
+  color: #fff !important;
+}
+
+.advanced-background {
+  position: relative;
+  text-align: center !important;
+}
+
+ion-card ion-item.advanced-trans.item {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 12px 20px !important;
+  background: transparent;
+}
+
+ion-card ion-item.advanced-trans.item p {
+  font-size: 12px;
+  letter-spacing: 1.7px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+ion-card p.advanced-background-title {
+  position: absolute;
+  top: 32%;
+  font-size: 2.0em;
+  width: 100%;
+  font-weight: bold;
+  color: #fff !important;
+}
+
+ion-card p.advanced-background-title-large {
+  top: 29%;
+  font-weight: normal;
+  font-size: 4.4em;
+  color: #fff !important;
+}
+
+ion-card p.advanced-background-title-large span {
+  vertical-align: top;
+  padding-top: 5px;
+  font-size: 72px;
+  height: 74px;
+  line-height: 1;
+  display: inline-block;
+}
+
+.icon-size-m{
+  font-size: 2.2em;
+}
+
+.hide-tabbar{
+  opacity: 0;
+}

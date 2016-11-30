@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+          {{"settings.notificationspage.title" | translate}} 
+      <div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content light>
+
+  <ion-list>
+    <ion-list-header light></ion-list-header>
+    <ion-item>
+      <ion-toggle checked="true"></ion-toggle>
+      <ion-label>
+             {{"settings.notificationspage.email" | translate}}  
+      </ion-label>
+      <ion-icon name='mail' item-left></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-toggle checked="true"></ion-toggle>
+      <ion-label>
+             {{"settings.notificationspage.push" | translate}}  
+      </ion-label>
+      <ion-icon name='send' item-left></ion-icon>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

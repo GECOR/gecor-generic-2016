@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{"newInc.title" | translate}} 
+      <div toolbar-subtitle>
+        {{user.AyuntamientoNombre}}
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="newinc-page">  
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>{{"newInc.element" | translate}}</ion-label>
+          <ion-select [(ngModel)]="newInc.tipoElementoID" multiple="false" (ionChange)="changeTipoElemento()">
+            <ion-option *ngFor="let tipoElemento of tiposElementos" value="{{tipoElemento.TipoElementoID}}" selected="false">{{tipoElemento.DesTipoElemento}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{"newInc.incident" | translate}}</ion-label>
+          <ion-select [(ngModel)]="newInc.tipoIncidenciaID" multiple="false" (ionChange)="changeTipoIncidencia()">
+            <ion-option *ngFor="let tipoIncidencia of tiposIncidencias" value="{{tipoIncidencia.TipoIncID}}" selected="false">{{tipoIncidencia.TipoInc}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item class="des-averia">
+          <ion-textarea type="text" placeholder="Description" [(ngModel)]="newInc.desAveria"></ion-textarea>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card class="ion-card-map">
+
+    <ion-item (click)="showMap()">
+      <ion-icon name="contact" item-left large></ion-icon>
+      <h2>{{"newInc.location" | translate}}</h2>      
+      <p>{{newInc.desUbicacion}}</p>
+    </ion-item>
+
+    <div id="mapInc" [ngClass]="mapClass()"></div>
+    <button ion-button fab fab-right class="fab-map" [hidden]="hideMap" (click)="centerMap()">
+      <ion-icon name="pin"></ion-icon>
+    </button>
+
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-row>
+        <ion-col width-25 class="text-center">
+          <ion-spinner item-left *ngIf="uploadingImages[0]"></ion-spinner>
+          <button ion-button (click)="takePhoto(0)" [hidden]="images[0] != '' || uploadingImages[0]" outline><ion-icon name="image"></ion-icon></button>
+          <img [src]="images[0]" [hidden]="images[0] == '' || uploadingImages[0]" (click) = "openGallery()"/>
+        </ion-col>
+        <ion-col width-25 class="text-center">
+          <ion-spinner item-left *ngIf="uploadingImages[1]"></ion-spinner>
+          <button ion-button (click)="takePhoto(1)" [hidden]="images[1] != '' || uploadingImages[1]" outline><ion-icon name="image"></ion-icon></button>
+          <img [src]="images[1]" [hidden]="images[1] == '' || uploadingImages[1]" (click) = "openGallery()" />
+        </ion-col>
+        <ion-col width-25 class="text-center">
+          <ion-spinner item-left *ngIf="uploadingImages[2]"></ion-spinner>
+          <button ion-button (click)="takePhoto(2)" [hidden]="images[2] != '' || uploadingImages[2]" outline><ion-icon name="image"></ion-icon></button>
+          <img [src]="images[2]" [hidden]="images[2] == '' || uploadingImages[2]" (click) = "openGallery()" />
+        </ion-col>
+        <ion-col width-25 class="text-center">
+          <ion-spinner item-left *ngIf="uploadingImages[3]"></ion-spinner>
+          <button ion-button (click)="takePhoto(3)" [hidden]="images[3] != '' || uploadingImages[3]" outline><ion-icon name="image"></ion-icon></button>
+          <img [src]="images[3]" [hidden]="images[3] == '' || uploadingImages[3]" (click) = "openGallery()" />
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <button ion-button *ngIf="!uploadingImages[0] && !uploadingImages[1] && !uploadingImages[2] && !uploadingImages[3]" full send-incident (click)="newIncident()">{{"newInc.send" | translate}} </button>
+  <button ion-button *ngIf="uploadingImages[0] || uploadingImages[1] || uploadingImages[2] || uploadingImages[3]" disabled full send-incident (click)="newIncident()">{{"newInc.send" | translate}} </button>
+
+</ion-content>

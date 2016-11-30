@@ -1,0 +1,18 @@
+families-page{
+    ion-row[families]{
+        margin-bottom: -15px;
+    }
+
+    button[families] {
+        //margin: 5px;
+        height: 150px;
+        padding-left: 3px;
+        padding-right: 3px;
+        //width: 100%;
+    }
+
+    ion-content[families] {
+        background-color: #F8F8F8;
+    }
+}
+

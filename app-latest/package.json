@@ -85,6 +85,6 @@
       "id": "cordova-plugin-googlemaps"
     }
   ],
-  "cordovaPlatforms": [],
+  "cordovaPlatforms": ["ios"],
   "description": "Gecor genérico"
 }

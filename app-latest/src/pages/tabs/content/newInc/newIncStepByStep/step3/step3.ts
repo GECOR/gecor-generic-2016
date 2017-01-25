@@ -1,7 +1,7 @@
 import {Component, forwardRef, NgZone, Provider} from '@angular/core';
 import {NavController, NavParams, MenuController, AlertController, ActionSheetController, ViewController, 
         Platform, Events, ModalController} from 'ionic-angular';
-import {AndroidAttribute} from './../../../../../../directives/global.helpers';
+//import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './../../newIncInterface';
 import {Geolocation, Camera, ImagePicker} from 'ionic-native';

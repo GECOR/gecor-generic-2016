@@ -2,7 +2,7 @@ import {Component, forwardRef, NgZone} from '@angular/core';
 import {ViewController, Platform, App, NavController, NavParams, MenuController, ActionSheetController} from 'ionic-angular';
 import {Camera, ImagePicker} from 'ionic-native';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {AndroidAttribute} from './../../../../../directives/global.helpers';
+//import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';
 import {SlidePage} from './../../../../slides/slide';
 import {LoginPage} from './../../../../login/login';

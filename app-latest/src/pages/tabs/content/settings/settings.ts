@@ -1,7 +1,7 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
 import {ViewController, Platform, NavController, NavParams, MenuController} from 'ionic-angular';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
-import {AndroidAttribute} from './../../../../directives/global.helpers';
+//import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {NotificationsPage} from './notifications/notifications';
 import {TermsPage} from './terms/terms';

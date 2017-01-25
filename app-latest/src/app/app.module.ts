@@ -49,6 +49,9 @@ import { GeolocationProvider } from './../providers/geolocation';
 import { UserData } from './../providers/user-data';
 import { UtilsProvider } from './../providers/utils';
 
+//Components
+import { SummaryComponent } from '../pages/tabs/content/newInc/newIncStepByStep/summary/summary';
+
 //Directives
 //import {NgClass} from '@angular/common';
 
@@ -89,7 +92,12 @@ export function createTranslateLoader(http: Http) {
     UserPage,
 
     EntitiesModalSearchPipe,
-    ArraySortPipe
+    IncidentsSearchPipe,
+    Step1SearchPipe,
+    Step2SearchPipe,
+    ArraySortPipe,
+
+    SummaryComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp),

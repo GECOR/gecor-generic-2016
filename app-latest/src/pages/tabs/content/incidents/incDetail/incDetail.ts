@@ -1,6 +1,6 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
 import {NavController, NavParams, MenuController, AlertController, ModalController, ActionSheetController, ViewController, Platform} from 'ionic-angular';
-import {AndroidAttribute} from './../../../../../directives/global.helpers';
+//import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {CommentsPage} from './comments/comments';
 import {ChatPage} from './chat/chat';
 import {ReviewPage} from './review/review';

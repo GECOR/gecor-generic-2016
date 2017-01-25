@@ -1,6 +1,6 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
 import {ViewController, Platform, NavController, NavParams, MenuController} from 'ionic-angular';
-import {AndroidAttribute} from './../../../../../directives/global.helpers';
+//import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {DBProvider} from './../../../../../providers/db'
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../app/appConfig';

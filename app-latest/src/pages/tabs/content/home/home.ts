@@ -1,6 +1,6 @@
 import {Component, forwardRef} from '@angular/core';
 import {Platform, NavController, Events} from 'ionic-angular';
-import {AndroidAttribute} from './../../../../directives/global.helpers';
+//import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {DBProvider} from './../../../../providers/db';
 import {TranslatePipe} from 'ng2-translate';

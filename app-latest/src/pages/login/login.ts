@@ -1,7 +1,7 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
 import {Platform, NavController, MenuController, AlertController, ModalController} from 'ionic-angular';
 import {TranslateService, TranslatePipe} from 'ng2-translate';
-import {AndroidAttribute} from './../../directives/global.helpers';
+//import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
 import {TabsPage} from './../tabs/tabs';
 import {SignInPage} from './../signin/signin';

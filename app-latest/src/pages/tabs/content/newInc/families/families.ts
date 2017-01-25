@@ -1,7 +1,7 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
 import {NavController, NavParams, MenuController} from 'ionic-angular';
 import {ViewController, Platform} from 'ionic-angular';
-import {AndroidAttribute} from './../../../../../directives/global.helpers';
+//import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../providers/conference-data';
 import {DBProvider} from './../../../../../providers/db';
 import {NewIncPage} from './../newInc';

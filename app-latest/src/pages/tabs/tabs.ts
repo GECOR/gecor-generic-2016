@@ -1,7 +1,7 @@
 import {Component, forwardRef, ViewChild} from '@angular/core';
 import {NavController, NavParams, MenuController, Events, Tabs} from 'ionic-angular';
 import {ViewController, Platform} from 'ionic-angular';
-import {AndroidAttribute} from './../../directives/global.helpers';
+//import {AndroidAttribute} from './../../directives/global.helpers';
 import {IncidentsPage} from './content/incidents/incidents';
 import {NewIncPage} from './content/newInc/newInc';
 import {FamiliesPage} from './content/newInc/families/families';

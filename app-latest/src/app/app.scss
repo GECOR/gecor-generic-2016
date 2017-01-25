@@ -15,6 +15,9 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+[bold] {
+  font-weight: bold !important;
+}
 .pull-right {
   float: right;
 }
@@ -32,6 +35,9 @@
 }
 [no-pad-top] {
   padding-top: 0;
+}
+[no-pad] {
+  padding: 0;
 }
 [no-pad-left] {
   padding-left: 0;

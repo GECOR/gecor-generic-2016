@@ -1,7 +1,7 @@
 import {Component, forwardRef, NgZone, Provider} from '@angular/core';
 import {NavController, NavParams, MenuController, AlertController, ViewController, 
         Platform, Events} from 'ionic-angular';
-import {AndroidAttribute} from './../../../../../../directives/global.helpers';
+//import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './../../newIncInterface';
 import {Geolocation, Camera, ImagePicker, GoogleMap, GoogleMapsEvent, GoogleMapsMarker, GoogleMapsMarkerOptions, GoogleMapsLatLng} from 'ionic-native';
@@ -189,13 +189,14 @@ export class Step4Page {
   initMap() {
     let mapEle = document.getElementById('mapInc');
 
-    let map = new GoogleMap(mapEle);
+    this.map = new GoogleMap(mapEle);
+    this.map.setClickable(true);
 
-    map.one(GoogleMapsEvent.MAP_READY).then(() => {
-        map.clear();
+    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+        this.map.clear();
         console.log('Map is ready!');
-        map.setZoom(this.zoom);
-        map.setCenter(this.latLng);
+        this.map.setZoom(this.zoom);
+        this.map.setCenter(this.latLng);
 
         let markerOptions: GoogleMapsMarkerOptions = {
           position: this.latLng,
@@ -203,15 +204,15 @@ export class Step4Page {
           draggable: true
         };
 
-        this.addMarker(map, markerOptions);
+        this.addMarker(this.map, markerOptions);
 
-        map.on(GoogleMapsEvent.MAP_CLICK).subscribe((e) =>{
+        this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((e) =>{
 
           this.latLng = new GoogleMapsLatLng(e.lat, e.lng);
           this.inc.lat = e.lat;
           this.inc.lng = e.lng;
 
-          map.clear();
+          this.map.clear();
 
           let markerOptions: GoogleMapsMarkerOptions = {
             position: this.latLng,
@@ -219,7 +220,7 @@ export class Step4Page {
             draggable: true
           };
 
-          this.addMarker(map, markerOptions);
+          this.addMarker(this.map, markerOptions);
 
         },
         error => {
@@ -272,6 +273,7 @@ export class Step4Page {
   }
 
   newIncident(){
+    this.map.setClickable(false);
     if (this.checkFields()) this.presentConfirm();
   }
 

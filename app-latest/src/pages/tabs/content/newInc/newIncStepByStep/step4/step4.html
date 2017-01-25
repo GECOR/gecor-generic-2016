@@ -12,10 +12,12 @@
 
 <ion-content class="step4-page">
   <div class="contentAll">
-    <div class="topInfoSection1">{{inc.familia.Nombre}}</div>
+    <!--<div class="topInfoSection1">{{inc.familia.Nombre}}</div>
     <div class="topInfoSection2">{{inc.tipoElemento.DesTipoElemento}}</div>
     <div class="topInfoSection3">{{inc.tipoIncidencia.TipoInc}}</div>
     <div class="topInfoSection4">
+
+      
       <ion-row>
           <ion-col width-25 class="text-center" [hidden]="inc.imgs[0] == ''">
           <img [src]="inc.imgs[0]" />
@@ -30,7 +32,9 @@
           <img [src]="inc.imgs[3]" />
           </ion-col>
       </ion-row>
-    </div>
+    </div>-->
+
+    <summary-component [incidence]="inc"></summary-component>
     
     <ion-card class="ion-card-desc">
         <ion-card-content>
@@ -60,7 +64,7 @@
     </ion-card>
 
     <button ion-button fab send-incident (click)="newIncident()">
-      <!--{{"newInc.send" | translate}}--> 
+      {{"newInc.send" | translate}}    
       <ion-icon name="send"></ion-icon>
     </button>
   </div>

@@ -1,6 +1,6 @@
 import {Component, forwardRef} from '@angular/core';
 import {Platform, NavController, MenuController} from 'ionic-angular';
-import {AndroidAttribute} from './../../directives/global.helpers';
+//import {AndroidAttribute} from './../../directives/global.helpers';
 import {LoginPage} from './../login/login';
 import {DBProvider} from './../../providers/db';
 import {Globalization} from 'ionic-native';

@@ -12,7 +12,8 @@
 
 <ion-content class="step1">
   <div class="contentAll">
-    <div class="topInfoSection1">{{inc.familia.Nombre}}</div>
+    <!--<div class="topInfoSection1">{{inc.familia.Nombre}}</div>-->
+    <div padding-10><summary-component [incidence]="inc"></summary-component></div>
     <ion-searchbar
     [(ngModel)]="searchText"
     (ionInput)="inputSearch($event)">

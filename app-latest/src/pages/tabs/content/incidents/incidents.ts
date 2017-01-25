@@ -1,6 +1,6 @@
 import {NavController, NavParams, MenuController, AlertController, Events, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone, Component} from '@angular/core';
-import {AndroidAttribute} from './../../../../directives/global.helpers';
+//import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {IncDetailPage} from './incDetail/incDetail';
 import {ArraySortPipe} from './incidentsArraySort';

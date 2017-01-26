@@ -14,15 +14,21 @@
   <div class="contentAll">
     <!--<div class="topInfoSection1">{{inc.familia.Nombre}}</div>
     <div class="topInfoSection2">{{inc.tipoElemento.DesTipoElemento}}</div>-->
-    <div padding-10><summary-component [incidence]="inc"></summary-component></div>
-    <ion-searchbar
+    <!--<div padding-10><summary-component [incidence]="inc"></summary-component></div>-->
+    <!--<ion-searchbar
     [(ngModel)]="searchText"
     (ionInput)="inputSearch($event)">
-    </ion-searchbar>
+    </ion-searchbar>-->
+    <ion-searchbar [(ngModel)]="searchText" [formControl]="searchControl" (ionInput)="inputSearch($event)"></ion-searchbar>
 
+    <div *ngIf="searching" class="spinner-container">
+        <ion-spinner></ion-spinner>
+    </div>
+    
     <ion-list>
         <ion-list-header light>{{"newInc.newIncStepByStep.step2.subtitle" | translate}}</ion-list-header>
-        <ion-item *ngFor="let tipoIncidencia of tiposIncidencias | search: searchText">
+        <!--<ion-item *ngFor="let tipoIncidencia of tiposIncidencias | search: searchText">-->
+        <ion-item *ngFor="let tipoIncidencia of tiposIncidencias">
           <button ion-button clear (click)="openChooseImg(tipoIncidencia)" class="step2-button-item">
             <p>{{tipoIncidencia.TipoInc}}</p>
           </button>

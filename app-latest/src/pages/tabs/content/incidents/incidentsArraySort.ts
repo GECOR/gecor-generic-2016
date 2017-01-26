@@ -1,11 +1,14 @@
-import {Pipe, PipeTransform} from '@angular/core';
-
-@Pipe({
-    name: "incidentsArraySort"
-    
-})
-
-export class ArraySortPipe {
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+ 
+@Injectable()
+export class IncidentsSort {
+ 
+    constructor(public http: Http) {
+ 
+    }
+ 
     transform(array: Array<string>, args: string, order:string, latLng: google.maps.LatLng): Array<string> {
         if (typeof args === "undefined") {
             return array;
@@ -13,8 +16,8 @@ export class ArraySortPipe {
         if(args == "Distancia") {
             if (order == 'asc'){                
                 array.sort((a: any, b: any) => {
-                    var a_distance = this.getDistanceFromLatLonInKm(a["Lat"], a["Lng"], latLng.lat(), latLng.lng()).toString();
-                    var b_distance = this.getDistanceFromLatLonInKm(b["Lat"], b["Lng"], latLng.lat(), latLng.lng()).toString();
+                    var a_distance = this.getDistanceFromLatLonInKm(a["Lat"], a["Lng"], latLng.lat, latLng.lng).toString();
+                    var b_distance = this.getDistanceFromLatLonInKm(b["Lat"], b["Lng"], latLng.lat, latLng.lng).toString();
                     if (b_distance > a_distance){
                         return 1;
                     }else{
@@ -23,8 +26,8 @@ export class ArraySortPipe {
                 }); 
             }else if(order == 'desc'){
                 array.sort((a: any, b: any) => {
-                    var a_distance = this.getDistanceFromLatLonInKm(a["Lat"], a["Lng"], latLng.lat(), latLng.lng());
-                    var b_distance = this.getDistanceFromLatLonInKm(b["Lat"], b["Lng"], latLng.lat(), latLng.lng());
+                    var a_distance = this.getDistanceFromLatLonInKm(a["Lat"], a["Lng"], latLng.lat, latLng.lng);
+                    var b_distance = this.getDistanceFromLatLonInKm(b["Lat"], b["Lng"], latLng.lat, latLng.lng);
                     if (b_distance > a_distance){
                         return -1;
                     }else{
@@ -90,5 +93,5 @@ export class ArraySortPipe {
     deg2rad(deg) {
         return deg * (Math.PI/180)
     }
-    
+ 
 }

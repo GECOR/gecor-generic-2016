@@ -136,7 +136,7 @@ export class Step3Page {
   openCamera(id){
       if(id != -1){
           this.uploadingImages[id] = true;            
-            Camera.getPicture({quality: 100, destinationType: Camera.DestinationType.DATA_URL}).then((imageURI) => {
+            Camera.getPicture({destinationType: Camera.DestinationType.DATA_URL, correctOrientation: true}).then((imageURI) => {
               this.utils.resizeImage(this.base64string + imageURI, 1024, 768).then((imgResized) => {
                 this.uploadImage(imgResized, id);
               });

@@ -59,15 +59,15 @@
 
   <div id="mapIncidentBlock" [ngClass]="classMapIncidentBlock()" (click)="blockMap=!blockMap"></div>
   <div id="mapIncident" class="mapIncident"></div>
-  <button ion-button fab fab-right class="fab-map" (click)="centerMap()">
+  <!--<button ion-button fab fab-right class="fab-map" (click)="centerMap()">
     <ion-icon name="pin"></ion-icon>
-  </button>
+  </button>-->
 
-  <ion-item>
+  <!--<ion-item>
     <ion-icon name="contact" item-left large></ion-icon>
     <h2>{{"incidents.incdetail.userlocation" | translate}}</h2>
     <p>{{startAddress}}</p>
-  </ion-item>
+  </ion-item>-->
 
   <ion-item>
     <ion-icon name="alert" item-left large ></ion-icon>
@@ -75,16 +75,11 @@
     <p>{{incident.DesUbicacion}}</p>
   </ion-item>
 
-  <ion-item>
+  <!--<ion-item>
     <span item-left>{{timeTravel}}</span>
     <span item-left>({{distanceTravel}})</span>
     <span item-left><ion-icon name="walk" item-left large ></ion-icon></span>
-
-    <!--<button ion-button color="primary" clear item-right>
-      <ion-icon name="navigate"></ion-icon>
-      {{"incidents.incdetail.start" | translate}}
-    </button>-->
-  </ion-item>
+  </ion-item>-->
 
 </ion-card>
 

@@ -38,7 +38,7 @@ import { UserPage } from '../pages/tabs/content/settings/user/user';
 //Pipes
 import { EntitiesModalSearchPipe } from './../pages/login/entitiesModal/entitiesModalPipe';
 import { IncidentsSearchPipe } from '../pages/tabs/content/incidents/incidentsPipe';
-import { ArraySortPipe } from '../pages/tabs/content/incidents/incidentsArraySort';
+//import { ArraySortPipe } from '../pages/tabs/content/incidents/incidentsArraySort'; //PIPE DEPRECATED
 import { Step1SearchPipe } from '../pages/tabs/content/newInc/newIncStepByStep/step1/step1Pipe';
 import { Step2SearchPipe } from '../pages/tabs/content/newInc/newIncStepByStep/step2/step2Pipe';
 
@@ -48,6 +48,7 @@ import { DBProvider } from './../providers/db';
 import { GeolocationProvider } from './../providers/geolocation';
 import { UserData } from './../providers/user-data';
 import { UtilsProvider } from './../providers/utils';
+import { IncidentsSort } from '../pages/tabs/content/incidents/incidentsArraySort';
 
 //Components
 import { SummaryComponent } from '../pages/tabs/content/newInc/newIncStepByStep/summary/summary';
@@ -95,7 +96,6 @@ export function createTranslateLoader(http: Http) {
     IncidentsSearchPipe,
     Step1SearchPipe,
     Step2SearchPipe,
-    ArraySortPipe,
 
     SummaryComponent
   ],
@@ -146,7 +146,8 @@ export function createTranslateLoader(http: Http) {
     GeolocationProvider,
     UserData,
     UtilsProvider,
-    Storage
+    Storage,
+    IncidentsSort
   ]
 })
 export class AppModule {}

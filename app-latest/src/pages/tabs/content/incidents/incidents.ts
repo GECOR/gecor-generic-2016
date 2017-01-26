@@ -1,9 +1,11 @@
 import {NavController, NavParams, MenuController, AlertController, Events, ViewController, Platform} from 'ionic-angular';
 import {forwardRef, NgZone, Component} from '@angular/core';
+import { FormControl } from '@angular/forms';
 //import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {IncDetailPage} from './incDetail/incDetail';
-import {ArraySortPipe} from './incidentsArraySort';
+//import {ArraySortPipe} from './incidentsArraySort';
+import {IncidentsSort} from './incidentsArraySort';
 import {IncidentsSearchPipe} from './incidentsPipe';
 import {IncidentService} from './IncidentService';
 import {GeolocationProvider} from './../../../../providers/geolocation';
@@ -15,6 +17,7 @@ import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQL
 import {Geolocation, Camera, ImagePicker, GoogleMap, GoogleMapsEvent, GoogleMapsMarker, GoogleMapsMarkerOptions, GoogleMapsLatLng} from 'ionic-native';
 //import {LazyLoadImageDirective} from 'ng2-lazyload-image';
 import {Storage} from '@ionic/storage';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'incidents-page',
@@ -26,10 +29,14 @@ import {Storage} from '@ionic/storage';
 export class IncidentsPage {
   isAndroid: any;
   activeMenu: any;
-  incidents: any=[];
+  incidents: any=[]; //Este array contiene las incidencias que se ven en pantalla
+  incidentsOriginal: any=[]; //Este es el array original devuelto por el servidor, se utiliza para aplicar los filtros
   type: any = 'list';
   order: any;
+
   searchText: any;
+  searchControl: FormControl;
+
   errorMessage: any;
   user: any = {};
   //storage: any;
@@ -49,6 +56,7 @@ export class IncidentsPage {
   entity: any;
   incFromPush: any;
   incFromPushPending: boolean = false;
+  searching: boolean = false
 
   exitOnBack: boolean = true;
   
@@ -64,7 +72,8 @@ export class IncidentsPage {
     , private db: DBProvider
     , private events: Events
     , public alertCtrl: AlertController
-    , public storage: Storage) {
+    , public storage: Storage
+    , public incidentsSort: IncidentsSort) {
 
       platform.registerBackButtonAction((event) => {
           if (this.exitOnBack){
@@ -77,6 +86,7 @@ export class IncidentsPage {
       //this.type = 'list';
       this.order = 'FechaHoraRegistro';
       this.searchText = '';
+      this.searchControl = new FormControl;
       this.map = null;
 
       //this.storage = new Storage(SqlStorage);
@@ -95,6 +105,16 @@ export class IncidentsPage {
     
   }
 
+  ionViewDidLoad() {
+
+      this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
+          this.incidents = this.filterIncidents(this.incidentsOriginal);
+          this.searching = false;
+      });
+
+
+  }
+
   showAlert(title, subTitle, okButton){
     let alert = this.alertCtrl.create({
       title: title,
@@ -102,6 +122,21 @@ export class IncidentsPage {
       buttons: [okButton]
     });
     alert.present();
+  }
+
+  filterIncidents(array){
+ 
+    if (this.searchText.toLowerCase() != '') {
+      return array.filter((item)=>
+          item.DesTipoElemento.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1
+          || item.TipoInc.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1
+          || item.DesUbicacion.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1
+          || item.CodAviso.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1
+          || item.DesEstadoAviso.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1
+          || item.Responsable.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1
+      );
+    }
+      return array;
   }
 
   ionViewWillLeave() {
@@ -288,8 +323,12 @@ export class IncidentsPage {
       });
   }
 
-  inputSearch(search) {
-    console.log(search.value);
+  onInput(search) {
+    this.searching = true;
+  }
+
+  segmentChange() {
+    this.incidents = this.incidentsSort.transform(this.incidentsOriginal, this.order, 'desc', this.latLng);
   }
   
   getMisIncidencias(ciudadanoID, token, refresher) {
@@ -297,6 +336,7 @@ export class IncidentsPage {
                             .subscribe(
                                 (result) =>{
                                   this.incidents = result;
+                                  this.incidentsOriginal = result;
                                   this.loadingComponent.dismiss();                                  
                                   if (refresher != undefined) refresher.complete(); 
                                   if (this.incFromPushPending) this.openDetailFromPush(); 

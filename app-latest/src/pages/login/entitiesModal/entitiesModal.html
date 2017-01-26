@@ -15,10 +15,15 @@
 <ion-content light>
   <!--<ion-searchbar>
   </ion-searchbar>-->
-  <ion-searchbar
+  <!--<ion-searchbar
     [(ngModel)]="searchText"
     (ionInput)="inputSearch($event)">
-  </ion-searchbar>
+  </ion-searchbar>-->
+  <ion-searchbar [(ngModel)]="searchText" [formControl]="searchControl" (ionInput)="inputSearch($event)"></ion-searchbar>
+
+  <div *ngIf="searching" class="spinner-container">
+      <ion-spinner></ion-spinner>
+  </div>
 
   <ion-list no-border>
     <ion-list-header light>{{"login.entitiesmodal.suggested" | translate}}</ion-list-header>

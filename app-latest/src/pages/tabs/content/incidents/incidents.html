@@ -60,17 +60,22 @@
   
   <ion-searchbar [hidden]="type=='map'"
     [(ngModel)]="searchText"
-    (ionInput)="inputSearch($event)">
+    (ionInput)="onInput($event)"
+    [formControl]="searchControl">
   </ion-searchbar>
   
-    <div padding-5 [hidden]="type == 'map'">
-      <ion-segment [(ngModel)]="order" [attr.primary]="isAndroid ? '' : null">
-        <ion-segment-button value="FechaHoraRegistro">{{"incidents.dateTxt" | translate}}</ion-segment-button>
-        <ion-segment-button value="Distancia">{{"incidents.distanceTxt" | translate}}</ion-segment-button>
-        <ion-segment-button value="DesEstadoAviso">{{"incidents.statusTxt" | translate}}</ion-segment-button>
-        <!--<ion-segment-button value="TimeUpdated"><ion-icon name="time"></ion-icon></ion-segment-button>-->        
-      </ion-segment>
-    </div>
+  <div padding-5 [hidden]="type == 'map'">
+    <ion-segment [(ngModel)]="order" [attr.primary]="isAndroid ? '' : null" (ionChange)="segmentChange()">
+      <ion-segment-button value="FechaHoraRegistro">{{"incidents.dateTxt" | translate}}</ion-segment-button>
+      <ion-segment-button value="Distancia">{{"incidents.distanceTxt" | translate}}</ion-segment-button>
+      <ion-segment-button value="DesEstadoAviso">{{"incidents.statusTxt" | translate}}</ion-segment-button>
+      <!--<ion-segment-button value="TimeUpdated"><ion-icon name="time"></ion-icon></ion-segment-button>-->        
+    </ion-segment>
+  </div>
+
+  <div *ngIf="searching" class="spinner-container">
+      <ion-spinner></ion-spinner>
+  </div>
     
   
   <div id="switch" [ngSwitch]="type">
@@ -90,7 +95,8 @@
           <button ion-button (click)="openReview(incident, slidingItem)"><ion-icon name="checkmark-circle"></ion-icon>{{"incidents.reviewTxt" | translate}}</button>
         </ion-item-options>
       </ion-item-sliding>-->
-      <ion-item-sliding class="incident" *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText"  [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}" #slidingItem>
+      <!--<ion-item-sliding class="incident" *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText"  [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}" #slidingItem>-->
+      <ion-item-sliding class="incident" *ngFor="let incident of incidents"  [ngStyle]="user.Aplicacion == 'C' ? {'border-left-color': incident.ColorCiudadano} : {'border-left-color': incident.ColorTecnico}" #slidingItem>
         <ion-item (click)="openDetail(incident)">
           <ion-thumbnail item-left class="thumb-inc">
             <img src="{{incident.RutaFoto != '' ? incident.RutaFoto : 'assets/img/no_image_512.png'}}" incident-img>
@@ -130,7 +136,8 @@
     </div>
 
     <div id="gallery" *ngSwitchCase="'gallery'">
-      <ion-card *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText">
+      <!--<ion-card *ngFor="let incident of incidents | incidentsArraySort:order:'desc':latLng | search: searchText">-->
+      <ion-card *ngFor="let incident of incidents">
         <img src={{incident.RutaFoto}}/>
         <ion-card-content>
           <p>

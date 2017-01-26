@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
 import {Platform, NavParams, ViewController} from 'ionic-angular';
+import { FormControl } from '@angular/forms';
 import {EntitiesModalSearchPipe} from './entitiesModalPipe';
 //import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {TranslateService} from 'ng2-translate';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'entities-modal-page',
@@ -13,8 +15,12 @@ import {TranslateService} from 'ng2-translate';
 export class EntitiesModalPage {
   character;
   aytos: any[];
+  aytosOriginal: any[];
   aytoSuggested: any = {};
   searchText: any;
+  searchControl: FormControl;
+  searching: any = false;
+  
   constructor(public platform: Platform
     , public params: NavParams
     , public viewCtrl: ViewController

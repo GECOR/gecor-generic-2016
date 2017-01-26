@@ -1,6 +1,7 @@
 import {Component, forwardRef, NgZone, Provider} from '@angular/core';
 import {NavController, NavParams, MenuController, ViewController, 
         Platform, Events} from 'ionic-angular';
+import { FormControl } from '@angular/forms';
 //import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './../../newIncInterface';
@@ -17,6 +18,7 @@ import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQL
 import {Step2SearchPipe} from './step2Pipe';
 import {Step3Page} from './../step3/step3';
 import {Storage} from '@ionic/storage';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'step2-page',
@@ -30,8 +32,11 @@ export class Step2Page {
   user: any = {};
   //storage: any;
   searchText: any;
+  searchControl: FormControl;
   inc: any;
   tiposIncidencias: any;
+  tiposIncidenciasOriginal: any;
+  searching: any = false;
   
   constructor(private platform: Platform
     , private menu: MenuController
@@ -50,6 +55,8 @@ export class Step2Page {
       this.inc = params.data;
       this.searchText = '';
 
+      this.searchControl = new FormControl();
+
       //this.storage = new Storage(SqlStorage);    
 
       this.storage.get('user').then((user) => {
@@ -63,13 +70,33 @@ export class Step2Page {
                 this.tiposIncidencias = this.tiposIncidencias.filter(item => item.TipoElementoID == this.inc.tipoElemento.TipoElementoID
                 && item.EsInterno == false)
               }
+              this.tiposIncidenciasOriginal = this.tiposIncidencias;
           })
       });
     
   }
 
+  ionViewDidLoad() {
+    this.searchControl.valueChanges.debounceTime(700).subscribe(search => { 
+        this.searching = false;
+        this.tiposIncidencias = this.filter(this.tiposIncidenciasOriginal, search); 
+    });
+  }
+
+  filter(value, args:string){
+    if (args){
+      if (args.toLowerCase() != '') {
+        return value.filter((item)=>
+            item.TipoInc.toLowerCase().indexOf(args.toLowerCase()) != -1
+        );
+      }
+    }
+    return value;
+  }
+
   inputSearch(search) {
     console.log(search.value);
+    this.searching = true;
   }
 
   openChooseImg(incidencia){

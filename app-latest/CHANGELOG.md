@@ -10,15 +10,23 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Updated from beta.11 to rc-3
 - Skip step 1 sending incidence if it is not necessary
 - Reviewing incidence changed send button text: "Review" by "Send"
+- Changed custom camera by cordova original camera
 
 ### Fixed
 - InAppBrowser deprecated, new version installed
 - In the incidence's comments if you click more of one time in send button, the messages will send several times
 - In iPhone when de login failed the loading component not dismiss
 - iOS, added NSCameraUsageDescription and NSPhotoLibraryUsageDescription to info plist
+- Fixed compatibilities for Ionic rc.5
+- Now que use observables to filter incidents list instead of pipes because pipes doesn't work in ionic new versions
+- Order in incidents list now not use pipes, only use array.sort
+- Search in list Elementos and TiposInc, now doesn't use pipes
 
 ### Added
 - Order by status
+
+### Removed
+- Data about user location in incidence detail
 
 ## [1.0.0-beta.3] - 2016-09-15
 

@@ -1,0 +1,37 @@
+<ion-card class="content">
+    <div class="header">
+        <ion-row>
+            <ion-col width-25 class="text-center" [hidden]="incidence.imgs[0] == '' || !incidence.imgs[0]">
+                <img [src]="incidence.imgs[0]" class="img-summary"/>
+            </ion-col>
+            <ion-col width-25 class="text-center" [hidden]="incidence.imgs[1] == '' || !incidence.imgs[1]">
+                <img [src]="incidence.imgs[1]" class="img-summary"/>
+            </ion-col>
+            <ion-col width-25 class="text-center" [hidden]="incidence.imgs[2] == '' || !incidence.imgs[2]">
+                <img [src]="incidence.imgs[2]" class="img-summary"/>
+            </ion-col>
+            <ion-col width-25 class="text-center" [hidden]="incidence.imgs[3] == '' || !incidence.imgs[3]">
+                <img [src]="incidence.imgs[3]" class="img-summary"/>
+            </ion-col>
+        </ion-row>
+    </div>
+    <div class="main">
+        <ion-row>
+            <ion-col width-90 no-pad>
+                <span><p class="def"><font bold>Tipo de elemento: </font>{{incidence.tipoElemento.DesTipoElemento}}</p></span>
+                <div class="separator"></div>
+                <span><p class="def"><font bold>Tipo de incidencia: </font>{{incidence.tipoIncidencia.TipoInc}}</p></span>
+                <div class="separator"></div>
+                <span><p class="def"><font bold>Ubicación: </font>{{incidence.desUbicacion}}</p></span>
+                <div class="separator"></div>
+                <span><p class="def1"><font bold>Descripción: </font>{{incidence.desAveria}}</p></span>
+            </ion-col>
+            <ion-col width-10 no-pad>
+                <button ion-button fab send-incident (click)="newIncident()">
+                    <ion-icon name="send"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+    </div>
+
+</ion-card>

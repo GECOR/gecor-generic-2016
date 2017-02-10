@@ -253,26 +253,29 @@ export class LoginPage {
     getAyuntamientos(language) {
         this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));  
         this.loadingComponent.onDidDismiss((entity) => {
-            if (entity != undefined && entity != 'null'){
+            /*if (entity != undefined && entity != 'null' && entity != null){
                 this.aytoSuggested = JSON.parse(entity);
             }else{
                 this.openEntitiesPage();  
-            }//else{
+            }*///else{
                 //if (this.aytoSuggested.AyuntamientoID != -1){
                     //this.aytoSuggested = aytos[0];
                     //this.storage.set('entity', JSON.stringify(this.aytoSuggested));
                 //}
                     
             //}
+
+            this.aytoSuggested = this.aytos[0];
         });    
         this.loadingComponent.present();
         this.loginService.getAyuntamientos(language)
                             .subscribe(
                                 (aytos) =>{
                                     this.aytos = aytos;
-                                    this.storage.get('entity').then((entity) => {
+                                    this.loadingComponent.dismiss();
+                                    /*this.storage.get('entity').then((entity) => {
                                         this.loadingComponent.dismiss(entity);
-                                    });                                                                                                   
+                                    });   */                                                                                                
                                 },
                                 error => {
                                     this.errorMessage = <any>error;

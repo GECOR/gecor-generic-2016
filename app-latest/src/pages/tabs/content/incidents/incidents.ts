@@ -6,7 +6,7 @@ import {ConferenceData} from './../../../../providers/conference-data';
 import {IncDetailPage} from './incDetail/incDetail';
 //import {ArraySortPipe} from './incidentsArraySort';
 import {IncidentsSort} from './incidentsArraySort';
-import {IncidentsSearchPipe} from './incidentsPipe';
+//import {IncidentsSearchPipe} from './incidentsPipe';
 import {IncidentService} from './IncidentService';
 import {GeolocationProvider} from './../../../../providers/geolocation';
 import {DBProvider} from './../../../../providers/db';

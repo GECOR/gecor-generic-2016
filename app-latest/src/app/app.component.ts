@@ -53,7 +53,7 @@ export class MyApp {
       //this.confData.load();    
       //this.storage = new Storage(SqlStorage);
 
-      this.initializePush();
+      //this.initializePush();
 
       this.storage.get('user').then((user) =>{
       if(user != "" && user != undefined){        
@@ -91,7 +91,7 @@ export class MyApp {
       //this.confData.load();    
       this.rootPage = SlidePage;
 
-      this.initializePush();
+      //this.initializePush();
 
       Globalization.getPreferredLanguage().then((obj) =>{//get device language
         console.log(obj.value);

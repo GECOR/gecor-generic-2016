@@ -19,7 +19,7 @@
     [(ngModel)]="searchText"
     (ionInput)="inputSearch($event)">
   </ion-searchbar>-->
-  <ion-searchbar [(ngModel)]="searchText" [formControl]="searchControl" (ionInput)="inputSearch($event)"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchText" [formControl]="entitiesSearchControl" (ionInput)="inputSearch($event)"></ion-searchbar>
 
   <div *ngIf="searching" class="spinner-container">
       <ion-spinner></ion-spinner>
@@ -37,7 +37,7 @@
 
   <ion-list>
     <ion-list-header light>{{"login.entitiesmodal.other" | translate}}</ion-list-header>
-    <ion-item *ngFor="let ayto of aytos | search: searchText" (click)="dismiss(ayto)" nav-pop>
+    <ion-item *ngFor="let ayto of aytos" (click)="dismiss(ayto)" nav-pop>
       <ion-thumbnail item-left small>
         <img src="{{aytoSuggested.Logo}}" alt="Foto" size-24>
       </ion-thumbnail>

@@ -15,7 +15,6 @@ import {GalleryModalPage} from './../../../../../galleryModal/galleryModal';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {UtilsProvider} from './../../../../../../providers/utils';
 import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../../app/appConfig';
-import {Step1SearchPipe} from './step1Pipe';
 import {Step2Page} from './../step2/step2';
 import {Storage} from '@ionic/storage';
 import 'rxjs/add/operator/debounceTime';

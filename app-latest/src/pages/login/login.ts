@@ -1,5 +1,5 @@
 import {Component, forwardRef, NgZone} from '@angular/core';
-import {Platform, NavController, MenuController, AlertController, ModalController} from 'ionic-angular';
+import {Platform, NavController, MenuController, AlertController, ModalController, LoadingController} from 'ionic-angular';
 import {TranslateService, TranslatePipe} from 'ng2-translate';
 //import {AndroidAttribute} from './../../directives/global.helpers';
 import {MainMenuContentPage} from './../main/main';
@@ -56,6 +56,7 @@ export class LoginPage {
       , private db: DBProvider
       , public modalCtrl: ModalController
       , public alertCtrl: AlertController
+      , public loadingCtrl: LoadingController
       , public storage: Storage) {
         
         /*this.storage.get('language').then((language) => {
@@ -146,6 +147,7 @@ export class LoginPage {
 
     openEntitiesPage() {
       //this.nav.push(EntitiesPage, this.aytos);
+     
       this.entitiesModal = this.modalCtrl.create(EntitiesModalPage, this.aytos);      
       this.entitiesModal.onDidDismiss(data => {
         this.aytoSuggested = data;
@@ -162,6 +164,7 @@ export class LoginPage {
         }
       });     
       this.entitiesModal.present(); 
+      
     }
 
     forgottenPass() {
@@ -251,13 +254,20 @@ export class LoginPage {
     }
 
     getAyuntamientos(language) {
-        this.loadingComponent = this.utils.getLoading(this.translate.instant("app.loadingMessage"));  
+        this.loadingComponent = this.loadingCtrl.create({
+            content: this.translate.instant("app.loadingMessage")
+        });//this.utils.getLoading(this.translate.instant("app.loadingMessage"));  
         this.loadingComponent.onDidDismiss((entity) => {
             /*if (entity != undefined && entity != 'null' && entity != null){
                 this.aytoSuggested = JSON.parse(entity);
             }else{
+<<<<<<< HEAD
                 this.openEntitiesPage();  
             }*///else{
+                setTimeout(()=>{
+                    this.openEntitiesPage();  
+                }, 200);
+            //}else{
                 //if (this.aytoSuggested.AyuntamientoID != -1){
                     //this.aytoSuggested = aytos[0];
                     //this.storage.set('entity', JSON.stringify(this.aytoSuggested));

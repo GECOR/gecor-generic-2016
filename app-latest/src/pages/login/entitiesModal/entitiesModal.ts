@@ -1,8 +1,6 @@
 import {Component} from '@angular/core';
 import {Platform, NavParams, ViewController} from 'ionic-angular';
 import { FormControl } from '@angular/forms';
-import {EntitiesModalSearchPipe} from './entitiesModalPipe';
-//import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {TranslateService} from 'ng2-translate';
 import 'rxjs/add/operator/debounceTime';
 
@@ -18,7 +16,7 @@ export class EntitiesModalPage {
   aytosOriginal: any[];
   aytoSuggested: any = {};
   searchText: any;
-  searchControl: FormControl;
+  entitiesSearchControl: FormControl;
   searching: any = false;
   
   constructor(public platform: Platform
@@ -30,8 +28,29 @@ export class EntitiesModalPage {
       this.aytoSuggested = this.aytos[0];
       this.searchText = '';
       
+      this.entitiesSearchControl = new FormControl();
+
+      this.aytosOriginal = this.aytos;
       /*this.aytos.shift();
       console.log(this.aytos);*/
+  }
+
+ionViewDidLoad() {
+ 
+        this.entitiesSearchControl.valueChanges.debounceTime(700).subscribe(search => { 
+            this.searching = false;
+            this.aytos = this.filter(this.aytosOriginal, search.toLowerCase()); 
+        });
+ 
+  }
+
+  filter(value, args:string){
+    if (args){
+        return value.filter((item)=>
+            item.Nombre.toLowerCase().indexOf(args) != -1
+        );
+    }
+    return value;
   }
 
   dismiss(ayto) {
@@ -40,8 +59,8 @@ export class EntitiesModalPage {
     });
   }
   
-  inputSearch(search) {
-    console.log(search.value);
+  inputSearch($event) {
+        this.searching = true;
   }
   
 }

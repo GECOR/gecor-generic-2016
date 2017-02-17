@@ -36,11 +36,11 @@ import { TermsPage } from '../pages/tabs/content/settings/terms/terms';
 import { UserPage } from '../pages/tabs/content/settings/user/user';
 
 //Pipes
-import { EntitiesModalSearchPipe } from './../pages/login/entitiesModal/entitiesModalPipe';
-import { IncidentsSearchPipe } from '../pages/tabs/content/incidents/incidentsPipe';
+//import { EntitiesModalSearchPipe } from './../pages/login/entitiesModal/entitiesModalPipe';
+//import { IncidentsSearchPipe } from '../pages/tabs/content/incidents/incidentsPipe';
 //import { ArraySortPipe } from '../pages/tabs/content/incidents/incidentsArraySort'; //PIPE DEPRECATED
-import { Step1SearchPipe } from '../pages/tabs/content/newInc/newIncStepByStep/step1/step1Pipe';
-import { Step2SearchPipe } from '../pages/tabs/content/newInc/newIncStepByStep/step2/step2Pipe';
+//import { Step1SearchPipe } from '../pages/tabs/content/newInc/newIncStepByStep/step1/step1Pipe';
+//import { Step2SearchPipe } from '../pages/tabs/content/newInc/newIncStepByStep/step2/step2Pipe';
 
 //Providers
 import { ConferenceData } from './../providers/conference-data';
@@ -91,11 +91,11 @@ export function createTranslateLoader(http: Http) {
     NotificationsPage,
     TermsPage,
     UserPage,
-
+    /*
     EntitiesModalSearchPipe,
     IncidentsSearchPipe,
     Step1SearchPipe,
-    Step2SearchPipe,
+    Step2SearchPipe,*/
 
     SummaryComponent
   ],

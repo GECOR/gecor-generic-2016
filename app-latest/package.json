@@ -72,24 +72,25 @@
     },
     {
       "variables": {
+        "SENDER_ID": "1060313159714"
+      },
+      "locator": "phonegap-plugin-push",
+      "id": "phonegap-plugin-push"
+    },
+    {
+      "variables": {
         "API_KEY_FOR_ANDROID": "AIzaSyAipRQNlB6wgM6P7PE9E-T48TmVvoHZDtk",
         "API_KEY_FOR_IOS": "AIzaSyC2a9F7mG4doooRmCthUA8I-zNLZDjN6SU"
       },
       "locator": "cordova-plugin-googlemaps",
       "id": "cordova-plugin-googlemaps"
-    },
-    {
-      "variables": {
-        "SENDER_ID": "1060313159714"
-      },
-      "locator": "phonegap-plugin-push",
-      "id": "phonegap-plugin-push"
     }
   ],
   "cordovaPlatforms": [
-    "ios"
-    ,"android"
+    "android"
+    ,"windows"
     ,"browser"
+    ,"ios"
   ],
   "description": "Gecor genérico"
 }

@@ -1,8 +1,6 @@
-import {Component, ViewChild, OnInit} from '@angular/core';
-
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {ViewController, App, Events, NavParams, NavController, AlertController} from 'ionic-angular';;
-import * as Rx from 'rxjs/Rx';
+import {Component, ViewChild} from '@angular/core';
+import {TranslateService} from 'ng2-translate/ng2-translate';
+import {ViewController, App, Events, NavParams, NavController, AlertController} from 'ionic-angular';
 import { ChatNodeService } from './services/chat';
 import { Message } from './models/message';
 import { User } from './models/user';
@@ -13,9 +11,7 @@ import {UtilsProvider} from './../../../../../../providers/utils';
 @Component({
   selector: 'chat-page',
   templateUrl: 'chat.html',
-  //directives: [NgClass],
-  providers:[ChatService, ChatNodeService, AuthService, UtilsProvider],
-  //pipes: [TranslatePipe]
+  providers:[ChatService, ChatNodeService, AuthService, UtilsProvider]
 })
 
 export class ChatPage {

@@ -1,12 +1,10 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {Platform, NavController, MenuController} from 'ionic-angular';
 //import {AndroidAttribute} from './../../directives/global.helpers';
 import {LoginPage} from './../login/login';
 import {DBProvider} from './../../providers/db';
-import {Globalization} from 'ionic-native';
-import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../app/appConfig';
-import {TabsPage} from '../tabs/tabs';
+import {TranslateService} from 'ng2-translate/ng2-translate';
+import {useSQLiteOniOS} from './../../app/appConfig';
 import {Storage} from '@ionic/storage';
  
 @Component({

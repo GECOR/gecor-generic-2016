@@ -149,7 +149,7 @@
 		"element": "Elemento",
 		"incident": "Incidencia",
 		"location": "Localización de la incidencia",
-		"send": "Enviar",
+		"send": "Enviar ",
 		"elementAlertMessage": "Por favor seleccione un elemento",
 		"incidentAlertMessage": "Por favor, elija una incidencia",
 		"descriptionAlertMessage": "Por favor, escribir alguna descripción",

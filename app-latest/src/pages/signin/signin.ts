@@ -1,8 +1,8 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController, MenuController, AlertController, NavParams, ModalController} from 'ionic-angular';
 //import {AndroidAttribute} from './../../directives/global.helpers';
 import {LoginPage} from './../login/login';
-import {TranslateService, TranslatePipe} from 'ng2-translate';
+import {TranslateService} from 'ng2-translate';
 import {SignInService} from './signinService';
 import {LegalTermsPage} from './legalTerms/legalTerms';
 import {UtilsProvider} from './../../providers/utils';

@@ -6,15 +6,20 @@
         {{user.AyuntamientoNombre}}
       </div>
     </ion-title>
+    <ion-buttons end *ngIf="inc.imgs">
+      <button ion-button icon-only (click)="openStep4WithoutPhoto()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content>
     <div class="contentAll">
-        <!--<div class="topInfoSection1">{{inc.familia.Nombre}}</div>
+        <div class="topInfoSection1">{{inc.familia.Nombre}}</div>
         <div class="topInfoSection2">{{inc.tipoElemento.DesTipoElemento}}</div>
-        <div class="topInfoSection3">{{inc.tipoIncidencia.TipoInc}}</div>-->
+        <div class="topInfoSection3">{{inc.tipoIncidencia.TipoInc}}</div>
 
         <!--<div padding-10><summary-component [incidence]="inc"></summary-component></div>-->
 

@@ -1,19 +1,15 @@
-import {Component, forwardRef, NgZone} from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import {Platform, NavController, MenuController, AlertController, ModalController, LoadingController} from 'ionic-angular';
-import {TranslateService, TranslatePipe} from 'ng2-translate';
-//import {AndroidAttribute} from './../../directives/global.helpers';
-import {MainMenuContentPage} from './../main/main';
+import {TranslateService} from 'ng2-translate';
 import {TabsPage} from './../tabs/tabs';
 import {SignInPage} from './../signin/signin';
 import {GeolocationProvider} from './../../providers/geolocation';
 import {DBProvider} from './../../providers/db';
-//import {EntitiesPage} from './entities/entities';
 import {LoginService} from './loginService';
-import {User} from './loginInterface';
-import {Facebook, SQLite} from 'ionic-native';
+import {Facebook} from 'ionic-native';
 import {EntitiesModalPage} from './entitiesModal/entitiesModal';
 import {UtilsProvider} from './../../providers/utils';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../app/appConfig';
+import {defaultLanguage, useSQLiteOniOS} from './../../app/appConfig';
 import {Globalization} from 'ionic-native';
 import {Storage} from '@ionic/storage';
 

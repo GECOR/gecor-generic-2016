@@ -1,15 +1,12 @@
-import {Component, forwardRef, NgZone} from '@angular/core';
-import {ViewController, Platform, NavController, NavParams, MenuController} from 'ionic-angular';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
-//import {AndroidAttribute} from './../../../../directives/global.helpers';
+import {Component, NgZone} from '@angular/core';
+import {Platform, NavController, MenuController} from 'ionic-angular';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {NotificationsPage} from './notifications/notifications';
 import {TermsPage} from './terms/terms';
 import {UserPage} from './user/user';
-import {User} from './../../../login/LoginInterface';
 import {EntitiesPage} from './entities/entities';
 import {DBProvider} from './../../../../providers/db';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../app/appConfig';
+import {useSQLiteOniOS} from './../../../../app/appConfig';
 import {Storage} from '@ionic/storage';
 
 @Component({

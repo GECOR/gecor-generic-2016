@@ -1,18 +1,17 @@
-import {Component, forwardRef, NgZone} from '@angular/core';
-import {NavController, NavParams, MenuController, AlertController, ModalController, ActionSheetController, ViewController, Platform} from 'ionic-angular';
-//import {AndroidAttribute} from './../../../../../directives/global.helpers';
+import {Component, NgZone} from '@angular/core';
+import {NavController, NavParams, MenuController, AlertController, ModalController, ActionSheetController, Platform} from 'ionic-angular';
 import {CommentsPage} from './comments/comments';
 import {ChatPage} from './chat/chat';
 import {ReviewPage} from './review/review';
 import {GeolocationProvider} from './../../../../../providers/geolocation';
 import {DBProvider} from './../../../../../providers/db';
 import {IncDetailService} from './incDetailService';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../app/appConfig';
+import {TranslateService} from 'ng2-translate/ng2-translate';
+import {useSQLiteOniOS} from './../../../../../app/appConfig';
 import {SocialSharing} from 'ionic-native';
 import {UtilsProvider} from './../../../../../providers/utils';
 import {Storage} from '@ionic/storage';
-import {Geolocation, Camera, ImagePicker, GoogleMap, GoogleMapsEvent, GoogleMapsMarker, GoogleMapsMarkerOptions, GoogleMapsLatLng} from 'ionic-native';
+import {GoogleMap, GoogleMapsEvent, GoogleMapsMarker, GoogleMapsMarkerOptions, GoogleMapsLatLng} from 'ionic-native';
 
 @Component({
   selector: 'inc-detail-page',

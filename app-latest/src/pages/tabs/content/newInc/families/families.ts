@@ -1,12 +1,8 @@
-import {Component, forwardRef, NgZone} from '@angular/core';
-import {NavController, NavParams, MenuController} from 'ionic-angular';
-import {ViewController, Platform} from 'ionic-angular';
-//import {AndroidAttribute} from './../../../../../directives/global.helpers';
+import {Component, NgZone} from '@angular/core';
+import {NavController, MenuController, Platform} from 'ionic-angular';
 import {ConferenceData} from './../../../../../providers/conference-data';
 import {DBProvider} from './../../../../../providers/db';
-import {NewIncPage} from './../newInc';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS, newIncStepByStep} from './../../../../../app/appConfig';
+import {useSQLiteOniOS} from './../../../../../app/appConfig';
 import {Step1Page} from './../newIncStepByStep/step1/step1'
 import {Step2Page} from './../newIncStepByStep/step2/step2';
 import {Storage} from '@ionic/storage';
@@ -14,8 +10,6 @@ import {Storage} from '@ionic/storage';
 @Component({
   selector: 'families-page',
   templateUrl: 'families.html',
-  //directives: [forwardRef(() => AndroidAttribute)],
-  //pipes: [TranslatePipe],
   providers: [DBProvider]
 })
 

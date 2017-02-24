@@ -1,11 +1,9 @@
-import {Component, forwardRef} from '@angular/core';
-import {Platform, NavController, NavParams, ViewController} from 'ionic-angular';
-import {TranslatePipe} from 'ng2-translate';
+import {Component} from '@angular/core';
+import {Platform, NavParams, ViewController} from 'ionic-angular';
 
 @Component({
   selector: 'legal-terms-page',
-  templateUrl: 'legalTerms.html',
-  ////pipes: [TranslatePipe]
+  templateUrl: 'legalTerms.html'
 })
 
 export class LegalTermsPage {

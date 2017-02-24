@@ -4,8 +4,6 @@ import * as Rx from 'rxjs/Rx';
 import { User } from '../models/user';
 import { Message } from '../models/message';
 import {urlSocketServer} from './../../../../../../../app/appConfig';
-import {DBProvider} from './../../../../../../../providers/db'
-import {Storage} from '@ionic/storage';
 
 declare var io;
 
@@ -111,13 +109,13 @@ export class ChatNodeService {
   }
   */
 
- private initLoggedInUser(): void {   
+ /*private initLoggedInUser(): void {   
     let storage = new Storage();
     storage.get('user').then((user) => {
         //console.log(JSON.parse(user));
         this.me = JSON.parse(user);
     });
-  }
+ }*/
 
   public socketAuth(): void {//SERVER 1    
     let token = localStorage.getItem('id_token');

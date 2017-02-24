@@ -1,16 +1,12 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {Platform, NavController, NavParams} from 'ionic-angular';
-//import {AndroidAttribute} from './../../../../../directives/global.helpers';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {DBProvider} from './../../../../../providers/db';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../app/appConfig';
+import {useSQLiteOniOS} from './../../../../../app/appConfig';
 import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'news-detail-page',
   templateUrl: 'newsDetail.html',
-  //directives: [forwardRef(() => AndroidAttribute)],
-  //pipes: [TranslatePipe],
   providers: [DBProvider]
 })
 export class NewsDetailPage {

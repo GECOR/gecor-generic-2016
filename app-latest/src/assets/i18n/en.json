@@ -149,7 +149,7 @@
 			"element": "Element",
 			"incident": "Incident",
 			"location": "Incidence location",
-			"send": "Send",
+			"send": "Send ",
 
 			"elementAlertMessage": "Please choose a element",
 			"incidentAlertMessage": "Please choose a incident",

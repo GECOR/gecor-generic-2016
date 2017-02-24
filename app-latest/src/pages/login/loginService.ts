@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {urlGecorApi} from './../../app/appConfig';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {User} from './loginInterface'; 
 import {Ayuntamiento} from './loginInterface'; 
 import 'rxjs/Rx';
 

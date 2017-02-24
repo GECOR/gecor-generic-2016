@@ -1,29 +1,21 @@
-import {Component, forwardRef, NgZone, Provider} from '@angular/core';
-import {NavController, NavParams, MenuController, AlertController, ViewController, 
+import {Component, NgZone} from '@angular/core';
+import {NavController, NavParams, MenuController, AlertController, 
         Platform, Events} from 'ionic-angular';
 //import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './../../newIncInterface';
-import {Geolocation, Camera, ImagePicker, GoogleMap, GoogleMapsEvent, GoogleMapsMarker, GoogleMapsMarkerOptions, GoogleMapsLatLng} from 'ionic-native';
-import {IncidentsPage} from './../../../incidents/incidents';
-import {SurveyPage} from './../../survey/survey';
+import {GoogleMap, GoogleMapsEvent, GoogleMapsMarker, GoogleMapsMarkerOptions, GoogleMapsLatLng} from 'ionic-native';
 import {GeolocationProvider} from './../../../../../../providers/geolocation';
 import {DBProvider} from './../../../../../../providers/db';
 import {NewIncService} from './../../newIncService';
-import {GalleryModalPage} from './../../../../../galleryModal/galleryModal';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 import {UtilsProvider} from './../../../../../../providers/utils';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../../app/appConfig';
-import {TabsPage} from './../../../../../tabs/tabs';
-import {FamiliesPage} from './../../families/families';
 import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'step4-page',
   templateUrl: 'step4.html',
-  //directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, NewIncService, UtilsProvider, DBProvider],
-  //pipes: [TranslatePipe]
+  providers: [GeolocationProvider, NewIncService, UtilsProvider, DBProvider]
 })
 export class Step4Page {
 

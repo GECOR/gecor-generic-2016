@@ -1,8 +1,6 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController, MenuController} from 'ionic-angular';
-//import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {SettingsPage} from './../settings';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {Storage} from '@ionic/storage';
 
 @Component({

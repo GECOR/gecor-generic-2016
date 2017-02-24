@@ -1,10 +1,9 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {Platform, NavController, Events} from 'ionic-angular';
 //import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {DBProvider} from './../../../../providers/db';
-import {TranslatePipe} from 'ng2-translate';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../app/appConfig';
+import {useSQLiteOniOS} from './../../../../app/appConfig';
 import {InAppBrowser} from 'ionic-native';
 import {Storage} from '@ionic/storage';
 
@@ -64,10 +63,6 @@ export class HomePage {
   }
 
   openUrl(url){
-    //InAppBrowser.open(url, "_system", "location=yes");
-
-
-    let browser = new InAppBrowser(url, "_system");
-    //browser.show()
+    new InAppBrowser(url, "_system");
   }
 }

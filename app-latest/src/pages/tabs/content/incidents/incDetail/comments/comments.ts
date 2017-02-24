@@ -1,11 +1,11 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {Platform, NavController, MenuController, AlertController, NavParams} from 'ionic-angular';
 //import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {CommentsService} from './commentsService';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 import {UtilsProvider} from './../../../../../../providers/utils';
 import {DBProvider} from './../../../../../../providers/db';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../../app/appConfig';
+import {useSQLiteOniOS} from './../../../../../../app/appConfig';
 import {Storage} from '@ionic/storage';
 
 @Component({

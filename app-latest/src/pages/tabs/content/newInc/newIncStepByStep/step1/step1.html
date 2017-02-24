@@ -6,13 +6,18 @@
         {{user.AyuntamientoNombre}}
       </div>
     </ion-title>
+    <ion-buttons end *ngIf="inc.tipoElemento">
+      <button ion-button icon-only (click)="openIncidentsWithoutElement()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content class="step1">
   <div class="contentAll">
-    <!--<div class="topInfoSection1">{{inc.familia.Nombre}}</div>-->
+    <div class="topInfoSection1">{{inc.familia.Nombre}}</div>
     <!--<div padding-10><summary-component [incidence]="inc"></summary-component></div>-->
     <!--<ion-searchbar
     [(ngModel)]="searchText"

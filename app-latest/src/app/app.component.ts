@@ -1,16 +1,11 @@
-import {Component, ViewChild, Type, Provider} from '@angular/core';
-import {Http} from '@angular/http';
+import {Component} from '@angular/core';
 import {Platform, Events} from 'ionic-angular';
-import {Splashscreen, Globalization, Push, StatusBar} from 'ionic-native';
+import {Splashscreen, Globalization, Push} from 'ionic-native';
 import {TranslateService} from 'ng2-translate';
-import {ConferenceData} from './../providers/conference-data';
-import {GeolocationProvider} from './../providers/geolocation';
-import {DBProvider} from './../providers/db';
-import {UserData} from './../providers/user-data';
 import {SlidePage} from './../pages/slides/slide';
 import {TabsPage} from './../pages/tabs/tabs';
 import {LoginPage} from './../pages/login/login';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './appConfig';
+import {defaultLanguage, compareLanguage, useSQLiteOniOS} from './appConfig';
 import {Storage} from '@ionic/storage';
 
 @Component({

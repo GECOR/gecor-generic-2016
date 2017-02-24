@@ -1,15 +1,11 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController, NavParams,} from 'ionic-angular';
-//import {AndroidAttribute} from './../../../../../directives/global.helpers';
 import {IncidentsPage} from './../../incidents/incidents';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
 import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'survey-page',
-  templateUrl: 'survey.html',
-  //directives: [forwardRef(() => AndroidAttribute)],
-  //pipes: [TranslatePipe]
+  templateUrl: 'survey.html'
 })
 export class SurveyPage {
   user: any = {};

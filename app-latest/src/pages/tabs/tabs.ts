@@ -1,15 +1,13 @@
-import {Component, forwardRef, ViewChild} from '@angular/core';
-import {NavController, NavParams, MenuController, Events, Tabs} from 'ionic-angular';
-import {ViewController, Platform} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Events, Tabs} from 'ionic-angular';
+import {Platform} from 'ionic-angular';
 //import {AndroidAttribute} from './../../directives/global.helpers';
 import {IncidentsPage} from './content/incidents/incidents';
-import {NewIncPage} from './content/newInc/newInc';
 import {FamiliesPage} from './content/newInc/families/families';
 import {NewsPage} from './content/news/news';
 import {SettingsPage} from './content/settings/settings';
 import {GeolocationProvider} from './../../providers/geolocation';
 import {HomePage} from './content/home/home';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({
   selector: 'tabs-page',

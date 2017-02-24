@@ -1,29 +1,23 @@
-import {NavController, NavParams, MenuController, AlertController, Events, ViewController, Platform} from 'ionic-angular';
-import {forwardRef, NgZone, Component} from '@angular/core';
+import {NavController, MenuController, AlertController, Events, Platform} from 'ionic-angular';
+import {NgZone, Component} from '@angular/core';
 import { FormControl } from '@angular/forms';
-//import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {IncDetailPage} from './incDetail/incDetail';
-//import {ArraySortPipe} from './incidentsArraySort';
 import {IncidentsSort} from './incidentsArraySort';
-//import {IncidentsSearchPipe} from './incidentsPipe';
 import {IncidentService} from './IncidentService';
 import {GeolocationProvider} from './../../../../providers/geolocation';
 import {DBProvider} from './../../../../providers/db';
 import {UtilsProvider} from './../../../../providers/utils';
 import {ReviewPage} from './incDetail/review/review';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../app/appConfig';
-import {Geolocation, Camera, ImagePicker, GoogleMap, GoogleMapsEvent, GoogleMapsMarker, GoogleMapsMarkerOptions, GoogleMapsLatLng} from 'ionic-native';
-//import {LazyLoadImageDirective} from 'ng2-lazyload-image';
+import {TranslateService} from 'ng2-translate/ng2-translate';
+import {useSQLiteOniOS} from './../../../../app/appConfig';
+import {GoogleMap, GoogleMapsEvent, GoogleMapsMarker, GoogleMapsMarkerOptions, GoogleMapsLatLng} from 'ionic-native';
 import {Storage} from '@ionic/storage';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'incidents-page',
   templateUrl: 'incidents.html',
-  //directives: [forwardRef(() => AndroidAttribute)],
-  //pipes: [ArraySortPipe, IncidentsSearchPipe, TranslatePipe],
   providers: [IncidentService, GeolocationProvider, UtilsProvider, DBProvider]
 })
 export class IncidentsPage {
@@ -359,21 +353,22 @@ export class IncidentsPage {
   }
   
   classIncident(incident) {
+    var result;
     switch (incident.EstadoAvisoID) {
       case 12:
-        var result = "incident-state-12";
+        result = "incident-state-12";
         break;
         
       case 9:
-      var result = "incident-state-9";
+      result = "incident-state-9";
       break;
       
       case 11:
-      var result = "incident-state-11";
+      result = "incident-state-11";
       break;
       
       case 13:
-      var result = "incident-state-13";
+      result = "incident-state-13";
       break;
     
       default:

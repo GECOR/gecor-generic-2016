@@ -1,33 +1,25 @@
-import {Component, forwardRef, NgZone, Provider} from '@angular/core';
-import {NavController, NavParams, MenuController, AlertController, ActionSheetController, ViewController, 
+import {Component, NgZone} from '@angular/core';
+import {NavController, NavParams, MenuController, AlertController, ActionSheetController, 
         Platform, Events, ModalController} from 'ionic-angular';
-//import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
-import {marker} from './../../newIncInterface';
-import {Geolocation, Camera, ImagePicker} from 'ionic-native';
-import {IncidentsPage} from './../../../incidents/incidents';
-import {SurveyPage} from './../../survey/survey';
+import {Camera, ImagePicker} from 'ionic-native';
 import {GeolocationProvider} from './../../../../../../providers/geolocation';
 import {DBProvider} from './../../../../../../providers/db';
 import {NewIncService} from './../../newIncService';
 import {GalleryModalPage} from './../../../../../galleryModal/galleryModal';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 import {UtilsProvider} from './../../../../../../providers/utils';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../../app/appConfig';
 import {Step4Page} from './../step4/step4'
 import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'step3-page',
   templateUrl: 'step3.html',
-  //directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, NewIncService, UtilsProvider, DBProvider],
-  //pipes: [TranslatePipe]
+  providers: [GeolocationProvider, NewIncService, UtilsProvider, DBProvider]
 })
 export class Step3Page {
 
   user: any = {};
-  //storage: any;
   inc: any;
   images: any;
   uploadingImages: any;
@@ -52,10 +44,8 @@ export class Step3Page {
     , public storage: Storage) {
 
         this.inc = params.data;
-        this.images = ["", "", "", ""];
+        !this.inc.imgs ? this.images = ["", "", "", ""] : this.images = this.inc.imgs;
         this.uploadingImages = [false, false, false, false];
-
-        //this.storage = new Storage(SqlStorage);    
 
         this.storage.get('user').then((user) => {
             this.user = JSON.parse(user);
@@ -69,9 +59,6 @@ export class Step3Page {
 
   openGallery(){
     let galleryModal = this.modalCtrl.create(GalleryModalPage, this.images);      
-    //galleryModal.onDismiss(data => {
-      //console.log(data);
-    //});     
     galleryModal.present(); 
   }
 
@@ -114,6 +101,7 @@ export class Step3Page {
             this.images[id] = result.rutaFoto;
           });
           this.uploadingImages[id] = false;
+          this.inc.imgs = this.images;
         }else{
           this.showAlert(this.translate.instant("app.genericErrorAlertTitle"), this.translate.instant("newInc.presentConfirmErrorAlertMessage"), this.translate.instant("app.btnAccept"));
         }
@@ -194,6 +182,10 @@ export class Step3Page {
 
   openStep4(){
     this.inc.imgs = this.images;
+    this.nav.push(Step4Page, this.inc);
+  }
+
+  openStep4WithoutPhoto(){
     this.nav.push(Step4Page, this.inc);
   }
   

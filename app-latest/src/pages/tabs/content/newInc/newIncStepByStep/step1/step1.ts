@@ -1,20 +1,12 @@
-import {Component, forwardRef, NgZone, Provider} from '@angular/core';
-import {NavController, NavParams, MenuController, ViewController, 
-        Platform, Events} from 'ionic-angular';
+import {Component, NgZone} from '@angular/core';
+import {NavController, NavParams, MenuController, Platform, Events} from 'ionic-angular';
 import { FormControl } from '@angular/forms';
-//import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
-import {marker} from './../../newIncInterface';
-import {Geolocation, Camera, ImagePicker} from 'ionic-native';
-import {IncidentsPage} from './../../../incidents/incidents';
-import {SurveyPage} from './../../survey/survey';
 import {GeolocationProvider} from './../../../../../../providers/geolocation';
 import {DBProvider} from './../../../../../../providers/db';
 import {NewIncService} from './../../newIncService';
-import {GalleryModalPage} from './../../../../../galleryModal/galleryModal';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 import {UtilsProvider} from './../../../../../../providers/utils';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../../app/appConfig';
 import {Step2Page} from './../step2/step2';
 import {Storage} from '@ionic/storage';
 import 'rxjs/add/operator/debounceTime';
@@ -22,14 +14,11 @@ import 'rxjs/add/operator/debounceTime';
 @Component({
   selector: 'ste1-page',
   templateUrl: 'step1.html',
-  //directives: [forwardRef(() => AndroidAttribute)],
-  providers: [GeolocationProvider, NewIncService, UtilsProvider, DBProvider],
-  //pipes: [TranslatePipe, Step1SearchPipe]
+  providers: [GeolocationProvider, NewIncService, UtilsProvider, DBProvider]
 })
 export class Step1Page {
 
   user: any = {};
-  //storage: any;
   searchText: any;
   searchControl: FormControl;
   inc: any;
@@ -56,8 +45,6 @@ export class Step1Page {
 
       this.searchControl = new FormControl();
 
-      //this.storage = new Storage(SqlStorage);  
-
       this.storage.get('user').then((user) => {
           this.user = JSON.parse(user);
 
@@ -81,6 +68,8 @@ export class Step1Page {
             this.searching = false;
             this.tiposElementos = this.filter(this.tiposElementosOriginal, search); 
         });
+
+        console.log("tipoElemento => ", this.inc.tipoElemento);
  
   }
 
@@ -102,6 +91,10 @@ export class Step1Page {
 
   openIncidents(element){
     this.inc.tipoElemento = element;
+    this.nav.push(Step2Page, this.inc);
+  }
+
+  openIncidentsWithoutElement(){
     this.nav.push(Step2Page, this.inc);
   }
   

@@ -1,17 +1,16 @@
-import {Component, forwardRef, NgZone, Provider} from '@angular/core';
-import {NavController, NavParams, MenuController, AlertController, ActionSheetController, ViewController, 
+import {Component, NgZone} from '@angular/core';
+import {NavController, NavParams, MenuController, AlertController, ActionSheetController, 
         Platform, Events, ModalController} from 'ionic-angular';
-//import {AndroidAttribute} from './../../../../../../directives/global.helpers';
 import {ConferenceData} from './../../../../../../providers/conference-data';
 import {marker} from './reviewInterface';
-import {Geolocation, Camera, ImagePicker} from 'ionic-native';
+import {Camera, ImagePicker} from 'ionic-native';
 import {GeolocationProvider} from './../../../../../../providers/geolocation';
 import {DBProvider} from './../../../../../../providers/db';
 import {ReviewService} from './reviewService';
 import {GalleryModalPage} from './../../../../../galleryModal/galleryModal';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 import {UtilsProvider} from './../../../../../../providers/utils';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../../../app/appConfig';
+import {useSQLiteOniOS} from './../../../../../../app/appConfig';
 import {Storage} from '@ionic/storage';
 
 @Component({

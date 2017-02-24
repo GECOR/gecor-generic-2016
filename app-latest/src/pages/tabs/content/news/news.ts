@@ -1,11 +1,10 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {Platform, NavController} from 'ionic-angular';
 //import {AndroidAttribute} from './../../../../directives/global.helpers';
 import {NewsDetailPage} from './newsDetail/newsDetail';
 import {ConferenceData} from './../../../../providers/conference-data';
 import {DBProvider} from './../../../../providers/db';
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
-import {defaultLanguage, folderLanguage, sourceLanguage, compareLanguage, useSQLiteOniOS} from './../../../../app/appConfig';
+import {useSQLiteOniOS} from './../../../../app/appConfig';
 import {Storage} from '@ionic/storage';
 
 @Component({

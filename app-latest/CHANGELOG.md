@@ -4,6 +4,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Button forward in newinc by steps
+
+### Fixed
+- Added a space between the word "Send" and arrow in Step4
+
+### Removed
+- Removed all unused imports
+
 ## [1.0.0] - 2016-11-30
 
 ### Changed

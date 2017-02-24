@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import * as Rx from 'rxjs/Rx';
-import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
+import { JwtHelper } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import {urlSocketServer} from './../../../../../../../app/appConfig';
 
